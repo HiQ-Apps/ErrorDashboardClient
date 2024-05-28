@@ -16,6 +16,10 @@ module.exports = {
       success: '#28a745',
       warning: '#ffc107',
       error: '#dc3545',
+      overlay: 'rgba(0, 0, 0, 0.5)',
+      white: '#fff',
+      black: '#000',
+      transparent: 'transparent',
     },
     container: {
       center: true,

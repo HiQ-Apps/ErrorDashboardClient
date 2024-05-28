@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Button } from "components/ui/button";
 import type { IconType } from "react-icons";
 
-type ButtonProps = {
+interface ButtonProps {
   content: ReactNode
   onClick: () => void;
   variant:

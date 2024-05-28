@@ -27,6 +27,8 @@
       "pages/*": ["src/pages/*"],
       "utils/*": ["src/shared/utils/*"],
       "types/*": ["src/types/*"],
+      "schemas/*": ["src/schemas/*"],
+      "features/*": ["src/features/*"],
     },
 
     /* Linting */
