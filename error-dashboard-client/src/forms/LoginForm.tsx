@@ -1,5 +1,8 @@
-import { useLoginMutation } from "features/userApiSlice";
 import { type FormEvent, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
+import { useLoginMutation } from "features/userApiSlice";
 import { LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
 
@@ -8,18 +11,22 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ onClose }: LoginFormProps) => {
+  const dispatch = useDispatch();
   const { form, handleChange, validate, errors } = useForm<LoginSchema>(
     { email: "", password: "" },
     loginSchema
   );
 
-  const [login, { isSuccess, isLoading }] = useLoginMutation();
+  const [login, { data, isSuccess, isLoading }] = useLoginMutation();
 
-  const handleLoginClick = (event: FormEvent) => {
+  const handleLoginClick = async (event: FormEvent) => {
     event.preventDefault();
     if (validate()) {
       try {
-        login(form).unwrap();
+        const data = await login(form).unwrap();
+        dispatch(setToken(data.access_token));
+        dispatch(setUser(data.user));
+        dispatch(setIsAuthenticated(true));
       } catch (err) {
         console.error("Failed to login:", err);
       }
@@ -28,9 +35,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      onClose();
     }
   }, [isSuccess]);
 

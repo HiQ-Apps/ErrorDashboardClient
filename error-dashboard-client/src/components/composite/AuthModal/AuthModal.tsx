@@ -1,8 +1,7 @@
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "components/ui/dialog";

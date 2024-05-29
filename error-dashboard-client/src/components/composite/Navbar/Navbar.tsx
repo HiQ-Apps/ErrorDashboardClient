@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setIsAuthenticated, clearUser, clearToken } from "features/authSlice";
+import { setIsAuthenticated, clearUser, clearToken, selectIsAuthenticated } from "features/authSlice";
 import AppIcon from "assets/AppIcon.svg";
 import AuthModal from "components/composite/AuthModal/AuthModal";
 import BaseButton from "components/base/Button/Button";
@@ -13,7 +13,7 @@ import RegistrationForm from "forms/RegistrationForm";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full flex flex-row justify-between items-center bg-red-500">
+    <div className="w-full flex flex-row justify-between items-center">
       <img src={AppIcon} alt="App Icon" width="100px" height="100px" />
       <div className="flex flex-row mx-2">
         <BaseButton
@@ -54,13 +54,13 @@ const Navbar = () => {
           content="Login"
           onClick={handleLoginClick}
           variant="outline"
-          override_styles="mx-1"
+          override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
         <BaseButton
           content="Register"
           onClick={handleRegistrationClick}
           variant="outline"
-          override_styles="mx-1"
+          override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
         <BaseButton
           content="Logout"
@@ -71,7 +71,7 @@ const Navbar = () => {
         <BaseButton
           content="Namespace"
           onClick={handleNamespaceClick}
-          variant="outline"
+          variant={isAuthenticated ? "outline" : "ghost"}
           override_styles="mx-1"
         />
       </div>

@@ -1,9 +1,12 @@
 import { type FormEvent, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   registrationSchema,
   type RegistrationSchema,
 } from "schemas/registrationSchema";
 import useForm from "src/hooks/useForm";
+import { setUser, setToken, setIsAuthenticated } from "features/authSlice";
 import { useRegisterMutation } from "features/userApiSlice";
 
 interface RegistrationFormProps {
@@ -11,12 +14,13 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
+  const dispatch = useDispatch();
   const { form, handleChange, validate, errors } = useForm<RegistrationSchema>(
     { email: "", username: "", password: "", confirmPassword: "" },
     registrationSchema
   );
 
-  const [register, { isSuccess, isLoading }] = useRegisterMutation();
+  const [register, { data, isSuccess, isLoading }] = useRegisterMutation();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -32,8 +36,11 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
   useEffect(() => {
     if (isSuccess) {
       setTimeout(() => {
+        dispatch(setToken(data.access_token));
+        dispatch(setUser(data.user));
+        dispatch(setIsAuthenticated(true));
         onClose();
-      }, 2000);
+      }, 100);
     }
   }, [isSuccess]);
 
