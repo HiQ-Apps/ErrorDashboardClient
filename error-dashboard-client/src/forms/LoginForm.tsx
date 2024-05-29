@@ -1,5 +1,6 @@
 import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Input } from "components/ui/input";
 
 import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
@@ -17,7 +18,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
     loginSchema
   );
 
-  const [login, { data, isSuccess, isLoading }] = useLoginMutation();
+  const [login, { isSuccess, isLoading }] = useLoginMutation();
 
   const handleLoginClick = async (event: FormEvent) => {
     event.preventDefault();
@@ -43,7 +44,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
     <form onSubmit={handleLoginClick}>
       <div className="mb-4">
         <label className="block text-sm font-medium">Email</label>
-        <input
+        <Input
           type="email"
           name="email"
           onChange={handleChange}
@@ -57,7 +58,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       </div>
       <div className="mb-4">
         <label className="block text-sm font-medium">Password</label>
-        <input
+        <Input
           type="password"
           name="password"
           onChange={handleChange}
