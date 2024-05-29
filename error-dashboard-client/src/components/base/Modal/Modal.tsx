@@ -1,10 +1,8 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "components/ui/dialog";
 import BaseButton from "components/base/Button/Button";
 import { ReactNode } from "react";
@@ -12,22 +10,19 @@ import { ReactNode } from "react";
 interface ModalProps {
   header: string;
   content: ReactNode;
-  open: () => void;
+  open: boolean;
   onClose: () => void;
 }
 
 const Modal = ({ header, content, open, onClose }: ModalProps) => {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <BaseButton content="Open Dialog" onClick={open} variant="default" />
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{header}</DialogTitle>
-          <DialogDescription>{content}</DialogDescription>
         </DialogHeader>
-        <div className="flex flex-row justify-end">
+        <div className="p-4">{content}</div>
+        <div className="flex flex-row justify-end p-4">
           <BaseButton content="Close" onClick={onClose} variant="default" />
         </div>
       </DialogContent>

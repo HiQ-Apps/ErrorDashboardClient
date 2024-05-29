@@ -15,6 +15,7 @@ interface ButtonProps {
     | "success"
     | "warning"
     | "error";
+  disabled?: boolean;
   override_styles?: string;
 };
 
@@ -22,12 +23,13 @@ const BaseButton = ({
   content,
   onClick,
   variant,
+  disabled,
   override_styles,
 }: ButtonProps) => {
   const isIcon = typeof content === 'function';
   
   return (
-    <Button onClick={onClick} variant={variant} className={override_styles}>
+    <Button onClick={onClick} variant={variant} className={override_styles} disabled={disabled}>
       {isIcon ? React.createElement(content as IconType) : content}
     </Button>
   );

@@ -15,7 +15,7 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["User"],
+  tagTypes: ["User", "Namespace"],
 });
 
 export default baseApi;

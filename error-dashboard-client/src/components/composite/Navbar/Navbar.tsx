@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setIsAuthenticated, clearUser, clearToken, selectIsAuthenticated } from "features/authSlice";
 import AppIcon from "assets/AppIcon.svg";
-import AuthModal from "components/composite/AuthModal/AuthModal";
+import Modal from "components/base/Modal/Modal";
 import BaseButton from "components/base/Button/Button";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
@@ -75,17 +75,17 @@ const Navbar = () => {
           override_styles="mx-1"
         />
       </div>
-        <AuthModal
+        <Modal
           header="Login"
           content={<LoginForm onClose={handleLoginClick} />}
-          isOpen={isLoginOpen}
-          onOpenChange={setIsLoginOpen}
+          open={isLoginOpen}
+          onClose={() => setIsLoginOpen(false)}
         />
-        <AuthModal
+        <Modal
           header="Register"
           content={<RegistrationForm onClose={handleRegistrationClick} />}
-          isOpen={isRegisterOpen}
-          onOpenChange={setIsRegisterOpen}
+          open={isRegisterOpen}
+          onClose={() => setIsRegisterOpen(false)}
         />
     </div>
   );

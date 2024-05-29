@@ -1,5 +1,6 @@
 import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Input } from "components/ui/input";
 
 import {
   registrationSchema,
@@ -48,7 +49,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">Email</label>
-        <input
+        <Input
           type="email"
           name="email"
           value={form.email}
@@ -65,7 +66,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         <label className="block text-sm font-medium text-gray-700">
           Username
         </label>
-        <input
+        <Input
           type="text"
           name="username"
           value={form.username}
@@ -82,7 +83,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         <label className="block text-sm font-medium text-gray-700">
           Password
         </label>
-        <input
+        <Input
           type="password"
           name="password"
           value={form.password}
@@ -99,7 +100,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         <label className="block text-sm font-medium text-gray-700">
           Confirm Password
         </label>
-        <input
+        <Input
           type="password"
           name="confirmPassword"
           value={form.confirmPassword}
