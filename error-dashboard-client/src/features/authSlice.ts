@@ -19,23 +19,18 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
-      console.log("setting token", action.payload);
       state.token = action.payload;
     },
     clearToken: (state) => {
-      console.log("clearing token");
       state.token = null;
     },
     setUser: (state, action: PayloadAction<ShortUserData>) => {
-      console.log("setting user", action.payload);
       state.user = action.payload;
     },
     clearUser: (state) => {
-      console.log("clearing user");
       state.user = null;
     },
     setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
-      console.log("setting auth", action.payload);
       state.isAuthenticated = action.payload;
     },
   },
