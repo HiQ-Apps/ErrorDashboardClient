@@ -1,25 +1,41 @@
-import { type FormEvent } from "react";
+import { type FormEvent, useEffect } from "react";
 import {
   registrationSchema,
   type RegistrationSchema,
 } from "schemas/registrationSchema";
 import useForm from "src/hooks/useForm";
-import { useRegisterMutation } from "features/userSlice";
+import { useRegisterMutation } from "features/userApiSlice";
 
-const RegistrationForm = () => {
+interface RegistrationFormProps {
+  onClose: () => void;
+}
+
+const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
   const { form, handleChange, validate, errors } = useForm<RegistrationSchema>(
-    { email: "", password: "", confirmPassword: "" },
+    { email: "", username: "", password: "", confirmPassword: "" },
     registrationSchema
   );
 
-  const [register] = useRegisterMutation();
+  const [register, { isSuccess, isLoading }] = useRegisterMutation();
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (validate()) {
-      register(form);
+      try {
+        await register(form).unwrap();
+      } catch (err) {
+        console.error("Failed to register:", err);
+      }
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    }
+  }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,8 +49,25 @@ const RegistrationForm = () => {
           className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.email && (
-          <span className="text-red-500 text-sm">
+          <span className="text-error text-sm">
             {errors.errorMessages.email}
+          </span>
+        )}
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">
+          Username
+        </label>
+        <input
+          type="text"
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+        />
+        {errors.errorMessages.username && (
+          <span className="text-error text-sm">
+            {errors.errorMessages.username}
           </span>
         )}
       </div>
@@ -50,7 +83,7 @@ const RegistrationForm = () => {
           className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.password && (
-          <span className="text-red-500 text-sm">
+          <span className="text-error text-sm">
             {errors.errorMessages.password}
           </span>
         )}
@@ -67,7 +100,7 @@ const RegistrationForm = () => {
           className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.confirmPassword && (
-          <span className="text-red-500 text-sm">
+          <span className="text-error text-sm">
             {errors.errorMessages.confirmPassword}
           </span>
         )}
@@ -76,8 +109,11 @@ const RegistrationForm = () => {
         type="submit"
         className="border border-transparent bg-success text-white justify-center rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2"
       >
-        Register
+        {isLoading ? "Registering..." : "Register"}
       </button>
+      {isSuccess && (
+        <p className="text-success py-2 text-sm">Registration successful!</p>
+      )}
     </form>
   );
 };

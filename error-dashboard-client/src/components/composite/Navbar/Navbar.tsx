@@ -1,23 +1,29 @@
 import { useState } from "react";
-import AppIcon from "assets/AppIcon.svg";
 import { FaHome } from "react-icons/fa";
-import BaseButton from "components/base/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { setIsAuthenticated, clearUser, clearToken } from "features/authSlice";
+import AppIcon from "assets/AppIcon.svg";
 import AuthModal from "components/composite/AuthModal/AuthModal";
+import BaseButton from "components/base/Button/Button";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const handleLoginClick = () => {
-    setIsLoginOpen(true);
+    setIsLoginOpen((prev) => !prev);
   };
 
   const handleRegistrationClick = () => {
-    setIsRegisterOpen(true);
+    setIsRegisterOpen((prev) => !prev);
   };
 
   const handleHomeClick = () => {
@@ -29,7 +35,9 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = () => {
-    // Logout logic
+    dispatch(setIsAuthenticated(false))
+    dispatch(clearUser())
+    dispatch(clearToken())
   };
 
   return (
@@ -67,18 +75,18 @@ const Navbar = () => {
           override_styles="mx-1"
         />
       </div>
-      <AuthModal
-        header="Login"
-        content={<LoginForm />}
-        isOpen={isLoginOpen}
-        onOpenChange={setIsLoginOpen}
-      />
-      <AuthModal
-        header="Register"
-        content={<RegistrationForm />}
-        isOpen={isRegisterOpen}
-        onOpenChange={setIsRegisterOpen}
-      />
+        <AuthModal
+          header="Login"
+          content={<LoginForm onClose={handleLoginClick} />}
+          isOpen={isLoginOpen}
+          onOpenChange={setIsLoginOpen}
+        />
+        <AuthModal
+          header="Register"
+          content={<RegistrationForm onClose={handleRegistrationClick} />}
+          isOpen={isRegisterOpen}
+          onOpenChange={setIsRegisterOpen}
+        />
     </div>
   );
 };

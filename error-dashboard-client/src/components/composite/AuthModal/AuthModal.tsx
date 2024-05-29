@@ -5,7 +5,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "components/ui/dialog";
 import BaseButton from "components/base/Button/Button";
 
@@ -27,7 +26,7 @@ const AuthModal = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{header}</DialogTitle>
-          <DialogDescription>{content}</DialogDescription>
+          {content}
         </DialogHeader>
         <div className="flex flex-row justify-end">
           <BaseButton

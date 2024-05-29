@@ -1,4 +1,4 @@
-const Namespace = () => {
+const Namespaces = () => {
   return (
     <div>
       <h1>Namespaces</h1>
@@ -6,4 +6,4 @@ const Namespace = () => {
   );
 };
 
-export default Namespace;
+export default Namespaces;
