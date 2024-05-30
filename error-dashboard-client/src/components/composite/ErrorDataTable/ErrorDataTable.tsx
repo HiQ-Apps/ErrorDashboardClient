@@ -1,33 +1,36 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { type ColumnDef } from "@tanstack/react-table";
+import type { ReactNode } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { formatHeader } from "shared/utils/parseString";
-import { useGetNamespacesByUserQuery } from "features/namespaceApiSlice";
-import { selectUser } from "features/authSlice";
-import { DataTable } from "components/base/DataTable/DataTable";
+import {
+  useGetNamespaceErrorsQuery,
+  useNamespaceWSQuery,
+} from "features/namespaceApiSlice";
+import { useWebSocket } from "hooks/useWebSocket";
 import { ActiveDot, InactiveDot } from "assets/index";
-import { ReactNode } from "react";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from "components/base/DataTable/DataTable";
 
-const NamespaceDataTable = () => {
-  const user = useSelector(selectUser);
+const ErrorDataTable = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetNamespacesByUserQuery(
-    { id: user?.id || "", offset: 0, limit: 10 },
-    { skip: !user?.id }
-  );
+  const { data, isLoading } = useGetNamespaceErrorsQuery({
+    id: id || "",
+    offset: 0,
+    limit: 10,
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (!data || data.length === 0) {
-    return <div>No namespaces found.</div>;
+    return <div>No errors found.</div>;
   }
 
   const handleRowClick = (id: string) => {
-    navigate(`/namespace/${id}`);
+    navigate(`/error/${id}`);
   };
 
   const renderBooleanCell = (value: boolean): ReactNode =>
@@ -71,4 +74,4 @@ const NamespaceDataTable = () => {
   return <DataTable data={data} columns={columns} />;
 };
 
-export default NamespaceDataTable;
+export default ErrorDataTable;

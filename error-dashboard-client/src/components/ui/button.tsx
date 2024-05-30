@@ -26,6 +26,8 @@ const buttonVariants = cva(
           "border bg-warning text-slate-50 shadow-sm dark:bg-warning dark:text-slate-50",
         error:
           "border bg-error text-slate-50 shadow-sm  dark:bg-error dark:text-slate-50",
+        navbutton:
+          "bg-white text-lg text-slate-900 mx-1 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-500",
       },
       size: {
         default: "h-9 px-4 py-2",

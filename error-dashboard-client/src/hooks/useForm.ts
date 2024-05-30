@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react";
-import { z, ZodSchema } from "zod";
+import { ZodSchema } from "zod";
 
 export type FormState<T> = Record<string, T>;
 

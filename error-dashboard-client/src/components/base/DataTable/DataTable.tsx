@@ -34,14 +34,17 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="w-full rounded-md border dark:text-slate-300">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    className="p-2 text-slate-900 text-center hover:white rounded-full dark:text-slate-100"
+                    key={header.id}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -58,6 +61,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
+                className="hover:bg-slate-200 dark:hover:bg-slate-700"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
@@ -77,16 +81,18 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 mx-4">
         <BaseButton
+          size="sm"
           content="Previous"
-          variant="outline"
+          variant="default"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         />
         <BaseButton
+          size="sm"
           content="Next"
-          variant="outline"
+          variant="default"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         />

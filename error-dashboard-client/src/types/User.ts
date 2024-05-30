@@ -14,3 +14,8 @@ export type ShortUserData = {
   email: string;
   username: string;
 };
+
+export type AuthResponse = {
+  user: ShortUserData;
+  accessToken: string;
+};
