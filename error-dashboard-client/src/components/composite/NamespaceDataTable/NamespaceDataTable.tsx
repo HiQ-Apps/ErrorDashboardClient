@@ -68,7 +68,7 @@ const NamespaceDataTable = () => {
     })
   );
 
-  return <DataTable data={data} columns={columns} />;
+  return <DataTable data={data ?? []} columns={columns} />;
 };
 
 export default NamespaceDataTable;

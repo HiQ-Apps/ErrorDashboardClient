@@ -1,11 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "configs/store";
 
 interface DarkModeState {
   isDark: boolean;
 }
 
-// Initialize the state from localStorage or default to false
 const initialState: DarkModeState = {
   isDark: JSON.parse(localStorage.getItem("isDark") || "false"),
 };
@@ -14,11 +13,11 @@ let darkSlice = createSlice({
   name: "DarkMode",
   initialState,
   reducers: {
-    toggleDark: (state) => {
+    toggleDark: (state: DarkModeState) => {
       state.isDark = !state.isDark;
       localStorage.setItem("isDark", JSON.stringify(state.isDark));
     },
-    setDarkMode: (state, action) => {
+    setDarkMode: (state: DarkModeState, action: PayloadAction<boolean>) => {
       state.isDark = action.payload;
       localStorage.setItem("isDark", JSON.stringify(state.isDark));
     },

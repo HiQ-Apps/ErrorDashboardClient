@@ -5,6 +5,7 @@ import type {
   CreateNamespaceRequest,
   UpdateNamespaceRequest,
 } from "types/Namespace";
+import type { ShortErrorData } from "types/Error";
 import { PaginationWithId } from "shared/types/extra";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
@@ -32,10 +33,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       providesTags: ["NamespaceDetail"],
     }),
-    updateNamespaceById: builder.mutation<
-      NamespaceData,
-      UpdateNamespaceRequest
-    >({
+    updateNamespaceById: builder.mutation<NamespaceData,UpdateNamespaceRequest>({
       query: (namespace) => ({
         url: `/namespace/${namespace.id}`,
         method: "PUT",
@@ -43,7 +41,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["NamespaceDetail"],
     }),
-    getNamespaceErrors: builder.query<any, PaginationWithId>({
+    getNamespaceErrors: builder.query<ShortErrorData[], PaginationWithId>({
       query: ({ id, offset = 0, limit = 10 }: PaginationWithId) => ({
         url: `/namespace/${id}/errors`,
         method: "GET",
@@ -57,11 +55,6 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["AllNamespace"],
     }),
-    namespaceWS: builder.query({
-      query: (id) => ({
-        url: `/namespace/${id}/ws`,
-      }),
-    }),
   }),
 });
 
@@ -72,5 +65,4 @@ export const {
   useUpdateNamespaceByIdMutation,
   useGetNamespaceErrorsQuery,
   useDeleteNamespaceByIdMutation,
-  useNamespaceWSQuery,
 } = namespaceApiSlice;

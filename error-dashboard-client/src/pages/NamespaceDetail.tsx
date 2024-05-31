@@ -9,11 +9,15 @@ const NamespaceDetail = () => {
 
   const { data: namespace, isLoading } = useGetNamespaceByIdQuery(id as string);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <h1>Service Name: {namespace?.service_name}</h1>
       <p>Environment Type: {namespace?.environment_type}</p>
-      <ErrorDataTable />
+      {id ? <ErrorDataTable id={id} /> : null}
     </div>
   );
 };

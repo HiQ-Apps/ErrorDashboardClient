@@ -1,20 +1,39 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { set } from "zod";
 
-export const useWebSocket = (url: string) => {
-  const [messages, setMessages] = useState<string[]>([]);
+export const useWebSocket = <T>(url: string | undefined) => {
+  const [messages, setMessages] = useState<T[]>([]);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+
+  const resetMessages = useCallback(() => {
+    setMessages([]);
+  }, []);
 
   useEffect(() => {
+    if (!url) {
+      setConnectionError("WebSocket URL is not provided");
+      return;
+    }
+
     const socket = new WebSocket(url);
 
+    socket.onopen = () => {
+      console.log("WebSocket connection opened");
+      setConnectionError(null);
+    };
+
     socket.onmessage = (event) => {
-      setMessages((prevMessages) => [...prevMessages, event.data]);
+      const message = JSON.parse(event.data) as T;
+      setMessages((prevMessages) => [...prevMessages, message]);
     };
 
     socket.onclose = () => {
+      setConnectionError("WebSocket connection closed");
       console.log("WebSocket connection closed");
     };
 
     socket.onerror = (error) => {
+      setConnectionError("WebSocket connection error");
       console.error("WebSocket error:", error);
     };
 
@@ -23,5 +42,5 @@ export const useWebSocket = (url: string) => {
     };
   }, [url]);
 
-  return { messages };
+  return { messages, connectionError, resetMessages };
 };
