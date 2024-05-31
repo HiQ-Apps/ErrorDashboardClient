@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { RootState } from "configs/store";
 import { ShortUserData } from "types/User";
 
@@ -14,23 +15,23 @@ const initialState: AuthState = {
   isAuthenticated: false,
 };
 
-const authSlice = createSlice({
+let authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<string>) => {
+    setToken: (state: AuthState, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
-    clearToken: (state) => {
+    clearToken: (state: AuthState) => {
       state.token = null;
     },
-    setUser: (state, action: PayloadAction<ShortUserData>) => {
+    setUser: (state: AuthState, action: PayloadAction<ShortUserData>) => {
       state.user = action.payload;
     },
-    clearUser: (state) => {
+    clearUser: (state: AuthState) => {
       state.user = null;
     },
-    setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
+    setIsAuthenticated: (state: AuthState, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
   },

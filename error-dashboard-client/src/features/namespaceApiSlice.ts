@@ -1,25 +1,68 @@
 import { baseApi } from "features/baseApi";
+import type {
+  ShortNamespaceData,
+  NamespaceData,
+  CreateNamespaceRequest,
+  UpdateNamespaceRequest,
+} from "types/Namespace";
+import type { ShortErrorData } from "types/Error";
+import { PaginationWithId } from "shared/types/extra";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createNamespace: builder.mutation({
+    createNamespace: builder.mutation<NamespaceData, CreateNamespaceRequest>({
       query: (new_namespace) => ({
         url: "/namespace/",
         method: "POST",
         body: new_namespace,
       }),
-      invalidatesTags: ["Namespace"],
+      invalidatesTags: ["AllNamespace"],
     }),
-    getNamespacesByUser: builder.query({
-      query: (userId, offset = 0, limit = 10) => ({
-        url: `/namespace/user/${userId}`,
+    getNamespacesByUser: builder.query<ShortNamespaceData[], PaginationWithId>({
+      query: ({ id, offset = 0, limit = 10 }) => ({
+        url: `/namespace/user/${id}`,
         method: "GET",
         params: { offset, limit },
       }),
-      providesTags: ["Namespace"],
+      providesTags: ["AllNamespace"],
+    }),
+    getNamespaceById: builder.query<NamespaceData, string>({
+      query: (id) => ({
+        url: `/namespace/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["NamespaceDetail"],
+    }),
+    updateNamespaceById: builder.mutation<NamespaceData,UpdateNamespaceRequest>({
+      query: (namespace) => ({
+        url: `/namespace/${namespace.id}`,
+        method: "PUT",
+        body: namespace,
+      }),
+      invalidatesTags: ["NamespaceDetail"],
+    }),
+    getNamespaceErrors: builder.query<ShortErrorData[], PaginationWithId>({
+      query: ({ id, offset = 0, limit = 10 }: PaginationWithId) => ({
+        url: `/namespace/${id}/errors`,
+        method: "GET",
+        params: { offset, limit },
+      }),
+    }),
+    deleteNamespaceById: builder.mutation<string, string>({
+      query: (id) => ({
+        url: `/namespace/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["AllNamespace"],
     }),
   }),
 });
 
-export const { useCreateNamespaceMutation, useGetNamespacesByUserQuery } =
-  namespaceApiSlice;
+export const {
+  useCreateNamespaceMutation,
+  useGetNamespacesByUserQuery,
+  useGetNamespaceByIdQuery,
+  useUpdateNamespaceByIdMutation,
+  useGetNamespaceErrorsQuery,
+  useDeleteNamespaceByIdMutation,
+} = namespaceApiSlice;

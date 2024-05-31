@@ -1,10 +1,11 @@
-import React, { ReactNode } from 'react';
+import { type ReactNode } from "react";
 import { Button } from "components/ui/button";
-import type { IconType } from "react-icons";
 
 interface ButtonProps {
-  content: ReactNode
+  content?: ReactNode;
+  image?: string;
   onClick: () => void;
+  size?: "default" | "sm" | "lg" | "icon";
   variant:
     | "default"
     | "destructive"
@@ -14,23 +15,31 @@ interface ButtonProps {
     | "link"
     | "success"
     | "warning"
-    | "error";
+    | "error"
+    | "navbutton";
   disabled?: boolean;
   override_styles?: string;
-};
+}
 
 const BaseButton = ({
   content,
+  image,
   onClick,
   variant,
   disabled,
   override_styles,
+  size,
 }: ButtonProps) => {
-  const isIcon = typeof content === 'function';
-  
   return (
-    <Button onClick={onClick} variant={variant} className={override_styles} disabled={disabled}>
-      {isIcon ? React.createElement(content as IconType) : content}
+    <Button
+      size={size}
+      onClick={onClick}
+      variant={variant}
+      className={override_styles}
+      disabled={disabled}
+    >
+      {content ? <>{content}</> : <></>}
+      {image ? <img src={image} width="25px" height="25px" /> : <></>}
     </Button>
   );
 };

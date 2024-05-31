@@ -26,7 +26,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
     event.preventDefault();
     if (validate()) {
       try {
-        const data = await createNamespace(form).unwrap();
+        await createNamespace(form).unwrap();
       } catch (err) {
         console.error("Failed to create namespace:", err);
       }

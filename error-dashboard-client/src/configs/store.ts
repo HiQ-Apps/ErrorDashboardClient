@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { baseApi } from "features/baseApi";
 import authReducer from "features/authSlice";
+import darkReducer from "features/darkSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    dark: darkReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -24,10 +24,12 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@reduxjs/toolkit": "^2.2.5",
     "@tanstack/react-table": "^8.17.3",
+    "@types/js-cookie": "^3.0.6",
     "@types/uuid": "^9.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.6",
+    "js-cookies": "^1.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.5",
@@ -38,6 +40,7 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",
+    "vite-plugin-svgr": "^4.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
