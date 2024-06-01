@@ -1,7 +1,5 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
-import { NamespaceData } from "types/Namespace";
 import ErrorDataTable from "components/composite/ErrorDataTable/ErrorDataTable";
 
 const NamespaceDetail = () => {

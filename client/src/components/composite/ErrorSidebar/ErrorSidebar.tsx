@@ -10,3 +10,5 @@ const ErrorSidebar = () => {
 
   return <Sidebar isOpen={true} header="Error" links={links} />;
 };
+
+export default ErrorSidebar;
