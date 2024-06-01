@@ -16,7 +16,8 @@ interface ButtonProps {
     | "success"
     | "warning"
     | "error"
-    | "navbutton";
+    | "navbutton"
+    | "sidenavbutton";
   disabled?: boolean;
   override_styles?: string;
 }

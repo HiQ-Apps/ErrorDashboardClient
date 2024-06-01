@@ -3,11 +3,13 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { baseApi } from "features/baseApi";
 import authReducer from "features/authSlice";
 import darkReducer from "features/darkSlice";
+import sidebarReducer from "features/sidebarSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     dark: darkReducer,
+    sidebar: sidebarReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
