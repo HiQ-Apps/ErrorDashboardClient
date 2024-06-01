@@ -10,8 +10,6 @@ module.exports = {
   prefix: "",
   theme: {
     colors: {
-      lightGray: "#f8f9fa",
-      darkGray: "#343a40",
       primary: '#007bff',
       success: '#28a745',
       warning: '#ffc107',

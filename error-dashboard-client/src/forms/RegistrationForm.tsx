@@ -36,19 +36,19 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setTimeout(() => {
-        dispatch(setToken(data.access_token));
-        dispatch(setUser(data.user));
-        dispatch(setIsAuthenticated(true));
-        onClose();
-      }, 100);
+      dispatch(setToken(data.access_token));
+      dispatch(setUser(data.user));
+      dispatch(setIsAuthenticated(true));
+      onClose();
     }
   }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <label className="block text-sm font-medium text-slate-700">
+          Email
+        </label>
         <Input
           type="email"
           name="email"
@@ -63,7 +63,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-slate-700">
           Username
         </label>
         <Input
@@ -80,7 +80,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-slate-700">
           Password
         </label>
         <Input
@@ -97,7 +97,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-slate-700">
           Confirm Password
         </label>
         <Input

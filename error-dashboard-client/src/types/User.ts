@@ -17,5 +17,5 @@ export type ShortUserData = {
 
 export type AuthResponse = {
   user: ShortUserData;
-  accessToken: string;
+  access_token: string;
 };
