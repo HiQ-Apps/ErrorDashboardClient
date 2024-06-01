@@ -4,19 +4,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
 interface SidebarProps {
   isOpen: boolean;
-  currentPage: string;
+  header: string;
   links: ReactNode[];
+  override_styles?: string;
 }
 
-const Sidebar = ({ isOpen, currentPage, links }: SidebarProps) => {
+const Sidebar = ({
+  isOpen,
+  header,
+  links,
+  override_styles = "",
+}: SidebarProps) => {
   return (
-    <Card className="min-w-max bg-slate-200 dark:bg-slate-700">
+    <Card
+      className={`${override_styles} h-5/6 w-full bg-slate-200 dark:bg-slate-900`}
+    >
       <CardHeader>
-        <CardTitle>{currentPage}</CardTitle>
+        <CardTitle>{header}</CardTitle>
         <CardContent>
-          {links.map((link) => {
-            return <>{link}</>;
-          })}
+          {links.map((link, index) => (
+            <div className="my-2" key={index}>
+              {link}
+            </div>
+          ))}
         </CardContent>
       </CardHeader>
     </Card>

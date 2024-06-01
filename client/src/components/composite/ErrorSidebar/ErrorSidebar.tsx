@@ -8,5 +8,5 @@ const ErrorSidebar = () => {
     </Link>,
   ];
 
-  return <Sidebar isOpen={true} currentPage="Error" links={links} />;
+  return <Sidebar isOpen={true} header="Error" links={links} />;
 };
