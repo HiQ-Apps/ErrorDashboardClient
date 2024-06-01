@@ -7,7 +7,7 @@ import ProtectedRoutes from "shared/utils/ProtectedRoutes";
 import Home from "pages/Home";
 import Namespace from "pages/Namespaces";
 import Navbar from "components/composite/Navbar/Navbar";
-import Footer from "components/composite/Footer/Footer";
+import Footer from "components/base/Footer/Footer";
 import NamespaceDetail from "pages/NamespaceDetail";
 import ErrorDetail from "pages/ErrorDetail";
 

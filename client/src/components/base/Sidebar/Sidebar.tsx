@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const Sidebar = ({ isOpen, currentPage, links }: SidebarProps) => {
   return (
-    <Card>
+    <Card className="min-w-max bg-slate-200 dark:bg-slate-700">
       <CardHeader>
         <CardTitle>{currentPage}</CardTitle>
         <CardContent>
