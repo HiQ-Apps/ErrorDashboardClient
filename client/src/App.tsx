@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, selectIsDark } from "features/darkSlice";
 
@@ -11,6 +11,7 @@ import Footer from "components/base/Footer/Footer";
 import NamespaceRoutes from "./routes/NamespaceRoutes";
 import BaseRoutes from "./routes/BaseRoutes";
 import ErrorRoutes from "./routes/ErrorRoutes";
+import UserRoutes from "./routes/UserRoutes";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
         <BaseRoutes />
         <NamespaceRoutes />
         <ErrorRoutes />
+        <UserRoutes />
       </Routes>
       <Footer />
     </div>
