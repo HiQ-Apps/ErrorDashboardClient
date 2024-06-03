@@ -3,14 +3,14 @@ import type { ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
 interface SidebarProps {
-  isOpen: boolean;
+  isOpen?: boolean;
   header: string;
   links: ReactNode[];
   override_styles?: string;
 }
 
 const Sidebar = ({
-  isOpen,
+  isOpen = true,
   header,
   links,
   override_styles = "",

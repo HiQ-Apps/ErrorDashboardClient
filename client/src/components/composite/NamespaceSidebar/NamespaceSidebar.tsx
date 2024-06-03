@@ -1,32 +1,12 @@
 import Sidebar from "components/base/Sidebar/Sidebar";
-import { useNavigate } from "react-router-dom";
-import BaseButton from "components/base/Button/Button";
+import { ReactNode } from "react";
 
-const NamespaceSidebar = () => {
-  const navigate = useNavigate();
+interface NamespaceSidebarProps {
+  links: ReactNode[];
+}
 
-  const navigateToUpdate = () => {
-    navigate("/namespace/update");
-  };
-
-  const navigateToMetrics = () => {
-    navigate("/namespace/metrics");
-  };
-
-  const links = [
-    <BaseButton
-      variant="navbutton"
-      content={"Update"}
-      onClick={navigateToUpdate}
-    />,
-    <BaseButton
-      variant="navbutton"
-      content={"Metrics"}
-      onClick={navigateToMetrics}
-    />,
-  ];
-
-  return <Sidebar isOpen={true} currentPage="Error" links={links} />;
+const NamespaceSidebar = ({ links }: NamespaceSidebarProps) => {
+  return <Sidebar isOpen={true} header="Namespace" links={links} />;
 };
 
 export default NamespaceSidebar;

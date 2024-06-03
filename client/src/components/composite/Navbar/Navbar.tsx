@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   const handleNamespaceClick = () => {
-    navigate("/namespace");
+    navigate("/namespace/console");
   };
 
   const handleDarkModeClick = () => {

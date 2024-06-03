@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import BaseButton from "components/base/Button/Button";
-import { selectIsAuthenticated, selectUser } from "features/authSlice";
 import Sidebar from "components/base/Sidebar/Sidebar";
 
 const HomeSidebar = () => {
@@ -30,8 +28,6 @@ const HomeSidebar = () => {
       onClick={handleDocumentationClick}
     />,
   ];
-
-  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   return <Sidebar isOpen={true} header="Home" links={links} />;
 };
