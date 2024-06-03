@@ -16,7 +16,11 @@ const Namespaces = () => {
   };
 
   const handleOpenCreateNamespaceModal = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(true);
+  };
+
+  const handleCloseCreateNamespaceModal = () => {
+    setIsOpen(false);
   };
 
   const links = [
@@ -39,10 +43,10 @@ const Namespaces = () => {
       <Modal
         header="Create Namespace"
         content={
-          <CreateNamespaceForm onClose={handleOpenCreateNamespaceModal} />
+          <CreateNamespaceForm onClose={handleCloseCreateNamespaceModal} />
         }
         open={isOpen}
-        onClose={handleOpenCreateNamespaceModal}
+        onClose={handleCloseCreateNamespaceModal}
       />
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <NamespaceSidebar links={links} />

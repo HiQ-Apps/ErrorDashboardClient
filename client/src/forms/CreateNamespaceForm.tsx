@@ -1,5 +1,6 @@
 import { type FormEvent, useEffect } from "react";
 import { Input } from "components/ui/input";
+import { useToast } from "components/ui/use-toast";
 
 import { useCreateNamespaceMutation } from "features/namespaceApiSlice";
 import {
@@ -19,7 +20,9 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
       createNamespaceSchema
     );
 
-  const [createNamespace, { isSuccess, isLoading }] =
+  const { toast } = useToast();
+
+  const [createNamespace, { data, isSuccess, isError }] =
     useCreateNamespaceMutation();
 
   const handleCreateNamespaceClick = async (event: FormEvent) => {
@@ -36,8 +39,21 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
   useEffect(() => {
     if (isSuccess) {
       onClose();
+      toast({
+        title: "Namespace created successfully",
+        description: `Namespace ${data} created successfully`,
+      });
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast({
+        title: "Failed to create namespace",
+        description: "Please try again",
+      });
+    }
+  }, [isError]);
 
   return (
     <form onSubmit={handleCreateNamespaceClick}>
@@ -73,13 +89,8 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
         type="submit"
         className="border border-transparent bg-success text-white justify-center rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2"
       >
-        {isLoading ? "Creating Namespace..." : "Create Namespace"}
+        Create Namespace
       </button>
-      {isSuccess && (
-        <p className="text-success py-2 text-sm">
-          Namespace Creation Successful!
-        </p>
-      )}
     </form>
   );
 };
