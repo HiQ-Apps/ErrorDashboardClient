@@ -1,35 +1,53 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import Modal from "components/base/Modal/Modal";
+import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import BaseButton from "components/base/Button/Button";
 import NamespaceDataTable from "components/composite/NamespaceDataTable/NamespaceDataTable";
+import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 
 const Namespaces = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const handleNamespaceClick = () => {
-    setIsModalOpen(true);
+  const handleNamespaceConsoleClick = () => {
+    navigate(`/namespace/console`);
   };
 
+  const handleOpenCreateNamespaceModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const links = [
+    <BaseButton
+      content="Console"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceConsoleClick}
+    />,
+    <BaseButton
+      content="Create Namespace"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleOpenCreateNamespaceModal}
+    />,
+  ];
+
   return (
-    <div className="flex flex-col min-h-screen w-11/12">
-      <div className="flex flex-col my-4">
-        <h1 className="my-2 dark:text-slate-100">Namespaces</h1>
-        <BaseButton
-          content="Create Namespace"
-          onClick={handleNamespaceClick}
-          variant="default"
-          override_styles="max-w-40"
-        />
+    <div className="bg-slate-50 text-slate-900 min-h-screen w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
+      <Modal
+        header="Create Namespace"
+        content={
+          <CreateNamespaceForm onClose={handleOpenCreateNamespaceModal} />
+        }
+        open={isOpen}
+        onClose={handleOpenCreateNamespaceModal}
+      />
+      <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
+        <NamespaceSidebar links={links} />
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <Modal
-          header="Create Namespace"
-          content={<CreateNamespaceForm onClose={handleNamespaceClick} />}
-          open={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
+      <div className="flex-1 p-4">
         <NamespaceDataTable />
       </div>
     </div>

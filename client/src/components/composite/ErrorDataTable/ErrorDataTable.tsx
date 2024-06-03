@@ -56,7 +56,7 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   }
 
   const handleRowClick = (id: string) => {
-    navigate(`/error/${id}`);
+    navigate(`/error/${id}/console`);
   };
 
   const renderBooleanCell = (value: boolean): ReactNode =>

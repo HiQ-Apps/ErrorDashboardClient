@@ -6,7 +6,7 @@ const Home = () => {
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <HomeSidebar />
       </div>
-      <div className="absolute right-0 col-span-3 p-4">
+      <div className="flex-1 p-4">
         <h1>Home</h1>
       </div>
     </div>

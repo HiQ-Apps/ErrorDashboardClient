@@ -5,11 +5,16 @@ import ErrorDetail from "pages/Error/ErrorDetail";
 
 const ErrorRoutes = () => {
   return (
-    <ProtectedRoutes>
-      <Routes>
-        <Route path="/error/:id" element={<ErrorDetail />} />
-      </Routes>
-    </ProtectedRoutes>
+    <Routes>
+      <Route
+        path="/:id/console"
+        element={
+          <ProtectedRoutes>
+            <ErrorDetail />
+          </ProtectedRoutes>
+        }
+      />
+    </Routes>
   );
 };
 

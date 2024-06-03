@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, selectIsDark } from "features/darkSlice";
 
@@ -8,10 +8,10 @@ import Navbar from "components/composite/Navbar/Navbar";
 import Footer from "components/base/Footer/Footer";
 
 // Routes
-import NamespaceRoutes from "./routes/NamespaceRoutes";
-import BaseRoutes from "./routes/BaseRoutes";
-import ErrorRoutes from "./routes/ErrorRoutes";
-import UserRoutes from "./routes/UserRoutes";
+import NamespaceRoutes from "routes/NamespaceRoutes";
+import BaseRoutes from "routes/BaseRoutes";
+import ErrorRoutes from "routes/ErrorRoutes";
+import UserRoutes from "routes/UserRoutes";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,10 +34,10 @@ const App = () => {
     <div className="flex flex-col justify-center items-center dark:bg-slate-800 font-sans">
       <Navbar />
       <Routes>
-        <BaseRoutes />
-        <NamespaceRoutes />
-        <ErrorRoutes />
-        <UserRoutes />
+        <Route path="/*" element={<BaseRoutes />} />
+        <Route path="/namespace/*" element={<NamespaceRoutes />} />
+        <Route path="/error/*" element={<ErrorRoutes />} />
+        <Route path="/user/*" element={<UserRoutes />} />
       </Routes>
       <Footer />
     </div>
