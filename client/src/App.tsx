@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, selectIsDark } from "features/darkSlice";
 
 // Components
-import Navbar from "components/composite/Navbar/Navbar";
+import Navbar from "components/base/Navbar/Navbar";
 import Footer from "components/base/Footer/Footer";
 import { Toaster } from "components/ui/toaster";
 

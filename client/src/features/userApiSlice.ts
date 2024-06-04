@@ -27,6 +27,13 @@ export const userApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    verifyUser: builder.mutation<null, LoginUserRequest>({
+      query: (credentials) => ({
+        url: "/auth/verify",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -34,4 +41,5 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useRefreshAccessTokenQuery,
+  useVerifyUserMutation,
 } = userApiSlice;

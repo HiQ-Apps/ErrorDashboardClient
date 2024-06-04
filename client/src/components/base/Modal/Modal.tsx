@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
@@ -5,16 +6,24 @@ import {
   DialogTitle,
 } from "components/ui/dialog";
 import BaseButton from "components/base/Button/Button";
-import { ReactNode } from "react";
 
 interface ModalProps {
   header: string;
   content: ReactNode;
   open: boolean;
   onClose: () => void;
+  onConfirm?: () => void;
+  showConfirmButtons?: boolean;
 }
 
-const Modal = ({ header, content, open, onClose }: ModalProps) => {
+const Modal = ({
+  header,
+  content,
+  open,
+  onClose,
+  onConfirm,
+  showConfirmButtons,
+}: ModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
@@ -23,7 +32,22 @@ const Modal = ({ header, content, open, onClose }: ModalProps) => {
         </DialogHeader>
         <div className="p-4">{content}</div>
         <div className="flex flex-row justify-end p-4">
-          <BaseButton content="Close" onClick={onClose} variant="default" />
+          {showConfirmButtons ? (
+            <>
+              <BaseButton
+                content="Cancel"
+                onClick={onClose}
+                variant="default"
+              />
+              <BaseButton
+                content="Confirm"
+                onClick={onConfirm}
+                variant="default"
+              />
+            </>
+          ) : (
+            <BaseButton content="Close" onClick={onClose} variant="default" />
+          )}
         </div>
       </DialogContent>
     </Dialog>

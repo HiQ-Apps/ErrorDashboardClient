@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { RootState } from "configs/store";
 import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
 import {
   setIsAuthenticated,
@@ -9,11 +10,14 @@ import {
   clearToken,
   selectIsAuthenticated,
 } from "features/authSlice";
+import { openModal, closeModal } from "features/modalSlice";
 import { selectIsDark, setDarkMode } from "features/darkSlice";
 import Modal from "components/base/Modal/Modal";
 import BaseButton from "components/base/Button/Button";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
+
+type ModalVersion = "login" | "register" | null;
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -21,15 +25,22 @@ const Navbar = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isDarkMode = useSelector(selectIsDark);
 
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<ModalVersion>(null);
 
-  const handleLoginClick = () => {
-    setIsLoginOpen((prev) => !prev);
+  const { isOpen } = useSelector((state: RootState) => state.modal);
+
+  const handleRegisterOpenModalClick = () => {
+    setModalContent("register");
+    dispatch(openModal({}));
   };
 
-  const handleRegistrationClick = () => {
-    setIsRegisterOpen((prev) => !prev);
+  const handleLoginOpenModalClick = () => {
+    setModalContent("login");
+    dispatch(openModal({}));
+  };
+
+  const handleCloseModalClick = () => {
+    dispatch(closeModal());
   };
 
   const handleHomeClick = () => {
@@ -61,13 +72,13 @@ const Navbar = () => {
         />
         <BaseButton
           content="Login"
-          onClick={handleLoginClick}
+          onClick={handleLoginOpenModalClick}
           variant="navbutton"
           override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
         <BaseButton
           content="Register"
-          onClick={handleRegistrationClick}
+          onClick={handleRegisterOpenModalClick}
           variant="navbutton"
           override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
@@ -98,15 +109,15 @@ const Navbar = () => {
       </div>
       <Modal
         header="Login"
-        content={<LoginForm onClose={handleLoginClick} />}
-        open={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
+        content={<LoginForm onClose={handleCloseModalClick} />}
+        open={isOpen && modalContent === "login"}
+        onClose={handleCloseModalClick}
       />
       <Modal
         header="Register"
-        content={<RegistrationForm onClose={handleRegistrationClick} />}
-        open={isRegisterOpen}
-        onClose={() => setIsRegisterOpen(false)}
+        content={<RegistrationForm onClose={handleCloseModalClick} />}
+        open={isOpen && modalContent === "register"}
+        onClose={handleCloseModalClick}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { Button } from "components/ui/button";
 interface ButtonProps {
   content?: ReactNode;
   image?: string;
-  onClick: () => void;
+  onClick?: () => void;
   size?: "default" | "sm" | "lg" | "icon";
   variant:
     | "default"
@@ -25,7 +25,7 @@ interface ButtonProps {
 const BaseButton = ({
   content,
   image,
-  onClick,
+  onClick = () => {},
   variant,
   disabled,
   override_styles,

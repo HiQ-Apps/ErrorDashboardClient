@@ -1,6 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useToast } from "components/ui/use-toast";
+import { RootState } from "configs/store";
+import { openModal, closeModal } from "features/modalSlice";
 import Modal from "components/base/Modal/Modal";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import BaseButton from "components/base/Button/Button";
@@ -8,19 +10,29 @@ import NamespaceDataTable from "components/composite/NamespaceDataTable/Namespac
 import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 
 const Namespaces = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state: RootState) => state.modal);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
   };
 
   const handleOpenCreateNamespaceModal = () => {
-    setIsOpen(true);
+    dispatch(openModal({}));
   };
 
   const handleCloseCreateNamespaceModal = () => {
-    setIsOpen(false);
+    dispatch(closeModal());
+    toast({
+      title: "Namespace created successfully",
+      description: "Success",
+    });
+  };
+
+  const handleConfirmCreateNamespace = () => {
+    handleCloseCreateNamespaceModal();
   };
 
   const links = [
@@ -47,6 +59,8 @@ const Namespaces = () => {
         }
         open={isOpen}
         onClose={handleCloseCreateNamespaceModal}
+        showConfirmButtons={true}
+        onConfirm={handleConfirmCreateNamespace}
       />
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <NamespaceSidebar links={links} />
