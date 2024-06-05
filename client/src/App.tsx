@@ -16,7 +16,9 @@ import UserRoutes from "routes/UserRoutes";
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 
 const App = () => {
+  // For error boundary
   useClearErrorOnNavigate();
+
   const dispatch = useDispatch();
   const isDark = useSelector(selectIsDark);
 

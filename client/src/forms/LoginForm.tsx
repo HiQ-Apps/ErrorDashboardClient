@@ -6,7 +6,6 @@ import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
 import { type LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
-import { i } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 interface LoginFormProps {
   onClose: () => void;

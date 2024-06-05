@@ -1,4 +1,4 @@
-import React, { Component, ReactNode, ErrorInfo } from "react";
+import { Component, ReactNode, ErrorInfo } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "configs/store";
 import { setError, clearError } from "features/errorBoundarySlice";
@@ -11,7 +11,7 @@ interface Props extends PropsFromRedux {
 }
 
 class ErrorBoundaryBase extends Component<Props> {
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
