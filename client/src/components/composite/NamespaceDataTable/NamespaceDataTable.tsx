@@ -6,6 +6,13 @@ import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "components/ui/tooltip";
+import TrashCan from "components/base/TrashCan/TrashCan";
 import { selectUser } from "features/authSlice";
 import { DataTable } from "components/base/DataTable/DataTable";
 import { ActiveDot, InactiveDot } from "assets/index";
@@ -96,7 +103,7 @@ const NamespaceDataTable = () => {
               "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
             }
           >
-            {isBoolean ? renderBooleanCell(value as boolean) : String(value)}
+            {isBoolean ? renderBooleanCell(value) : String(value)}
           </div>
         );
       },
@@ -104,14 +111,14 @@ const NamespaceDataTable = () => {
   );
 
   columns.push({
-    header: "Actions",
+    header: "Delete",
     id: "actions",
     cell: ({ row }) => (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center">
         <BaseButton
-          content="Delete"
-          variant="destructive"
-          size="sm"
+          content={<TrashCan />}
+          variant="outline"
+          size="lg"
           onClick={() => handleDelete(row.original.id)}
         />
       </div>
