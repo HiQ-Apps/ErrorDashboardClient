@@ -1,6 +1,12 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
+import {
+  openModal,
+  closeModal,
+  selectIsOpen,
+  selectModalType,
+} from "features/modalSlice";
 import Modal from "components/base/Modal/Modal";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import BaseButton from "components/base/Button/Button";
@@ -8,15 +14,30 @@ import NamespaceDataTable from "components/composite/NamespaceDataTable/Namespac
 import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 
 const Namespaces = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isOpen = useSelector(selectIsOpen);
+  const modalType = useSelector(selectModalType);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
   };
 
   const handleOpenCreateNamespaceModal = () => {
-    setIsOpen(!isOpen);
+    dispatch(
+      openModal({
+        modalType: "createNamespace",
+      })
+    );
+  };
+
+  const handleCloseCreateNamespaceModal = () => {
+    dispatch(closeModal());
+  };
+
+  const handleConfirmCreateNamespace = () => {
+    handleCloseCreateNamespaceModal();
   };
 
   const links = [
@@ -39,10 +60,12 @@ const Namespaces = () => {
       <Modal
         header="Create Namespace"
         content={
-          <CreateNamespaceForm onClose={handleOpenCreateNamespaceModal} />
+          <CreateNamespaceForm onClose={handleCloseCreateNamespaceModal} />
         }
-        open={isOpen}
-        onClose={handleOpenCreateNamespaceModal}
+        open={isOpen && modalType === "createNamespace"}
+        onClose={handleCloseCreateNamespaceModal}
+        showConfirmButtons={false}
+        onConfirm={handleConfirmCreateNamespace}
       />
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <NamespaceSidebar links={links} />

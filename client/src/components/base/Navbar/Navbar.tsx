@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,6 +8,12 @@ import {
   clearToken,
   selectIsAuthenticated,
 } from "features/authSlice";
+import {
+  openModal,
+  closeModal,
+  selectModalType,
+  selectIsOpen,
+} from "features/modalSlice";
 import { selectIsDark, setDarkMode } from "features/darkSlice";
 import Modal from "components/base/Modal/Modal";
 import BaseButton from "components/base/Button/Button";
@@ -21,15 +26,27 @@ const Navbar = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isDarkMode = useSelector(selectIsDark);
 
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const isOpen = useSelector(selectIsOpen);
+  const modalType = useSelector(selectModalType);
 
-  const handleLoginClick = () => {
-    setIsLoginOpen((prev) => !prev);
+  const handleRegisterOpenModalClick = () => {
+    dispatch(
+      openModal({
+        modalType: "registration",
+      })
+    );
   };
 
-  const handleRegistrationClick = () => {
-    setIsRegisterOpen((prev) => !prev);
+  const handleLoginOpenModalClick = () => {
+    dispatch(
+      openModal({
+        modalType: "login",
+      })
+    );
+  };
+
+  const handleCloseModalClick = () => {
+    dispatch(closeModal());
   };
 
   const handleHomeClick = () => {
@@ -61,13 +78,13 @@ const Navbar = () => {
         />
         <BaseButton
           content="Login"
-          onClick={handleLoginClick}
+          onClick={handleLoginOpenModalClick}
           variant="navbutton"
           override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
         <BaseButton
           content="Register"
-          onClick={handleRegistrationClick}
+          onClick={handleRegisterOpenModalClick}
           variant="navbutton"
           override_styles={isAuthenticated ? "hidden" : "mx-1"}
         />
@@ -98,15 +115,17 @@ const Navbar = () => {
       </div>
       <Modal
         header="Login"
-        content={<LoginForm onClose={handleLoginClick} />}
-        open={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
+        content={<LoginForm onClose={handleCloseModalClick} />}
+        open={isOpen && modalType === "login"}
+        onClose={handleCloseModalClick}
+        showConfirmButtons={false}
       />
       <Modal
         header="Register"
-        content={<RegistrationForm onClose={handleRegistrationClick} />}
-        open={isRegisterOpen}
-        onClose={() => setIsRegisterOpen(false)}
+        content={<RegistrationForm onClose={handleCloseModalClick} />}
+        open={isOpen && modalType === "registration"}
+        onClose={handleCloseModalClick}
+        showConfirmButtons={false}
       />
     </div>
   );

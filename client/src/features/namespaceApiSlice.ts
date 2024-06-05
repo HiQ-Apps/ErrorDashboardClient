@@ -10,7 +10,7 @@ import { PaginationWithId } from "shared/types/extra";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createNamespace: builder.mutation<NamespaceData, CreateNamespaceRequest>({
+    createNamespace: builder.mutation<string, CreateNamespaceRequest>({
       query: (new_namespace) => ({
         url: "/namespace/",
         method: "POST",
@@ -33,7 +33,10 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       providesTags: ["NamespaceDetail"],
     }),
-    updateNamespaceById: builder.mutation<NamespaceData,UpdateNamespaceRequest>({
+    updateNamespaceById: builder.mutation<
+      NamespaceData,
+      UpdateNamespaceRequest
+    >({
       query: (namespace) => ({
         url: `/namespace/${namespace.id}`,
         method: "PUT",

@@ -1,22 +1,34 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type ColumnDef } from "@tanstack/react-table";
-
 import { formatHeader } from "shared/utils/parseString";
-import { useGetNamespacesByUserQuery } from "features/namespaceApiSlice";
+import {
+  useGetNamespacesByUserQuery,
+  useDeleteNamespaceByIdMutation,
+} from "features/namespaceApiSlice";
 import { selectUser } from "features/authSlice";
 import { DataTable } from "components/base/DataTable/DataTable";
 import { ActiveDot, InactiveDot } from "assets/index";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import useConfirmMutation from "hooks/useConfirmMutation";
+import BaseButton from "components/base/Button/Button";
+import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
+import { VerifyUserRequest } from "types/User";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const { triggerConfirmation } = useConfirmMutation();
+  const [selectedNamespaceId, setSelectedNamespaceId] = useState<string | null>(
+    null
+  );
 
   const { data, isLoading } = useGetNamespacesByUserQuery(
-    { id: user?.id || "", offset: 0, limit: 10 },
+    { id: user?.id || "", offset: 0, limit: 20 },
     { skip: !user?.id }
   );
+
+  const [deleteNamespaceById] = useDeleteNamespaceByIdMutation();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -28,6 +40,29 @@ const NamespaceDataTable = () => {
 
   const handleRowClick = (id: string) => {
     navigate(`/namespace/${id}`);
+  };
+
+  const handleDelete = async (
+    id: string,
+    credentials?: { password: string }
+  ) => {
+    setSelectedNamespaceId(id);
+    if (!credentials) {
+      try {
+        await triggerConfirmation();
+        deleteNamespaceById(id);
+      } catch (error) {
+        console.error("Action rejected or failed:", error);
+      }
+      return;
+    }
+
+    try {
+      await deleteNamespaceById(id).unwrap();
+      console.log("Namespace deleted successfully");
+    } catch (error) {
+      console.error("Action rejected or failed:", error);
+    }
   };
 
   const renderBooleanCell = (value: boolean): ReactNode =>
@@ -68,7 +103,33 @@ const NamespaceDataTable = () => {
     })
   );
 
-  return <DataTable data={data ?? []} columns={columns} />;
+  columns.push({
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => (
+      <div className="flex justify-center items-center">
+        <BaseButton
+          content="Delete"
+          variant="destructive"
+          size="sm"
+          onClick={() => handleDelete(row.original.id)}
+        />
+      </div>
+    ),
+  });
+
+  return (
+    <div>
+      <DataTable data={data ?? []} columns={columns} />
+      {selectedNamespaceId && (
+        <ConfirmationModal
+          onConfirm={(credentials: VerifyUserRequest) =>
+            handleDelete(selectedNamespaceId, credentials)
+          }
+        />
+      )}
+    </div>
+  );
 };
 
 export default NamespaceDataTable;

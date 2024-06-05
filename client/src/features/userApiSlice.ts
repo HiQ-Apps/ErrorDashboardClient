@@ -3,6 +3,7 @@ import type {
   AuthResponse,
   LoginUserRequest,
   RegisterUserRequest,
+  VerifyUserRequest,
 } from "types/User";
 
 export const userApiSlice = baseApi.injectEndpoints({
@@ -27,6 +28,13 @@ export const userApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    verifyUser: builder.mutation<null, VerifyUserRequest>({
+      query: (credentials) => ({
+        url: "/auth/verify",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -34,4 +42,5 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useRefreshAccessTokenQuery,
+  useVerifyUserMutation,
 } = userApiSlice;

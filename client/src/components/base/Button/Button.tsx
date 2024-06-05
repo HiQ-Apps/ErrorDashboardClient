@@ -1,10 +1,11 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Button } from "components/ui/button";
+import { type ButtonClickEvent } from "shared/types/extra";
 
 interface ButtonProps {
   content?: ReactNode;
   image?: string;
-  onClick: () => void;
+  onClick?: (event: ButtonClickEvent) => void | Promise<void>;
   size?: "default" | "sm" | "lg" | "icon";
   variant:
     | "default"
@@ -25,7 +26,7 @@ interface ButtonProps {
 const BaseButton = ({
   content,
   image,
-  onClick,
+  onClick = () => {},
   variant,
   disabled,
   override_styles,
@@ -34,7 +35,7 @@ const BaseButton = ({
   return (
     <Button
       size={size}
-      onClick={onClick}
+      onClick={(e) => onClick?.(e as ButtonClickEvent)}
       variant={variant}
       className={override_styles}
       disabled={disabled}

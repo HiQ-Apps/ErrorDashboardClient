@@ -3,9 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, selectIsDark } from "features/darkSlice";
 
-// Base components
-import Navbar from "components/composite/Navbar/Navbar";
+// Components
+import Navbar from "components/base/Navbar/Navbar";
 import Footer from "components/base/Footer/Footer";
+import { Toaster } from "components/ui/toaster";
 
 // Routes
 import NamespaceRoutes from "routes/NamespaceRoutes";
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/error/*" element={<ErrorRoutes />} />
         <Route path="/user/*" element={<UserRoutes />} />
       </Routes>
+      <Toaster />
       <Footer />
     </div>
   );

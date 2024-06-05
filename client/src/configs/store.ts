@@ -4,10 +4,12 @@ import { baseApi } from "features/baseApi";
 import authReducer from "features/authSlice";
 import darkReducer from "features/darkSlice";
 import sidebarReducer from "features/sidebarSlice";
+import modalReducer from "features/modalSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    modal: modalReducer,
     dark: darkReducer,
     sidebar: sidebarReducer,
     [baseApi.reducerPath]: baseApi.reducer,
