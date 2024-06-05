@@ -1,49 +1,50 @@
-import { useSelector } from "react-redux";
+import { ReactNode, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type ColumnDef } from "@tanstack/react-table";
-import { formatHeader } from "shared/utils/parseString";
+import type { VerifyUserRequest } from "types/User";
 import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-} from "components/ui/tooltip";
+import { setError, clearError } from "features/errorBoundarySlice";
 import TrashCan from "components/base/TrashCan/TrashCan";
-import { selectUser } from "features/authSlice";
 import { DataTable } from "components/base/DataTable/DataTable";
 import { ActiveDot, InactiveDot } from "assets/index";
-import { ReactNode, useState } from "react";
+import { selectUser } from "features/authSlice";
 import useConfirmMutation from "hooks/useConfirmMutation";
 import BaseButton from "components/base/Button/Button";
 import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
-import { VerifyUserRequest } from "types/User";
+import { formatHeader } from "shared/utils/parseString";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { triggerConfirmation } = useConfirmMutation();
   const [selectedNamespaceId, setSelectedNamespaceId] = useState<string | null>(
     null
   );
 
-  const { data, isLoading } = useGetNamespacesByUserQuery(
+  const { data, isLoading, isError, error } = useGetNamespacesByUserQuery(
     { id: user?.id || "", offset: 0, limit: 20 },
     { skip: !user?.id }
   );
 
   const [deleteNamespaceById] = useDeleteNamespaceByIdMutation();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!data || data.length === 0) {
-    return <div>No namespaces found.</div>;
-  }
+  useEffect(() => {
+    if (isError && error) {
+      dispatch(
+        setError({
+          error: error as Error,
+          errorInfo: { componentStack: "Error in useGetNamespacesByUserQuery" },
+        })
+      );
+    } else {
+      dispatch(clearError());
+    }
+  }, [isError, error, dispatch]);
 
   const handleRowClick = (id: string) => {
     navigate(`/namespace/${id}`);
@@ -53,11 +54,10 @@ const NamespaceDataTable = () => {
     id: string,
     credentials?: { password: string }
   ) => {
-    setSelectedNamespaceId(id);
     if (!credentials) {
+      setSelectedNamespaceId(id);
       try {
         await triggerConfirmation();
-        deleteNamespaceById(id);
       } catch (error) {
         console.error("Action rejected or failed:", error);
       }
@@ -88,6 +88,14 @@ const NamespaceDataTable = () => {
         height="20px"
       />
     );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data || data.length === 0) {
+    return <div>No namespaces found.</div>;
+  }
 
   const columns: ColumnDef<(typeof data)[0]>[] = Object.keys(data[0]).map(
     (key) => ({

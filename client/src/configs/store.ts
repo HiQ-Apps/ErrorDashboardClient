@@ -5,6 +5,7 @@ import authReducer from "features/authSlice";
 import darkReducer from "features/darkSlice";
 import sidebarReducer from "features/sidebarSlice";
 import modalReducer from "features/modalSlice";
+import errorBoundaryReducer from "features/errorBoundarySlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     modal: modalReducer,
     dark: darkReducer,
     sidebar: sidebarReducer,
+    errorBoundary: errorBoundaryReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

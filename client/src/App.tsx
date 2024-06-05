@@ -13,8 +13,10 @@ import NamespaceRoutes from "routes/NamespaceRoutes";
 import BaseRoutes from "routes/BaseRoutes";
 import ErrorRoutes from "routes/ErrorRoutes";
 import UserRoutes from "routes/UserRoutes";
+import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 
 const App = () => {
+  useClearErrorOnNavigate();
   const dispatch = useDispatch();
   const isDark = useSelector(selectIsDark);
 
