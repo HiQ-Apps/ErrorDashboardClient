@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.trash-can:hover .lid {
+      animation: lid-up 0.3s ease-out forwards;
+}
+
+.trash-can .lid {
+      animation: lid-down 0.1s ease-out forwards;
+}
+
+/* Keyframes for animations */
+@keyframes lid-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes lid-down {
+  from {
+    transform: translateY(-5px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-error {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: '#ef4444'
+    }
+}
