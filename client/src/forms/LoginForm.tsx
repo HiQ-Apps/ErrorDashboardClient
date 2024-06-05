@@ -4,7 +4,7 @@ import { Input } from "components/ui/input";
 
 import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
-import { LoginSchema, loginSchema } from "schemas/loginSchema";
+import { type LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
 
 interface LoginFormProps {

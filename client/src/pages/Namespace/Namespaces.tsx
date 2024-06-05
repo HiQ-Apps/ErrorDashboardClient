@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useToast } from "components/ui/use-toast";
-import { RootState } from "configs/store";
-import { openModal, closeModal } from "features/modalSlice";
+import {
+  openModal,
+  closeModal,
+  selectIsOpen,
+  selectModalType,
+} from "features/modalSlice";
 import Modal from "components/base/Modal/Modal";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import BaseButton from "components/base/Button/Button";
@@ -10,25 +14,26 @@ import NamespaceDataTable from "components/composite/NamespaceDataTable/Namespac
 import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 
 const Namespaces = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state: RootState) => state.modal);
+
+  const isOpen = useSelector(selectIsOpen);
+  const modalType = useSelector(selectModalType);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
   };
 
   const handleOpenCreateNamespaceModal = () => {
-    dispatch(openModal({}));
+    dispatch(
+      openModal({
+        modalType: "createNamespace",
+      })
+    );
   };
 
   const handleCloseCreateNamespaceModal = () => {
     dispatch(closeModal());
-    toast({
-      title: "Namespace created successfully",
-      description: "Success",
-    });
   };
 
   const handleConfirmCreateNamespace = () => {
@@ -57,9 +62,9 @@ const Namespaces = () => {
         content={
           <CreateNamespaceForm onClose={handleCloseCreateNamespaceModal} />
         }
-        open={isOpen}
+        open={isOpen && modalType === "createNamespace"}
         onClose={handleCloseCreateNamespaceModal}
-        showConfirmButtons={true}
+        showConfirmButtons={false}
         onConfirm={handleConfirmCreateNamespace}
       />
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">

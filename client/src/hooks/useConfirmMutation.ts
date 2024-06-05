@@ -1,23 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-
-import type { LoginUserRequest } from "types/User";
-import { RootState } from "configs/store";
-import { openModal, closeModal } from "features/modalSlice";
+import {
+  openModal,
+  closeModal,
+  confirm,
+  selectIsOpen,
+} from "features/modalSlice";
 import { useVerifyUserMutation } from "features/userApiSlice";
 
 const useConfirmMutation = () => {
   const dispatch = useDispatch();
   const [verifyUser] = useVerifyUserMutation();
-  const modalOpen = useSelector((state: RootState) => state.modal.isOpen);
+  const modalOpen = useSelector(selectIsOpen);
 
-  const triggerConfirmation = (credentials: LoginUserRequest) => {
-    return new Promise((resolve, reject) => {
+  const triggerConfirmation = () => {
+    return new Promise<{ password: string }>((resolve, reject) => {
       dispatch(
         openModal({
-          onConfirm: async () => {
+          modalType: "confirmation",
+          onConfirm: async (credentials: { password: string }) => {
             try {
-              const result = await verifyUser(credentials).unwrap();
-              resolve(result);
+              await verifyUser(credentials).unwrap();
+              resolve(credentials);
             } catch (err) {
               reject(err);
             } finally {
@@ -33,7 +36,11 @@ const useConfirmMutation = () => {
     });
   };
 
-  return { triggerConfirmation, modalOpen };
+  const confirmWithCredentials = (credentials: { password: string }) => {
+    dispatch(confirm(credentials));
+  };
+
+  return { triggerConfirmation, confirmWithCredentials, modalOpen };
 };
 
 export default useConfirmMutation;

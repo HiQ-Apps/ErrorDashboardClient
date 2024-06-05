@@ -4,7 +4,7 @@ import { useToast } from "components/ui/use-toast";
 
 import { useCreateNamespaceMutation } from "features/namespaceApiSlice";
 import {
-  CreateNamespaceSchema,
+  type CreateNamespaceSchema,
   createNamespaceSchema,
 } from "schemas/createNamespaceSchema";
 import useForm from "hooks/useForm";

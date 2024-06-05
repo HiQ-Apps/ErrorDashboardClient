@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "configs/store";
 import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
 import {
   setIsAuthenticated,
@@ -10,14 +8,17 @@ import {
   clearToken,
   selectIsAuthenticated,
 } from "features/authSlice";
-import { openModal, closeModal } from "features/modalSlice";
+import {
+  openModal,
+  closeModal,
+  selectModalType,
+  selectIsOpen,
+} from "features/modalSlice";
 import { selectIsDark, setDarkMode } from "features/darkSlice";
 import Modal from "components/base/Modal/Modal";
 import BaseButton from "components/base/Button/Button";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
-
-type ModalVersion = "login" | "register" | null;
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,18 +26,23 @@ const Navbar = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isDarkMode = useSelector(selectIsDark);
 
-  const [modalContent, setModalContent] = useState<ModalVersion>(null);
-
-  const { isOpen } = useSelector((state: RootState) => state.modal);
+  const isOpen = useSelector(selectIsOpen);
+  const modalType = useSelector(selectModalType);
 
   const handleRegisterOpenModalClick = () => {
-    setModalContent("register");
-    dispatch(openModal({}));
+    dispatch(
+      openModal({
+        modalType: "registration",
+      })
+    );
   };
 
   const handleLoginOpenModalClick = () => {
-    setModalContent("login");
-    dispatch(openModal({}));
+    dispatch(
+      openModal({
+        modalType: "login",
+      })
+    );
   };
 
   const handleCloseModalClick = () => {
@@ -110,14 +116,16 @@ const Navbar = () => {
       <Modal
         header="Login"
         content={<LoginForm onClose={handleCloseModalClick} />}
-        open={isOpen && modalContent === "login"}
+        open={isOpen && modalType === "login"}
         onClose={handleCloseModalClick}
+        showConfirmButtons={false}
       />
       <Modal
         header="Register"
         content={<RegistrationForm onClose={handleCloseModalClick} />}
-        open={isOpen && modalContent === "register"}
+        open={isOpen && modalType === "registration"}
         onClose={handleCloseModalClick}
+        showConfirmButtons={false}
       />
     </div>
   );
