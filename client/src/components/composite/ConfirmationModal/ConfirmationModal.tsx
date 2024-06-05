@@ -12,15 +12,14 @@ const ConfirmationModal = ({ onConfirm }: ConfirmationModalProps) => {
   const isOpen = useSelector(selectIsOpen);
   const modalType = useSelector(selectModalType);
 
+  const handleConfirm = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <Modal
       header="Confirmation"
-      content={
-        <VerifyUserForm
-          onClose={() => dispatch(closeModal())}
-          onConfirm={onConfirm}
-        />
-      }
+      content={<VerifyUserForm onClose={handleConfirm} onConfirm={onConfirm} />}
       open={isOpen && modalType === "confirmation"}
       onClose={() => dispatch(closeModal())}
       showConfirmButtons={false}

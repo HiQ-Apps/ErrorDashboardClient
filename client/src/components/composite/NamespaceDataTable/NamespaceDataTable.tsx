@@ -24,7 +24,7 @@ const NamespaceDataTable = () => {
   );
 
   const { data, isLoading } = useGetNamespacesByUserQuery(
-    { id: user?.id || "", offset: 0, limit: 10 },
+    { id: user?.id || "", offset: 0, limit: 20 },
     { skip: !user?.id }
   );
 

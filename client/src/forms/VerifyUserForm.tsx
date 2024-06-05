@@ -25,6 +25,7 @@ const VerifyUserForm = ({ onClose, onConfirm }: VerifyUserFormProps) => {
     if (validate()) {
       try {
         onConfirm(form);
+        onClose();
       } catch (err) {
         toast({
           title: "Error Verifying User",
@@ -35,7 +36,7 @@ const VerifyUserForm = ({ onClose, onConfirm }: VerifyUserFormProps) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <h1>Verify User</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -58,6 +59,7 @@ const VerifyUserForm = ({ onClose, onConfirm }: VerifyUserFormProps) => {
           size="sm"
           content="Verify User"
           onClick={handleSubmit}
+          override_styles="my-4"
         />
       </form>
     </div>
