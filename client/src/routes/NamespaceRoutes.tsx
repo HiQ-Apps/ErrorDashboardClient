@@ -4,7 +4,6 @@ import Namespaces from "pages/Namespace/Namespaces";
 import NamespaceDetail from "pages/Namespace/NamespaceDetail";
 import NamespaceLogs from "pages/Namespace/NamespaceLogs";
 import NamespaceMetrics from "pages/Namespace/NamespaceMetrics";
-import NamespaceConsole from "pages/Namespace/NamespaceConsole";
 
 const NamespaceRoutes = () => {
   return (

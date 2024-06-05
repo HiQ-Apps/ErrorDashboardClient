@@ -7,6 +7,7 @@ import BlackHome from "assets/BlackHome.svg";
 import WhiteHome from "assets/WhiteHome.svg";
 import CircularLoader from "assets/CircularLoader.svg";
 import RightArrow from "assets/RightArrow.svg";
+import ErrorSheldon from "assets/ErrorSheldon.png";
 
 export {
   AppIcon,
@@ -18,4 +19,5 @@ export {
   WhiteHome,
   CircularLoader,
   RightArrow,
+  ErrorSheldon,
 };
