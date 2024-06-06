@@ -21,7 +21,7 @@ const Sidebar = ({
     >
       <CardHeader>
         <CardTitle>{header}</CardTitle>
-        <CardContent>
+        <CardContent className="p-0">
           {links.map((link, index) => (
             <div className="my-2" key={index}>
               {link}

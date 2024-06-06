@@ -8,7 +8,6 @@ const useClearErrorOnNavigate = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("should clear error");
     dispatch(clearError());
   }, [location, dispatch]);
 };
