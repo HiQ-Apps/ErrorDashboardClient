@@ -42,7 +42,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
         method: "PUT",
         body: namespace,
       }),
-      invalidatesTags: ["NamespaceDetail"],
+      invalidatesTags: ["NamespaceDetail", "AllNamespace"],
     }),
     getNamespaceErrors: builder.query<ShortErrorData[], PaginationWithId>({
       query: ({ id, offset = 0, limit = 10 }: PaginationWithId) => ({

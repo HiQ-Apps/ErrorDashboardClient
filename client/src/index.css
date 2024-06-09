@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 .trash-can:hover .lid {
       animation: lid-up 0.3s ease-out forwards;
 }
