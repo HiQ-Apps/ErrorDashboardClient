@@ -1,4 +1,4 @@
-import { type FormEvent, type MouseEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UpdateIcon, EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { Input } from "components/ui/input";

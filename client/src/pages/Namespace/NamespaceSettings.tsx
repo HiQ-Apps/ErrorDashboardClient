@@ -2,8 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 import BaseButton from "components/base/Button/Button";
-import UpdateNamespaceForm from "forms/UpdateNamespaceForm";
-import { Card, CardHeader } from "components/ui/card";
+import UpdateNamespaceCard from "components/composite/UpdateNamespaceCard/UpdateNamespaceCard";
 import { Separator } from "components/ui/separator";
 
 const NamespaceSettings = () => {
@@ -56,10 +55,7 @@ const NamespaceSettings = () => {
         <h1 className="py-12 underline underline-offset-8">
           Namespace Settings
         </h1>
-        <Card className="pb-16 mr-4 dark:text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-          <CardHeader>Update Namespace</CardHeader>
-          <UpdateNamespaceForm />
-        </Card>
+        <UpdateNamespaceCard />
         <Separator className="my-8 bg-slate-600 dark:bg-slate-200" />
         <h1 className="pl-8 pr-4">Alerting</h1>
       </div>
