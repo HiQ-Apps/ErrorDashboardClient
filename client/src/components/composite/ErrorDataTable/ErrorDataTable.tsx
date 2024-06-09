@@ -17,7 +17,6 @@ interface ErrorDataTableProps {
 const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   const navigate = useNavigate();
 
-  // Replace with batching
   const wsUrl = `${API_URL}/namespace/${id}/error/ws`;
 
   const { messages, resetMessages } = useWebSocket<ShortErrorData>(wsUrl);

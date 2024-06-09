@@ -2,13 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
-import {
-  setIsAuthenticated,
-  clearUser,
-  clearToken,
-  selectIsAuthenticated,
-  clearAuth,
-} from "features/authSlice";
+import { selectIsAuthenticated, clearAuth } from "features/authSlice";
 import {
   openModal,
   closeModal,
