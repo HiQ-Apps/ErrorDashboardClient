@@ -1,7 +1,7 @@
 import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Input } from "components/ui/input";
 
+import { Input, Label, BaseButton } from "components/base";
 import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
 import { type LoginSchema, loginSchema } from "schemas/loginSchema";
@@ -43,12 +43,13 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
   return (
     <form onSubmit={handleLoginClick}>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Email</label>
+        <Label htmlFor="email" text="email" />
         <Input
+          id="email"
           type="email"
+          value={form.email}
           name="email"
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.email && (
           <span className="text-error text-sm">
@@ -57,12 +58,13 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Password</label>
+        <Label htmlFor="password" text="password" />
         <Input
+          id="password"
           type="password"
           name="password"
+          value={form.password}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.password && (
           <span className="text-error text-sm">

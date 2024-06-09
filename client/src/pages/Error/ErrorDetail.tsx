@@ -1,9 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
-import BaseButton from "components/base/Button/Button";
-import ErrorSidebar from "components/composite/ErrorSidebar/ErrorSidebar";
-import ErrorDetailCard from "components/composite/ErrorDetailCard/ErrorDetailCard";
+import { BaseButton } from "components/base";
+import { ErrorSidebar, ErrorDetailCard } from "components/composite";
 
 const ErrorDetail = () => {
   const navigate = useNavigate();

@@ -1,8 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 
-import BaseButton from "components/base/Button/Button";
-import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
-import ErrorLogTable from "components/composite/ErrorLogTable/ErrorLogTable";
+import { BaseButton } from "components/base";
+import { NamespaceSidebar, ErrorLogTable } from "components/composite";
 
 const NamespaceLogs = () => {
   const { id } = useParams();
@@ -17,12 +16,22 @@ const NamespaceLogs = () => {
     navigate(`/namespace/console`);
   };
 
+  const handleNamespaceSettingsClick = () => {
+    navigate(`/namespace/${id}/settings`);
+  };
+
   const links = [
     <BaseButton
       content="Console"
       size="sm"
       variant="sidenavbutton"
       onClick={handleNamespaceConsoleClick}
+    />,
+    <BaseButton
+      content="Settings"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceSettingsClick}
     />,
   ];
 
