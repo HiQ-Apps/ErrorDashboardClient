@@ -22,7 +22,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
 
   const { toast } = useToast();
 
-  const [createNamespace, { data, isSuccess, isError }] =
+  const [createNamespace, { isSuccess, isError }] =
     useCreateNamespaceMutation();
 
   const handleCreateNamespaceClick = async (event: FormEvent) => {
@@ -41,7 +41,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
       onClose();
       toast({
         title: "Namespace created successfully",
-        description: `Namespace ${data} created successfully`,
+        description: `Namespace created successfully`,
       });
     }
   }, [isSuccess]);

@@ -1,75 +1,103 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type ColumnDef } from "@tanstack/react-table";
-import type { VerifyUserRequest } from "types/User";
 import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
+import { useVerifyUserMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
 import TrashCan from "components/base/TrashCan/TrashCan";
 import { DataTable } from "components/base/DataTable/DataTable";
 import { ActiveDot, InactiveDot } from "assets/index";
 import { selectUser } from "features/authSlice";
-import useConfirmMutation from "hooks/useConfirmMutation";
 import BaseButton from "components/base/Button/Button";
-import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
 import { formatHeader } from "shared/utils/parseString";
+import { useToast } from "components/ui/use-toast";
+import { useModalHandlerContext } from "shared/context/modalHandlerContext";
+import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
+import { openModal, closeModal } from "features/modalSlice";
+import { VerifyUserRequest } from "types/User";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { triggerConfirmation } = useConfirmMutation();
-  const [selectedNamespaceId, setSelectedNamespaceId] = useState<string | null>(
-    null
-  );
+  const { toast } = useToast();
+  const { registerHandler, unregisterHandler } = useModalHandlerContext();
 
-  const { data, isLoading, isError, error } = useGetNamespacesByUserQuery(
+  const [verifyUser] = useVerifyUserMutation();
+
+  const {
+    data: namespaceData,
+    isLoading: namespaceLoading,
+    isError: namespaceIsError,
+    error: namespaceError,
+  } = useGetNamespacesByUserQuery(
     { id: user?.id || "", offset: 0, limit: 20 },
     { skip: !user?.id }
   );
 
-  const [deleteNamespaceById] = useDeleteNamespaceByIdMutation();
+  const [
+    deleteNamespaceById,
+    { isSuccess: deleteSuccess, isError: deleteError },
+  ] = useDeleteNamespaceByIdMutation();
 
   useEffect(() => {
-    if (isError && error) {
+    if (namespaceIsError && namespaceError) {
       dispatch(
         setError({
-          error: error as Error,
+          error: namespaceError as Error,
           errorInfo: { componentStack: "Error in useGetNamespacesByUserQuery" },
         })
       );
     } else {
       dispatch(clearError());
     }
-  }, [isError, error, dispatch]);
+  }, [namespaceIsError, namespaceError, dispatch]);
+
+  useEffect(() => {
+    if (deleteSuccess) {
+      toast({
+        title: "Namespace deleted successfully",
+      });
+    }
+  }, [deleteSuccess, toast]);
+
+  useEffect(() => {
+    if (deleteError) {
+      toast({
+        title: "Namespace deletion failed",
+        description: "error",
+      });
+    }
+  }, [deleteError, toast]);
 
   const handleRowClick = (id: string) => {
     navigate(`/namespace/${id}`);
   };
 
-  const handleDelete = async (
-    id: string,
-    credentials?: { password: string }
-  ) => {
-    if (!credentials) {
-      setSelectedNamespaceId(id);
-      try {
-        await triggerConfirmation();
-      } catch (error) {
-        console.error("Action rejected or failed:", error);
+  const handleDelete = async (id: string) => {
+    registerHandler(
+      async (password: VerifyUserRequest) => {
+        try {
+          await verifyUser(password).unwrap();
+          deleteNamespaceById(id).unwrap();
+          dispatch(closeModal());
+          console.log("Namespace deleted successfully");
+          unregisterHandler();
+        } catch (error) {
+          console.error("Action rejected or failed:", error);
+        }
+      },
+      () => {
+        console.error("Action rejected");
+        unregisterHandler();
+        dispatch(closeModal());
       }
-      return;
-    }
-
-    try {
-      await deleteNamespaceById(id).unwrap();
-      console.log("Namespace deleted successfully");
-    } catch (error) {
-      console.error("Action rejected or failed:", error);
-    }
+    );
+    dispatch(openModal({ modalType: "confirmation" }));
   };
 
   const renderBooleanCell = (value: boolean): ReactNode =>
@@ -89,34 +117,34 @@ const NamespaceDataTable = () => {
       />
     );
 
-  if (isLoading) {
+  if (namespaceLoading) {
     return <div>Loading...</div>;
   }
 
-  if (!data || data.length === 0) {
+  if (!namespaceData || namespaceData.length === 0) {
     return <div>No namespaces found.</div>;
   }
 
-  const columns: ColumnDef<(typeof data)[0]>[] = Object.keys(data[0]).map(
-    (key) => ({
-      header: formatHeader(key),
-      accessorKey: key,
-      cell: (info) => {
-        const value = info.getValue();
-        const isBoolean = typeof value === "boolean";
-        return (
-          <div
-            onClick={() => handleRowClick(info.row.original.id)}
-            className={
-              "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
-            }
-          >
-            {isBoolean ? renderBooleanCell(value) : String(value)}
-          </div>
-        );
-      },
-    })
-  );
+  const columns: ColumnDef<(typeof namespaceData)[0]>[] = Object.keys(
+    namespaceData[0]
+  ).map((key) => ({
+    header: formatHeader(key),
+    accessorKey: key,
+    cell: (info) => {
+      const value = info.getValue();
+      const isBoolean = typeof value === "boolean";
+      return (
+        <div
+          onClick={() => handleRowClick(info.row.original.id)}
+          className={
+            "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+          }
+        >
+          {isBoolean ? renderBooleanCell(value) : String(value)}
+        </div>
+      );
+    },
+  }));
 
   columns.push({
     header: "Delete",
@@ -135,14 +163,8 @@ const NamespaceDataTable = () => {
 
   return (
     <div>
-      <DataTable data={data ?? []} columns={columns} />
-      {selectedNamespaceId && (
-        <ConfirmationModal
-          onConfirm={(credentials: VerifyUserRequest) =>
-            handleDelete(selectedNamespaceId, credentials)
-          }
-        />
-      )}
+      <DataTable data={namespaceData} columns={columns} />
+      <ConfirmationModal />
     </div>
   );
 };

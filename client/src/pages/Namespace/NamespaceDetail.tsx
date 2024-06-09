@@ -8,7 +8,12 @@ import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 const NamespaceDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: namespace, isLoading } = useGetNamespaceByIdQuery(id as string);
+
+  if (!id) {
+    throw new Error("Namespace ID is required");
+  }
+
+  const { data: namespace, isLoading } = useGetNamespaceByIdQuery(id);
 
   const handleNamespaceLogsClick = () => {
     navigate(`/namespace/${id}/logs`);

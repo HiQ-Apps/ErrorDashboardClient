@@ -1,27 +1,31 @@
-import { useSelector, useDispatch } from "react-redux";
-import { closeModal, selectIsOpen, selectModalType } from "features/modalSlice";
+import { useModalHandlerContext } from "shared/context/modalHandlerContext";
 import Modal from "components/base/Modal/Modal";
 import VerifyUserForm from "forms/VerifyUserForm";
+import { useSelector } from "react-redux";
+import { selectIsOpen, selectModalType } from "features/modalSlice";
+import { VerifyUserRequest } from "types/User";
 
-interface ConfirmationModalProps {
-  onConfirm: (credentials: { password: string }) => void;
-}
-
-const ConfirmationModal = ({ onConfirm }: ConfirmationModalProps) => {
-  const dispatch = useDispatch();
+const ConfirmationModal = () => {
+  const { onConfirm, onReject, unregisterHandler } = useModalHandlerContext();
   const isOpen = useSelector(selectIsOpen);
   const modalType = useSelector(selectModalType);
 
-  const handleConfirm = () => {
-    dispatch(closeModal());
+  const handleClose = () => {
+    if (onReject) onReject();
+    unregisterHandler();
+  };
+
+  const handleConfirm = (password: VerifyUserRequest) => {
+    if (onConfirm) onConfirm(password);
+    unregisterHandler();
   };
 
   return (
     <Modal
       header="Confirmation"
-      content={<VerifyUserForm onClose={handleConfirm} onConfirm={onConfirm} />}
+      content={<VerifyUserForm onConfirm={handleConfirm} />}
       open={isOpen && modalType === "confirmation"}
-      onClose={() => dispatch(closeModal())}
+      onClose={handleClose}
       showConfirmButtons={false}
     />
   );

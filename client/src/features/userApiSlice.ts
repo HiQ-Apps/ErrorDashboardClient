@@ -29,10 +29,10 @@ export const userApiSlice = baseApi.injectEndpoints({
       }),
     }),
     verifyUser: builder.mutation<null, VerifyUserRequest>({
-      query: (credentials) => ({
-        url: "/auth/verify",
+      query: (password) => ({
+        url: "/verified/auth/check",
         method: "POST",
-        body: credentials,
+        body: password,
       }),
     }),
   }),

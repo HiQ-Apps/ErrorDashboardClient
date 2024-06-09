@@ -14,6 +14,7 @@ import BaseRoutes from "routes/BaseRoutes";
 import ErrorRoutes from "routes/ErrorRoutes";
 import UserRoutes from "routes/UserRoutes";
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
+import { ModalHandlerProvider } from "shared/context/modalHandlerContext";
 
 const App = () => {
   // For error boundary
@@ -38,12 +39,14 @@ const App = () => {
   return (
     <div className="flex flex-col justify-center items-center dark:bg-slate-800 font-sans">
       <Navbar />
-      <Routes>
-        <Route path="/*" element={<BaseRoutes />} />
-        <Route path="/namespace/*" element={<NamespaceRoutes />} />
-        <Route path="/error/*" element={<ErrorRoutes />} />
-        <Route path="/user/*" element={<UserRoutes />} />
-      </Routes>
+      <ModalHandlerProvider>
+        <Routes>
+          <Route path="/*" element={<BaseRoutes />} />
+          <Route path="/namespace/*" element={<NamespaceRoutes />} />
+          <Route path="/error/*" element={<ErrorRoutes />} />
+          <Route path="/user/*" element={<UserRoutes />} />
+        </Routes>
+      </ModalHandlerProvider>
       <Toaster />
       <Footer />
     </div>

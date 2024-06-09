@@ -7,6 +7,7 @@ import {
   clearUser,
   clearToken,
   selectIsAuthenticated,
+  clearAuth,
 } from "features/authSlice";
 import {
   openModal,
@@ -62,9 +63,7 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = () => {
-    dispatch(setIsAuthenticated(false));
-    dispatch(clearUser());
-    dispatch(clearToken());
+    dispatch(clearAuth());
   };
 
   return (
