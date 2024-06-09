@@ -1,5 +1,5 @@
 import { type FormEvent, useEffect } from "react";
-import { Input } from "components/ui/input";
+import { Input, Label, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
 
 import { useCreateNamespaceMutation } from "features/namespaceApiSlice";
@@ -59,11 +59,12 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
     <form onSubmit={handleCreateNamespaceClick}>
       <div className="mb-4">
         <label className="block text-sm font-medium">Environment Type</label>
+        <Label htmlFor="environment_type" text="Environment Type" />
         <Input
           type="text"
           name="environment_type"
+          value={form.environment_type}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.environment_type && (
           <span className="text-error text-sm">
@@ -72,12 +73,12 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Service Name</label>
+        <Label htmlFor="service_name" text="Service Name" />
         <Input
           type="text"
           name="service_name"
+          value={form.service_name}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.service_name && (
           <span className="text-error text-sm">

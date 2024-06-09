@@ -7,11 +7,9 @@ import {
   selectIsOpen,
   selectModalType,
 } from "features/modalSlice";
-import Modal from "components/base/Modal/Modal";
+import { Modal, BaseButton } from "components/base";
+import { NamespaceDataTable, NamespaceSidebar } from "components/composite";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
-import BaseButton from "components/base/Button/Button";
-import NamespaceDataTable from "components/composite/NamespaceDataTable/NamespaceDataTable";
-import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
 
 const Namespaces = () => {
   const navigate = useNavigate();

@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
-import BaseButton from "components/base/Button/Button";
-import UpdateNamespaceCard from "components/composite/UpdateNamespaceCard/UpdateNamespaceCard";
+import { NamespaceSidebar, UpdateNamespaceCard } from "components/composite";
+import { BaseButton } from "components/base";
 import { Separator } from "components/ui/separator";
 
 const NamespaceSettings = () => {

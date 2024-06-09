@@ -2,10 +2,8 @@ import { type ErrorInfo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import Navbar from "components/base/Navbar/Navbar";
-import Footer from "components/base/Footer/Footer";
 import { ErrorSheldon } from "assets/index";
-import BaseButton from "components/base/Button/Button";
+import { BaseButton, Navbar, Footer } from "components/base";
 import { clearError } from "features/errorBoundarySlice";
 
 interface ErrorBoundaryPageProps {

@@ -1,4 +1,4 @@
-import HomeSidebar from "components/composite/HomeSidebar/HomeSidebar";
+import { HomeSidebar } from "components/composite";
 
 const About = () => {
   return (

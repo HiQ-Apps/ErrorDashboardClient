@@ -4,7 +4,7 @@ import {
   verifyUserSchema,
 } from "schemas/verifyUserSchema";
 import useForm from "hooks/useForm";
-import BaseButton from "components/base/Button/Button";
+import { BaseButton, Input } from "components/base";
 import { type ButtonClickEvent } from "shared/types/extra";
 import { PasswordType } from "shared/context/modalHandlerContext";
 
@@ -36,15 +36,14 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
     <div className="flex flex-col">
       <h1>Verify User</h1>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
-          placeholder="Confirm Password"
-          className={`mt-2 p-2 border rounded w-full ${
+          override_styles={
             errors.errorMessages.password ? "border-red-500" : ""
-          }`}
+          }
         />
         {errors.errorMessages.password && (
           <p className="text-red-500 text-xs italic">

@@ -1,8 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 
-import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
-import ErrorDataTable from "components/composite/ErrorDataTable/ErrorDataTable";
-import BaseButton from "components/base/Button/Button";
+import { NamespaceSidebar, ErrorDataTable } from "components/composite";
+import { BaseButton } from "components/base";
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 
 const NamespaceDetail = () => {

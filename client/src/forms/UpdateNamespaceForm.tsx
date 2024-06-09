@@ -1,7 +1,13 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { UpdateIcon, EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { Input } from "components/ui/input";
+
+import {
+  UpdateIcon,
+  EyeClosedIcon,
+  EyeOpenIcon,
+  ClipboardCopyIcon,
+} from "@radix-ui/react-icons";
+import { Input, Label, BaseButton } from "components/base";
 import useForm from "hooks/useForm";
 import {
   type UpdateNamespaceSchema,
@@ -11,12 +17,13 @@ import {
   useGetNamespaceByIdQuery,
   useUpdateNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
-import BaseButton from "components/base/Button/Button";
 import { generateUUID } from "shared/utils/generateUUID";
 import { ButtonClickEvent } from "shared/types/extra";
+import { useToast } from "components/ui/use-toast";
 
 const UpdateNamespaceForm = () => {
   const { id } = useParams();
+  const { toast } = useToast();
 
   if (!id) {
     throw new Error("Namespace ID is required for update form");
@@ -56,7 +63,7 @@ const UpdateNamespaceForm = () => {
     }
   }, [data]);
 
-  const [updateNamespaceById, { isLoading }] = useUpdateNamespaceByIdMutation();
+  const [updateNamespaceById] = useUpdateNamespaceByIdMutation();
 
   const toggleClientSecretVisibility = (event: ButtonClickEvent) => {
     event.preventDefault();
@@ -66,6 +73,24 @@ const UpdateNamespaceForm = () => {
   const toggleClientIdVisibility = (event: ButtonClickEvent) => {
     event.preventDefault();
     setClientIdVisible((prev) => !prev);
+  };
+
+  const copyToClipboard = (
+    event: ButtonClickEvent,
+    fieldName: keyof UpdateNamespaceSchema
+  ) => {
+    event.preventDefault();
+    const fieldValue = form[fieldName] || "";
+    navigator.clipboard
+      .writeText(fieldValue as string)
+      .then(() => {
+        toast({
+          title: `${fieldName} copied to clipboard`,
+        });
+      })
+      .catch((err) => {
+        console.error("Could not copy text: ", err);
+      });
   };
 
   const handleGenerateUUID = (
@@ -87,18 +112,21 @@ const UpdateNamespaceForm = () => {
     event.preventDefault();
     try {
       await updateNamespaceById({ id, [fieldName]: form[fieldName] }).unwrap();
+      toast({
+        title: `${fieldName} updated successfully`,
+      });
       refetch();
     } catch (err) {
-      console.error(`Failed to update ${fieldName}:`, err);
+      toast({
+        title: `${fieldName} failed to update`,
+      });
     }
   };
 
   return (
     <form className="grid grid-cols-1 gap-6 place-items-center max-w-2xl mx-auto mt-8">
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <label className="block text-xs font-medium col-span-1">
-          Client ID
-        </label>
+        <Label htmlFor="client_id" text="Client ID:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             disabled
@@ -106,7 +134,13 @@ const UpdateNamespaceForm = () => {
             name="client_id"
             value={form.client_id || ""}
             onChange={handleChange}
-            className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          />
+          <BaseButton
+            size="sm"
+            content={<ClipboardCopyIcon />}
+            variant="default"
+            onClick={(e) => copyToClipboard(e, "client_id")}
+            override_styles="my-4"
           />
           <BaseButton
             size="sm"
@@ -133,9 +167,7 @@ const UpdateNamespaceForm = () => {
       </div>
 
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <label className="block text-xs font-medium col-span-1">
-          Client Secret
-        </label>
+        <Label htmlFor="client_secret" text="Client Secret:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             disabled
@@ -143,7 +175,13 @@ const UpdateNamespaceForm = () => {
             name="client_secret"
             value={form.client_secret || ""}
             onChange={handleChange}
-            className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          />
+          <BaseButton
+            size="sm"
+            content={<ClipboardCopyIcon />}
+            variant="default"
+            onClick={(e) => copyToClipboard(e, "client_secret")}
+            override_styles="my-4"
           />
           <BaseButton
             size="sm"
@@ -170,16 +208,13 @@ const UpdateNamespaceForm = () => {
       </div>
 
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <label className="block text-xs font-medium col-span-1">
-          Service Name
-        </label>
+        <Label htmlFor="service_name" text="Service Name:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             type="text"
             name="service_name"
             value={form.service_name || ""}
             onChange={handleChange}
-            className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
           />
           <BaseButton
             size="sm"
@@ -192,16 +227,13 @@ const UpdateNamespaceForm = () => {
       </div>
 
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <label className="block text-xs font-medium col-span-1">
-          Environment Type
-        </label>
+        <Label htmlFor="environment_type" text="Environment Type:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             type="text"
             name="environment_type"
             value={form.environment_type || ""}
             onChange={handleChange}
-            className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
           />
           <BaseButton
             size="sm"

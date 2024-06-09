@@ -1,7 +1,7 @@
 import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Input } from "components/ui/input";
 
+import { Input, Label } from "components/base";
 import {
   registrationSchema,
   type RegistrationSchema,
@@ -46,15 +46,12 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700">
-          Email
-        </label>
+        <Label htmlFor="email" text="Email" />
         <Input
           type="email"
           name="email"
           value={form.email}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.email && (
           <span className="text-error text-sm">
@@ -63,15 +60,12 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700">
-          Username
-        </label>
+        <Label htmlFor="username" text="username" />
         <Input
           type="text"
           name="username"
           value={form.username}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.username && (
           <span className="text-error text-sm">
@@ -80,15 +74,12 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700">
-          Password
-        </label>
+        <Label htmlFor="password" text="password" />
         <Input
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.password && (
           <span className="text-error text-sm">
@@ -97,15 +88,12 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700">
-          Confirm Password
-        </label>
+        <Label htmlFor="confirmPassword" text="Confirm Password" />
         <Input
           type="password"
           name="confirmPassword"
           value={form.confirmPassword}
           onChange={handleChange}
-          className="border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
         {errors.errorMessages.confirmPassword && (
           <span className="text-error text-sm">
