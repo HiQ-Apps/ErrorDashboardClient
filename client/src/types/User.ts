@@ -15,11 +15,9 @@ export type ShortUserData = {
   username: string;
 };
 
+export type VerifyUserRequest = Pick<LoginUserRequest, "password">;
+
 export type AuthResponse = {
   user: ShortUserData;
   access_token: string;
-};
-
-export type VerifyUserRequest = {
-  password: string;
 };

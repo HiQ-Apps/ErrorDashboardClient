@@ -34,11 +34,23 @@ let authSlice = createSlice({
     setIsAuthenticated: (state: AuthState, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
+
+    clearAuth(state) {
+      state.token = null;
+      state.user = null;
+      state.isAuthenticated = false;
+    },
   },
 });
 
-export const { setToken, clearToken, setUser, clearUser, setIsAuthenticated } =
-  authSlice.actions;
+export const {
+  setToken,
+  clearToken,
+  setUser,
+  clearUser,
+  setIsAuthenticated,
+  clearAuth,
+} = authSlice.actions;
 
 export const selectAuthToken = (state: RootState) => state.auth.token;
 export const selectIsAuthenticated = (state: RootState) =>

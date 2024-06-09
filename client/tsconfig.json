@@ -35,6 +35,7 @@
       "schemas/*": ["src/schemas/*"],
       "features/*": ["src/features/*"],
       "routes/*": ["src/routes/*"],
+      "middlewares/*": ["src/middlewares/*"],
     },
 
     /* Linting */

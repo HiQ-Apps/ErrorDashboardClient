@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState } from "configs/store";
+import type { RootState } from "configs/store";
 
 interface ErrorBoundaryState {
   hasError: boolean;

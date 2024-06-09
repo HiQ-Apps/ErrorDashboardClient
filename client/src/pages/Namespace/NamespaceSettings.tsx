@@ -1,20 +1,26 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import BaseButton from "components/base/Button/Button";
 import NamespaceSidebar from "components/composite/NamespaceSidebar/NamespaceSidebar";
-import ErrorLogTable from "components/composite/ErrorLogTable/ErrorLogTable";
+import BaseButton from "components/base/Button/Button";
 
-const NamespaceLogs = () => {
+const NamespaceSettings = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   if (!id) {
     throw new Error("Namespace ID is required");
   }
 
-  const navigate = useNavigate();
-
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
+  };
+
+  const handleNamespaceLogsClick = () => {
+    navigate(`/namespace/${id}/logs`);
+  };
+
+  const handleNamespaceSettingsClick = () => {
+    navigate(`/namespace/${id}/settings`);
   };
 
   const links = [
@@ -24,6 +30,18 @@ const NamespaceLogs = () => {
       variant="sidenavbutton"
       onClick={handleNamespaceConsoleClick}
     />,
+    <BaseButton
+      content="Logs"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceLogsClick}
+    />,
+    <BaseButton
+      content="Settings"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceSettingsClick}
+    />,
   ];
 
   return (
@@ -32,11 +50,10 @@ const NamespaceLogs = () => {
         <NamespaceSidebar links={links} />
       </div>
       <div>
-        <p>Logs for the namespace errors</p>
-        <ErrorLogTable id={id} />
+        <h1>Namespace Settings</h1>
       </div>
     </div>
   );
 };
 
-export default NamespaceLogs;
+export default NamespaceSettings;

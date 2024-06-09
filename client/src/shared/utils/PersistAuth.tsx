@@ -1,6 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useRefreshAccessTokenQuery } from "features/userApiSlice";
-import { setUser, setToken, setIsAuthenticated } from "features/authSlice";
+import {
+  setUser,
+  setToken,
+  setIsAuthenticated,
+  clearAuth,
+} from "features/authSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,9 +20,9 @@ const PersistAuth = () => {
       dispatch(setToken(data.access_token));
       dispatch(setIsAuthenticated(true));
     } else if (isError) {
-      dispatch(setIsAuthenticated(false));
-      navigate("/");
+      dispatch(clearAuth());
     }
+    navigate("/");
   }, [isSuccess, isError]);
 
   return null;

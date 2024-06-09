@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { baseApi } from "features/baseApi";
 import authReducer from "features/authSlice";
@@ -7,20 +7,22 @@ import sidebarReducer from "features/sidebarSlice";
 import modalReducer from "features/modalSlice";
 import errorBoundaryReducer from "features/errorBoundarySlice";
 
+const rootReducer = combineReducers({
+  auth: authReducer,
+  modal: modalReducer,
+  dark: darkReducer,
+  sidebar: sidebarReducer,
+  errorBoundary: errorBoundaryReducer,
+  [baseApi.reducerPath]: baseApi.reducer,
+});
+
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    modal: modalReducer,
-    dark: darkReducer,
-    sidebar: sidebarReducer,
-    errorBoundary: errorBoundaryReducer,
-    [baseApi.reducerPath]: baseApi.reducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 setupListeners(store.dispatch);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

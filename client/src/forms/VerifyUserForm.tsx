@@ -6,13 +6,13 @@ import {
 import useForm from "hooks/useForm";
 import BaseButton from "components/base/Button/Button";
 import { type ButtonClickEvent } from "shared/types/extra";
+import { PasswordType } from "shared/context/modalHandlerContext";
 
 interface VerifyUserFormProps {
-  onClose: () => void;
-  onConfirm: (credentials: { password: string }) => void;
+  onConfirm: ({ password }: PasswordType) => void;
 }
 
-const VerifyUserForm = ({ onClose, onConfirm }: VerifyUserFormProps) => {
+const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
   const { toast } = useToast();
 
   const { form, handleChange, validate, errors } = useForm<VerifyUserSchema>(
@@ -23,15 +23,12 @@ const VerifyUserForm = ({ onClose, onConfirm }: VerifyUserFormProps) => {
   const handleSubmit = async (event: ButtonClickEvent) => {
     event.preventDefault();
     if (validate()) {
-      try {
-        onConfirm(form);
-        onClose();
-      } catch (err) {
-        toast({
-          title: "Error Verifying User",
-          description: `Please try again`,
-        });
-      }
+      onConfirm(form);
+    } else {
+      toast({
+        title: "Error Verifying User",
+        description: "Please check the form and try again",
+      });
     }
   };
 
