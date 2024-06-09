@@ -10,10 +10,8 @@ interface UseFormProps<T> {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => void;
-  passObjectToForm: (obj: Partial<T>) => void;
-  transformToFormData: (form: T) => FormData;
   resetForm: () => void;
-  setForm: (state: T) => void;
+  setForm: (state: T | ((prevForm: T) => T)) => void;
   validate: () => boolean;
   errors: {
     hasError: boolean;
@@ -46,21 +44,6 @@ const useForm = <T extends Record<string, any>>(
     }));
   };
 
-  const passObjectToForm = (obj: Partial<T>) => {
-    setForm((formData) => ({
-      ...formData,
-      ...obj,
-    }));
-  };
-
-  const transformToFormData = (form: T) => {
-    const formData = new FormData();
-    for (const [key, value] of Object.entries(form)) {
-      formData.append(key, value as string | Blob);
-    }
-    return formData;
-  };
-
   const resetForm = () => {
     setForm(defaultValues);
   };
@@ -84,9 +67,7 @@ const useForm = <T extends Record<string, any>>(
   return {
     form,
     handleChange,
-    passObjectToForm,
     resetForm,
-    transformToFormData,
     setForm,
     validate,
     errors,
