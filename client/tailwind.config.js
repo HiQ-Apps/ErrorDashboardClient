@@ -136,14 +136,28 @@ module.exports = {
         "fade-error": {
           from: { backgroundColor: "white" },
           to: { backgroundColor: "bg-red-500" }
-        }
+        },
+        "ease-in-out-rotation": {
+          '0%': {
+            transform: "rotate(0deg)",
+            "animation-timing-function": "ease-in",
+          },
+          '50%': {
+            transform: "rotate(720deg)",
+            "animation-timing-function": "ease-out",
+          },
+          '100%': {
+            transform: "rotate(1440deg)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "lid-up": "lid-up 0.3s ease-out forwards",
         "lid-down": "lid-down 0.3s ease-out forwards",
-        "fade-error": "fade-error 0.3s ease-out forwards"
+        "fade-error": "fade-error 0.3s ease-out forwards",
+        "ease-in-out-rotation": "ease-in-out-rotation 1s infinite",
       },
     },
   },

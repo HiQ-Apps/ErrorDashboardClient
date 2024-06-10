@@ -41,3 +41,22 @@ html {
         background-color: '#ef4444'
     }
 }
+
+@keyframes ease-in-out-rotation {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: rotate(720deg);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: rotate(1440deg);
+  }
+}
+
+.rotating-element {
+  animation: easeInOutRotation 4s infinite;
+}
+
