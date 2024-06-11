@@ -29,5 +29,5 @@ export type ErrorAggregateDataResponse = ErrorAggregateData[];
 export type GetErrorAggregateRequest = {
   namespace_id: string;
   start_time: string;
-  time_interval_hours: number;
+  time_interval_minutes: number;
 };

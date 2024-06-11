@@ -50,7 +50,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
   return (
     <form>
       <div className="mb-4">
-        <Label htmlFor="email" text="email" />
+        <Label htmlFor="email" text="Email" />
         <Input
           id="email"
           type="email"
@@ -65,7 +65,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <Label htmlFor="password" text="password" />
+        <Label htmlFor="password" text="Password" />
         <Input
           id="password"
           type="password"

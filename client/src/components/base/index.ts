@@ -9,6 +9,7 @@ import { Label } from "./Label/Label";
 import { Input } from "./Input/Input";
 import LogTable from "./LogTable/LogTable";
 import Modal from "./Modal/Modal";
+import StatusDot from "./StatusDot/StatusDot";
 
 export {
   BaseButton,
@@ -17,6 +18,7 @@ export {
   Footer,
   Navbar,
   Sidebar,
+  StatusDot,
   TrashCan,
   Label,
   Input,

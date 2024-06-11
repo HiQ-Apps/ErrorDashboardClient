@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useToast } from "components/ui/use-toast";
 // @ts-ignore
 import CanvasJSReact from "@canvasjs/react-charts";
 import { selectIsDark } from "features/darkSlice";
-import { getLastWeek } from "shared/utils/Date";
+import { getToday } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
 import { useParams } from "react-router-dom";
@@ -15,15 +15,14 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const ErrorBarGraph = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch();
   const errorAggregateRequestParams = useSelector(selectData);
   const [options, setOptions] = useState({});
   const { toast } = useToast();
   const isDark = useSelector(selectIsDark);
 
-  const defaultStartTime = getLastWeek().toISOString();
+  const defaultStartTime = getToday().toISOString().split("T")[0];
   const [startTime, setStartTime] = useState(defaultStartTime);
-  const [timeIntervalHours, setTimeIntervalHours] = useState(1);
+  const [timeIntervalMinutes, setTimeIntervalMinutes] = useState(1);
 
   if (!id) {
     throw new Error("Namespace id is required");
@@ -32,7 +31,7 @@ const ErrorBarGraph = () => {
   const defaultParams: GetErrorAggregateRequest = {
     namespace_id: id,
     start_time: defaultStartTime,
-    time_interval_hours: 1,
+    time_interval_minutes: timeIntervalMinutes,
   };
 
   const { data, error, isLoading, refetch } =
@@ -44,12 +43,12 @@ const ErrorBarGraph = () => {
     if (data) {
       const options = {
         animationEnabled: true,
-        theme: isDark ? "dark1" : "light2",
+        theme: isDark ? "dark2" : "light2",
         title: {
           text: "Error Frequency",
+          fontSize: 12,
         },
         axisX: {
-          title: "Time Interval",
           intervalType: "hour",
           valueFormatString: "DD-MMM HH:mm",
           labelFormatter: function (e: any) {
@@ -60,7 +59,9 @@ const ErrorBarGraph = () => {
           },
         },
         axisY: {
-          title: "Number of Errors",
+          title: "# of Errors",
+          labelFontSize: 8,
+          titleFontSize: 10,
           includeZero: false,
         },
         data: [
@@ -94,9 +95,9 @@ const ErrorBarGraph = () => {
       {!isLoading && !error && <CanvasJSChart options={options} />}
       <ErrorGraphForm
         startTime={startTime}
-        timeIntervalHours={timeIntervalHours}
+        timeIntervalMinutes={timeIntervalMinutes}
         setStartTime={setStartTime}
-        setTimeIntervalHours={setTimeIntervalHours}
+        setTimeIntervalMinutes={setTimeIntervalMinutes}
         refetch={refetch}
       />
     </div>
