@@ -1,3 +1,8 @@
+const getToday = () => {
+  const today = new Date();
+  return today;
+};
+
 const getLastWeek = () => {
   const today = new Date();
   const lastWeek = new Date(
@@ -28,4 +33,4 @@ const getLastYear = () => {
   return lastYear;
 };
 
-export { getLastWeek, getLastMonth, getLastYear };
+export { getToday, getLastWeek, getLastMonth, getLastYear };

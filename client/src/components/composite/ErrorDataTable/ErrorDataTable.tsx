@@ -5,7 +5,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { formatHeader } from "shared/utils/parseString";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
 import { useWebSocket } from "hooks/useWebSocket";
-import { ActiveDot, InactiveDot } from "assets/index";
+import { StatusDot } from "components/base";
 import { DataTable } from "components/base/DataTable/DataTable";
 import { ShortErrorData } from "types/Error";
 import { API_URL } from "configs/environment";
@@ -58,22 +58,9 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     navigate(`/error/${id}/console`);
   };
 
-  const renderBooleanCell = (value: boolean): ReactNode =>
-    value ? (
-      <img
-        className="inline-block"
-        src={ActiveDot}
-        width="20px"
-        height="20px"
-      />
-    ) : (
-      <img
-        className="inline-block"
-        src={InactiveDot}
-        width="20px"
-        height="20px"
-      />
-    );
+  const renderBooleanCell = (value: boolean): ReactNode => {
+    return <StatusDot status={value} />;
+  };
 
   const columns: ColumnDef<(typeof errors)[0]>[] = Object.keys(errors[0]).map(
     (key) => ({
@@ -86,10 +73,10 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
           <div
             onClick={() => handleRowClick(info.row.original.id)}
             className={
-              "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+              "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
             }
           >
-            {isBoolean ? renderBooleanCell(value as boolean) : String(value)}
+            {isBoolean ? renderBooleanCell(value) : String(value)}
           </div>
         );
       },

@@ -6,18 +6,17 @@ import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
+
 import { useVerifyUserMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
-import TrashCan from "components/base/TrashCan/TrashCan";
-import { DataTable } from "components/base/DataTable/DataTable";
-import { ActiveDot, InactiveDot } from "assets/index";
+import { DataTable, TrashCan, StatusDot } from "components/base";
 import { selectUser } from "features/authSlice";
 import BaseButton from "components/base/Button/Button";
 import { formatHeader } from "shared/utils/parseString";
 import { useToast } from "components/ui/use-toast";
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
 import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
-import { openModal, closeModal } from "features/modalSlice";
+import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import { VerifyUserRequest } from "types/User";
 
 const NamespaceDataTable = () => {
@@ -55,7 +54,7 @@ const NamespaceDataTable = () => {
     } else {
       dispatch(clearError());
     }
-  }, [namespaceIsError, namespaceError, dispatch]);
+  }, [namespaceIsError, namespaceError]);
 
   useEffect(() => {
     if (deleteSuccess) {
@@ -82,12 +81,14 @@ const NamespaceDataTable = () => {
     registerHandler(
       async (password: VerifyUserRequest) => {
         try {
+          dispatch(setIsLoading(true));
           await verifyUser(password).unwrap();
           deleteNamespaceById(id).unwrap();
+          dispatch(setIsLoading(false));
           dispatch(closeModal());
-          console.log("Namespace deleted successfully");
           unregisterHandler();
         } catch (error) {
+          dispatch(setIsLoading(false));
           console.error("Action rejected or failed:", error);
         }
       },
@@ -100,22 +101,9 @@ const NamespaceDataTable = () => {
     dispatch(openModal({ modalType: "confirmation" }));
   };
 
-  const renderBooleanCell = (value: boolean): ReactNode =>
-    value ? (
-      <img
-        className="inline-block"
-        src={ActiveDot}
-        width="20px"
-        height="20px"
-      />
-    ) : (
-      <img
-        className="inline-block"
-        src={InactiveDot}
-        width="20px"
-        height="20px"
-      />
-    );
+  const renderBooleanCell = (value: boolean): ReactNode => {
+    return <StatusDot status={value} />;
+  };
 
   if (namespaceLoading) {
     return <div>Loading...</div>;
@@ -162,10 +150,10 @@ const NamespaceDataTable = () => {
   });
 
   return (
-    <div>
+    <>
       <DataTable data={namespaceData} columns={columns} />
       <ConfirmationModal />
-    </div>
+    </>
   );
 };
 

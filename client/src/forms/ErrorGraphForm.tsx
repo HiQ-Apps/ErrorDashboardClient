@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
+
 import { BaseButton, Input, Label } from "components/base";
 import {
   errorGraphSchema,
@@ -14,17 +15,17 @@ import { setErrorGraphRequestParams } from "features/errorGraphSlice";
 
 interface ErrorGraphFormProps {
   startTime: string;
-  timeIntervalHours: number;
+  timeIntervalMinutes: number;
   setStartTime: (time: string) => void;
-  setTimeIntervalHours: (interval: number) => void;
+  setTimeIntervalMinutes: (interval: number) => void;
   refetch: () => void;
 }
 
 const ErrorGraphForm = ({
   startTime,
-  timeIntervalHours,
+  timeIntervalMinutes,
   setStartTime,
-  setTimeIntervalHours,
+  setTimeIntervalMinutes,
   refetch,
 }: ErrorGraphFormProps) => {
   const { id } = useParams<{ id: string }>();
@@ -34,11 +35,11 @@ const ErrorGraphForm = ({
     throw new Error("Namespace id is required");
   }
 
-  const { form, setForm, validate, errors } = useForm<ErrorGraphSchema>(
+  const { form, setForm, validate } = useForm<ErrorGraphSchema>(
     {
       namespace_id: id,
       start_time: startTime,
-      time_interval_hours: timeIntervalHours,
+      time_interval_minutes: timeIntervalMinutes,
     },
     errorGraphSchema
   );
@@ -48,16 +49,16 @@ const ErrorGraphForm = ({
     setStartTime(newStartTime);
     setForm((prevForm) => ({
       ...prevForm,
-      start_time: newStartTime,
+      start_time: newStartTime.split("T")[0],
     }));
   };
 
   const handleIntervalChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newInterval = parseInt(event.target.value, 10);
-    setTimeIntervalHours(newInterval);
+    setTimeIntervalMinutes(newInterval);
     setForm((prevForm) => ({
       ...prevForm,
-      time_interval_hours: newInterval,
+      time_interval_minutes: newInterval,
     }));
   };
 
@@ -79,7 +80,7 @@ const ErrorGraphForm = ({
     <form className="flex flex-col text-slate-800 dark:bg-slate-50 ">
       <div className="flex flex-col">
         <div className="space-y-2">
-          <Label htmlFor="start_time" text="Start Time" />
+          <Label htmlFor="start_time" text="Start Time (Up to one year)" />
           <Popover>
             <PopoverTrigger asChild>
               <div className="cursor-pointer flex flex-row border border-rounded-sm border-slate-200 justify-center align-center items-center">
@@ -93,7 +94,7 @@ const ErrorGraphForm = ({
                 <CalendarIcon color="black" width="25px" height="25px" />
               </div>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent align="start">
               <Calendar
                 mode="single"
                 selected={new Date(startTime)}
@@ -106,11 +107,11 @@ const ErrorGraphForm = ({
         </div>
       </div>
       <div className="flex grow-1 flex-col mt-4 space-y-2">
-        <Label htmlFor="time_interval_hours" text="Time Interval (hours)" />
+        <Label htmlFor="time_interval_minutes" text="Time Interval (minutes)" />
         <Input
           type="number"
-          name="time_interval_hours"
-          value={timeIntervalHours}
+          name="time_interval_minutes"
+          value={timeIntervalMinutes}
           onChange={handleIntervalChange}
         />
         <BaseButton
@@ -118,7 +119,6 @@ const ErrorGraphForm = ({
           variant="default"
           content="Update Timeframe"
           onClick={handleSubmit}
-          type="submit"
         />
       </div>
     </form>

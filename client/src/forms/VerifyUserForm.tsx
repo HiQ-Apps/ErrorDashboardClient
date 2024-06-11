@@ -1,4 +1,7 @@
 import { useToast } from "components/ui/use-toast";
+import { useSelector } from "react-redux";
+import { UpdateIcon } from "@radix-ui/react-icons";
+
 import {
   type VerifyUserSchema,
   verifyUserSchema,
@@ -7,6 +10,7 @@ import useForm from "hooks/useForm";
 import { BaseButton, Input, Label } from "components/base";
 import { type ButtonClickEvent } from "shared/types/extra";
 import { PasswordType } from "shared/context/modalHandlerContext";
+import { selectIsLoading } from "features/modalSlice";
 
 interface VerifyUserFormProps {
   onConfirm: ({ password }: PasswordType) => void;
@@ -14,6 +18,7 @@ interface VerifyUserFormProps {
 
 const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
   const { toast } = useToast();
+  const isLoading = useSelector(selectIsLoading);
 
   const { form, handleChange, validate, errors } = useForm<VerifyUserSchema>(
     { password: "" },
@@ -33,9 +38,9 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <form className="flex flex-col space-y-2">
       <h1>Verify User</h1>
-      <form>
+      <div className="space-y-2">
         <Label htmlFor="password" text="Password" />
         <Input
           type="password"
@@ -55,10 +60,16 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
           variant="success"
           size="sm"
           onClick={handleSubmit}
-          content="Verify"
+          content={
+            isLoading ? (
+              <UpdateIcon className="animate-ease-in-out-rotation" />
+            ) : (
+              "Verify"
+            )
+          }
         />
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 
