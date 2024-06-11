@@ -1,5 +1,5 @@
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
-import Modal from "components/base/Modal/Modal";
+import { Modal } from "components/base";
 import VerifyUserForm from "forms/VerifyUserForm";
 import { useSelector } from "react-redux";
 import { selectIsOpen, selectModalType } from "features/modalSlice";

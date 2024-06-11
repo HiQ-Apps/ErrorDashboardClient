@@ -1,7 +1,7 @@
 import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { Input, Label } from "components/base";
+import { BaseButton, Input, Label } from "components/base";
 import {
   registrationSchema,
   type RegistrationSchema,
@@ -9,6 +9,8 @@ import {
 import useForm from "src/hooks/useForm";
 import { setUser, setToken, setIsAuthenticated } from "features/authSlice";
 import { useRegisterMutation } from "features/userApiSlice";
+import { UpdateIcon } from "@radix-ui/react-icons";
+import { useToast } from "components/ui/use-toast";
 
 interface RegistrationFormProps {
   onClose: () => void;
@@ -16,12 +18,14 @@ interface RegistrationFormProps {
 
 const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
   const dispatch = useDispatch();
+  const { toast } = useToast();
   const { form, handleChange, validate, errors } = useForm<RegistrationSchema>(
     { email: "", username: "", password: "", confirmPassword: "" },
     registrationSchema
   );
 
-  const [register, { data, isSuccess, isLoading }] = useRegisterMutation();
+  const [register, { data, isSuccess, isLoading, isError }] =
+    useRegisterMutation();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -40,11 +44,21 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
       dispatch(setUser(data.user));
       dispatch(setIsAuthenticated(true));
       onClose();
+      toast({
+        title: "Registration successful",
+        description: `Welcome, ${form.username}`,
+      });
+    } else if (isError) {
+      onClose();
+      toast({
+        title: "Error Registering User",
+        description: "Please check the form and try again",
+      });
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div className="mb-4">
         <Label htmlFor="email" text="Email" />
         <Input
@@ -101,15 +115,20 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
           </span>
         )}
       </div>
-      <button
-        type="submit"
-        className="border border-transparent bg-success text-white justify-center rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2"
-      >
-        {isLoading ? "Registering..." : "Register"}
-      </button>
-      {isSuccess && (
-        <p className="text-success py-2 text-sm">Registration successful!</p>
-      )}
+      <BaseButton
+        size="sm"
+        onClick={handleSubmit}
+        variant="success"
+        content={
+          isSuccess ? (
+            "Success"
+          ) : isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            "Login"
+          )
+        }
+      />
     </form>
   );
 };

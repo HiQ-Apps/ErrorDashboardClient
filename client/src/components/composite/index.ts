@@ -7,9 +7,11 @@ import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
+import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 
 export {
   ConfirmationModal,
+  ErrorBarGraph,
   ErrorDataTable,
   ErrorDetailCard,
   ErrorLogTable,

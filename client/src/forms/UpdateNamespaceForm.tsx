@@ -20,12 +20,7 @@ import {
 import { generateUUID } from "shared/utils/generateUUID";
 import { ButtonClickEvent } from "shared/types/extra";
 import { useToast } from "components/ui/use-toast";
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipContent,
-  TooltipTrigger,
-} from "components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 const UpdateNamespaceForm = () => {
   const { id } = useParams();
@@ -42,7 +37,7 @@ const UpdateNamespaceForm = () => {
 
   useEffect(() => {
     if (isError) {
-      console.error("Error fetching namespace data");
+      throw new Error("Failed to fetch namespace data");
     }
   }, [isError]);
 

@@ -5,6 +5,7 @@ import authReducer from "features/authSlice";
 import darkReducer from "features/darkSlice";
 import sidebarReducer from "features/sidebarSlice";
 import modalReducer from "features/modalSlice";
+import errorGraphReducer from "features/errorGraphSlice";
 import errorBoundaryReducer from "features/errorBoundarySlice";
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   dark: darkReducer,
   sidebar: sidebarReducer,
+  errorGraph: errorGraphReducer,
   errorBoundary: errorBoundaryReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });

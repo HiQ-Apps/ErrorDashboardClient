@@ -4,17 +4,19 @@ import { ChangeEvent } from "react";
 interface CustomInputProps {
   id?: string;
   disabled?: boolean;
-  value: string;
+  readonly?: boolean;
+  value: string | number;
   override_styles?: string;
   placeholder?: string;
   type: string;
   name: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CustomInput = ({
   id,
   disabled = false,
+  readonly = false,
   value,
   override_styles = "",
   placeholder = "",
@@ -25,6 +27,7 @@ const CustomInput = ({
   return (
     <Input
       id={id}
+      readOnly={readonly}
       disabled={disabled}
       type={type}
       name={name}

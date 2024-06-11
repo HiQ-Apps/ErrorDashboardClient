@@ -4,7 +4,7 @@ import {
   verifyUserSchema,
 } from "schemas/verifyUserSchema";
 import useForm from "hooks/useForm";
-import { BaseButton, Input } from "components/base";
+import { BaseButton, Input, Label } from "components/base";
 import { type ButtonClickEvent } from "shared/types/extra";
 import { PasswordType } from "shared/context/modalHandlerContext";
 
@@ -35,7 +35,8 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
   return (
     <div className="flex flex-col">
       <h1>Verify User</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
+        <Label htmlFor="password" text="Password" />
         <Input
           type="password"
           name="password"
@@ -53,9 +54,8 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
         <BaseButton
           variant="success"
           size="sm"
-          content="Verify User"
           onClick={handleSubmit}
-          override_styles="my-4"
+          content="Verify"
         />
       </form>
     </div>

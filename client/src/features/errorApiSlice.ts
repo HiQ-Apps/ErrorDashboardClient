@@ -1,5 +1,9 @@
 import { baseApi } from "features/baseApi";
-import { ErrorData } from "types/Error";
+import {
+  ErrorAggregateDataResponse,
+  ErrorData,
+  GetErrorAggregateRequest,
+} from "types/Error";
 
 export const errorApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +13,21 @@ export const errorApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getErrorAggregatesByNamespaceId: builder.query<
+      ErrorAggregateDataResponse,
+      GetErrorAggregateRequest
+    >({
+      query: ({ namespace_id, start_time, time_interval_hours }) => ({
+        url: `/error/aggregate/namespace/${namespace_id}`,
+        method: "GET",
+        params: {
+          start_time,
+          time_interval_hours,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetErrorByIdQuery } = errorApiSlice;
+export const { useGetErrorByIdQuery, useGetErrorAggregatesByNamespaceIdQuery } =
+  errorApiSlice;

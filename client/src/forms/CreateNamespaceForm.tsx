@@ -57,7 +57,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
   }, [isError]);
 
   return (
-    <form onSubmit={handleCreateNamespaceClick}>
+    <form>
       <div className="mb-4">
         <Label htmlFor="environment_type" text="Environment Type" />
         <Input
