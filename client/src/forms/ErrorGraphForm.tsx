@@ -66,6 +66,7 @@ const ErrorGraphForm = ({
     if (validate()) {
       try {
         dispatch(setErrorGraphRequestParams(form));
+        refetch();
       } catch (err) {
         console.error("Failed to refetch new timeframe:", err);
       }
@@ -117,6 +118,7 @@ const ErrorGraphForm = ({
           variant="default"
           content="Update Timeframe"
           onClick={handleSubmit}
+          type="submit"
         />
       </div>
     </form>

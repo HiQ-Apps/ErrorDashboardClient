@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const errorGraphSchema = z.object({
-  namespace_id: z.string().length(36),
-  start_time: z.string().max(20),
+  namespace_id: z.string(),
+  start_time: z.string(),
   time_interval_hours: z.number().nonnegative(),
 });
 

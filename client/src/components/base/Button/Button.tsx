@@ -5,6 +5,7 @@ import { type ButtonClickEvent } from "shared/types/extra";
 interface ButtonProps {
   content?: ReactNode;
   image?: string;
+  type?: "button" | "submit" | "reset";
   onClick?: (event: ButtonClickEvent) => void | Promise<void>;
   size?: "default" | "sm" | "lg" | "icon";
   variant:
@@ -24,6 +25,7 @@ interface ButtonProps {
 }
 
 const BaseButton = ({
+  type = "button",
   content,
   image,
   onClick = () => {},
@@ -34,6 +36,7 @@ const BaseButton = ({
 }: ButtonProps) => {
   return (
     <Button
+      type={type}
       size={size}
       onClick={(e) => onClick?.(e as ButtonClickEvent)}
       variant={variant}

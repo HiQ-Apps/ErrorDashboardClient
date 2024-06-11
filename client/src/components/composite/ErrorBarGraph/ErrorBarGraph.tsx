@@ -37,7 +37,7 @@ const ErrorBarGraph = () => {
 
   const { data, error, isLoading, refetch } =
     useGetErrorAggregatesByNamespaceIdQuery(
-      errorAggregateRequestParams || defaultParams
+      errorAggregateRequestParams ?? defaultParams
     );
 
   useEffect(() => {
