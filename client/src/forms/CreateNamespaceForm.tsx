@@ -2,6 +2,7 @@ import { type FormEvent, useEffect } from "react";
 import { Input, Label, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
 
+import { UpdateIcon } from "@radix-ui/react-icons";
 import { useCreateNamespaceMutation } from "features/namespaceApiSlice";
 import {
   type CreateNamespaceSchema,
@@ -22,7 +23,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
 
   const { toast } = useToast();
 
-  const [createNamespace, { isSuccess, isError }] =
+  const [createNamespace, { isSuccess, isError, isLoading }] =
     useCreateNamespaceMutation();
 
   const handleCreateNamespaceClick = async (event: FormEvent) => {
@@ -56,9 +57,8 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
   }, [isError]);
 
   return (
-    <form onSubmit={handleCreateNamespaceClick}>
+    <form>
       <div className="mb-4">
-        <label className="block text-sm font-medium">Environment Type</label>
         <Label htmlFor="environment_type" text="Environment Type" />
         <Input
           type="text"
@@ -86,12 +86,20 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
           </span>
         )}
       </div>
-      <button
-        type="submit"
-        className="border border-transparent bg-success text-white justify-center rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2"
-      >
-        Create Namespace
-      </button>
+      <BaseButton
+        size="sm"
+        onClick={handleCreateNamespaceClick}
+        variant="success"
+        content={
+          isSuccess ? (
+            "Success"
+          ) : isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            "Create Namespace"
+          )
+        }
+      />
     </form>
   );
 };

@@ -20,6 +20,7 @@ import {
 import { generateUUID } from "shared/utils/generateUUID";
 import { ButtonClickEvent } from "shared/types/extra";
 import { useToast } from "components/ui/use-toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 
 const UpdateNamespaceForm = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const UpdateNamespaceForm = () => {
 
   useEffect(() => {
     if (isError) {
-      console.error("Error fetching namespace data");
+      throw new Error("Failed to fetch namespace data");
     }
   }, [isError]);
 
@@ -135,27 +136,48 @@ const UpdateNamespaceForm = () => {
             value={form.client_id || ""}
             onChange={handleChange}
           />
-          <BaseButton
-            size="sm"
-            content={<ClipboardCopyIcon />}
-            variant="default"
-            onClick={(e) => copyToClipboard(e, "client_id")}
-            override_styles="my-4"
-          />
-          <BaseButton
-            size="sm"
-            content={clientIdVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
-            variant="default"
-            onClick={toggleClientIdVisibility}
-            override_styles="my-4"
-          />
-          <BaseButton
-            size="sm"
-            content={<UpdateIcon />}
-            variant="default"
-            onClick={(e) => handleGenerateUUID(e, "client_id")}
-            override_styles="my-4"
-          />
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={<ClipboardCopyIcon />}
+                variant="default"
+                onClick={(e) => copyToClipboard(e, "client_id")}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy to clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={clientIdVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                variant="default"
+                onClick={toggleClientIdVisibility}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Toggle visibility</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={<UpdateIcon />}
+                variant="default"
+                onClick={(e) => handleGenerateUUID(e, "client_id")}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Generate new UUID</p>
+            </TooltipContent>
+          </Tooltip>
           <BaseButton
             size="sm"
             content="Update"
@@ -176,27 +198,50 @@ const UpdateNamespaceForm = () => {
             value={form.client_secret || ""}
             onChange={handleChange}
           />
-          <BaseButton
-            size="sm"
-            content={<ClipboardCopyIcon />}
-            variant="default"
-            onClick={(e) => copyToClipboard(e, "client_secret")}
-            override_styles="my-4"
-          />
-          <BaseButton
-            size="sm"
-            content={clientSecretVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
-            variant="default"
-            onClick={toggleClientSecretVisibility}
-            override_styles="my-4"
-          />
-          <BaseButton
-            size="sm"
-            content={<UpdateIcon />}
-            variant="default"
-            onClick={(e) => handleGenerateUUID(e, "client_secret")}
-            override_styles="my-4"
-          />
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={<ClipboardCopyIcon />}
+                variant="default"
+                onClick={(e) => copyToClipboard(e, "client_secret")}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy to clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={
+                  clientSecretVisible ? <EyeClosedIcon /> : <EyeOpenIcon />
+                }
+                variant="default"
+                onClick={toggleClientSecretVisibility}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Toggle visibility</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <BaseButton
+                size="sm"
+                content={<UpdateIcon />}
+                variant="default"
+                onClick={(e) => handleGenerateUUID(e, "client_secret")}
+                override_styles="my-4"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Generate new UUID</p>
+            </TooltipContent>
+          </Tooltip>
           <BaseButton
             size="sm"
             content="Update"

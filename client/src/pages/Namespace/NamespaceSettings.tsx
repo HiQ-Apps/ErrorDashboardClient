@@ -24,6 +24,10 @@ const NamespaceSettings = () => {
     navigate(`/namespace/${id}/settings`);
   };
 
+  const handleNamespaceMetricClick = () => {
+    navigate(`/namespace/${id}/metrics`);
+  };
+
   const links = [
     <BaseButton
       content="Console"
@@ -42,6 +46,12 @@ const NamespaceSettings = () => {
       size="sm"
       variant="sidenavbutton"
       onClick={handleNamespaceSettingsClick}
+    />,
+    <BaseButton
+      content="Metric"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceMetricClick}
     />,
   ];
 

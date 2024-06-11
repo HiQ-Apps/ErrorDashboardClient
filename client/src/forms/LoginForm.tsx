@@ -2,10 +2,12 @@ import { type FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { Input, Label, BaseButton } from "components/base";
+import { UpdateIcon } from "@radix-ui/react-icons";
 import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
 import { type LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
+import { useToast } from "components/ui/use-toast";
 
 interface LoginFormProps {
   onClose: () => void;
@@ -13,6 +15,7 @@ interface LoginFormProps {
 
 const LoginForm = ({ onClose }: LoginFormProps) => {
   const dispatch = useDispatch();
+  const { toast } = useToast();
   const { form, handleChange, validate, errors } = useForm<LoginSchema>(
     { email: "", password: "" },
     loginSchema
@@ -37,11 +40,15 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
   useEffect(() => {
     if (isSuccess) {
       onClose();
+      toast({
+        title: "Login successful",
+        description: `Welcome back, ${form.email}`,
+      });
     }
   }, [isSuccess]);
 
   return (
-    <form onSubmit={handleLoginClick}>
+    <form>
       <div className="mb-4">
         <Label htmlFor="email" text="email" />
         <Input
@@ -72,15 +79,20 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           </span>
         )}
       </div>
-      <button
-        type="submit"
-        className="border border-transparent bg-success text-white justify-center rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2"
-      >
-        {isLoading ? "Logging In..." : "Login"}
-      </button>
-      {isSuccess && (
-        <p className="text-success py-2 text-sm">Login Successful!</p>
-      )}
+      <BaseButton
+        size="sm"
+        onClick={handleLoginClick}
+        variant="success"
+        content={
+          isSuccess ? (
+            "Success"
+          ) : isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            "Login"
+          )
+        }
+      />
     </form>
   );
 };
