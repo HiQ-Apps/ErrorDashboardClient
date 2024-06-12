@@ -8,6 +8,7 @@ import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
+import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 
 export {
   ConfirmationModal,
@@ -20,4 +21,5 @@ export {
   NamespaceDataTable,
   NamespaceSidebar,
   UpdateNamespaceCard,
+  TimezoneSelector,
 };

@@ -30,4 +30,5 @@ export type GetErrorAggregateRequest = {
   namespace_id: string;
   start_time: string;
   time_interval_minutes: number;
+  timezone: string;
 };

@@ -1,10 +1,12 @@
 import type { FormEvent, ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CalendarIcon } from "@radix-ui/react-icons";
+import { DateTime } from "luxon";
 import { Calendar } from "components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
 
+import { selectTimeZone } from "features/timezoneSlice";
 import { BaseButton, Input, Label } from "components/base";
 import {
   errorGraphSchema,
@@ -30,6 +32,7 @@ const ErrorGraphForm = ({
 }: ErrorGraphFormProps) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
+  const timezone = useSelector(selectTimeZone);
 
   if (!id) {
     throw new Error("Namespace id is required");
@@ -40,17 +43,26 @@ const ErrorGraphForm = ({
       namespace_id: id,
       start_time: startTime,
       time_interval_minutes: timeIntervalMinutes,
+      timezone,
     },
     errorGraphSchema
   );
 
   const handleDateChange = (date: Date) => {
-    const newStartTime = date.toISOString();
-    setStartTime(newStartTime);
-    setForm((prevForm) => ({
-      ...prevForm,
-      start_time: newStartTime.split("T")[0],
-    }));
+    try {
+      const dateTime = DateTime.fromJSDate(date).setZone(timezone);
+      if (!dateTime.isValid) {
+        throw new Error("Invalid date");
+      }
+      const newStartTime = dateTime.toFormat("yyyy-MM-dd");
+      setStartTime(newStartTime);
+      setForm((prevForm) => ({
+        ...prevForm,
+        start_time: newStartTime,
+      }));
+    } catch (err) {
+      console.error("Failed to set start time:", err);
+    }
   };
 
   const handleIntervalChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -74,21 +86,24 @@ const ErrorGraphForm = ({
     }
   };
 
-  const currentDate = new Date();
+  const currentDate = DateTime.now().setZone(timezone);
+  const oneYearAgo = currentDate.minus({ years: 1 });
 
   return (
     <form className="flex flex-col text-slate-800 dark:bg-slate-50 ">
       <div className="flex flex-col">
         <div className="space-y-2">
-          <Label htmlFor="start_time" text="Start Time (Up to one year)" />
+          <Label htmlFor="start_time" text="Select Date to view" />
           <Popover>
             <PopoverTrigger asChild>
               <div className="cursor-pointer flex flex-row border border-rounded-sm border-slate-200 justify-center align-center items-center">
                 <Input
                   type="text"
                   name="start_time"
-                  value={new Date(startTime).toLocaleDateString()}
-                  readonly={true}
+                  value={DateTime.fromISO(startTime)
+                    .setZone(timezone)
+                    .toLocaleString(DateTime.DATE_MED)}
+                  readonly
                   override_styles="py-0 mt-0 h-full border-none"
                 />
                 <CalendarIcon color="black" width="25px" height="25px" />
@@ -97,9 +112,11 @@ const ErrorGraphForm = ({
             <PopoverContent align="start">
               <Calendar
                 mode="single"
-                selected={new Date(startTime)}
+                selected={DateTime.fromISO(startTime).toJSDate()}
                 onSelect={(date) => date && handleDateChange(date)}
-                disabled={(date) => date > currentDate}
+                disabled={(date) =>
+                  date > currentDate.toJSDate() || date < oneYearAgo.toJSDate()
+                }
                 initialFocus
               />
             </PopoverContent>

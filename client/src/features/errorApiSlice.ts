@@ -17,12 +17,18 @@ export const errorApiSlice = baseApi.injectEndpoints({
       ErrorAggregateDataResponse,
       GetErrorAggregateRequest
     >({
-      query: ({ namespace_id, start_time, time_interval_minutes }) => ({
+      query: ({
+        namespace_id,
+        start_time,
+        time_interval_minutes,
+        timezone,
+      }) => ({
         url: `/error/aggregate/namespace/${namespace_id}`,
         method: "GET",
         params: {
           start_time,
           time_interval_minutes,
+          timezone,
         },
       }),
     }),
