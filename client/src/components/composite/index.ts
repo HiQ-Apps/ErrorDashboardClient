@@ -1,3 +1,4 @@
+import BarGraphCard from "./GraphCard/BarGraphCard";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
 import ErrorDetailCard from "./ErrorDetailCard/ErrorDetailCard";
@@ -17,6 +18,7 @@ export {
   ErrorDetailCard,
   ErrorLogTable,
   ErrorSidebar,
+  BarGraphCard,
   HomeSidebar,
   NamespaceDataTable,
   NamespaceSidebar,

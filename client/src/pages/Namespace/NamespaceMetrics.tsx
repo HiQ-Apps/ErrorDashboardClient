@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import { ErrorBarGraph, NamespaceSidebar } from "components/composite";
+import { BarGraphCard, NamespaceSidebar } from "components/composite";
 import { BaseButton } from "components/base";
-import { Card, CardContent, CardHeader } from "components/ui/card";
 
 const NamespaceMetrics = () => {
   const navigate = useNavigate();
@@ -16,6 +15,10 @@ const NamespaceMetrics = () => {
     navigate(`/namespace/console`);
   };
 
+  const handleNamespaceDetailsClick = () => {
+    navigate(`/namespace/${id}`);
+  };
+
   const handleNamespaceSettingsClick = () => {
     navigate(`/namespace/${id}/settings`);
   };
@@ -24,12 +27,22 @@ const NamespaceMetrics = () => {
     navigate(`/namespace/${id}/logs`);
   };
 
+  const handleNamespaceMetricClick = () => {
+    navigate(`/namespace/${id}/metrics`);
+  };
+
   const links = [
     <BaseButton
       content="Console"
       size="sm"
       variant="sidenavbutton"
       onClick={handleNamespaceConsoleClick}
+    />,
+    <BaseButton
+      content="Details"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceDetailsClick}
     />,
     <BaseButton
       content="Logs"
@@ -43,6 +56,12 @@ const NamespaceMetrics = () => {
       variant="sidenavbutton"
       onClick={handleNamespaceSettingsClick}
     />,
+    <BaseButton
+      content="Metrics"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceMetricClick}
+    />,
   ];
 
   return (
@@ -50,14 +69,12 @@ const NamespaceMetrics = () => {
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <NamespaceSidebar links={links} />
       </div>
-      <Card>
-        <CardHeader>
+      <div className="flex flex-col">
+        <div className="flex flex-col">
           <h1>Namespace Metrics</h1>
-        </CardHeader>
-        <CardContent className="w-96">
-          <ErrorBarGraph />
-        </CardContent>
-      </Card>
+          <BarGraphCard />
+        </div>
+      </div>
     </div>
   );
 };

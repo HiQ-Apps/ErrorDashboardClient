@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+.canvasjs-chart-credit
+{
+    display: none !important;
+}
+
 .trash-can:hover .lid {
       animation: lid-up 0.3s ease-out forwards;
 }

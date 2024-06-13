@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useToast } from "components/ui/use-toast";
+import { useParams } from "react-router-dom";
+import { DateTime } from "luxon";
 // @ts-ignore
 import CanvasJSReact from "@canvasjs/react-charts";
+
+import { useToast } from "components/ui/use-toast";
 import { selectIsDark } from "features/darkSlice";
 import { selectTimeZone } from "features/timezoneSlice";
 import { getTodayDateString } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
-import { useParams } from "react-router-dom";
 import { selectData } from "features/errorGraphSlice";
 import { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const ErrorBarGraph = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
+
   const errorAggregateRequestParams = useSelector(selectData);
   const [options, setOptions] = useState({});
   const { toast } = useToast();
@@ -53,12 +56,13 @@ const ErrorBarGraph = () => {
         },
         axisX: {
           intervalType: "hour",
-          valueFormatString: "DD-MMM HH:mm",
+          labelFontSize: 7,
+
+          valueFormatString: "DD-MMM hh:mm a",
           labelFormatter: function (e: any) {
-            return CanvasJSReact.CanvasJS.formatDate(
-              new Date(e.value),
-              "DD-MMM HH:mm"
-            );
+            return DateTime.fromMillis(e.value)
+              .setZone(timezone)
+              .toFormat("dd-MMM hh:mm a");
           },
         },
         axisY: {
@@ -71,12 +75,19 @@ const ErrorBarGraph = () => {
           {
             type: "column",
             dataPoints: data.map((item: ErrorAggregateData) => ({
-              x: new Date(item.time).getTime(),
-              label: new Date(item.time).toLocaleString(),
+              x: DateTime.fromISO(new Date(item.time).toISOString()).setZone(
+                timezone
+              ),
+              label: DateTime.fromISO(new Date(item.time).toISOString())
+                .setZone(timezone)
+                .toFormat("dd-MMM hh:mm a"),
+
               y: item.count,
             })),
           },
         ],
+        height: 220,
+        width: 250,
       };
       setOptions(options);
     }
@@ -92,17 +103,22 @@ const ErrorBarGraph = () => {
   }, [error, toast]);
 
   return (
-    <div>
-      <div>Data Table</div>
+    <div className="flex flex-col w-full relative">
       {isLoading && <div>Loading...</div>}
-      {!isLoading && !error && <CanvasJSChart options={options} />}
-      <ErrorGraphForm
-        startTime={startTime}
-        timeIntervalMinutes={timeIntervalMinutes}
-        setStartTime={setStartTime}
-        setTimeIntervalMinutes={setTimeIntervalMinutes}
-        refetch={refetch}
-      />
+      {!isLoading && !error && (
+        <div className="flex">
+          <CanvasJSChart options={options} />
+        </div>
+      )}
+      <div className="absolute top-64 left-6">
+        <ErrorGraphForm
+          startTime={startTime}
+          timeIntervalMinutes={timeIntervalMinutes}
+          setStartTime={setStartTime}
+          setTimeIntervalMinutes={setTimeIntervalMinutes}
+          refetch={refetch}
+        />
+      </div>
     </div>
   );
 };
