@@ -4,7 +4,8 @@ import { useToast } from "components/ui/use-toast";
 // @ts-ignore
 import CanvasJSReact from "@canvasjs/react-charts";
 import { selectIsDark } from "features/darkSlice";
-import { getToday } from "shared/utils/Date";
+import { selectTimeZone } from "features/timezoneSlice";
+import { getTodayDateString } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
 import { useParams } from "react-router-dom";
@@ -20,7 +21,8 @@ const ErrorBarGraph = () => {
   const { toast } = useToast();
   const isDark = useSelector(selectIsDark);
 
-  const defaultStartTime = getToday().toISOString().split("T")[0];
+  const timezone = useSelector(selectTimeZone);
+  const defaultStartTime = getTodayDateString(timezone);
   const [startTime, setStartTime] = useState(defaultStartTime);
   const [timeIntervalMinutes, setTimeIntervalMinutes] = useState(1);
 
@@ -30,8 +32,9 @@ const ErrorBarGraph = () => {
 
   const defaultParams: GetErrorAggregateRequest = {
     namespace_id: id,
-    start_time: defaultStartTime,
+    start_time: startTime,
     time_interval_minutes: timeIntervalMinutes,
+    timezone,
   };
 
   const { data, error, isLoading, refetch } =

@@ -7,6 +7,7 @@ import sidebarReducer from "features/sidebarSlice";
 import modalReducer from "features/modalSlice";
 import errorGraphReducer from "features/errorGraphSlice";
 import errorBoundaryReducer from "features/errorBoundarySlice";
+import timezoneReducer from "features/timezoneSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   sidebar: sidebarReducer,
   errorGraph: errorGraphReducer,
   errorBoundary: errorBoundaryReducer,
+  timezone: timezoneReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });
 

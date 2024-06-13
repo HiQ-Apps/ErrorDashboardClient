@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setDarkMode, selectIsDark } from "features/darkSlice";
+import { useSelector } from "react-redux";
+import { selectIsDark } from "features/darkSlice";
 
 // Components
 import Navbar from "components/base/Navbar/Navbar";
@@ -21,13 +21,7 @@ const App = () => {
   // For error boundary
   useClearErrorOnNavigate();
 
-  const dispatch = useDispatch();
   const isDark = useSelector(selectIsDark);
-
-  useEffect(() => {
-    const savedIsDark = JSON.parse(localStorage.getItem("isDark") || "false");
-    dispatch(setDarkMode(savedIsDark));
-  }, [dispatch]);
 
   useEffect(() => {
     if (isDark) {

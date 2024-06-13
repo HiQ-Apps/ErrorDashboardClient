@@ -1,4 +1,4 @@
-import { RootState } from "configs/store";
+import type { RootState } from "configs/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ModalState {

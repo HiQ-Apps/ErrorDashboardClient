@@ -8,6 +8,7 @@ import WhiteHome from "assets/WhiteHome.svg";
 import CircularLoader from "assets/CircularLoader.svg";
 import RightArrow from "assets/RightArrow.svg";
 import ErrorSheldon from "assets/ErrorSheldon.png";
+import NotificationMagnifyingGlass from "assets/NotificationMagnifyingGlass.png";
 
 export {
   AppIcon,
@@ -20,4 +21,5 @@ export {
   CircularLoader,
   RightArrow,
   ErrorSheldon,
+  NotificationMagnifyingGlass,
 };

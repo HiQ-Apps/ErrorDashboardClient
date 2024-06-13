@@ -9,7 +9,7 @@ import {
   selectModalType,
   selectIsOpen,
 } from "features/modalSlice";
-import { selectIsDark, setDarkMode } from "features/darkSlice";
+import { selectIsDark, toggleDark } from "features/darkSlice";
 import Modal from "components/base/Modal/Modal";
 import BaseButton from "components/base/Button/Button";
 import LoginForm from "forms/LoginForm";
@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   const handleDarkModeClick = () => {
-    dispatch(setDarkMode(!isDarkMode));
+    dispatch(toggleDark());
   };
 
   const handleLogoutClick = () => {
@@ -62,7 +62,14 @@ const Navbar = () => {
 
   return (
     <div className="bg-slate-50 w-full flex flex-row justify-between items-center dark:bg-slate-700">
-      <img src={AppIcon} alt="App Icon" width="100px" height="100px" />
+      <img
+        className="cursor-pointer"
+        onClick={handleHomeClick}
+        src={AppIcon}
+        alt="App Icon"
+        width="100px"
+        height="100px"
+      />
       <div className="flex flex-row mx-2">
         <BaseButton
           image={isDarkMode ? WhiteHome : BlackHome}

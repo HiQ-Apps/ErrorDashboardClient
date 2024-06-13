@@ -1,10 +1,17 @@
-const getToday = () => {
+import { DateTime } from "luxon";
+
+const getToday = (): Date => {
   const today = new Date();
   return today;
 };
 
-const getLastWeek = () => {
-  const today = new Date();
+const getTodayDateString = (timezone: string): string => {
+  const today = DateTime.now().setZone(timezone);
+  return today.toFormat("yyyy-MM-dd");
+};
+
+const getLastWeek = (): Date => {
+  const today = getToday();
   const lastWeek = new Date(
     today.getFullYear(),
     today.getMonth(),
@@ -13,8 +20,8 @@ const getLastWeek = () => {
   return lastWeek;
 };
 
-const getLastMonth = () => {
-  const today = new Date();
+const getLastMonth = (): Date => {
+  const today = getToday();
   const lastMonth = new Date(
     today.getFullYear(),
     today.getMonth() - 1,
@@ -23,8 +30,8 @@ const getLastMonth = () => {
   return lastMonth;
 };
 
-const getLastYear = () => {
-  const today = new Date();
+const getLastYear = (): Date => {
+  const today = getToday();
   const lastYear = new Date(
     today.getFullYear() - 1,
     today.getMonth(),
@@ -33,4 +40,4 @@ const getLastYear = () => {
   return lastYear;
 };
 
-export { getToday, getLastWeek, getLastMonth, getLastYear };
+export { getToday, getTodayDateString, getLastWeek, getLastMonth, getLastYear };
