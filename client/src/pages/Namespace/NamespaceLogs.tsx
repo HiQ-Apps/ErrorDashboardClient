@@ -16,8 +16,16 @@ const NamespaceLogs = () => {
     navigate(`/namespace/console`);
   };
 
+  const handleNamespaceDetailsClick = () => {
+    navigate(`/namespace/${id}`);
+  };
+
   const handleNamespaceSettingsClick = () => {
     navigate(`/namespace/${id}/settings`);
+  };
+
+  const handleNamespaceLogsClick = () => {
+    navigate(`/namespace/${id}/logs`);
   };
 
   const handleNamespaceMetricClick = () => {
@@ -30,6 +38,18 @@ const NamespaceLogs = () => {
       size="sm"
       variant="sidenavbutton"
       onClick={handleNamespaceConsoleClick}
+    />,
+    <BaseButton
+      content="Details"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceDetailsClick}
+    />,
+    <BaseButton
+      content="Logs"
+      size="sm"
+      variant="sidenavbutton"
+      onClick={handleNamespaceLogsClick}
     />,
     <BaseButton
       content="Settings"
