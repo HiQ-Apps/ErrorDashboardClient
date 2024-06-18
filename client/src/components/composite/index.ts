@@ -4,28 +4,36 @@ import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
 import ErrorDetailCard from "./ErrorDetailCard/ErrorDetailCard";
 import ErrorLogTable from "./ErrorLogTable/ErrorLogTable";
 import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
+import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
+import FooterMenu from "./FooterMenu/FooterMenu";
+import Footer from "./Footer/Footer";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
-import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
-import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
+import Navbar from "./Navbar/Navbar";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
+import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
+import UserSidebar from "./UserSidebar/UserSidebar";
 
 export {
+  BarGraphCard,
   ConfirmationModal,
   ErrorBarGraph,
   ErrorDataTable,
   ErrorDetailCard,
   ErrorLogTable,
   ErrorSidebar,
-  BarGraphCard,
+  FooterMenu,
+  Footer,
   HomeSidebar,
   NamespaceDataTable,
   NamespaceSidebar,
-  UpdateNamespaceCard,
+  Navbar,
   TagContainer,
   TagManagerContainer,
   TimezoneSelector,
+  UpdateNamespaceCard,
+  UserSidebar,
 };

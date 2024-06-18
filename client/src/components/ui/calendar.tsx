@@ -46,7 +46,7 @@ function Calendar({
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-8 w-8 p-0 font-normal text-slate-400 dark:text-slate-600 hover:text-slate-900"
+          "h-8 w-8 p-0 font-normal text-slate-600 dark:text-slate-600 hover:text-slate-900"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
@@ -55,7 +55,7 @@ function Calendar({
         day_today:
           "bg-slate-300 text-slate-900 dark:bg-slate-800 dark:text-slate-100",
         day_outside:
-          "day-outside text-slate-500 dark:text-slate-400 aria-selected:bg-slate-300 dark:aria-selected:bg-slate-800 aria-selected:text-slate-500 dark:aria-selected:text-slate-100",
+          "day-outside text-slate-300 dark:text-slate-400 aria-selected:bg-slate-300 dark:aria-selected:bg-slate-800 aria-selected:text-slate-500 dark:aria-selected:text-slate-100",
         day_disabled: "text-slate-50 dark:text-slate-400",
         day_range_middle:
           "aria-selected:bg-slate-100 aria-selected:text-slate-900 dark:aria-selected:bg-slate-800 dark:aria-selected:text-slate-50",
