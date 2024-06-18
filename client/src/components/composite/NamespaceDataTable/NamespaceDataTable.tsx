@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type ColumnDef } from "@tanstack/react-table";
@@ -25,6 +25,7 @@ const NamespaceDataTable = () => {
   const dispatch = useDispatch();
   const { toast } = useToast();
   const { registerHandler, unregisterHandler } = useModalHandlerContext();
+  const [params, setParams] = useState({ offset: 0, limit: 20 });
 
   const [verifyUser] = useVerifyUserMutation();
 
@@ -34,7 +35,7 @@ const NamespaceDataTable = () => {
     isError: namespaceIsError,
     error: namespaceError,
   } = useGetNamespacesByUserQuery(
-    { id: user?.id || "", offset: 0, limit: 20 },
+    { id: user?.id || "", offset: params.offset, limit: params.limit },
     { skip: !user?.id }
   );
 
@@ -123,6 +124,7 @@ const NamespaceDataTable = () => {
       const isBoolean = typeof value === "boolean";
       return (
         <div
+          key={key}
           onClick={() => handleRowClick(info.row.original.id)}
           className={
             "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
@@ -134,6 +136,7 @@ const NamespaceDataTable = () => {
     },
   }));
 
+  // Action column
   columns.push({
     header: "Delete",
     id: "actions",

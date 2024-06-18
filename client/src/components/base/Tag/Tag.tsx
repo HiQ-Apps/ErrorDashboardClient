@@ -1,12 +1,15 @@
 interface TagProps {
-  key: string;
-  value: string;
+  tag_key: string;
+  tag_value: string;
 }
 
-const Tag = ({ key, value }: TagProps) => {
+const Tag = ({ tag_key, tag_value }: TagProps) => {
   return (
-    <div className="text-slate-50 bg-slate-500 h-6 flex text-2xs px-6 border justify-center text-center align-center items-center rounded-full dark:text-slate-900 dark:bg-slate-300">
-      {key}: {value}
+    <div
+      key={tag_key}
+      className="my-1 text-slate-900 bg-slate-100 flex text-2xs py-1 border border-slate-600 justify-center text-center text-nowrap align-center items-center rounded-full dark:text-slate-900 dark:bg-slate-300"
+    >
+      {tag_key}: {tag_value}
     </div>
   );
 };
