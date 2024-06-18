@@ -6,9 +6,11 @@ import ErrorLogTable from "./ErrorLogTable/ErrorLogTable";
 import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import FooterMenu from "./FooterMenu/FooterMenu";
+import Footer from "./Footer/Footer";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
+import Navbar from "./Navbar/Navbar";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
@@ -24,9 +26,11 @@ export {
   ErrorLogTable,
   ErrorSidebar,
   FooterMenu,
+  Footer,
   HomeSidebar,
   NamespaceDataTable,
   NamespaceSidebar,
+  Navbar,
   TagContainer,
   TagManagerContainer,
   TimezoneSelector,
