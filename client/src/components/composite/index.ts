@@ -10,6 +10,7 @@ import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
+import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
 
 export {
   ConfirmationModal,
@@ -23,5 +24,6 @@ export {
   NamespaceDataTable,
   NamespaceSidebar,
   UpdateNamespaceCard,
+  TagManagerContainer,
   TimezoneSelector,
 };

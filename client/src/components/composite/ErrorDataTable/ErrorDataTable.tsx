@@ -1,45 +1,30 @@
-import { ReactNode, useEffect, useState, useRef } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, CellContext } from "@tanstack/react-table";
 
 import { formatHeader } from "shared/utils/parseString";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
-import { useWebSocket } from "hooks/useWebSocket";
-import { StatusDot } from "components/base";
-import { DataTable } from "components/base/DataTable/DataTable";
+import { StatusDot, DataTable } from "components/base";
+import { TagManagerContainer } from "components/composite";
 import { ShortErrorData } from "types/Error";
-import { API_URL } from "configs/environment";
+import type { ShortTagType } from "types/Tag";
 
 interface ErrorDataTableProps {
   id: string;
 }
 
 const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
+  const [params, setParams] = useState({ offset: 0, limit: 10 });
   const navigate = useNavigate();
-
-  const wsUrl = `${API_URL}/namespace/${id}/error/ws`;
-
-  const { messages, resetMessages } = useWebSocket<ShortErrorData>(wsUrl);
 
   const { data, isLoading } = useGetNamespaceErrorsQuery({
     id: id,
-    offset: 0,
-    limit: 10,
+    offset: params.offset,
+    limit: params.limit,
   });
 
   const [errors, setErrors] = useState<ShortErrorData[]>(data || []);
-  const prevMessagesRef = useRef<ShortErrorData[]>([]);
 
-  useEffect(() => {
-    if (messages.length > 0) {
-      setErrors((prevErrors) => {
-        const newErrors = [...prevErrors, ...messages];
-        prevMessagesRef.current = messages;
-        return newErrors;
-      });
-      resetMessages();
-    }
-  }, [messages, resetMessages]);
   useEffect(() => {
     if (data) {
       setErrors(data);
@@ -62,26 +47,39 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     return <StatusDot status={value} />;
   };
 
-  const columns: ColumnDef<(typeof errors)[0]>[] = Object.keys(errors[0]).map(
-    (key) => ({
-      header: formatHeader(key),
-      accessorKey: key,
-      cell: (info) => {
-        const value = info.getValue();
-        const isBoolean = typeof value === "boolean";
-        return (
-          <div
-            onClick={() => handleRowClick(info.row.original.id)}
-            className={
-              "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
-            }
-          >
-            {isBoolean ? renderBooleanCell(value) : String(value)}
-          </div>
-        );
-      },
-    })
-  );
+  const renderTagsCell = (tags: ShortTagType[]): ReactNode => {
+    return <TagManagerContainer tags={tags} />;
+  };
+
+  const columns: ColumnDef<ShortErrorData>[] = [
+    ...Object.keys(errors[0])
+      .filter((key) => key !== "tags")
+      .map((key) => ({
+        header: formatHeader(key),
+        accessorKey: key,
+        cell: (info: CellContext<ShortErrorData, any>) => {
+          const value = info.getValue();
+          const isBoolean = typeof value === "boolean";
+          return (
+            <div
+              key={key}
+              onClick={() => handleRowClick(info.row.original.id)}
+              className={
+                "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+              }
+            >
+              {isBoolean ? renderBooleanCell(value as boolean) : String(value)}
+            </div>
+          );
+        },
+      })),
+    {
+      header: "Tags",
+      accessorKey: "tags",
+      cell: (info: CellContext<ShortErrorData, any>) =>
+        renderTagsCell(info.getValue() as ShortTagType[]),
+    },
+  ];
 
   return <DataTable data={errors} columns={columns} />;
 };

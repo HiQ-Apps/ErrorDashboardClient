@@ -12,6 +12,7 @@ import NotificationMagnifyingGlass from "./NotificationMagnifyingGlass/Notificat
 import Sidebar from "./Sidebar/Sidebar";
 import StatusDot from "./StatusDot/StatusDot";
 import TrashCan from "./TrashCan/TrashCan";
+import Tag from "./Tag/Tag";
 
 export {
   BaseButton,
@@ -27,5 +28,6 @@ export {
   NotificationMagnifyingGlass,
   Sidebar,
   StatusDot,
+  Tag,
   TrashCan,
 };

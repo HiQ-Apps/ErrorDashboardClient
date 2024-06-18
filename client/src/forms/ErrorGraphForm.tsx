@@ -90,13 +90,13 @@ const ErrorGraphForm = ({
   const oneYearAgo = currentDate.minus({ years: 1 });
 
   return (
-    <form className="flex flex-col text-slate-800 dark:bg-slate-700 ">
+    <form className="flex flex-col text-slate-800 dark:bg-slate-900 dark:text-slate-100">
       <div className="flex flex-col">
         <div className="space-y-2">
           <Label htmlFor="start_time" text="Select Date to view" />
           <Popover>
             <PopoverTrigger asChild>
-              <div className="cursor-pointer flex flex-row border rounded-md border-slate-200 justify-center align-center items-center dark:bg-slate-100">
+              <div className="cursor-pointer flex flex-row border rounded-md border-slate-200 justify-center align-center items-center dark:bg-slate-900 dark:text-slate-100">
                 <Input
                   type="text"
                   name="start_time"
@@ -104,9 +104,13 @@ const ErrorGraphForm = ({
                     .setZone(timezone)
                     .toLocaleString(DateTime.DATE_MED)}
                   readonly
-                  override_styles="py-0 mt-0 h-full border-none dark:text-slate-800"
+                  override_styles="py-0 mt-0 h-full border-none dark:text-slate-100"
                 />
-                <CalendarIcon color="black" width="25px" height="25px" />
+                <CalendarIcon
+                  className="text-slate-900 dark:text-slate-100"
+                  width="25px"
+                  height="25px"
+                />
               </div>
             </PopoverTrigger>
             <PopoverContent align="start">
@@ -130,7 +134,7 @@ const ErrorGraphForm = ({
           name="time_interval_minutes"
           value={timeIntervalMinutes}
           onChange={handleIntervalChange}
-          override_styles="dark:bg-slate-100"
+          override_styles="p-0 dark:bg-slate-900"
         />
         <BaseButton
           size="sm"

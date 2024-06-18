@@ -1,9 +1,11 @@
+import { ShortTagType, TagType } from "./Tag";
+
 export type ShortErrorData = {
   id: string;
   message: string;
   status_code: number;
   resolved: boolean;
-  created_at: Date;
+  tags?: ShortTagType[];
 };
 
 export type ErrorData = {
@@ -15,6 +17,7 @@ export type ErrorData = {
   message: string;
   stack_trace: string;
   resolved: boolean;
+  tags: TagType[];
   created_at: Date;
   updated_at: Date;
 };

@@ -1,4 +1,3 @@
-import type { ErrorData } from "types/Error";
 import {
   Card,
   CardHeader,
@@ -6,6 +5,9 @@ import {
   CardTitle,
   CardContent,
 } from "components/ui/card";
+
+import type { ErrorData } from "types/Error";
+import { Tag } from "components/base";
 
 interface ErrorDetailCardProps {
   error?: ErrorData;
@@ -31,6 +33,9 @@ const ErrorDetailCard = ({ error }: ErrorDetailCardProps) => {
         <p>User Affected: {error?.user_affected}</p>
         <p>Error Created: {error?.created_at.toString()}</p>
         <p>Error Updated: {error?.updated_at.toString()}</p>
+        {error?.tags?.map((tag) => (
+          <Tag tag_key={tag.tag_key} tag_value={tag.tag_value} />
+        ))}
       </CardContent>
     </Card>
   );

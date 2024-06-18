@@ -10,12 +10,13 @@ import {
   selectIsOpen,
 } from "features/modalSlice";
 import { selectIsDark, toggleDark } from "features/darkSlice";
-import Modal from "components/base/Modal/Modal";
-import BaseButton from "components/base/Button/Button";
+import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
+import { useToast } from "components/ui/use-toast";
 
 const Navbar = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -58,6 +59,9 @@ const Navbar = () => {
 
   const handleLogoutClick = () => {
     dispatch(clearAuth());
+    toast({
+      title: "Logged out successfully",
+    });
   };
 
   return (
