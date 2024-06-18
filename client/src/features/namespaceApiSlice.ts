@@ -50,6 +50,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
         method: "GET",
         params: { offset, limit },
       }),
+      providesTags: ["NamespaceErrors"],
     }),
     deleteNamespaceById: builder.mutation<string, string>({
       query: (id) => ({

@@ -10,6 +10,7 @@ import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
+import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
 
 export {
@@ -24,6 +25,7 @@ export {
   NamespaceDataTable,
   NamespaceSidebar,
   UpdateNamespaceCard,
+  TagContainer,
   TagManagerContainer,
   TimezoneSelector,
 };

@@ -74,7 +74,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <Label htmlFor="username" text="username" />
+        <Label htmlFor="username" text="Username" />
         <Input
           type="text"
           name="username"
@@ -88,7 +88,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
         )}
       </div>
       <div className="mb-4">
-        <Label htmlFor="password" text="password" />
+        <Label htmlFor="password" text="Password" />
         <Input
           type="password"
           name="password"

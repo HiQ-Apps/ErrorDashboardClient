@@ -5,7 +5,7 @@ import type { ColumnDef, CellContext } from "@tanstack/react-table";
 import { formatHeader } from "shared/utils/parseString";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
 import { StatusDot, DataTable } from "components/base";
-import { TagManagerContainer } from "components/composite";
+import { TagContainer } from "components/composite";
 import { ShortErrorData } from "types/Error";
 import type { ShortTagType } from "types/Tag";
 
@@ -48,7 +48,7 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   };
 
   const renderTagsCell = (tags: ShortTagType[]): ReactNode => {
-    return <TagManagerContainer tags={tags} />;
+    return <TagContainer tags={tags} />;
   };
 
   const columns: ColumnDef<ShortErrorData>[] = [

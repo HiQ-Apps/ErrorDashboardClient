@@ -8,3 +8,9 @@ export type TagType = {
   tag_key: string;
   tag_value: string;
 };
+
+export type CreateTagType = {
+  tag_key: string;
+  tag_value: string;
+  error_id: string;
+};

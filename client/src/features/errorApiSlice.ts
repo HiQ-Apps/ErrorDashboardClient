@@ -12,6 +12,7 @@ export const errorApiSlice = baseApi.injectEndpoints({
         url: `/error/${id}`,
         method: "GET",
       }),
+      providesTags: ["ErrorDetail"],
     }),
     getErrorAggregatesByNamespaceId: builder.query<
       ErrorAggregateDataResponse,
