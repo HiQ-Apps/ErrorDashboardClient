@@ -8,7 +8,11 @@ const ErrorDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, isLoading } = useGetErrorByIdQuery(id as string);
+  if (!id) {
+    throw new Error("Error ID is required");
+  }
+
+  const { data, isLoading } = useGetErrorByIdQuery(id);
 
   const handleErrorsClick = () => {
     navigate(`/error/${id}/console`);

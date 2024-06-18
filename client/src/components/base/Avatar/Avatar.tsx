@@ -23,13 +23,13 @@ const CustomAvatar = ({ name, size = "40px" }: AvatarProps) => {
         borderRadius: "50%",
         display: "inline-block",
         color: "white",
-        fontSize: "2rem",
+        fontSize: "1rem",
         fontWeight: "bold",
         border: `1px solid ${color}`,
         position: "relative",
       }}
     >
-      <div className="absolute top-2 left-2">{firstLetter}</div>
+      <div className="absolute top-0.5 left-2">{firstLetter}</div>
     </div>
   );
 };

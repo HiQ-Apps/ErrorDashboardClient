@@ -6,7 +6,7 @@ const UserRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/:id/profile"
+        path=":id/profile"
         element={
           <ProtectedRoutes>
             <UserProfile />
