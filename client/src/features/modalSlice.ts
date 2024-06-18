@@ -4,7 +4,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ModalState {
   isOpen: boolean;
   isLoading?: boolean;
-  modalType?: "createNamespace" | "confirmation" | "login" | "registration";
+  modalType?:
+    | "createNamespace"
+    | "confirmation"
+    | "login"
+    | "registration"
+    | "createTag";
 }
 
 const initialState: ModalState = {
@@ -24,7 +29,8 @@ const modalSlice = createSlice({
           | "createNamespace"
           | "confirmation"
           | "login"
-          | "registration";
+          | "registration"
+          | "createTag";
       }>
     ) => {
       state.isOpen = true;

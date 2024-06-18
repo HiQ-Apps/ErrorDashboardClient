@@ -1,4 +1,10 @@
-import { type FormEvent, useEffect, useState } from "react";
+import {
+  type FormEvent,
+  type MouseEvent,
+  useEffect,
+  useState,
+  MouseEventHandler,
+} from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -18,9 +24,9 @@ import {
   useUpdateNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
 import { generateUUID } from "shared/utils/generateUUID";
-import { ButtonClickEvent } from "shared/types/extra";
 import { useToast } from "components/ui/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
+import { formatHeader } from "shared/utils/parseString";
 
 const UpdateNamespaceForm = () => {
   const { id } = useParams();
@@ -66,18 +72,22 @@ const UpdateNamespaceForm = () => {
 
   const [updateNamespaceById] = useUpdateNamespaceByIdMutation();
 
-  const toggleClientSecretVisibility = (event: ButtonClickEvent) => {
+  const toggleClientSecretVisibility: MouseEventHandler<HTMLDivElement> = (
+    event
+  ) => {
     event.preventDefault();
     setClientSecretVisible((prev) => !prev);
   };
 
-  const toggleClientIdVisibility = (event: ButtonClickEvent) => {
+  const toggleClientIdVisibility: MouseEventHandler<HTMLDivElement> = (
+    event
+  ) => {
     event.preventDefault();
     setClientIdVisible((prev) => !prev);
   };
 
   const copyToClipboard = (
-    event: ButtonClickEvent,
+    event: MouseEvent<HTMLDivElement, Event>,
     fieldName: keyof UpdateNamespaceSchema
   ) => {
     event.preventDefault();
@@ -95,7 +105,7 @@ const UpdateNamespaceForm = () => {
   };
 
   const handleGenerateUUID = (
-    event: ButtonClickEvent,
+    event: MouseEvent<HTMLDivElement, Event>,
     fieldName: keyof UpdateNamespaceSchema
   ) => {
     event.preventDefault();
@@ -112,14 +122,17 @@ const UpdateNamespaceForm = () => {
   ) => {
     event.preventDefault();
     try {
-      await updateNamespaceById({ id, [fieldName]: form[fieldName] }).unwrap();
+      const value = fieldName === "active" ? !form[fieldName] : form[fieldName];
+      await updateNamespaceById({ id, [fieldName]: value }).unwrap();
+
       toast({
-        title: `${fieldName} updated successfully`,
+        title: `${formatHeader(fieldName)} updated successfully`,
       });
+
       refetch();
     } catch (err) {
       toast({
-        title: `${fieldName} failed to update`,
+        title: `${formatHeader(fieldName)} failed to update`,
       });
     }
   };
@@ -137,42 +150,39 @@ const UpdateNamespaceForm = () => {
             onChange={handleChange}
           />
           <Tooltip>
-            <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={<ClipboardCopyIcon />}
-                variant="default"
+            <TooltipTrigger asChild>
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={(e) => copyToClipboard(e, "client_id")}
-                override_styles="my-4"
-              />
+              >
+                <ClipboardCopyIcon />
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Copy to clipboard</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
-            <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={clientIdVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
-                variant="default"
+            <TooltipTrigger asChild>
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={toggleClientIdVisibility}
-                override_styles="my-4"
-              />
+              >
+                {clientIdVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Toggle visibility</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
-            <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={<UpdateIcon />}
-                variant="default"
+            <TooltipTrigger asChild>
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={(e) => handleGenerateUUID(e, "client_id")}
-                override_styles="my-4"
-              />
+              >
+                <UpdateIcon />
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Generate new UUID</p>
@@ -187,7 +197,6 @@ const UpdateNamespaceForm = () => {
           />
         </div>
       </div>
-
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
         <Label htmlFor="client_secret" text="Client Secret:" />
         <div className="relative col-span-3 flex items-center space-x-2">
@@ -200,13 +209,12 @@ const UpdateNamespaceForm = () => {
           />
           <Tooltip>
             <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={<ClipboardCopyIcon />}
-                variant="default"
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={(e) => copyToClipboard(e, "client_secret")}
-                override_styles="my-4"
-              />
+              >
+                <ClipboardCopyIcon />
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Copy to clipboard</p>
@@ -214,15 +222,12 @@ const UpdateNamespaceForm = () => {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={
-                  clientSecretVisible ? <EyeClosedIcon /> : <EyeOpenIcon />
-                }
-                variant="default"
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={toggleClientSecretVisibility}
-                override_styles="my-4"
-              />
+              >
+                {clientSecretVisible ? <EyeClosedIcon /> : <EyeOpenIcon />}
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Toggle visibility</p>
@@ -230,13 +235,12 @@ const UpdateNamespaceForm = () => {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>
-              <BaseButton
-                size="sm"
-                content={<UpdateIcon />}
-                variant="default"
+              <div
+                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
                 onClick={(e) => handleGenerateUUID(e, "client_secret")}
-                override_styles="my-4"
-              />
+              >
+                <UpdateIcon />
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Generate new UUID</p>
@@ -270,7 +274,6 @@ const UpdateNamespaceForm = () => {
           />
         </div>
       </div>
-
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
         <Label htmlFor="environment_type" text="Environment Type:" />
         <div className="relative col-span-3 flex items-center space-x-2">
@@ -285,6 +288,19 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "environment_type")}
+            override_styles="my-4"
+          />
+        </div>
+      </div>
+
+      <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
+        <Label htmlFor="active" text="Deactivate/Reactivate:" />
+        <div className="relative col-span-3 flex items-center space-x-2">
+          <BaseButton
+            size="sm"
+            content={form.active ? "Deactivate" : "Activate"}
+            variant={form.active ? "destructive" : "success"}
+            onClick={(e) => handleSubmit(e, "active")}
             override_styles="my-4"
           />
         </div>
