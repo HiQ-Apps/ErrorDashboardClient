@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import { selectIsDark } from "features/darkSlice";
 
 // Components
-import Navbar from "components/composite/Navbar/Navbar";
-import Footer from "components/composite/Footer/Footer";
+import { Navbar, Footer } from "components/composite";
 import { Toaster } from "components/ui/toaster";
 
 // Routes
@@ -13,6 +12,7 @@ import NamespaceRoutes from "routes/NamespaceRoutes";
 import BaseRoutes from "routes/BaseRoutes";
 import ErrorRoutes from "routes/ErrorRoutes";
 import UserRoutes from "routes/UserRoutes";
+
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 import { ModalHandlerProvider } from "shared/context/modalHandlerContext";
 import { TooltipProvider } from "components/ui/tooltip";
