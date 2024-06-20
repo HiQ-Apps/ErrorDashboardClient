@@ -50,11 +50,15 @@ const ErrorGraphForm = ({
 
   const handleDateChange = (date: Date) => {
     try {
-      const dateTime = DateTime.fromJSDate(date).setZone(timezone);
+      const localDateTime = DateTime.fromJSDate(date).startOf("day");
+      const dateTime = localDateTime.setZone(timezone, { keepLocalTime: true });
+
       if (!dateTime.isValid) {
         throw new Error("Invalid date");
       }
+
       const newStartTime = dateTime.toFormat("yyyy-MM-dd");
+
       setStartTime(newStartTime);
       setForm((prevForm) => ({
         ...prevForm,
@@ -100,10 +104,10 @@ const ErrorGraphForm = ({
                 <Input
                   type="text"
                   name="start_time"
-                  value={DateTime.fromISO(startTime)
-                    .setZone(timezone)
-                    .toLocaleString(DateTime.DATE_MED)}
-                  readonly
+                  value={DateTime.fromISO(startTime, {
+                    zone: timezone,
+                  }).toLocaleString(DateTime.DATE_MED)}
+                  readonly={true}
                   override_styles="py-0 mt-0 h-full border-none dark:text-slate-100"
                 />
                 <CalendarIcon
