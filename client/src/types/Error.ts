@@ -8,6 +8,14 @@ export type ShortErrorData = {
   tags?: ShortTagType[];
 };
 
+export type AggregateErrorResponseData = {
+  status_code: number;
+  message: string;
+  aggregated_tags: ShortTagType[];
+  user_affected_count: number;
+  error_count: number;
+};
+
 export type ErrorData = {
   id: string;
   status_code: number;

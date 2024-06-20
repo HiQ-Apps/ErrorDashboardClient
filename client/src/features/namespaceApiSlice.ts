@@ -5,8 +5,8 @@ import type {
   CreateNamespaceRequest,
   UpdateNamespaceRequest,
 } from "types/Namespace";
-import type { ShortErrorData } from "types/Error";
-import { PaginationWithId } from "shared/types/extra";
+import type { AggregateErrorResponseData, ShortErrorData } from "types/Error";
+import type { QueryParamWithId, PaginationWithId } from "shared/types/extra";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -44,11 +44,19 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["NamespaceDetail", "AllNamespace"],
     }),
-    getNamespaceErrors: builder.query<ShortErrorData[], PaginationWithId>({
-      query: ({ id, offset = 0, limit = 10 }: PaginationWithId) => ({
+    getNamespaceErrors: builder.query<
+      AggregateErrorResponseData[],
+      QueryParamWithId
+    >({
+      query: ({
+        id,
+        offset = 0,
+        limit = 10,
+        group_by = "status_code",
+      }: QueryParamWithId) => ({
         url: `/namespace/${id}/errors`,
         method: "GET",
-        params: { offset, limit },
+        params: { offset, limit, group_by },
       }),
       providesTags: ["NamespaceErrors"],
     }),

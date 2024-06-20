@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { ErrorSheldon } from "assets/index";
-import { BaseButton, Navbar, Footer } from "components/base";
+import { BaseButton } from "components/base";
+import { Navbar, Footer } from "components/composite";
 import { clearError } from "features/errorBoundarySlice";
 
 interface ErrorBoundaryPageProps {
