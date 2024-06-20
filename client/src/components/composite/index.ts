@@ -10,7 +10,9 @@ import Footer from "./Footer/Footer";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
+import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
 import Navbar from "./Navbar/Navbar";
+import ParameterSelector from "./ParameterSelector/ParameterSelector";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
@@ -30,7 +32,9 @@ export {
   HomeSidebar,
   NamespaceDataTable,
   NamespaceSidebar,
+  NamespaceTitleCard,
   Navbar,
+  ParameterSelector,
   TagContainer,
   TagManagerContainer,
   TimezoneSelector,

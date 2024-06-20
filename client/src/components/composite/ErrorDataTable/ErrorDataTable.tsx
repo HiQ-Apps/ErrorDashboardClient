@@ -1,10 +1,12 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ColumnDef, CellContext } from "@tanstack/react-table";
+import { useSelector } from "react-redux";
 
 import { formatHeader } from "shared/utils/parseString";
+import { selectParams } from "features/aggregateTableSlice";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
-import { StatusDot, DataTable } from "components/base";
+import { DataTable } from "components/base";
 import { TagContainer } from "components/composite";
 import type { AggregateErrorResponseData } from "types/Error";
 import type { ShortTagType } from "types/Tag";
@@ -14,14 +16,14 @@ interface ErrorDataTableProps {
 }
 
 const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
-  const [params, setParams] = useState({ offset: 0, limit: 10 });
+  const params = useSelector(selectParams);
   const navigate = useNavigate();
 
   const { data, isLoading } = useGetNamespaceErrorsQuery({
     id: id,
     offset: params.offset,
     limit: params.limit,
-    group_by: "status_code",
+    group_by: params.group_by,
   });
 
   const [errors, setErrors] = useState<AggregateErrorResponseData[]>(
@@ -53,6 +55,7 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   const columns: ColumnDef<AggregateErrorResponseData>[] = [
     ...Object.keys(errors[0])
       .filter((key) => key !== "aggregated_tags")
+      .filter((key) => params.group_by !== "message" || key !== "status_code")
       .map((key) => ({
         header: formatHeader(key),
         accessorKey: key,
@@ -61,7 +64,7 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
           return (
             <div
               key={`${info.row.id}-${key}`}
-              onClick={() => handleRowClick(info.row.original.id)}
+              onClick={() => {}}
               className={
                 "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
               }

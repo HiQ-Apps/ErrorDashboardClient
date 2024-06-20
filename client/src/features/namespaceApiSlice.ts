@@ -5,7 +5,7 @@ import type {
   CreateNamespaceRequest,
   UpdateNamespaceRequest,
 } from "types/Namespace";
-import type { AggregateErrorResponseData, ShortErrorData } from "types/Error";
+import type { AggregateErrorResponseData } from "types/Error";
 import type { QueryParamWithId, PaginationWithId } from "shared/types/extra";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
