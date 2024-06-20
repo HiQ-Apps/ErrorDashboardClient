@@ -1,5 +1,12 @@
 import { FormEvent, MouseEvent } from "react";
 
+export type QueryParamWithId = {
+  id: string;
+  offset?: number;
+  limit?: number;
+  group_by?: string;
+};
+
 export type PaginationWithId = {
   id: string;
   offset?: number;

@@ -6,7 +6,7 @@ import { formatHeader } from "shared/utils/parseString";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
 import { StatusDot, DataTable } from "components/base";
 import { TagContainer } from "components/composite";
-import { ShortErrorData } from "types/Error";
+import type { AggregateErrorResponseData } from "types/Error";
 import type { ShortTagType } from "types/Tag";
 
 interface ErrorDataTableProps {
@@ -21,9 +21,12 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     id: id,
     offset: params.offset,
     limit: params.limit,
+    group_by: "status_code",
   });
 
-  const [errors, setErrors] = useState<ShortErrorData[]>(data || []);
+  const [errors, setErrors] = useState<AggregateErrorResponseData[]>(
+    data || []
+  );
 
   useEffect(() => {
     if (data) {
@@ -43,40 +46,35 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     navigate(`/error/${id}/console`);
   };
 
-  const renderBooleanCell = (value: boolean): ReactNode => {
-    return <StatusDot status={value} />;
-  };
-
   const renderTagsCell = (tags: ShortTagType[]): ReactNode => {
     return <TagContainer tags={tags} />;
   };
 
-  const columns: ColumnDef<ShortErrorData>[] = [
+  const columns: ColumnDef<AggregateErrorResponseData>[] = [
     ...Object.keys(errors[0])
-      .filter((key) => key !== "tags")
+      .filter((key) => key !== "aggregated_tags")
       .map((key) => ({
         header: formatHeader(key),
         accessorKey: key,
-        cell: (info: CellContext<ShortErrorData, any>) => {
+        cell: (info: CellContext<AggregateErrorResponseData, any>) => {
           const value = info.getValue();
-          const isBoolean = typeof value === "boolean";
           return (
             <div
-              key={key}
+              key={`${info.row.id}-${key}`}
               onClick={() => handleRowClick(info.row.original.id)}
               className={
                 "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
               }
             >
-              {isBoolean ? renderBooleanCell(value as boolean) : String(value)}
+              {String(value)}
             </div>
           );
         },
       })),
     {
       header: "Tags",
-      accessorKey: "tags",
-      cell: (info: CellContext<ShortErrorData, any>) =>
+      accessorKey: "aggregated_tags",
+      cell: (info: CellContext<AggregateErrorResponseData, any>) =>
         renderTagsCell(info.getValue() as ShortTagType[]),
     },
   ];
