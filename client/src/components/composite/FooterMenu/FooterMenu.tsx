@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   GearIcon,
   BellIcon,
@@ -36,14 +36,17 @@ const FooterMenu = () => {
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
+            {/* Make this alertish */}
             <BellIcon className="w-5 h-5 mr-2" />
             Notifications
           </MenubarItem>
           <MenubarItem>
+            {/* Danger this up a bit when there is an Alert */}
             <ExclamationTriangleIcon className="w-5 h-5 mr-2" />
             Alerts
           </MenubarItem>
           <MenubarItem>
+            {/* TODO: Implement alerting on messages */}
             {/* <EnvelopeOpenIcon className="w-5 h-5 mr-2"/> */}
             <EnvelopeClosedIcon className="w-5 h-5 mr-2" />
             Messages

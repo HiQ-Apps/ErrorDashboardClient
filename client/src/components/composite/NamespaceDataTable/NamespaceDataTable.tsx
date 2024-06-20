@@ -25,7 +25,7 @@ const NamespaceDataTable = () => {
   const dispatch = useDispatch();
   const { toast } = useToast();
   const { registerHandler, unregisterHandler } = useModalHandlerContext();
-  const [params, setParams] = useState({ offset: 0, limit: 20 });
+  const [params, setParams] = useState({ offset: 0, limit: 10 });
 
   const [verifyUser] = useVerifyUserMutation();
 

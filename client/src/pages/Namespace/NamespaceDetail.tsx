@@ -1,6 +1,11 @@
 import { useParams } from "react-router-dom";
 
-import { NamespaceSidebar, ErrorDataTable } from "components/composite";
+import {
+  NamespaceSidebar,
+  ErrorDataTable,
+  NamespaceTitleCard,
+  ParameterSelector,
+} from "components/composite";
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 
 const NamespaceDetail = () => {
@@ -22,8 +27,12 @@ const NamespaceDetail = () => {
         <NamespaceSidebar />
       </div>
       <div className="flex-1 p-4">
-        <h1>Service Name: {namespace?.service_name}</h1>
-        <p>Environment Type: {namespace?.environment_type}</p>
+        <div>
+          <NamespaceTitleCard namespace={namespace} />
+        </div>
+        <div className="my-4">
+          <ParameterSelector />
+        </div>
         {id ? <ErrorDataTable id={id} /> : null}
       </div>
     </div>
