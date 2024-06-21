@@ -1,18 +1,29 @@
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { StatusDot } from "components/base";
+import { selectNamespaceById } from "features/namespaceApiSlice";
 import { Card, CardContent, CardHeader } from "components/ui/card";
-import type { NamespaceData } from "types/Namespace";
 import { selectTimeZone } from "features/timezoneSlice";
 
 interface NamespaceTitleCardProps {
-  namespace: NamespaceData | undefined;
+  header?: string;
 }
 
-const NamespaceTitleCard = ({ namespace }: NamespaceTitleCardProps) => {
+const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
+  const { id } = useParams();
+
+  if (!id) {
+    throw new Error("Namespace ID is required");
+  }
+
+  const namespace = useSelector(selectNamespaceById(id));
+
   if (!namespace) {
     return null;
   }
-  const { id, service_name, environment_type, created_at, updated_at } =
+
+  const { active, service_name, environment_type, created_at, updated_at } =
     namespace;
 
   const transformDate = (date: Date) => {
@@ -22,9 +33,16 @@ const NamespaceTitleCard = ({ namespace }: NamespaceTitleCardProps) => {
   };
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col mr-4 mb-4">
       <CardHeader>
-        <h1 className="text-xl font-semibold">Namespace: {id}</h1>
+        <div className="text-xl font-semibold flex flex-row items-center justify-start space-x-4">
+          {active ? (
+            <StatusDot status={active} />
+          ) : (
+            <StatusDot status={active} />
+          )}{" "}
+          <h1>Namespace: {id}</h1>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col justify-between lg:flex-row">
@@ -56,6 +74,9 @@ const NamespaceTitleCard = ({ namespace }: NamespaceTitleCardProps) => {
               </span>
             </div>
           </div>
+        </div>
+        <div className="flex mt-8 underline unline-offset-4">
+          {header ? <h1>{header}</h1> : <></>}
         </div>
       </CardContent>
     </Card>

@@ -15,7 +15,7 @@ const NamespaceDetail = () => {
     throw new Error("Namespace ID is required");
   }
 
-  const { data: namespace, isLoading } = useGetNamespaceByIdQuery(id);
+  const { data, isLoading } = useGetNamespaceByIdQuery(id);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -27,9 +27,7 @@ const NamespaceDetail = () => {
         <NamespaceSidebar />
       </div>
       <div className="flex-1 p-4">
-        <div>
-          <NamespaceTitleCard namespace={namespace} />
-        </div>
+        <NamespaceTitleCard header="Namespace Details" />
         <div className="my-4">
           <ParameterSelector />
         </div>
