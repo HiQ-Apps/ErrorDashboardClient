@@ -16,7 +16,6 @@ const ErrorLogTable = ({ id }: ErrorLogProps) => {
   const prevMessagesRef = useRef<StreamErrorData[]>([]);
 
   useEffect(() => {
-    console.log(messages);
     if (messages.length > 0) {
       setErrors((prevErrors) => {
         const newErrors = [...prevErrors, ...messages];
