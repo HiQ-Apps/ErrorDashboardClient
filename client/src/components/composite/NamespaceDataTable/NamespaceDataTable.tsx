@@ -141,13 +141,8 @@ const NamespaceDataTable = () => {
     header: "Delete",
     id: "actions",
     cell: ({ row }) => (
-      <div className="flex justify-center">
-        <BaseButton
-          content={<TrashCan />}
-          variant="outline"
-          size="lg"
-          onClick={() => handleDelete(row.original.id)}
-        />
+      <div className="cursor-pointer flex justify-center">
+        <div onClick={() => handleDelete(row.original.id)}>{<TrashCan />}</div>
       </div>
     ),
   });

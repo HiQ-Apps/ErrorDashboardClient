@@ -34,6 +34,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["NamespaceDetail"],
+      keepUnusedDataFor: 3600,
     }),
     updateNamespaceById: builder.mutation<
       NamespaceData,

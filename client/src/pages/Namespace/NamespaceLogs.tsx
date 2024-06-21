@@ -10,7 +10,7 @@ const NamespaceLogs = () => {
   const { id } = useParams();
 
   if (!id) {
-    throw new Error("Namespace ID is required");
+    return;
   }
 
   return (

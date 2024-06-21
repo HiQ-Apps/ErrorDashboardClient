@@ -8,6 +8,15 @@ export type ShortErrorData = {
   tags?: ShortTagType[];
 };
 
+export type StreamErrorData = {
+  id: string;
+  status_code: number;
+  message: string;
+  resolved: boolean;
+  namespace_id: string;
+  stack_trace: string;
+};
+
 export type AggregateErrorResponseData = {
   status_code: number;
   message: string;

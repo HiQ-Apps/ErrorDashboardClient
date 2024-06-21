@@ -9,11 +9,12 @@ import {
 } from "components/ui/table";
 
 interface LogTableProps<T> {
-  columns: string[];
   data: T[];
 }
 
-const LogTable = <T extends object>({ columns, data }: LogTableProps<T>) => {
+const LogTable = <T extends object>({ data }: LogTableProps<T>) => {
+  const columns = data.length > 0 ? Object.keys(data[0]) : [];
+
   return (
     <div className="container pr-4 font-mono">
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
@@ -26,17 +27,17 @@ const LogTable = <T extends object>({ columns, data }: LogTableProps<T>) => {
                     key={index}
                     className="px-5 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                   >
-                    {column}
+                    {column.replace(/_/g, " ")}
                   </TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.map((log, index) => (
+              {data.map((log, rowIndex) => (
                 <TableRow
-                  key={index}
+                  key={rowIndex}
                   className={`${
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    rowIndex % 2 === 0 ? "bg-white" : "bg-gray-50"
                   } hover:bg-gray-100`}
                 >
                   {columns.map((column, colIndex) => (
