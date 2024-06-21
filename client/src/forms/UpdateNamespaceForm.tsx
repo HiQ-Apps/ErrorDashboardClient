@@ -47,16 +47,17 @@ const UpdateNamespaceForm = () => {
     }
   }, [isError]);
 
-  const { form, handleChange, setForm } = useForm<UpdateNamespaceSchema>(
-    {
-      active: null,
-      client_id: null,
-      client_secret: null,
-      service_name: null,
-      environment_type: null,
-    },
-    updateNamespaceSchema
-  );
+  const { form, handleChange, setForm, validate, errors } =
+    useForm<UpdateNamespaceSchema>(
+      {
+        active: null,
+        client_id: null,
+        client_secret: null,
+        service_name: null,
+        environment_type: null,
+      },
+      updateNamespaceSchema
+    );
 
   useEffect(() => {
     if (data) {
@@ -123,13 +124,18 @@ const UpdateNamespaceForm = () => {
     event.preventDefault();
     try {
       const value = fieldName === "active" ? !form[fieldName] : form[fieldName];
-      await updateNamespaceById({ id, [fieldName]: value }).unwrap();
+      if (validate()) {
+        await updateNamespaceById({ id, [fieldName]: value }).unwrap();
 
-      toast({
-        title: `${formatHeader(fieldName)} updated successfully`,
-      });
-
-      refetch();
+        toast({
+          title: `${formatHeader(fieldName)} updated successfully`,
+        });
+        refetch();
+      } else {
+        toast({
+          title: `${formatHeader(fieldName)} failed to update`,
+        });
+      }
     } catch (err) {
       toast({
         title: `${formatHeader(fieldName)} failed to update`,
@@ -149,6 +155,11 @@ const UpdateNamespaceForm = () => {
             value={form.client_id || ""}
             onChange={handleChange}
           />
+          {errors.errorMessages.client_id && (
+            <span className="text-error text-sm">
+              {errors.errorMessages.client_id}
+            </span>
+          )}
           <Tooltip>
             <TooltipTrigger asChild>
               <div
@@ -207,6 +218,11 @@ const UpdateNamespaceForm = () => {
             value={form.client_secret || ""}
             onChange={handleChange}
           />
+          {errors.errorMessages.client_secret && (
+            <span className="text-error text-sm">
+              {errors.errorMessages.client_secret}
+            </span>
+          )}
           <Tooltip>
             <TooltipTrigger>
               <div
@@ -265,6 +281,11 @@ const UpdateNamespaceForm = () => {
             value={form.service_name || ""}
             onChange={handleChange}
           />
+          {errors.errorMessages.service_name && (
+            <span className="text-error text-sm">
+              {errors.errorMessages.service_name}
+            </span>
+          )}
           <BaseButton
             size="sm"
             content="Update"
@@ -283,6 +304,11 @@ const UpdateNamespaceForm = () => {
             value={form.environment_type || ""}
             onChange={handleChange}
           />
+          {errors.errorMessages.environment_type && (
+            <span className="text-error text-sm">
+              {errors.errorMessages.environment_type}
+            </span>
+          )}
           <BaseButton
             size="sm"
             content="Update"

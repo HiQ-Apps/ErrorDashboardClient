@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
 
-import { BarGraphCard, NamespaceSidebar } from "components/composite";
+import {
+  BarGraphCard,
+  NamespaceSidebar,
+  NamespaceTitleCard,
+} from "components/composite";
 
 const NamespaceMetrics = () => {
   const { id } = useParams();
@@ -14,11 +18,9 @@ const NamespaceMetrics = () => {
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <NamespaceSidebar />
       </div>
-      <div className="flex flex-col">
-        <div className="flex flex-col">
-          <h1>Namespace Metrics</h1>
-          <BarGraphCard />
-        </div>
+      <div className="flex-1 p-4">
+        <NamespaceTitleCard header="Namespace Metrics" />
+        <BarGraphCard />
       </div>
     </div>
   );

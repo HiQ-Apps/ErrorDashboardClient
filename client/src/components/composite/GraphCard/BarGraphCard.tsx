@@ -3,7 +3,7 @@ import { Card, CardHeader, CardContent } from "components/ui/card";
 
 const BarGraphCard = () => {
   return (
-    <Card className="flex flex-col w-88 h-140 m-4">
+    <Card className="flex flex-col w-88 h-140">
       <CardHeader>
         <h1>Daily Error Frequency Chart</h1>
       </CardHeader>

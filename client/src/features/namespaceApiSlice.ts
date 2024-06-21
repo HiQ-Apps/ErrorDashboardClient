@@ -1,3 +1,5 @@
+import { createSelector } from "@reduxjs/toolkit";
+
 import { baseApi } from "features/baseApi";
 import type {
   ShortNamespaceData,
@@ -78,3 +80,9 @@ export const {
   useGetNamespaceErrorsQuery,
   useDeleteNamespaceByIdMutation,
 } = namespaceApiSlice;
+
+export const selectNamespaceById = (id: string) =>
+  createSelector(
+    [namespaceApiSlice.endpoints.getNamespaceById.select(id)],
+    (namespaceResult) => namespaceResult?.data
+  );

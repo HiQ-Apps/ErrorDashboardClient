@@ -14,7 +14,6 @@ const ParameterSelector = () => {
   const dispatch = useDispatch();
 
   const handleSelect = (value: string) => {
-    console.log(value);
     dispatch(setGroupBy(value));
   };
 

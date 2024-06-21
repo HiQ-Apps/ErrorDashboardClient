@@ -15,7 +15,7 @@ interface LogTableProps<T> {
 
 const LogTable = <T extends object>({ columns, data }: LogTableProps<T>) => {
   return (
-    <div className="container mx-auto p-6 font-mono">
+    <div className="container pr-4 font-mono">
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
         <div className="max-h-96 overflow-y-auto">
           <Table className="min-w-full leading-normal">
