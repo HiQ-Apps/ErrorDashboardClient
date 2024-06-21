@@ -17,13 +17,23 @@ export type StreamErrorData = {
   stack_trace: string;
 };
 
-export type AggregateErrorResponseData = {
+export type AggregateErrorGroupByOtherResponseData = {
   status_code: number;
   message: string;
   aggregated_tags: ShortTagType[];
   user_affected_count: number;
   error_count: number;
 };
+
+export type AggregateErrorGroupByTagResponseData = {
+  tag: ShortTagType;
+  user_affected_count: number;
+  error_count: number;
+};
+
+export type AggregateErrorResponseData =
+  | AggregateErrorGroupByOtherResponseData[]
+  | AggregateErrorGroupByTagResponseData[];
 
 export type ErrorData = {
   id: string;
@@ -51,4 +61,25 @@ export type GetErrorAggregateRequest = {
   start_time: string;
   time_interval_minutes: number;
   timezone: string;
+};
+
+export const isGroupByOtherResponse = (
+  data: AggregateErrorResponseData
+): data is AggregateErrorGroupByOtherResponseData[] => {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    (data[0] as AggregateErrorGroupByOtherResponseData).status_code !==
+      undefined
+  );
+};
+
+export const isGroupByTagResponse = (
+  data: AggregateErrorResponseData
+): data is AggregateErrorGroupByTagResponseData[] => {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    (data[0] as AggregateErrorGroupByTagResponseData).tag !== undefined
+  );
 };

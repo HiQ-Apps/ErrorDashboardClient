@@ -26,6 +26,8 @@ const ParameterSelector = () => {
         <SelectGroup>
           <SelectItem value="status_code">Status Code</SelectItem>
           <SelectItem value="message">Error Message</SelectItem>
+          <SelectItem value="line">Line</SelectItem>
+          <SelectItem value="tags">Tag</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

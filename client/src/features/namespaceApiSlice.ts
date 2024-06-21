@@ -48,7 +48,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       invalidatesTags: ["NamespaceDetail", "AllNamespace"],
     }),
     getNamespaceErrors: builder.query<
-      AggregateErrorResponseData[],
+      AggregateErrorResponseData,
       QueryParamWithId
     >({
       query: ({
