@@ -11,7 +11,6 @@ import { useVerifyUserMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
 import { DataTable, TrashCan, StatusDot } from "components/base";
 import { selectUser } from "features/authSlice";
-import BaseButton from "components/base/Button/Button";
 import { formatHeader } from "shared/utils/parseString";
 import { useToast } from "components/ui/use-toast";
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
@@ -136,7 +135,6 @@ const NamespaceDataTable = () => {
     },
   }));
 
-  // Action column
   columns.push({
     header: "Delete",
     id: "actions",
