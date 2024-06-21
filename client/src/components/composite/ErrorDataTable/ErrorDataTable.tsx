@@ -113,20 +113,46 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     },
   ];
 
+  const createColumns = (
+    aggregatedErrors:
+      | AggregateErrorGroupByOtherResponseData[]
+      | AggregateErrorGroupByTagResponseData[],
+    isGroupByOther: boolean,
+    isGroupByTag: boolean
+  ): ColumnDef<
+    | AggregateErrorGroupByOtherResponseData
+    | AggregateErrorGroupByTagResponseData
+  >[] => {
+    try {
+      if (isGroupByOther) {
+        return createColumnsForGroupByOtherResponse(
+          aggregatedErrors as AggregateErrorGroupByOtherResponseData[]
+        ) as ColumnDef<
+          | AggregateErrorGroupByOtherResponseData
+          | AggregateErrorGroupByTagResponseData
+        >[];
+      } else if (isGroupByTag) {
+        return createColumnsForGroupByTagResponse() as ColumnDef<
+          | AggregateErrorGroupByOtherResponseData
+          | AggregateErrorGroupByTagResponseData
+        >[];
+      }
+      // Add more
+      return [];
+    } catch (e) {
+      console.error("Error creating columns", e);
+      return [];
+    }
+  };
+
   const columns: ColumnDef<
     | AggregateErrorGroupByOtherResponseData
     | AggregateErrorGroupByTagResponseData
-  >[] = isGroupByOtherResponse(aggregatedErrors)
-    ? (createColumnsForGroupByOtherResponse(aggregatedErrors) as ColumnDef<
-        | AggregateErrorGroupByOtherResponseData
-        | AggregateErrorGroupByTagResponseData
-      >[])
-    : isGroupByTagResponse(aggregatedErrors)
-    ? (createColumnsForGroupByTagResponse() as ColumnDef<
-        | AggregateErrorGroupByOtherResponseData
-        | AggregateErrorGroupByTagResponseData
-      >[])
-    : [];
+  >[] = createColumns(
+    aggregatedErrors,
+    isGroupByOtherResponse(aggregatedErrors),
+    isGroupByTagResponse(aggregatedErrors)
+  );
 
   return <DataTable data={aggregatedErrors} columns={columns} />;
 };
