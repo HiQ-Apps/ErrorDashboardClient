@@ -54,81 +54,78 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     return <TagContainer tags={tags} />;
   };
 
-  const columns: ColumnDef<any>[] = isGroupByOtherResponse(aggregatedErrors)
-    ? [
-        ...Object.keys(aggregatedErrors[0])
-          .filter((key) => key !== "aggregated_tags")
-          .filter(
-            (key) => params.group_by !== "message" || key !== "status_code"
-          )
-          .map((key) => ({
-            header: formatHeader(key),
-            accessorKey: key,
-            cell: (
-              info: CellContext<AggregateErrorGroupByOtherResponseData, any>
-            ) => {
-              const value = info.getValue();
-              return (
-                <div
-                  key={`${info.row.id}-${key}`}
-                  // Redirect to aggregate error page. Should include all errors listed. Maybe a modal?
-                  onClick={() => {}}
-                  className={
-                    "p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
-                  }
-                >
-                  {String(value)}
-                </div>
-              );
-            },
-          })),
-        {
-          header: "Tags",
-          accessorKey: "aggregated_tags",
-          cell: (
-            info: CellContext<AggregateErrorGroupByOtherResponseData, any>
-          ) => renderTagsCell(info.getValue() as ShortTagType[]),
-        },
-      ]
+  const renderCell = (info: CellContext<any, any>, key: string) => {
+    const value = info.getValue();
+    return (
+      <div
+        key={`${info.row.id}-${key}`}
+        onClick={() => {
+          // Redirect to aggregate error page. Should include all errors listed. Maybe a modal?
+        }}
+        className="p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+      >
+        {String(value)}
+      </div>
+    );
+  };
+
+  const createColumnsForGroupByOtherResponse = (
+    aggregatedErrors: AggregateErrorGroupByOtherResponseData[]
+  ) => [
+    ...Object.keys(aggregatedErrors[0])
+      .filter((key) => key !== "aggregated_tags")
+      .filter((key) => params.group_by !== "message" || key !== "status_code")
+      .map((key) => ({
+        header: formatHeader(key),
+        accessorKey: key,
+        cell: (
+          info: CellContext<AggregateErrorGroupByOtherResponseData, any>
+        ) => renderCell(info, key),
+      })),
+    {
+      header: "Tags",
+      accessorKey: "aggregated_tags",
+      cell: (info: CellContext<AggregateErrorGroupByOtherResponseData, any>) =>
+        renderTagsCell(info.getValue() as ShortTagType[]),
+    },
+  ];
+
+  const createColumnsForGroupByTagResponse = () => [
+    {
+      header: "Tag",
+      accessorKey: "tag",
+      cell: (info: CellContext<AggregateErrorGroupByTagResponseData, any>) =>
+        renderTagsCell(info.getValue() as ShortTagType),
+    },
+    {
+      header: "User Affected Count",
+      accessorKey: "user_affected_count",
+      cell: (info: CellContext<AggregateErrorGroupByTagResponseData, any>) => (
+        <div className="flex justify-center text-center">{info.getValue()}</div>
+      ),
+    },
+    {
+      header: "Error Count",
+      accessorKey: "error_count",
+      cell: (info: CellContext<AggregateErrorGroupByTagResponseData, any>) => (
+        <div className="flex justify-center text-center">{info.getValue()}</div>
+      ),
+    },
+  ];
+
+  const columns: ColumnDef<
+    | AggregateErrorGroupByOtherResponseData
+    | AggregateErrorGroupByTagResponseData
+  >[] = isGroupByOtherResponse(aggregatedErrors)
+    ? (createColumnsForGroupByOtherResponse(aggregatedErrors) as ColumnDef<
+        | AggregateErrorGroupByOtherResponseData
+        | AggregateErrorGroupByTagResponseData
+      >[])
     : isGroupByTagResponse(aggregatedErrors)
-    ? [
-        {
-          header: "Tag",
-          accessorKey: "tag",
-          cell: (
-            info: CellContext<AggregateErrorGroupByTagResponseData, any>
-          ) => {
-            const tag = info.getValue() as ShortTagType;
-            return renderTagsCell(tag);
-          },
-        },
-        {
-          header: "User Affected Count",
-          accessorKey: "user_affected_count",
-          cell: (
-            info: CellContext<AggregateErrorGroupByTagResponseData, any>
-          ) => {
-            return (
-              <div className="flex justify-center text-center">
-                {info.getValue()}
-              </div>
-            );
-          },
-        },
-        {
-          header: "Error Count",
-          accessorKey: "error_count",
-          cell: (
-            info: CellContext<AggregateErrorGroupByTagResponseData, any>
-          ) => {
-            return (
-              <div className="flex justify-center text-center">
-                {info.getValue()}
-              </div>
-            );
-          },
-        },
-      ]
+    ? (createColumnsForGroupByTagResponse() as ColumnDef<
+        | AggregateErrorGroupByOtherResponseData
+        | AggregateErrorGroupByTagResponseData
+      >[])
     : [];
 
   return <DataTable data={aggregatedErrors} columns={columns} />;
