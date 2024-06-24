@@ -7,7 +7,12 @@ import {
   type RegistrationSchema,
 } from "schemas/registrationSchema";
 import useForm from "src/hooks/useForm";
-import { setUser, setToken, setIsAuthenticated } from "features/authSlice";
+import {
+  setUser,
+  setToken,
+  setIsAuthenticated,
+  setProfile,
+} from "features/authSlice";
 import { useRegisterMutation } from "features/userApiSlice";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { useToast } from "components/ui/use-toast";
@@ -43,6 +48,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
       dispatch(setToken(data.access_token));
       dispatch(setUser(data.user));
       dispatch(setIsAuthenticated(true));
+      dispatch(setProfile(data.user_profile));
       onClose();
       toast({
         title: "Registration successful",
