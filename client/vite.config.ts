@@ -9,6 +9,7 @@ const port = process.env.VITE_PORT ? parseInt(process.env.VITE_PORT, 10) : 3000;
 export default defineConfig({
   plugins: [react(), tsConfigPaths(), svgr()],
   server: {
+    host: true,
     port,
   },
 });
