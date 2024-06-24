@@ -10,6 +10,15 @@ export const getFirstLetterCaps = (text?: string) => {
   return text[0].toUpperCase();
 };
 
-export const getInitials = (name: string) => {
-  return `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`.toUpperCase();
+export const getInitials = (name: string): string => {
+  const nameList: string[] = name.split(" ");
+  let nameInitials: string = "";
+  if (nameList.length > 1) {
+    for (let i = 0; nameList.length; i++) {
+      nameInitials += nameList[0].toUpperCase();
+    }
+  } else {
+    return name[0].toUpperCase();
+  }
+  return nameInitials;
 };

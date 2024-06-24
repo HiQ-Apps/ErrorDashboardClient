@@ -15,12 +15,13 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "components/ui/menubar";
-import { selectUser } from "features/authSlice";
+import { selectUser, selectUserProfile } from "features/authSlice";
 import { NotificationMagnifyingGlass, Avatar } from "components/base";
 
 const FooterMenu = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const user_profile = useSelector(selectUserProfile);
 
   const handleNavigateProfile = () => {
     navigate(`/user/${user?.id}/profile`);
@@ -56,7 +57,14 @@ const FooterMenu = () => {
       <MenubarMenu>
         <MenubarTrigger>
           <div className="cursor-pointer flex align-center items-center justify-center">
-            <Avatar name={user?.username} size="30px" />
+            <Avatar
+              name={
+                user?.username ||
+                user_profile?.first_name + " " + user_profile?.last_name
+              }
+              size="30px"
+              avatarColor={user_profile?.avatar_color}
+            />
           </div>
         </MenubarTrigger>
         <MenubarContent>

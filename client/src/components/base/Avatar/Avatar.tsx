@@ -1,35 +1,40 @@
-import { getFirstLetterCaps } from "shared/utils/parseString";
-import { getRandomColor } from "shared/utils/Profile";
+import { getInitials } from "shared/utils/parseString";
 
 interface AvatarProps {
   name?: string;
   size?: string;
+  avatarColor?: string;
 }
 
-const CustomAvatar = ({ name, size = "40px" }: AvatarProps) => {
+const CustomAvatar = ({
+  name,
+  size = "40px",
+  avatarColor = "098585",
+}: AvatarProps) => {
   if (!name) {
     return null;
   }
 
-  const firstLetter = getFirstLetterCaps(name);
-  const color = getRandomColor();
+  const initials = getInitials(name);
   //   Implement JIT
   return (
     <div
       style={{
-        backgroundColor: color,
+        backgroundColor: avatarColor,
         width: size,
         height: size,
         borderRadius: "50%",
-        display: "inline-block",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         color: "white",
         fontSize: "1rem",
         fontWeight: "bold",
-        border: `1px solid ${color}`,
-        position: "relative",
       }}
     >
-      <div className="absolute top-0.5 left-2">{firstLetter}</div>
+      <div className="h-3/4 flex justify-center text-center text-slate-200 overflow-hidden">
+        {initials}
+      </div>
     </div>
   );
 };

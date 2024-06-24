@@ -1,5 +1,4 @@
 import { type ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { ColumnDef, CellContext } from "@tanstack/react-table";
 import { useSelector } from "react-redux";
 
@@ -23,7 +22,6 @@ interface ErrorDataTableProps {
 
 const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   const params = useSelector(selectParams);
-  const navigate = useNavigate();
 
   const { data, isLoading } = useGetNamespaceErrorsQuery({
     id: id,

@@ -3,7 +3,12 @@ import { useDispatch } from "react-redux";
 
 import { Input, Label, BaseButton } from "components/base";
 import { UpdateIcon } from "@radix-ui/react-icons";
-import { setIsAuthenticated, setToken, setUser } from "features/authSlice";
+import {
+  setIsAuthenticated,
+  setToken,
+  setUser,
+  setProfile,
+} from "features/authSlice";
 import { useLoginMutation } from "features/userApiSlice";
 import { type LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
@@ -30,6 +35,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         const data = await login(form).unwrap();
         dispatch(setToken(data.access_token));
         dispatch(setUser(data.user));
+        dispatch(setProfile(data.user_profile));
         dispatch(setIsAuthenticated(true));
       } catch (err) {
         console.error("Failed to login:", err);
