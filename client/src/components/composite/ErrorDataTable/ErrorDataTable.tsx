@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, type MouseEvent, useEffect, useState } from "react";
 import type { ColumnDef, CellContext } from "@tanstack/react-table";
 import { useSelector } from "react-redux";
 
@@ -7,6 +7,7 @@ import { selectParams } from "features/aggregateTableSlice";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
 import { DataTable } from "components/base";
 import { TagContainer } from "components/composite";
+import { SheetTrigger } from "components/ui/sheet";
 import {
   type AggregateErrorResponseData,
   type AggregateErrorGroupByOtherResponseData,
@@ -18,9 +19,10 @@ import type { ShortTagType } from "types/Tag";
 
 interface ErrorDataTableProps {
   id: string;
+  setGroupKey: (key: string) => void;
 }
 
-const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
+const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
   const params = useSelector(selectParams);
 
   const { data, isLoading } = useGetNamespaceErrorsQuery({
@@ -48,6 +50,11 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
     return <div>No errors found.</div>;
   }
 
+  const handleSetGroupKey = (event: MouseEvent<HTMLDivElement>, value: any) => {
+    event.preventDefault();
+    setGroupKey(value[params.group_by]);
+  };
+
   const renderTagsCell = (tags: ShortTagType[] | ShortTagType): ReactNode => {
     return <TagContainer tags={tags} />;
   };
@@ -55,14 +62,15 @@ const ErrorDataTable = ({ id }: ErrorDataTableProps) => {
   const renderCell = (info: CellContext<any, any>, key: string) => {
     const value = info.getValue();
     return (
-      <div
-        key={`${info.row.id}-${key}`}
-        onClick={() => {
-          // Redirect to aggregate error page. Should include all errors listed. Maybe a modal?
-        }}
-        className="p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
-      >
-        {String(value)}
+      <div onClick={(e) => handleSetGroupKey(e, info.row.original)}>
+        <SheetTrigger>
+          <div
+            key={`${info.row.id}-${key}`}
+            className="p-2 align-center justify-items-center text-center items-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+          >
+            {String(value)}
+          </div>
+        </SheetTrigger>
       </div>
     );
   };

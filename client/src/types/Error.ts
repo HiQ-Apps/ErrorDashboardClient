@@ -56,6 +56,20 @@ export type ErrorAggregateData = {
 
 export type ErrorAggregateDataResponse = ErrorAggregateData[];
 
+export type ErrorMetaData = {
+  id: string;
+  resolved: boolean;
+  created_at: string;
+};
+
+export type ErrorMetaDataRequest = {
+  namespace_id: string;
+  group_by: string;
+  group_key?: string;
+  offset: number;
+  limit: number;
+};
+
 export type GetErrorAggregateRequest = {
   namespace_id: string;
   start_time: string;

@@ -1,7 +1,9 @@
 import { baseApi } from "features/baseApi";
-import {
+import type {
   ErrorAggregateDataResponse,
   ErrorData,
+  ErrorMetaData,
+  ErrorMetaDataRequest,
   GetErrorAggregateRequest,
 } from "types/Error";
 
@@ -33,8 +35,26 @@ export const errorApiSlice = baseApi.injectEndpoints({
         },
       }),
     }),
+    getErrorMetaGroupedByParams: builder.query<
+      ErrorMetaData[],
+      ErrorMetaDataRequest
+    >({
+      query: ({ namespace_id, group_by, group_key, offset, limit }) => ({
+        url: `/error/aggregate/details/namespace/${namespace_id}`,
+        method: "GET",
+        params: {
+          group_by,
+          group_key,
+          offset,
+          limit,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetErrorByIdQuery, useGetErrorAggregatesByNamespaceIdQuery } =
-  errorApiSlice;
+export const {
+  useGetErrorByIdQuery,
+  useGetErrorAggregatesByNamespaceIdQuery,
+  useGetErrorMetaGroupedByParamsQuery,
+} = errorApiSlice;

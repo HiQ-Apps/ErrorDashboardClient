@@ -49,13 +49,13 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
           <div className="flex flex-col">
             <div>
               <span>Service Name: </span>
-              <span className="underline underline-offset-4">
+              <span className="underline underline-offset-4 decoration-default">
                 {service_name}
               </span>
             </div>
             <div>
               <span>Environment Type: </span>
-              <span className="underline underline-offset-4">
+              <span className="underline underline-offset-4 decoration-default">
                 {environment_type}
               </span>
             </div>
@@ -63,19 +63,19 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
           <div className="flex flex-col justify-end">
             <div className="text-nowrap">
               <span>Created At: </span>
-              <span className="underline underline-offset-4">
+              <span className="underline underline-offset-4 decoration-default">
                 {transformDate(created_at)}
               </span>
             </div>
             <div className="text-nowrap">
               <span>Updated At: </span>
-              <span className="underline underline-offset-4 m-b-0">
+              <span className="underline underline-offset-4 m-b-0 decoration-default">
                 {transformDate(updated_at)}
               </span>
             </div>
           </div>
         </div>
-        <div className="flex mt-8 underline unline-offset-4">
+        <div className="flex mt-8 underline unline-offset-4 decoration-default">
           {header ? <h1>{header}</h1> : <></>}
         </div>
       </CardContent>

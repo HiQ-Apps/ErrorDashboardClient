@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-slate-100 text-slate-900 shadow-sm hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
         ghost:
           "bg-inherit text-slate-200 hover:bg-inherit dark:text-slate-100 dark:hover:inherit",
-        link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
+        link: "text-slate-900 underline-offset-4 hover:underline hover:decoration-default dark:text-slate-50",
         success:
           "border bg-success text-slate-50 shadow-sm dark:bg-success dark:text-slate-50",
         warning:
@@ -29,7 +29,7 @@ const buttonVariants = cva(
         navbutton:
           "bg-white text-lg text-slate-900 mx-1 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-500",
         sidenavbutton:
-          "underline-offset-4 text-sm text-gray-700 bg-transparent hover:underline hover:bg-slate-300 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-200 dark:hover:bg-slate-600 dark:bg-transparent",
+          "underline-offset-4 text-sm text-gray-700 bg-transparent hover:underline hover:decoration-default hover:bg-slate-300 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-200 dark:hover:bg-slate-600 dark:bg-transparent",
       },
       size: {
         default: "h-9 px-4 py-2",

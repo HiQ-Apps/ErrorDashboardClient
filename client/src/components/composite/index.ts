@@ -1,3 +1,4 @@
+import AggregateErrorSheet from "./AggregateErrorSheet/AggregateErrorSheet";
 import BarGraphCard from "./GraphCard/BarGraphCard";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
@@ -20,6 +21,7 @@ import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import UserSidebar from "./UserSidebar/UserSidebar";
 
 export {
+  AggregateErrorSheet,
   BarGraphCard,
   ConfirmationModal,
   ErrorBarGraph,
