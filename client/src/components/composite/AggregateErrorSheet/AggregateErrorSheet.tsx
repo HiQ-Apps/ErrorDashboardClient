@@ -27,7 +27,7 @@ const AggregateErrorSheet = ({ errorMeta }: AggregateErrorSheetProps) => {
       <SheetHeader>
         <SheetTitle>Error Data</SheetTitle>
       </SheetHeader>
-      <ScrollArea className="h-80 w-full rounded-md border">
+      <ScrollArea className="h-80 w-full rounded-md border dark:text-slate-200">
         {errorMeta ? (
           errorMeta.map((error) => (
             <div

@@ -1,9 +1,10 @@
 import { baseApi } from "features/baseApi";
-import type {
-  AuthResponse,
-  LoginUserRequest,
-  RegisterUserRequest,
-  VerifyUserRequest,
+import {
+  ShortUserProfile,
+  type AuthResponse,
+  type LoginUserRequest,
+  type RegisterUserRequest,
+  type VerifyUserRequest,
 } from "types/User";
 
 export const userApiSlice = baseApi.injectEndpoints({
@@ -33,6 +34,12 @@ export const userApiSlice = baseApi.injectEndpoints({
         url: "/verified/auth/check",
         method: "POST",
         body: password,
+      }),
+    }),
+    getUserProfile: builder.query<ShortUserProfile, any>({
+      query: (id) => ({
+        url: `user/profile/${id}`,
+        method: "GET",
       }),
     }),
   }),
