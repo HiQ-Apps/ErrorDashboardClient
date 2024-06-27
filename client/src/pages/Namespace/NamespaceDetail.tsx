@@ -1,5 +1,9 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+import { Sheet } from "components/ui/sheet";
+import { AggregateErrorSheet } from "components/composite";
 import {
   NamespaceSidebar,
   ErrorDataTable,
@@ -7,15 +11,35 @@ import {
   ParameterSelector,
 } from "components/composite";
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
+import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
+import { selectParams } from "features/aggregateTableSlice";
 
 const NamespaceDetail = () => {
   const { id } = useParams();
+  const params = useSelector(selectParams);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(50);
+  const [groupKey, setGroupKey] = useState("");
 
   if (!id) {
     throw new Error("Namespace ID is required");
   }
 
-  const { data, isLoading } = useGetNamespaceByIdQuery(id);
+  const { isLoading } = useGetNamespaceByIdQuery(id);
+  const { data: errorMeta } = useGetErrorMetaGroupedByParamsQuery(
+    {
+      namespace_id: id,
+      group_by: params.group_by,
+      group_key: groupKey,
+      offset,
+      limit,
+    },
+    { skip: !groupKey }
+  );
+
+  useEffect(() => {
+    console.log(groupKey);
+  }, [groupKey]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -31,7 +55,10 @@ const NamespaceDetail = () => {
         <div className="my-4">
           <ParameterSelector />
         </div>
-        {id ? <ErrorDataTable id={id} /> : null}
+        <Sheet>
+          {id ? <ErrorDataTable id={id} setGroupKey={setGroupKey} /> : null}
+          <AggregateErrorSheet errorMeta={errorMeta} />
+        </Sheet>
       </div>
     </div>
   );

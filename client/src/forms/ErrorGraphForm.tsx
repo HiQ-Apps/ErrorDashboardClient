@@ -97,7 +97,11 @@ const ErrorGraphForm = ({
     <form className="flex flex-col text-slate-800 dark:bg-slate-900 dark:text-slate-100">
       <div className="flex flex-col">
         <div className="space-y-2">
-          <Label htmlFor="start_time" text="Select Date to view" />
+          <Label
+            htmlFor="start_time"
+            className={"text-xs"}
+            text="Select Date to view"
+          />
           <Popover>
             <PopoverTrigger asChild>
               <div className="cursor-pointer flex flex-row border rounded-md border-slate-200 justify-center align-center items-center dark:bg-slate-900 dark:text-slate-100">
@@ -132,7 +136,11 @@ const ErrorGraphForm = ({
         </div>
       </div>
       <div className="flex grow-1 flex-col mt-4 space-y-2">
-        <Label htmlFor="time_interval_minutes" text="Time Interval (minutes)" />
+        <Label
+          htmlFor="time_interval_minutes"
+          className={"text-xs"}
+          text="Time Interval (minutes)"
+        />
         <Input
           type="number"
           name="time_interval_minutes"

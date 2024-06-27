@@ -16,7 +16,11 @@ import { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const ErrorBarGraph = () => {
+interface ErrorBarGraphProps {
+  formAddOn?: boolean;
+}
+
+const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
   const { id } = useParams();
 
   const errorAggregateRequestParams = useSelector(selectData);
@@ -110,15 +114,17 @@ const ErrorBarGraph = () => {
           <CanvasJSChart options={options} />
         </div>
       )}
-      <div className="absolute top-64 left-6">
-        <ErrorGraphForm
-          startTime={startTime}
-          timeIntervalMinutes={timeIntervalMinutes}
-          setStartTime={setStartTime}
-          setTimeIntervalMinutes={setTimeIntervalMinutes}
-          refetch={refetch}
-        />
-      </div>
+      {formAddOn ?? (
+        <div className="absolute top-56 left-6">
+          <ErrorGraphForm
+            startTime={startTime}
+            timeIntervalMinutes={timeIntervalMinutes}
+            setStartTime={setStartTime}
+            setTimeIntervalMinutes={setTimeIntervalMinutes}
+            refetch={refetch}
+          />
+        </div>
+      )}
     </div>
   );
 };
