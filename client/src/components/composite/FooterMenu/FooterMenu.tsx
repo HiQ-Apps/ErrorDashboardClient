@@ -62,7 +62,7 @@ const FooterMenu = () => {
                 user?.username ||
                 user_profile?.first_name + " " + user_profile?.last_name
               }
-              size="30px"
+              size="sm"
               avatarColor={user_profile?.avatar_color}
             />
           </div>

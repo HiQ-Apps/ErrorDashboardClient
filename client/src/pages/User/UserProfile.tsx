@@ -1,4 +1,5 @@
 import { UserSidebar } from "components/composite";
+import { UpdateUserProfileCard } from "components/composite";
 
 const UserProfile = () => {
   return (
@@ -6,7 +7,9 @@ const UserProfile = () => {
       <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
         <UserSidebar />
       </div>
-      <div className="flex-1 p-4"></div>
+      <div className="flex-1 p-4">
+        <UpdateUserProfileCard />
+      </div>
     </div>
   );
 };
