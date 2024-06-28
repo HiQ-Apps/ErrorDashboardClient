@@ -117,6 +117,12 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        'custom-hiq': '2px 2px rgba(9, 133, 133, 0.4), 4px 4px rgba(9, 133, 133, 0.3), 6px 6px rgba(9, 133, 133, 0.2), 8px 8px rgba(9, 133, 133, 0.1)',
+      },
+      textShadow: {
+        'custom-hiq': '2px 2px 2px rgba(9, 133, 133, 0.4)',
+      },
       height: {
         screens: {
           'xs': '480px',
@@ -225,5 +231,13 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.text-shadow-custom-hiq': {
+          'text-shadow': '2px 2px 2px #098585',
+        },
+      });
+    },
+  ],
 }
