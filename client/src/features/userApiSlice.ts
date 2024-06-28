@@ -1,9 +1,12 @@
 import { baseApi } from "features/baseApi";
 import type {
+  ShortUserProfile,
+  UpdateUserProfile,
   AuthResponse,
   LoginUserRequest,
   RegisterUserRequest,
   VerifyUserRequest,
+  UpdateUserProfileOpt,
 } from "types/User";
 
 export const userApiSlice = baseApi.injectEndpoints({
@@ -35,6 +38,24 @@ export const userApiSlice = baseApi.injectEndpoints({
         body: password,
       }),
     }),
+    getUserProfile: builder.query<ShortUserProfile, string>({
+      query: (id) => ({
+        url: `users/${id}/profile`,
+        method: "GET",
+      }),
+      providesTags: ["UserProfile"],
+    }),
+    updateUserProfile: builder.mutation<
+      UpdateUserProfile,
+      UpdateUserProfileOpt
+    >({
+      query: (profile) => ({
+        url: `users/${profile.id}/profile`,
+        method: "PUT",
+        body: profile,
+      }),
+      invalidatesTags: ["UserProfile"],
+    }),
   }),
 });
 
@@ -43,4 +64,6 @@ export const {
   useRegisterMutation,
   useRefreshAccessTokenQuery,
   useVerifyUserMutation,
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
 } = userApiSlice;

@@ -3,6 +3,7 @@ import { useRefreshAccessTokenQuery } from "features/userApiSlice";
 import {
   setUser,
   setToken,
+  setProfile,
   setIsAuthenticated,
   clearAuth,
 } from "features/authSlice";
@@ -18,6 +19,7 @@ const PersistAuth = () => {
     if (isSuccess) {
       dispatch(setUser(data.user));
       dispatch(setToken(data.access_token));
+      dispatch(setProfile(data.user_profile));
       dispatch(setIsAuthenticated(true));
     } else if (isError) {
       dispatch(clearAuth());

@@ -1,14 +1,21 @@
 import { getInitials } from "shared/utils/parseString";
+import { colorList } from "components/composite";
 
 interface AvatarProps {
   name?: string;
-  size?: string;
+  size?: "sm" | "md" | "lg";
   avatarColor?: string;
 }
 
+const avatarStyleMap = {
+  sm: { dimensions: "30px", fontSize: "1rem", maxHeight: "" },
+  md: { dimensions: "60px", fontSize: "2rem" },
+  lg: { dimensions: "120px", fontSize: "3rem" },
+};
+
 const CustomAvatar = ({
   name,
-  size = "40px",
+  size = "sm",
   avatarColor = "098585",
 }: AvatarProps) => {
   if (!name) {
@@ -16,23 +23,31 @@ const CustomAvatar = ({
   }
 
   const initials = getInitials(name);
+  const textColor = colorList.find((color) => color.background === avatarColor);
+  const dimensions = avatarStyleMap[size]["dimensions"];
+  const fontSize = avatarStyleMap[size]["fontSize"];
   //   Implement JIT
   return (
     <div
       style={{
         backgroundColor: avatarColor,
-        width: size,
-        height: size,
+        width: dimensions,
+        height: dimensions,
         borderRadius: "50%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        color: "white",
-        fontSize: "1rem",
+        color: textColor?.text || "white",
+        fontSize: fontSize,
         fontWeight: "bold",
       }}
     >
-      <div className="h-3/4 flex justify-center text-center text-slate-200 overflow-hidden">
+      <div
+        style={{
+          display: "flex",
+          overflow: "hidden",
+        }}
+      >
         {initials}
       </div>
     </div>
