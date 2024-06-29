@@ -83,18 +83,19 @@ const NamespaceDataTable = () => {
         try {
           dispatch(setIsLoading(true));
           await verifyUser(password).unwrap();
-          deleteNamespaceById(id).unwrap();
+          await deleteNamespaceById(id).unwrap();
           dispatch(setIsLoading(false));
-          dispatch(closeModal());
           unregisterHandler();
+          dispatch(closeModal());
         } catch (error) {
           dispatch(setIsLoading(false));
-          console.error("Action rejected or failed:", error);
+          dispatch(closeModal());
+          toast({
+            title: "Failed to delete namespace",
+          });
         }
       },
       () => {
-        console.error("Action rejected");
-        unregisterHandler();
         dispatch(closeModal());
       }
     );
