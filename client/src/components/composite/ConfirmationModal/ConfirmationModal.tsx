@@ -3,7 +3,7 @@ import { Modal } from "components/base";
 import VerifyUserForm from "forms/VerifyUserForm";
 import { useSelector } from "react-redux";
 import { selectIsOpen, selectModalType, closeModal } from "features/modalSlice";
-import { VerifyUserRequest } from "types/User";
+import type { VerifyUserRequest } from "types/User";
 
 const ConfirmationModal = () => {
   const { onConfirm, onReject, unregisterHandler } = useModalHandlerContext();

@@ -89,7 +89,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
       <BaseButton
         size="sm"
         onClick={handleCreateNamespaceClick}
-        variant="success"
+        variant="accent"
         content={
           isSuccess ? (
             "Success"

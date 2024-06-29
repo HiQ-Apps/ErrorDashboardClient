@@ -9,6 +9,7 @@ interface ButtonProps {
   onClick?: (event: ButtonClickEvent) => void | Promise<void>;
   size?: "default" | "sm" | "lg" | "icon";
   variant:
+    | "accent"
     | "default"
     | "destructive"
     | "outline"

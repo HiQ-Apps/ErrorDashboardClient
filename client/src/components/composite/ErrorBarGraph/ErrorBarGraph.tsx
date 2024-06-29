@@ -12,7 +12,7 @@ import { getTodayDateString } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
 import { selectData } from "features/errorGraphSlice";
-import { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
+import type { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 

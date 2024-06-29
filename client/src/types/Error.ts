@@ -17,8 +17,21 @@ export type StreamErrorData = {
   stack_trace: string;
 };
 
-export type AggregateErrorGroupByOtherResponseData = {
+export type AggregateErrorGroupByStatusResponseData = {
   status_code: number;
+  aggregated_tags: ShortTagType[];
+  user_affected_count: number;
+  error_count: number;
+};
+
+export type AggregateErrorGroupByLineResponseData = {
+  line: number;
+  aggregated_tags: ShortTagType[];
+  user_affected_count: number;
+  error_count: number;
+};
+
+export type AggregateErrorGroupByMessageResponseData = {
   message: string;
   aggregated_tags: ShortTagType[];
   user_affected_count: number;
@@ -32,7 +45,9 @@ export type AggregateErrorGroupByTagResponseData = {
 };
 
 export type AggregateErrorResponseData =
-  | AggregateErrorGroupByOtherResponseData[]
+  | AggregateErrorGroupByStatusResponseData[]
+  | AggregateErrorGroupByMessageResponseData[]
+  | AggregateErrorGroupByLineResponseData[]
   | AggregateErrorGroupByTagResponseData[];
 
 export type ErrorData = {
@@ -77,14 +92,34 @@ export type GetErrorAggregateRequest = {
   timezone: string;
 };
 
-export const isGroupByOtherResponse = (
+export const isGroupByStatusResponse = (
   data: AggregateErrorResponseData
-): data is AggregateErrorGroupByOtherResponseData[] => {
+): data is AggregateErrorGroupByStatusResponseData[] => {
   return (
     Array.isArray(data) &&
     data.length > 0 &&
-    (data[0] as AggregateErrorGroupByOtherResponseData).status_code !==
+    (data[0] as AggregateErrorGroupByStatusResponseData).status_code !==
       undefined
+  );
+};
+
+export const isGroupByLineResponse = (
+  data: AggregateErrorResponseData
+): data is AggregateErrorGroupByLineResponseData[] => {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    (data[0] as AggregateErrorGroupByLineResponseData).line !== undefined
+  );
+};
+
+export const isGroupByMessageResponse = (
+  data: AggregateErrorResponseData
+): data is AggregateErrorGroupByMessageResponseData[] => {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    (data[0] as AggregateErrorGroupByMessageResponseData).message !== undefined
   );
 };
 

@@ -6,9 +6,8 @@ import { ScrollArea } from "components/ui/scroll-area";
 import { selectTimeZone } from "features/timezoneSlice";
 import { StatusDot } from "components/base";
 import { SheetContent, SheetHeader, SheetTitle } from "components/ui/sheet";
-import { ErrorMetaData } from "types/Error";
+import type { ErrorMetaData } from "types/Error";
 import { GenerateSkeletons } from "shared/utils/generateSkeletons";
-import { ErrorBarGraph } from "components/composite";
 
 type AggregateErrorSheetProps = {
   errorMeta?: ErrorMetaData[];
@@ -23,7 +22,7 @@ const AggregateErrorSheet = ({ errorMeta }: AggregateErrorSheetProps) => {
   };
 
   return (
-    <SheetContent aria-describedby="Error Data">
+    <SheetContent className="w-120" aria-describedby="Error Data">
       <SheetHeader>
         <SheetTitle>Error Data</SheetTitle>
       </SheetHeader>
@@ -31,28 +30,19 @@ const AggregateErrorSheet = ({ errorMeta }: AggregateErrorSheetProps) => {
         {errorMeta ? (
           errorMeta.map((error) => (
             <div
-              className="text-2xs flex flex-row justify-around items-center"
+              className="text-2xs flex flex-row justify-around items-center space-x-4"
               key={error.id}
             >
-              <div
-                key={error.id}
-                className="flex flex-row space-x-4 py-1 items-center"
+              <p
+                onClick={() => {
+                  handleNavigateToErrorDetailPage(error.id);
+                }}
+                className="w-[220px] hover:underline hover:decoration-default cursor-pointer flex text-center"
               >
-                <p
-                  onClick={() => {
-                    handleNavigateToErrorDetailPage(error.id);
-                  }}
-                  className="hover:underline hover:decoration-default cursor-pointer"
-                >
-                  {error.id}
-                </p>
-                {error.resolved ? (
-                  <StatusDot status={error.resolved} />
-                ) : (
-                  <StatusDot status={error.resolved} />
-                )}
-              </div>
-              <p>
+                {error.id}
+              </p>
+              <StatusDot status={error.resolved} />
+              <p className="flex text-center">
                 {DateTime.fromISO(error.created_at)
                   .setZone(timezone)
                   .toFormat("MM-dd-yyyy HH:mm")}
@@ -66,9 +56,8 @@ const AggregateErrorSheet = ({ errorMeta }: AggregateErrorSheetProps) => {
         )}
       </ScrollArea>
       <div className="w-full mt-12 absolute">
-        <p className="text-sm">1-D</p>
         <div className="relative left-10">
-          <ErrorBarGraph formAddOn={false} />
+          {/* <ErrorBarGraph formAddOn={false} /> */}
         </div>
       </div>
     </SheetContent>
