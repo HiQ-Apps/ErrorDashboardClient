@@ -9,7 +9,7 @@ import {
 } from "components/ui/select";
 
 import { setTimeZone, selectTimeZone } from "features/timezoneSlice";
-import { TimeZone } from "shared/types/extra";
+import type { TimeZone } from "shared/types/extra";
 
 export const timezones: TimeZone[] = [
   "UTC",

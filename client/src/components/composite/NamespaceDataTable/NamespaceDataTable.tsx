@@ -16,7 +16,7 @@ import { useToast } from "components/ui/use-toast";
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
 import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
 import { openModal, closeModal, setIsLoading } from "features/modalSlice";
-import { VerifyUserRequest } from "types/User";
+import type { VerifyUserRequest } from "types/User";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);

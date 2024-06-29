@@ -59,7 +59,7 @@ const Home = () => {
               className="text-7xl font-extrabold text-black dark:text-white rounded-lg p-1 text-shadow-custom-hiq"
               style={style}
             >
-              {["Error", "Dashboard"][index]}
+              {["HiGuard"][index]}
             </animated.div>
           ))}
         </div>
@@ -67,7 +67,7 @@ const Home = () => {
           {transition((style, item) => (
             <animated.div
               key={item}
-              className="w-16 h-16 bg-white rounded-lg flex items-center justify-center text-black text-xl mt-40 shadow-custom-hiq"
+              className="w-16 h-16 bg-white rounded-lg flex items-center justify-center text-black text-xl mt-12 shadow-custom-hiq"
               style={style}
             >
               {item}

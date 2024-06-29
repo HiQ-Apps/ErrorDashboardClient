@@ -14,6 +14,10 @@ const HomeSidebar = () => {
     navigate("/documentation");
   };
 
+  const handleTermsOfServiceClick = () => {
+    navigate("/termsofservice");
+  };
+
   const links = [
     <BaseButton
       size="sm"
@@ -26,6 +30,12 @@ const HomeSidebar = () => {
       content={"Documentation"}
       variant="sidenavbutton"
       onClick={handleDocumentationClick}
+    />,
+    <BaseButton
+      size="sm"
+      content={"Terms of Service"}
+      variant="sidenavbutton"
+      onClick={handleTermsOfServiceClick}
     />,
   ];
 
