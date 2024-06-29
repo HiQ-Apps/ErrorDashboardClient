@@ -21,7 +21,7 @@ const TagContainer = ({ tags }: TagContainerProps) => {
     );
   } else if (tags.length > 1) {
     return (
-      <ScrollArea className="h-[100px] whitespace-nowrap rounded-md border">
+      <ScrollArea className="h-[100px] w-full whitespace-nowrap rounded-md dark:bg-slate-900">
         {tags.map((tag, index) => (
           <Tag key={index} tag_key={tag.tag_key} tag_value={tag.tag_value} />
         ))}

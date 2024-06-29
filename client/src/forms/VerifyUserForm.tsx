@@ -57,7 +57,7 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
           </p>
         )}
         <BaseButton
-          variant="success"
+          variant="accent"
           size="sm"
           onClick={handleSubmit}
           content={

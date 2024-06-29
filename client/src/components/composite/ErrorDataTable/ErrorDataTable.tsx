@@ -20,9 +20,8 @@ import {
   isGroupByTagResponse,
 } from "types/Error";
 import type { ShortTagType } from "types/Tag";
-import { HoverCard, HoverCardTrigger } from "components/ui/hover-card";
+import { Popover, PopoverTrigger, PopoverContent } from "components/ui/popover";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { HoverCardContent } from "@radix-ui/react-hover-card";
 
 interface ErrorDataTableProps {
   id: string;
@@ -65,14 +64,14 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
   const renderTagsCell = (tags: ShortTagType[] | ShortTagType): ReactNode => {
     return (
       <div className="flex justify-center w-full">
-        <HoverCard>
-          <HoverCardTrigger>
+        <Popover>
+          <PopoverTrigger>
             <DotsHorizontalIcon />
-          </HoverCardTrigger>
-          <HoverCardContent className="w-44 bg-slate-50 dark:bg-slate-800 dark:text-slate-100">
+          </PopoverTrigger>
+          <PopoverContent className="w-44 bg-slate-50 dark:bg-slate-900 dark:text-slate-100">
             <TagContainer tags={tags} />
-          </HoverCardContent>
-        </HoverCard>
+          </PopoverContent>
+        </Popover>
       </div>
     );
   };

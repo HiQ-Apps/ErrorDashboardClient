@@ -124,7 +124,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
       <BaseButton
         size="sm"
         onClick={handleSubmit}
-        variant="success"
+        variant="accent"
         content={
           isSuccess ? (
             "Success"

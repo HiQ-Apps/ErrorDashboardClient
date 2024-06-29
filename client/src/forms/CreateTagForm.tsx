@@ -90,7 +90,7 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
       <BaseButton
         size="sm"
         onClick={handleCreateTagClick}
-        variant="success"
+        variant="accent"
         content={
           isSuccess ? (
             "Success"

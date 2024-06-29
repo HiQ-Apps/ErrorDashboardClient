@@ -88,7 +88,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       <BaseButton
         size="sm"
         onClick={handleLoginClick}
-        variant="success"
+        variant="accent"
         content={
           isSuccess ? (
             "Success"

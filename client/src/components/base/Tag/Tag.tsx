@@ -5,7 +5,7 @@ interface TagProps {
 
 const Tag = ({ tag_key, tag_value }: TagProps) => {
   return (
-    <div className="my-1 text-slate-900 bg-slate-100 flex text-2xs py-1 border border-slate-600 justify-center text-center text-nowrap align-center items-center rounded-full dark:text-slate-900 dark:bg-slate-300">
+    <div className="my-1 mx-6 text-slate-900 bg-slate-100 flex text-2xs py-1 border border-slate-600 justify-center text-center text-balance align-center items-center rounded-full dark:text-slate-900 dark:bg-slate-300">
       {tag_key}: {tag_value}
     </div>
   );
