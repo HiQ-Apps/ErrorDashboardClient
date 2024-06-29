@@ -97,7 +97,7 @@ const UpdateNamespaceForm = () => {
       .writeText(fieldValue as string)
       .then(() => {
         toast({
-          title: `${fieldName} copied to clipboard`,
+          title: `${formatHeader(fieldName)} copied to clipboard`,
         });
       })
       .catch((err) => {

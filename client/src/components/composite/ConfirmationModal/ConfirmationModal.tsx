@@ -2,7 +2,7 @@ import { useModalHandlerContext } from "shared/context/modalHandlerContext";
 import { Modal } from "components/base";
 import VerifyUserForm from "forms/VerifyUserForm";
 import { useSelector } from "react-redux";
-import { selectIsOpen, selectModalType } from "features/modalSlice";
+import { selectIsOpen, selectModalType, closeModal } from "features/modalSlice";
 import { VerifyUserRequest } from "types/User";
 
 const ConfirmationModal = () => {
@@ -13,11 +13,18 @@ const ConfirmationModal = () => {
   const handleClose = () => {
     if (onReject) onReject();
     unregisterHandler();
+    closeModal();
   };
 
   const handleConfirm = (password: VerifyUserRequest) => {
-    if (onConfirm) onConfirm(password);
-    unregisterHandler();
+    if (onConfirm)
+      try {
+        onConfirm(password);
+        unregisterHandler();
+        closeModal();
+      } catch (error) {
+        console.error(error);
+      }
   };
 
   return (

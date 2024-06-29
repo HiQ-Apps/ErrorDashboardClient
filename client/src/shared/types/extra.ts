@@ -15,7 +15,8 @@ export type PaginationWithId = {
 
 export type ButtonClickEvent =
   | MouseEvent<HTMLButtonElement>
-  | FormEvent<HTMLFormElement>;
+  | FormEvent<HTMLFormElement>
+  | FormEvent;
 
 export type TimeZone =
   | "UTC"

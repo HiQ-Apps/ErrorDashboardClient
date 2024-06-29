@@ -8,10 +8,13 @@ import {
   ClipboardCopyIcon,
 } from "@radix-ui/react-icons";
 
+import { useModalHandlerContext } from "shared/context/modalHandlerContext";
+import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "features/userApiSlice";
+import { useVerifyUserMutation } from "features/userApiSlice";
 import { Input, Label, BaseButton, Avatar } from "components/base";
 import { ConfirmationModal } from "components/composite";
 import {
@@ -30,6 +33,7 @@ import { formatHeader } from "shared/utils/parseString";
 import useForm from "hooks/useForm";
 import ColorSelector from "components/composite/ColorSelector/ColorSelector";
 import { generateUUID } from "shared/utils/generateUUID";
+import { VerifyUserRequest } from "types/User";
 
 export const UpdateUserProfileForm = () => {
   const { id } = useParams();
@@ -37,6 +41,7 @@ export const UpdateUserProfileForm = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const userProfile = useSelector(selectUserProfile);
+  const { registerHandler, unregisterHandler } = useModalHandlerContext();
 
   if (!id) {
     throw new Error("User ID is required");
@@ -50,11 +55,12 @@ export const UpdateUserProfileForm = () => {
     throw new Error("User Profile is required");
   }
 
-  const [avatarColor, setAvatarColor] = useState(userProfile.avatar_color);
-  const [passVisible, setPassVisible] = useState(false);
-  const { data: initialUserProfile, isSuccess: initalUserProfileSuccess } =
-    useGetUserProfileQuery(id);
+  const [verifyUser] = useVerifyUserMutation();
+  const { data: initialUserProfile } = useGetUserProfileQuery(id);
   const [updateUserProfile] = useUpdateUserProfileMutation();
+
+  const [passVisible, setPassVisible] = useState(false);
+  const [avatarColor, setAvatarColor] = useState(userProfile.avatar_color);
   const { form, handleChange, setForm, validate, errors } =
     useForm<UpdateUserProfileSchema>(
       {
@@ -73,12 +79,6 @@ export const UpdateUserProfileForm = () => {
       ...prevForm,
       avatar_color: avatarColor,
     }));
-    // dispatch(
-    //   setProfile({
-    //     ...userProfile,
-    //     avatar_color: avatarColor,
-    //   })
-    // );
   }, [avatarColor]);
 
   useEffect(() => {
@@ -93,6 +93,54 @@ export const UpdateUserProfileForm = () => {
       });
     }
   }, [initialUserProfile]);
+
+  const handleSubmitWithConfirmation = async (
+    event: FormEvent,
+    fieldName: keyof UpdateUserProfileSchema
+  ) => {
+    event.preventDefault();
+    registerHandler(
+      async (password: VerifyUserRequest) => {
+        try {
+          dispatch(setIsLoading(true));
+          await verifyUser(password).unwrap();
+          if (validate()) {
+            const value = form[fieldName];
+            await updateUserProfile({
+              id,
+              [fieldName]: value,
+            }).unwrap();
+            dispatch(setIsLoading(false));
+            unregisterHandler();
+            dispatch(closeModal());
+            toast({
+              title: "Profile Updated",
+              description: `${formatHeader(
+                fieldName
+              )} has been updated successfully`,
+            });
+          } else {
+            toast({
+              title: "Profile Update Failed",
+              description: "Please try again",
+            });
+          }
+        } catch (error) {
+          dispatch(setIsLoading(false));
+          dispatch(closeModal());
+          toast({
+            title: "Profile Update Failed",
+            description: "Please try again",
+          });
+        }
+      },
+      () => {
+        console.error("Action rejected");
+        dispatch(closeModal());
+      }
+    );
+    dispatch(openModal({ modalType: "confirmation" }));
+  };
 
   const handleSubmit = async (
     event: FormEvent,
@@ -113,7 +161,6 @@ export const UpdateUserProfileForm = () => {
           )} has been updated successfully`,
         });
         if (updatedUserProfile) {
-          console.log("return", updatedUserProfile);
           dispatch(
             setProfile({
               ...userProfile,
@@ -166,7 +213,7 @@ export const UpdateUserProfileForm = () => {
       .writeText(fieldValue as string)
       .then(() => {
         toast({
-          title: `${fieldName} copied to clipboard`,
+          title: `${formatHeader(fieldName)} copied to clipboard`,
         });
       })
       .catch((err) => {
@@ -235,7 +282,7 @@ export const UpdateUserProfileForm = () => {
               size="sm"
               content="Update"
               variant="default"
-              onClick={(e) => handleSubmit(e, "password")}
+              onClick={(e) => handleSubmitWithConfirmation(e, "password")}
               override_styles="my-4"
             />
           </div>
@@ -330,6 +377,7 @@ export const UpdateUserProfileForm = () => {
           </div>
         </div>
       </form>
+      <ConfirmationModal />
     </div>
   );
 };

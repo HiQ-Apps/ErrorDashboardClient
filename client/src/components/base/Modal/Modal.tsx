@@ -45,9 +45,7 @@ const Modal = ({
                 variant="default"
               />
             </>
-          ) : (
-            <BaseButton content="Close" onClick={onClose} variant="default" />
-          )}
+          ) : null}
         </div>
       </DialogContent>
     </Dialog>
