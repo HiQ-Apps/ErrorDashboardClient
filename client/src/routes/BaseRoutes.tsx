@@ -3,6 +3,7 @@ import Home from "pages/Base/Home";
 import Documentation from "pages/Base/Documentation";
 import About from "pages/Base/About";
 import TermsOfServices from "pages/Base/TermsOfServices";
+import Releases from "pages/Base/Releases";
 
 const BaseRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const BaseRoutes = () => {
       <Route path="/documentation" element={<Documentation />} />
       <Route path="/about" element={<About />} />
       <Route path="/termsofservice" element={<TermsOfServices />} />
+      <Route path="/releases" element={<Releases />} />
     </Routes>
   );
 };

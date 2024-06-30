@@ -1,11 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
 import type { RootState } from "configs/store";
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
-  errorInfo: React.ErrorInfo | null;
+  error: { message: string; name: string; stack?: string } | null;
+  errorInfo: { componentStack: string } | null;
 }
 
 const initialState: ErrorBoundaryState = {
@@ -20,7 +19,10 @@ const errorBoundarySlice = createSlice({
   reducers: {
     setError(
       state,
-      action: PayloadAction<{ error: Error; errorInfo: React.ErrorInfo }>
+      action: PayloadAction<{
+        error: { message: string; name: string; stack?: string };
+        errorInfo: { componentStack: string };
+      }>
     ) {
       state.hasError = true;
       state.error = action.payload.error;
