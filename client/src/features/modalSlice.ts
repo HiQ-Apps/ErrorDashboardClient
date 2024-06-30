@@ -33,12 +33,10 @@ const modalSlice = createSlice({
           | "createTag";
       }>
     ) => {
-      console.log("open modal");
       state.isOpen = true;
       state.modalType = action.payload.modalType;
     },
     closeModal: (state) => {
-      console.log("close modal");
       state.isOpen = false;
       state.modalType = undefined;
     },

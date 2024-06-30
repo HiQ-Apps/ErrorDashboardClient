@@ -1,11 +1,11 @@
 import { type ReactNode, type MouseEvent, useEffect, useState } from "react";
 import type { ColumnDef, CellContext } from "@tanstack/react-table";
 import { useSelector } from "react-redux";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
-import { formatHeader } from "shared/utils/parseString";
 import { selectParams } from "features/aggregateTableSlice";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
-import { DataTable } from "components/base";
+import { BaseButton, DataTable } from "components/base";
 import { TagContainer } from "components/composite";
 import { SheetTrigger } from "components/ui/sheet";
 import {
@@ -22,6 +22,7 @@ import {
 import type { ShortTagType } from "types/Tag";
 import { Popover, PopoverTrigger, PopoverContent } from "components/ui/popover";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { useToast } from "components/ui/use-toast";
 
 interface ErrorDataTableProps {
   id: string;
@@ -30,8 +31,9 @@ interface ErrorDataTableProps {
 
 const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
   const params = useSelector(selectParams);
+  const { toast } = useToast();
 
-  const { data, isLoading } = useGetNamespaceErrorsQuery({
+  const { data, isLoading, refetch } = useGetNamespaceErrorsQuery({
     id: id,
     offset: params.offset,
     limit: params.limit,
@@ -43,18 +45,20 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
   );
 
   useEffect(() => {
+    if (isLoading) {
+      <div>Loading...</div>;
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
     if (data) {
       setErrors(data);
+      toast({
+        title: "Data loaded successfully",
+        description: "Table loaded",
+      });
     }
   }, [data]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!aggregatedErrors || aggregatedErrors.length === 0) {
-    return <div>No errors found.</div>;
-  }
 
   const handleSetGroupKey = (event: MouseEvent<HTMLDivElement>, value: any) => {
     event.preventDefault();
@@ -247,7 +251,25 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
 
   const columns = createColumns();
 
-  return <DataTable data={aggregatedErrors} columns={columns} />;
+  return (
+    <>
+      <BaseButton
+        variant="accent"
+        content={
+          isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            <UpdateIcon className="text-slate-100 w-5 h-5" />
+          )
+        }
+        override_styles="w-8 h-8 p-1 mb-4"
+        onClick={() => {
+          refetch();
+        }}
+      />
+      <DataTable data={aggregatedErrors} columns={columns} />
+    </>
+  );
 };
 
 export default ErrorDataTable;

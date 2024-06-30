@@ -119,8 +119,8 @@ const TermsOfServices = () => {
           <h2 className="text-xl font-semibold mb-2">10. Governing Law</h2>
           <p className="mb-6">
             These Terms shall be governed and construed in accordance with the
-            laws of [Your Country/State], without regard to its conflict of law
-            provisions.
+            laws of the United States of America, without regard to its conflict
+            of law provisions.
           </p>
 
           <div className="mt-8">
