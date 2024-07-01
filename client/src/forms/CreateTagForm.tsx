@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { type FormEvent, useEffect } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { Input, Label, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
 
 import { createTagSchema, type CreateTagSchema } from "schemas/createTagSchema";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { useCreateTagMutation } from "features/tagApiSlice";
+import { ColorSelector } from "components/composite";
 import useForm from "hooks/useForm";
 
 interface CreateTagFormProps {
@@ -13,6 +14,7 @@ interface CreateTagFormProps {
 }
 
 const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
+  const [tagColor, setTagColor] = useState("");
   const { id } = useParams();
 
   if (!id) {
@@ -21,10 +23,11 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
 
   const { toast } = useToast();
 
-  const { form, handleChange, validate, errors } = useForm<CreateTagSchema>(
-    { tag_key: "", tag_value: "", error_id: id },
-    createTagSchema
-  );
+  const { form, setForm, handleChange, validate, errors } =
+    useForm<CreateTagSchema>(
+      { tag_key: "", tag_value: "", error_id: id, tag_color: tagColor },
+      createTagSchema
+    );
 
   const [createTag, { isSuccess, isError, isLoading }] = useCreateTagMutation();
 
@@ -38,6 +41,10 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
       }
     }
   };
+
+  useEffect(() => {
+    setForm((prevForm) => ({ ...prevForm, tag_color: tagColor }));
+  }, [tagColor]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -87,10 +94,12 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
           </span>
         )}
       </div>
+      <ColorSelector selectedColor={tagColor} setColor={setTagColor} />
       <BaseButton
         size="sm"
         onClick={handleCreateTagClick}
         variant="accent"
+        override_styles="my-2"
         content={
           isSuccess ? (
             "Success"

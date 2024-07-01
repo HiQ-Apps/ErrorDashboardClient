@@ -57,6 +57,7 @@ export type ErrorData = {
   path: string;
   line: number;
   message: string;
+  user_agent: string;
   stack_trace: string;
   resolved: boolean;
   tags: TagType[];

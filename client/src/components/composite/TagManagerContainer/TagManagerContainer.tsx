@@ -78,7 +78,11 @@ const TagManagerContainer = ({ tags }: TagManagerContainerProps) => {
             >
               X
             </div>
-            <Tag tag_key={tag.tag_key} tag_value={tag.tag_value} />
+            <Tag
+              tag_key={tag.tag_key}
+              tag_value={tag.tag_value}
+              tag_color={tag.tag_color}
+            />
           </div>
         ))}
       </ScrollArea>
