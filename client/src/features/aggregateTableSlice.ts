@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "configs/store";
 
-type GroupByType = "status_code" | "message" | "tags" | "line";
+type GroupByType = "message" | "tags" | "line";
 
 interface AggregateTableState {
   params: { offset: number; limit: number; group_by: GroupByType };
 }
 
 const initialState: AggregateTableState = {
-  params: { offset: 0, limit: 100, group_by: "status_code" },
+  params: { offset: 0, limit: 100, group_by: "message" },
 };
 
 let aggregateTableSlice = createSlice({

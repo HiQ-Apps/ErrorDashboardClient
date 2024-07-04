@@ -71,7 +71,8 @@ const UpdateNamespaceForm = () => {
     }
   }, [data]);
 
-  const [updateNamespaceById] = useUpdateNamespaceByIdMutation();
+  const [updateNamespaceById, { isLoading: updateLoading }] =
+    useUpdateNamespaceByIdMutation();
 
   const toggleClientSecretVisibility: MouseEventHandler<HTMLDivElement> = (
     event
@@ -123,7 +124,16 @@ const UpdateNamespaceForm = () => {
   ) => {
     event.preventDefault();
     try {
-      const value = fieldName === "active" ? !form[fieldName] : form[fieldName];
+      let value;
+
+      if (fieldName === "active") {
+        value = !form[fieldName];
+      } else if (fieldName === "client_secret") {
+        value = true;
+      } else {
+        value = form[fieldName];
+      }
+
       if (validate()) {
         await updateNamespaceById({ id, [fieldName]: value }).unwrap();
 
@@ -249,22 +259,9 @@ const UpdateNamespaceForm = () => {
               <p>Toggle visibility</p>
             </TooltipContent>
           </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <div
-                className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
-                onClick={(e) => handleGenerateUUID(e, "client_secret")}
-              >
-                <UpdateIcon />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Generate new UUID</p>
-            </TooltipContent>
-          </Tooltip>
           <BaseButton
             size="sm"
-            content="Update"
+            content={<UpdateIcon />}
             variant="default"
             onClick={(e) => handleSubmit(e, "client_secret")}
             override_styles="my-4"

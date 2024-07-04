@@ -3,14 +3,12 @@ import { ShortTagType, TagType } from "./Tag";
 export type ShortErrorData = {
   id: string;
   message: string;
-  status_code: number;
   resolved: boolean;
   tags?: ShortTagType[];
 };
 
 export type StreamErrorData = {
   id: string;
-  status_code: number;
   message: string;
   resolved: boolean;
   namespace_id: string;
@@ -18,7 +16,6 @@ export type StreamErrorData = {
 };
 
 export type AggregateErrorGroupByStatusResponseData = {
-  status_code: number;
   aggregated_tags: ShortTagType[];
   user_affected_count: number;
   error_count: number;
@@ -45,19 +42,16 @@ export type AggregateErrorGroupByTagResponseData = {
 };
 
 export type AggregateErrorResponseData =
-  | AggregateErrorGroupByStatusResponseData[]
   | AggregateErrorGroupByMessageResponseData[]
   | AggregateErrorGroupByLineResponseData[]
   | AggregateErrorGroupByTagResponseData[];
 
 export type ErrorData = {
   id: string;
-  status_code: number;
   user_affected: string;
   path: string;
   line: number;
   message: string;
-  user_agent: string;
   stack_trace: string;
   resolved: boolean;
   tags: TagType[];
@@ -91,17 +85,6 @@ export type GetErrorAggregateRequest = {
   start_time: string;
   time_interval_minutes: number;
   timezone: string;
-};
-
-export const isGroupByStatusResponse = (
-  data: AggregateErrorResponseData
-): data is AggregateErrorGroupByStatusResponseData[] => {
-  return (
-    Array.isArray(data) &&
-    data.length > 0 &&
-    (data[0] as AggregateErrorGroupByStatusResponseData).status_code !==
-      undefined
-  );
 };
 
 export const isGroupByLineResponse = (

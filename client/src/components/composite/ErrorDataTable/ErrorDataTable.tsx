@@ -12,11 +12,9 @@ import {
   type AggregateErrorResponseData,
   type AggregateErrorGroupByLineResponseData,
   type AggregateErrorGroupByMessageResponseData,
-  type AggregateErrorGroupByStatusResponseData,
   type AggregateErrorGroupByTagResponseData,
   isGroupByLineResponse,
   isGroupByMessageResponse,
-  isGroupByStatusResponse,
   isGroupByTagResponse,
 } from "types/Error";
 import type { ShortTagType } from "types/Tag";
@@ -136,40 +134,40 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     },
   ];
 
-  const createColumnsForGroupByStatusResponse = (
-    _: AggregateErrorGroupByStatusResponseData[]
-  ): ColumnDef<AggregateErrorGroupByStatusResponseData>[] => [
-    {
-      header: "Status Code",
-      accessorKey: "status_code",
-      cell: (
-        info: CellContext<AggregateErrorGroupByStatusResponseData, any>
-      ) => (
-        <div className="flex justify-center text-center">{info.getValue()}</div>
-      ),
-    },
-    {
-      header: "User Affected Count",
-      accessorKey: "user_affected_count",
-      cell: (
-        info: CellContext<AggregateErrorGroupByStatusResponseData, any>
-      ) => (
-        <div className="flex justify-center text-center">{info.getValue()}</div>
-      ),
-    },
-    {
-      header: "Error Count",
-      accessorKey: "error_count",
-      cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
-        renderErrorCountCell(info, "error_count"),
-    },
-    {
-      header: "Tags",
-      accessorKey: "aggregated_tags",
-      cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
-        renderTagsCell(info.getValue() as ShortTagType[]),
-    },
-  ];
+  // const createColumnsForGroupByStatusResponse = (
+  //   _: AggregateErrorGroupByStatusResponseData[]
+  // ): ColumnDef<AggregateErrorGroupByStatusResponseData>[] => [
+  //   {
+  //     header: "Status Code",
+  //     accessorKey: "status_code",
+  //     cell: (
+  //       info: CellContext<AggregateErrorGroupByStatusResponseData, any>
+  //     ) => (
+  //       <div className="flex justify-center text-center">{info.getValue()}</div>
+  //     ),
+  //   },
+  //   {
+  //     header: "User Affected Count",
+  //     accessorKey: "user_affected_count",
+  //     cell: (
+  //       info: CellContext<AggregateErrorGroupByStatusResponseData, any>
+  //     ) => (
+  //       <div className="flex justify-center text-center">{info.getValue()}</div>
+  //     ),
+  //   },
+  //   {
+  //     header: "Error Count",
+  //     accessorKey: "error_count",
+  //     cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
+  //       renderErrorCountCell(info, "error_count"),
+  //   },
+  //   {
+  //     header: "Tags",
+  //     accessorKey: "aggregated_tags",
+  //     cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
+  //       renderTagsCell(info.getValue() as ShortTagType[]),
+  //   },
+  // ];
 
   const createColumnsForGroupByLineResponse = (
     _: AggregateErrorGroupByLineResponseData[]
@@ -233,10 +231,6 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     if (isGroupByMessageResponse(aggregatedErrors)) {
       return createColumnsForGroupByMessageResponse(
         aggregatedErrors as AggregateErrorGroupByMessageResponseData[]
-      );
-    } else if (isGroupByStatusResponse(aggregatedErrors)) {
-      return createColumnsForGroupByStatusResponse(
-        aggregatedErrors as AggregateErrorGroupByStatusResponseData[]
       );
     } else if (isGroupByLineResponse(aggregatedErrors)) {
       return createColumnsForGroupByLineResponse(
