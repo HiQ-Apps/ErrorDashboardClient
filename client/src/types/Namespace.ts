@@ -24,7 +24,7 @@ export type UpdateNamespaceRequest = {
   id: string;
   active?: boolean;
   client_id?: string;
-  client_secret?: string;
+  client_secret?: boolean;
   service_name?: string;
   environment_type?: string;
 };

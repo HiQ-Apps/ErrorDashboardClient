@@ -19,9 +19,6 @@ const ErrorDetailCard = ({ error }: ErrorDetailCardProps) => {
     return <div>No error found.</div>;
   }
 
-  const userAgentParsed = parseUserAgent(error.user_agent);
-  const userAgentIcons = getUserAgentIcons(userAgentParsed);
-
   return (
     <Card className="flex flex-col h-120">
       <CardHeader>
@@ -30,21 +27,9 @@ const ErrorDetailCard = ({ error }: ErrorDetailCardProps) => {
       </CardHeader>
       <CardContent className="flex-1 overflow-auto">
         <p>Error Stack Trace: {error?.stack_trace}</p>
-        <p>Error Status Code: {error?.status_code}</p>
         <p>Error path: {error?.path}</p>
         <p>Error line: {error?.line}</p>
-        <div className="flex flex-row">
-          <div className="flex flex-col">
-            <div className="flex flex-row items-center">
-              <span className="pr-2">User Browser: </span>
-              {userAgentIcons.BrowserIcon && <userAgentIcons.BrowserIcon />}
-            </div>
-            <div className="flex flex-row items-center">
-              <span className="pr-2">User OS: </span>
-              {userAgentIcons.OsIcon && <userAgentIcons.OsIcon />}
-            </div>
-          </div>
-        </div>
+        <div className="flex flex-row"></div>
         <p>Error Resolved: {error?.resolved}</p>
         <p>User Affected: {error?.user_affected}</p>
         <p>Error Created: {error?.created_at.toString()}</p>
