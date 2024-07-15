@@ -20,17 +20,12 @@ export const errorApiSlice = baseApi.injectEndpoints({
       ErrorAggregateDataResponse,
       GetErrorAggregateRequest
     >({
-      query: ({
-        namespace_id,
-        start_time,
-        time_interval_minutes,
-        timezone,
-      }) => ({
-        url: `/error/aggregate/namespace/${namespace_id}`,
+      query: ({ namespaceId, startTime, timeIntervalMinutes, timezone }) => ({
+        url: `/error/aggregate/namespace/${namespaceId}`,
         method: "GET",
         params: {
-          start_time,
-          time_interval_minutes,
+          startTime,
+          timeIntervalMinutes,
           timezone,
         },
       }),
@@ -39,12 +34,12 @@ export const errorApiSlice = baseApi.injectEndpoints({
       ErrorMetaData[],
       ErrorMetaDataRequest
     >({
-      query: ({ namespace_id, group_by, group_key, offset, limit }) => ({
-        url: `/error/aggregate/details/namespace/${namespace_id}`,
+      query: ({ namespaceId, groupBy, groupKey, offset, limit }) => ({
+        url: `/error/aggregate/details/namespace/${namespaceId}`,
         method: "GET",
         params: {
-          group_by,
-          group_key,
+          groupBy,
+          groupKey,
           offset,
           limit,
         },

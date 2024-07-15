@@ -4,10 +4,10 @@ import type { CreateTagType } from "types/Tag";
 export const tagApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createTag: builder.mutation<null, CreateTagType>({
-      query: (new_tag) => ({
+      query: (newTag) => ({
         url: "/tag/",
         method: "POST",
-        body: new_tag,
+        body: newTag,
       }),
       invalidatesTags: ["ErrorDetail", "NamespaceDetail", "NamespaceErrors"],
     }),

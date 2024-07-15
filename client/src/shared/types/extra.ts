@@ -4,7 +4,7 @@ export type QueryParamWithId = {
   id: string;
   offset?: number;
   limit?: number;
-  group_by?: string;
+  groupBy?: string;
 };
 
 export type PaginationWithId = {

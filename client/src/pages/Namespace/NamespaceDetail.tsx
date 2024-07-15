@@ -28,9 +28,9 @@ const NamespaceDetail = () => {
   const { isLoading } = useGetNamespaceByIdQuery(id);
   const { data: errorMeta } = useGetErrorMetaGroupedByParamsQuery(
     {
-      namespace_id: id,
-      group_by: params.group_by,
-      group_key: groupKey,
+      namespaceId: id,
+      groupBy: params.groupBy,
+      groupKey: groupKey,
       offset,
       limit,
     },

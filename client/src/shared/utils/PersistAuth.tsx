@@ -18,8 +18,8 @@ const PersistAuth = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser(data.user));
-      dispatch(setToken(data.access_token));
-      dispatch(setProfile(data.user_profile));
+      dispatch(setToken(data.accessToken));
+      dispatch(setProfile(data.userProfile));
       dispatch(setIsAuthenticated(true));
     } else if (isError) {
       dispatch(clearAuth());

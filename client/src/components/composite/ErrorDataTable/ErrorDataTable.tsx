@@ -35,7 +35,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     id: id,
     offset: params.offset,
     limit: params.limit,
-    group_by: params.group_by,
+    groupBy: params.groupBy,
   });
 
   const [aggregatedErrors, setErrors] = useState<AggregateErrorResponseData>(
@@ -60,7 +60,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
 
   const handleSetGroupKey = (event: MouseEvent<HTMLDivElement>, value: any) => {
     event.preventDefault();
-    setGroupKey(value[params.group_by]);
+    setGroupKey(value[params.groupBy]);
   };
 
   const renderTagsCell = (tags: ShortTagType[] | ShortTagType): ReactNode => {
@@ -111,7 +111,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     },
     {
       header: "User Affected Count",
-      accessorKey: "user_affected_count",
+      accessorKey: "userAffectedCount",
       cell: (
         info: CellContext<AggregateErrorGroupByMessageResponseData, any>
       ) => (
@@ -120,54 +120,19 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     },
     {
       header: "Error Count",
-      accessorKey: "error_count",
+      accessorKey: "errorCount",
       cell: (
         info: CellContext<AggregateErrorGroupByMessageResponseData, any>
-      ) => renderErrorCountCell(info, "error_count"),
+      ) => renderErrorCountCell(info, "errorCount"),
     },
     {
       header: "Tags",
-      accessorKey: "aggregated_tags",
+      accessorKey: "aggregatedTags",
       cell: (
         info: CellContext<AggregateErrorGroupByMessageResponseData, any>
       ) => renderTagsCell(info.getValue() as ShortTagType[]),
     },
   ];
-
-  // const createColumnsForGroupByStatusResponse = (
-  //   _: AggregateErrorGroupByStatusResponseData[]
-  // ): ColumnDef<AggregateErrorGroupByStatusResponseData>[] => [
-  //   {
-  //     header: "Status Code",
-  //     accessorKey: "status_code",
-  //     cell: (
-  //       info: CellContext<AggregateErrorGroupByStatusResponseData, any>
-  //     ) => (
-  //       <div className="flex justify-center text-center">{info.getValue()}</div>
-  //     ),
-  //   },
-  //   {
-  //     header: "User Affected Count",
-  //     accessorKey: "user_affected_count",
-  //     cell: (
-  //       info: CellContext<AggregateErrorGroupByStatusResponseData, any>
-  //     ) => (
-  //       <div className="flex justify-center text-center">{info.getValue()}</div>
-  //     ),
-  //   },
-  //   {
-  //     header: "Error Count",
-  //     accessorKey: "error_count",
-  //     cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
-  //       renderErrorCountCell(info, "error_count"),
-  //   },
-  //   {
-  //     header: "Tags",
-  //     accessorKey: "aggregated_tags",
-  //     cell: (info: CellContext<AggregateErrorGroupByStatusResponseData, any>) =>
-  //       renderTagsCell(info.getValue() as ShortTagType[]),
-  //   },
-  // ];
 
   const createColumnsForGroupByLineResponse = (
     _: AggregateErrorGroupByLineResponseData[]
@@ -181,20 +146,20 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     },
     {
       header: "User Affected Count",
-      accessorKey: "user_affected_count",
+      accessorKey: "userAffectedCount",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) => (
         <div className="flex justify-center text-center">{info.getValue()}</div>
       ),
     },
     {
       header: "Error Count",
-      accessorKey: "error_count",
+      accessorKey: "errorCount",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) =>
-        renderErrorCountCell(info, "error_count"),
+        renderErrorCountCell(info, "errorCount"),
     },
     {
       header: "Tags",
-      accessorKey: "aggregated_tags",
+      accessorKey: "aggregatedTags",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) =>
         renderTagsCell(info.getValue() as ShortTagType[]),
     },
@@ -210,7 +175,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
       },
       {
         header: "User Affected Count",
-        accessorKey: "user_affected_count",
+        accessorKey: "userAffectedCount",
         cell: (
           info: CellContext<AggregateErrorGroupByTagResponseData, any>
         ) => (
@@ -221,9 +186,9 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
       },
       {
         header: "Error Count",
-        accessorKey: "error_count",
+        accessorKey: "errorCount",
         cell: (info: CellContext<AggregateErrorGroupByTagResponseData, any>) =>
-          renderErrorCountCell(info, "error_count"),
+          renderErrorCountCell(info, "errorCount"),
       },
     ];
 
@@ -256,7 +221,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
             <UpdateIcon className="text-slate-100 w-5 h-5" />
           )
         }
-        override_styles="w-8 h-8 p-1 mb-4"
+        overrideStyles="w-8 h-8 p-1 mb-4"
         onClick={() => {
           refetch();
         }}

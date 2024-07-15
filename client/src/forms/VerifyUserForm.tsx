@@ -47,9 +47,7 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
           name="password"
           value={form.password}
           onChange={handleChange}
-          override_styles={
-            errors.errorMessages.password ? "border-red-500" : ""
-          }
+          overrideStyles={errors.errorMessages.password ? "border-red-500" : ""}
         />
         {errors.errorMessages.password && (
           <p className="text-red-500 text-xs italic">

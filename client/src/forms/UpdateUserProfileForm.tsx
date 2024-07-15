@@ -60,14 +60,14 @@ export const UpdateUserProfileForm = () => {
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
   const [passVisible, setPassVisible] = useState(false);
-  const [avatarColor, setAvatarColor] = useState(userProfile.avatar_color);
+  const [avatarColor, setAvatarColor] = useState(userProfile.avatarColor);
   const { form, handleChange, setForm, validate, errors } =
     useForm<UpdateUserProfileSchema>(
       {
         id: null,
-        first_name: null,
-        last_name: null,
-        avatar_color: null,
+        firstName: null,
+        lastName: null,
+        avatarColor: null,
         username: null,
         password: null,
       },
@@ -77,7 +77,7 @@ export const UpdateUserProfileForm = () => {
   useEffect(() => {
     setForm((prevForm) => ({
       ...prevForm,
-      avatar_color: avatarColor,
+      avatarColor: avatarColor,
     }));
   }, [avatarColor]);
 
@@ -86,9 +86,9 @@ export const UpdateUserProfileForm = () => {
       setForm({
         ...form,
         id: user.id,
-        first_name: initialUserProfile.first_name,
-        last_name: initialUserProfile.last_name,
-        avatar_color: initialUserProfile.avatar_color,
+        firstName: initialUserProfile.firstName,
+        lastName: initialUserProfile.lastName,
+        avatarColor: initialUserProfile.avatarColor,
         username: user.username,
       });
     }
@@ -164,9 +164,9 @@ export const UpdateUserProfileForm = () => {
           dispatch(
             setProfile({
               ...userProfile,
-              first_name: updatedUserProfile.first_name,
-              last_name: updatedUserProfile.last_name,
-              avatar_color: updatedUserProfile.avatar_color,
+              firstName: updatedUserProfile.firstName,
+              lastName: updatedUserProfile.lastName,
+              avatarColor: updatedUserProfile.avatarColor,
             })
           );
         }
@@ -283,7 +283,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmitWithConfirmation(e, "password")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
@@ -307,61 +307,61 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmit(e, "username")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
 
         <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-left">
-          <Label htmlFor="first_name" text="First Name:" />
+          <Label htmlFor="firstName" text="First Name:" />
           <div className="relative col-span-3 flex items-center space-x-2">
             <Input
               type="text"
-              name="first_name"
-              value={form.first_name || ""}
+              name="firstName"
+              value={form.firstName || ""}
               onChange={handleChange}
             />
-            {errors.errorMessages.first_name && (
+            {errors.errorMessages.firstName && (
               <span className="text-error text-sm">
-                {errors.errorMessages.first_name}
+                {errors.errorMessages.firstName}
               </span>
             )}
             <BaseButton
               size="sm"
               content="Update"
               variant="default"
-              onClick={(e) => handleSubmit(e, "first_name")}
-              override_styles="my-4"
+              onClick={(e) => handleSubmit(e, "firstName")}
+              overrideStyles="my-4"
             />
           </div>
         </div>
 
         <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-left">
-          <Label htmlFor="last_name" text="Last Name:" />
+          <Label htmlFor="lastName" text="Last Name:" />
           <div className="relative col-span-3 flex items-center space-x-2">
             <Input
               type="text"
-              name="last_name"
-              value={form.last_name || ""}
+              name="lastName"
+              value={form.lastName || ""}
               onChange={handleChange}
             />
-            {errors.errorMessages.last_name && (
+            {errors.errorMessages.lastName && (
               <span className="text-error text-sm">
-                {errors.errorMessages.last_name}
+                {errors.errorMessages.lastName}
               </span>
             )}
             <BaseButton
               size="sm"
               content="Update"
               variant="default"
-              onClick={(e) => handleSubmit(e, "last_name")}
-              override_styles="my-4"
+              onClick={(e) => handleSubmit(e, "lastName")}
+              overrideStyles="my-4"
             />
           </div>
         </div>
 
         <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-          <Label htmlFor="avatar_color" text="Select an Avatar Color:" />
+          <Label htmlFor="avatarColor" text="Select an Avatar Color:" />
           <div className="relative col-span-3 flex items-center space-x-2">
             <ColorSelector
               selectedColor={avatarColor}
@@ -371,8 +371,8 @@ export const UpdateUserProfileForm = () => {
               size="sm"
               content="Update"
               variant="default"
-              onClick={(e) => handleSubmit(e, "avatar_color")}
-              override_styles="my-4"
+              onClick={(e) => handleSubmit(e, "avatarColor")}
+              overrideStyles="my-4"
             />
           </div>
         </div>

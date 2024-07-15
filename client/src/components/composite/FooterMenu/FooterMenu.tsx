@@ -21,7 +21,7 @@ import { NotificationMagnifyingGlass, Avatar } from "components/base";
 const FooterMenu = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const user_profile = useSelector(selectUserProfile);
+  const userProfile = useSelector(selectUserProfile);
 
   const handleNavigateProfile = () => {
     navigate(`/user/${user?.id}/profile`);
@@ -60,10 +60,10 @@ const FooterMenu = () => {
             <Avatar
               name={
                 user?.username ||
-                user_profile?.first_name + " " + user_profile?.last_name
+                userProfile?.firstName + " " + userProfile?.lastName
               }
               size="sm"
-              avatarColor={user_profile?.avatar_color}
+              avatarColor={userProfile?.avatarColor}
             />
           </div>
         </MenubarTrigger>

@@ -6,7 +6,7 @@ interface CustomInputProps {
   disabled?: boolean;
   readonly?: boolean;
   value: string | number;
-  override_styles?: string;
+  overrideStyles?: string;
   placeholder?: string;
   type: string;
   name: string;
@@ -18,7 +18,7 @@ const CustomInput = ({
   disabled = false,
   readonly = false,
   value,
-  override_styles = "",
+  overrideStyles = "",
   placeholder = "",
   type,
   name,
@@ -34,7 +34,7 @@ const CustomInput = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={`${override_styles} border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50`}
+      className={`${overrideStyles} border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50`}
     />
   );
 };

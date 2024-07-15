@@ -45,10 +45,10 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setToken(data.access_token));
+      dispatch(setToken(data.accessToken));
       dispatch(setUser(data.user));
       dispatch(setIsAuthenticated(true));
-      dispatch(setProfile(data.user_profile));
+      dispatch(setProfile(data.userProfile));
       onClose();
       toast({
         title: "Registration successful",

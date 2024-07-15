@@ -26,14 +26,14 @@ const ErrorDetailCard = ({ error }: ErrorDetailCardProps) => {
         <CardDescription>Error Message: {error?.message}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 overflow-auto">
-        <p>Error Stack Trace: {error?.stack_trace}</p>
+        <p>Error Stack Trace: {error?.stackTrace}</p>
         <p>Error path: {error?.path}</p>
         <p>Error line: {error?.line}</p>
         <div className="flex flex-row"></div>
         <p>Error Resolved: {error?.resolved}</p>
-        <p>User Affected: {error?.user_affected}</p>
-        <p>Error Created: {error?.created_at.toString()}</p>
-        <p>Error Updated: {error?.updated_at.toString()}</p>
+        <p>User Affected: {error?.userAffected}</p>
+        <p>Error Created: {error?.createdAt.toString()}</p>
+        <p>Error Updated: {error?.updatedAt.toString()}</p>
         <TagManagerContainer tags={error?.tags} />
       </CardContent>
     </Card>

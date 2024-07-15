@@ -38,9 +38,9 @@ const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
   }
 
   const defaultParams: GetErrorAggregateRequest = {
-    namespace_id: id,
-    start_time: startTime,
-    time_interval_minutes: timeIntervalMinutes,
+    namespaceId: id,
+    startTime: startTime,
+    timeIntervalMinutes: timeIntervalMinutes,
     timezone,
   };
 
