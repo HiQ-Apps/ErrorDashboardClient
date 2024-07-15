@@ -99,7 +99,7 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
         size="sm"
         onClick={handleCreateTagClick}
         variant="accent"
-        override_styles="my-2"
+        overrideStyles="my-2"
         content={
           isSuccess ? (
             "Success"

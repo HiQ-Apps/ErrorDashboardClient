@@ -84,13 +84,13 @@ const Navbar = () => {
           content="Login"
           onClick={handleLoginOpenModalClick}
           variant="navbutton"
-          override_styles={isAuthenticated ? "hidden" : "mx-1"}
+          overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
         />
         <BaseButton
           content="Register"
           onClick={handleRegisterOpenModalClick}
           variant="navbutton"
-          override_styles={isAuthenticated ? "hidden" : "mx-1"}
+          overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
         />
         {isAuthenticated ? (
           <BaseButton
@@ -114,7 +114,7 @@ const Navbar = () => {
           image={isDarkMode ? Dark : Light}
           onClick={handleDarkModeClick}
           variant="navbutton"
-          override_styles="p-2"
+          overrideStyles="p-2"
         />
       </div>
       <Modal

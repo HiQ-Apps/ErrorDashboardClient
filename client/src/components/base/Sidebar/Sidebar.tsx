@@ -6,18 +6,13 @@ interface SidebarProps {
   isOpen?: boolean;
   header: string;
   links: ReactNode[];
-  override_styles?: string;
+  overrideStyles?: string;
 }
 
-const Sidebar = ({
-  isOpen = true,
-  header,
-  links,
-  override_styles = "",
-}: SidebarProps) => {
+const Sidebar = ({ header, links, overrideStyles = "" }: SidebarProps) => {
   return (
     <Card
-      className={`${override_styles} h-5/6 w-full bg-slate-200 dark:bg-slate-900`}
+      className={`${overrideStyles} h-5/6 w-full bg-slate-200 dark:bg-slate-900`}
     >
       <CardHeader>
         <CardTitle>{header}</CardTitle>
