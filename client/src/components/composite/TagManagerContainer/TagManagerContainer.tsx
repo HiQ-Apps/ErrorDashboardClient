@@ -63,7 +63,7 @@ const TagManagerContainer = ({ tags }: TagManagerContainerProps) => {
         size="sm"
         variant="default"
         onClick={handleOpenCreateTagModal}
-        override_styles="my-4"
+        overrideStyles="my-4"
       />
       <ScrollArea className="h-[100px] whitespace-nowrap rounded-md border">
         {tags.length === 0 && (

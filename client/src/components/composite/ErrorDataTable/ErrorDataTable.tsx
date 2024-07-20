@@ -256,7 +256,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
             <UpdateIcon className="text-slate-100 w-5 h-5" />
           )
         }
-        override_styles="w-8 h-8 p-1 mb-4"
+        overrideStyles="w-8 h-8 p-1 mb-4"
         onClick={() => {
           refetch();
         }}

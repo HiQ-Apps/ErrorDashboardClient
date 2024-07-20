@@ -2,7 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
-import { selectIsAuthenticated, clearAuth } from "features/authSlice";
+import {
+  selectIsAuthenticated,
+  clearAuth,
+  selectUser,
+  selectUserProfile,
+} from "features/authSlice";
 import {
   openModal,
   closeModal,
@@ -57,7 +62,11 @@ const Navbar = () => {
     dispatch(toggleDark());
   };
 
+  const user = useSelector(selectUser);
+  const userProfile = useSelector(selectUserProfile);
+
   const handleLogoutClick = () => {
+    console.log(user, userProfile, isAuthenticated);
     dispatch(clearAuth());
     toast({
       title: "Logged out successfully",
@@ -80,36 +89,37 @@ const Navbar = () => {
           onClick={handleHomeClick}
           variant="navbutton"
         />
-        <BaseButton
-          content="Login"
-          onClick={handleLoginOpenModalClick}
-          variant="navbutton"
-          overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
-        />
-        <BaseButton
-          content="Register"
-          onClick={handleRegisterOpenModalClick}
-          variant="navbutton"
-          overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
-        />
+
         {isAuthenticated ? (
-          <BaseButton
-            content="Logout"
-            onClick={handleLogoutClick}
-            variant="navbutton"
-          />
+          <>
+            <BaseButton
+              content="Logout"
+              onClick={handleLogoutClick}
+              variant="navbutton"
+            />
+            <BaseButton
+              content="Namespace"
+              onClick={handleNamespaceClick}
+              variant="navbutton"
+            />
+          </>
         ) : (
-          <></>
+          <>
+            <BaseButton
+              content="Login"
+              onClick={handleLoginOpenModalClick}
+              variant="navbutton"
+              overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
+            />
+            <BaseButton
+              content="Register"
+              onClick={handleRegisterOpenModalClick}
+              variant="navbutton"
+              overrideStyles={isAuthenticated ? "hidden" : "mx-1"}
+            />
+          </>
         )}
-        {isAuthenticated ? (
-          <BaseButton
-            content="Namespace"
-            onClick={handleNamespaceClick}
-            variant="navbutton"
-          />
-        ) : (
-          <></>
-        )}
+
         <BaseButton
           image={isDarkMode ? Dark : Light}
           onClick={handleDarkModeClick}
