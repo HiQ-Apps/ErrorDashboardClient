@@ -33,6 +33,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
     if (validate()) {
       try {
         const data = await login(form).unwrap();
+        console.log(data, "user");
         dispatch(setToken(data.access_token));
         dispatch(setUser(data.user));
         dispatch(setProfile(data.user_profile));

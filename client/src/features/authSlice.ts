@@ -6,14 +6,14 @@ import { ShortUserData, ShortUserProfile } from "types/User";
 interface AuthState {
   token: string | null;
   user: ShortUserData | null;
-  user_profile: ShortUserProfile | null;
+  userProfile: ShortUserProfile | null;
   isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
   token: null,
   user: null,
-  user_profile: null,
+  userProfile: null,
   isAuthenticated: false,
 };
 
@@ -28,7 +28,7 @@ let authSlice = createSlice({
       state.token = null;
     },
     setProfile: (state: AuthState, action: PayloadAction<ShortUserProfile>) => {
-      state.user_profile = action.payload;
+      state.userProfile = action.payload;
     },
     setUser: (state: AuthState, action: PayloadAction<ShortUserData>) => {
       state.user = action.payload;
@@ -43,7 +43,7 @@ let authSlice = createSlice({
     clearAuth(state) {
       state.token = null;
       state.user = null;
-      state.user_profile = null;
+      state.userProfile = null;
       state.isAuthenticated = false;
     },
   },
@@ -60,7 +60,7 @@ export const {
 } = authSlice.actions;
 
 export const selectAuthToken = (state: RootState) => state.auth.token;
-export const selectUserProfile = (state: RootState) => state.auth.user_profile;
+export const selectUserProfile = (state: RootState) => state.auth.userProfile;
 export const selectIsAuthenticated = (state: RootState) =>
   state.auth.isAuthenticated;
 export const selectUser = (state: RootState) => state.auth.user;

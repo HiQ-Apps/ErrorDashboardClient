@@ -8,7 +8,6 @@ import {
 
 import type { ErrorData } from "types/Error";
 import { TagManagerContainer } from "components/composite";
-import { parseUserAgent, getUserAgentIcons } from "shared/utils/parseString";
 
 interface ErrorDetailCardProps {
   error?: ErrorData;

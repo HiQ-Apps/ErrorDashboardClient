@@ -283,7 +283,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmitWithConfirmation(e, "password")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
@@ -307,7 +307,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmit(e, "username")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
@@ -331,7 +331,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmit(e, "first_name")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
@@ -355,7 +355,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmit(e, "last_name")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>
@@ -372,7 +372,7 @@ export const UpdateUserProfileForm = () => {
               content="Update"
               variant="default"
               onClick={(e) => handleSubmit(e, "avatar_color")}
-              override_styles="my-4"
+              overrideStyles="my-4"
             />
           </div>
         </div>

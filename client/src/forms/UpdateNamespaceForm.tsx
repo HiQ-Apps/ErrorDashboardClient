@@ -71,8 +71,7 @@ const UpdateNamespaceForm = () => {
     }
   }, [data]);
 
-  const [updateNamespaceById, { isLoading: updateLoading }] =
-    useUpdateNamespaceByIdMutation();
+  const [updateNamespaceById] = useUpdateNamespaceByIdMutation();
 
   const toggleClientSecretVisibility: MouseEventHandler<HTMLDivElement> = (
     event
@@ -214,7 +213,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "client_id")}
-            override_styles="my-4"
+            overrideStyles="my-4"
           />
         </div>
       </div>
@@ -264,7 +263,7 @@ const UpdateNamespaceForm = () => {
             content={<UpdateIcon />}
             variant="default"
             onClick={(e) => handleSubmit(e, "client_secret")}
-            override_styles="my-4"
+            overrideStyles="my-4"
           />
         </div>
       </div>
@@ -288,7 +287,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "service_name")}
-            override_styles="my-4"
+            overrideStyles="my-4"
           />
         </div>
       </div>
@@ -311,7 +310,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "environment_type")}
-            override_styles="my-4"
+            overrideStyles="my-4"
           />
         </div>
       </div>
@@ -324,7 +323,7 @@ const UpdateNamespaceForm = () => {
             content={form.active ? "Deactivate" : "Activate"}
             variant={form.active ? "destructive" : "success"}
             onClick={(e) => handleSubmit(e, "active")}
-            override_styles="my-4"
+            overrideStyles="my-4"
           />
         </div>
       </div>
