@@ -22,7 +22,7 @@ interface ButtonProps {
     | "navbutton"
     | "sidenavbutton";
   disabled?: boolean;
-  override_styles?: string;
+  overrideStyles?: string;
 }
 
 const BaseButton = ({
@@ -32,7 +32,7 @@ const BaseButton = ({
   onClick = () => {},
   variant,
   disabled,
-  override_styles,
+  overrideStyles,
   size,
 }: ButtonProps) => {
   return (
@@ -41,7 +41,7 @@ const BaseButton = ({
       size={size}
       onClick={(e) => onClick?.(e as ButtonClickEvent)}
       variant={variant}
-      className={override_styles}
+      className={overrideStyles}
       disabled={disabled}
     >
       {content ? <>{content}</> : <></>}

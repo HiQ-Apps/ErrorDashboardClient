@@ -15,8 +15,8 @@ const Sidebar = ({ header, links, overrideStyles = "" }: SidebarProps) => {
       className={`${overrideStyles} h-5/6 w-full bg-slate-200 dark:bg-slate-900`}
     >
       <CardHeader>
-        <CardTitle>{header}</CardTitle>
-        <CardContent className="p-0">
+        <CardTitle className="font-lexend text-xl">{header}</CardTitle>
+        <CardContent className="p-0 font-markazi text-xl">
           {links.map((link, index) => (
             <div className="my-2" key={index}>
               {link}

@@ -25,7 +25,7 @@ const LogTable = <T extends object>({ data }: LogTableProps<T>) => {
                 {columns.map((column, index) => (
                   <TableHead
                     key={index}
-                    className="px-5 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                    className="px-5 py-3 border-b-2 border-gray-300 text-left text-md font-semibold text-gray-700 uppercase tracking-wider"
                   >
                     {column.replace(/_/g, " ")}
                   </TableHead>
@@ -57,7 +57,7 @@ const LogTable = <T extends object>({ data }: LogTableProps<T>) => {
           <TableRow>
             <TableCell
               colSpan={columns.length}
-              className="px-5 py-1 border-t text-right text-xs text-gray-600"
+              className="px-5 py-1 border-t text-right text-md text-gray-600"
             >
               Showing {data.length} entries
             </TableCell>

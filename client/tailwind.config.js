@@ -110,6 +110,10 @@ module.exports = {
       '8xl': ['6rem', { lineHeight: '1' }],
       '9xl': ['8rem', { lineHeight: '1' }],
     },
+    fontFamily: {
+      sans: ['lexend'],
+      serif: ['markazi'],
+    },
     container: {
       center: true,
       screens: {
@@ -117,6 +121,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        lexend: ['Lexend', 'sans-serif'],
+        markazi: ['Markazi Text', 'serif'],
+      },
       boxShadow: {
         'custom-hiq': '2px 2px rgba(9, 133, 133, 0.4), 4px 4px rgba(9, 133, 133, 0.3), 6px 6px rgba(9, 133, 133, 0.2), 8px 8px rgba(9, 133, 133, 0.1)',
       },
@@ -232,12 +240,12 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate"),
-    function ({ addUtilities }) {
-      addUtilities({
-        '.text-shadow-custom-hiq': {
-          'text-shadow': '2px 2px 2px #098585',
-        },
-      });
-    },
+  function ({ addUtilities }) {
+    addUtilities({
+      '.text-shadow-custom-hiq': {
+        'text-shadow': '2px 2px 2px #098585',
+      },
+    });
+  },
   ],
 }

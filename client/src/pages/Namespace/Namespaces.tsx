@@ -51,7 +51,7 @@ const Namespaces = () => {
         <BaseButton
           content="Create Namespace"
           size="sm"
-          variant="default"
+          variant="accent"
           onClick={handleOpenCreateNamespaceModal}
           overrideStyles="my-4"
         />
