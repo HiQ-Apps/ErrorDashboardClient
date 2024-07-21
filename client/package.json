@@ -5,11 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
@@ -54,6 +52,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@types/canvasjs": "^1.9.11",
     "@types/node": "^20.14.8",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",

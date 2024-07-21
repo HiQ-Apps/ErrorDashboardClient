@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { set } from "zod";
 
 export const useWebSocket = <T>(url: string | undefined) => {
   const [messages, setMessages] = useState<T[]>([]);
@@ -18,7 +17,6 @@ export const useWebSocket = <T>(url: string | undefined) => {
     const socket = new WebSocket(url);
 
     socket.onopen = () => {
-      console.log("WebSocket connection opened");
       setConnectionError(null);
     };
 
@@ -29,7 +27,6 @@ export const useWebSocket = <T>(url: string | undefined) => {
 
     socket.onclose = () => {
       setConnectionError("WebSocket connection closed");
-      console.log("WebSocket connection closed");
     };
 
     socket.onerror = (error) => {
