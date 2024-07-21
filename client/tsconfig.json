@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "outDir": "./dist",
+    "rootDir": "./src",
 
     "types": [
       "vite/client",

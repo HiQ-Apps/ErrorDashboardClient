@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useWebSocket } from "hooks/useWebSocket";
 import type { StreamErrorData } from "types/Error";
-import { API_URL } from "configs/environment";
+
 import LogTable from "components/base/LogTable/LogTable";
 
 interface ErrorLogProps {
@@ -9,7 +9,7 @@ interface ErrorLogProps {
 }
 
 const ErrorLogTable = ({ id }: ErrorLogProps) => {
-  const wsUrl = `${API_URL}/namespace/${id}/error/ws`;
+  const wsUrl = `/api/namespace/${id}/error/ws`;
   const { messages, resetMessages } = useWebSocket<StreamErrorData>(wsUrl);
 
   const [errors, setErrors] = useState<StreamErrorData[]>([]);
