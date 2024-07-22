@@ -13,8 +13,10 @@ import {
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
 import { selectParams } from "features/aggregateTableSlice";
+import { usePageHeight } from "hooks/usePageHeight";
 
 const NamespaceDetail = () => {
+  const height = usePageHeight();
   const { id } = useParams();
   const params = useSelector(selectParams);
   const [offset, setOffset] = useState(0);
@@ -42,10 +44,14 @@ const NamespaceDetail = () => {
   }
 
   return (
-    <div className="bg-slate-50 text-slate-900 min-h-screen w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
-      <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
+    <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
+      <div
+        style={{ height: height ?? `${height}px` }}
+        className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
+      >
         <NamespaceSidebar />
       </div>
+      <div className="min-w-52" />
       <div className="flex-1 p-4">
         <NamespaceTitleCard header="Namespace Details" />
         <div className="my-4">

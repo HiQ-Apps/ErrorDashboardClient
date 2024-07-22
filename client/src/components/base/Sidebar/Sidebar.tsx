@@ -12,7 +12,7 @@ interface SidebarProps {
 const Sidebar = ({ header, links, overrideStyles = "" }: SidebarProps) => {
   return (
     <Card
-      className={`${overrideStyles} h-5/6 w-full bg-slate-200 dark:bg-slate-900`}
+      className={`${overrideStyles} z-49 fixed w-52 h-full bg-slate-200 dark:bg-slate-900 rounded-none p-0`}
     >
       <CardHeader>
         <CardTitle className="font-lexend text-xl">{header}</CardTitle>
