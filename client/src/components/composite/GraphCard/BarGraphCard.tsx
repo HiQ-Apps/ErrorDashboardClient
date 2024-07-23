@@ -8,7 +8,7 @@ const BarGraphCard = () => {
         <h1>Daily Error Frequency Chart</h1>
       </CardHeader>
       <CardContent className="pl-10 flex w-80">
-        <ErrorBarGraph />
+        <ErrorBarGraph formAddOn={true} />
       </CardContent>
     </Card>
   );

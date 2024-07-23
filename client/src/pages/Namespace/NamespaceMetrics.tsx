@@ -24,7 +24,7 @@ const NamespaceMetrics = () => {
         <NamespaceSidebar />
       </div>
       <div className="min-w-52" />
-      <div className="flex-1 p-4">
+      <div className="flex-1 px-4 pb-4">
         <NamespaceTitleCard header="Namespace Metrics" />
         <BarGraphCard />
       </div>

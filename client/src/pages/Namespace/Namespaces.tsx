@@ -53,7 +53,7 @@ const Namespaces = () => {
         <NamespaceSidebar />
       </div>
       <div className="min-w-52" />
-      <div className="flex-1 p-4">
+      <div className="flex-1 px-4 pb-4">
         <BaseButton
           content="Create Namespace"
           size="sm"

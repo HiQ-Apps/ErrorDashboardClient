@@ -11,7 +11,7 @@ const Home = () => {
       >
         <HomeSidebar />
       </div>
-      <div className="flex-1 p-4 flex justify-center items-center"></div>
+      <div className="flex-1 px-4 pb-4 flex justify-center items-center"></div>
     </div>
   );
 };
