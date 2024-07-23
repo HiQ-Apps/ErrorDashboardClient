@@ -8,7 +8,14 @@ const port = process.env.VITE_PORT ? parseInt(process.env.VITE_PORT, 10) : 3000;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsConfigPaths(), svgr(), commonjs()],
+  plugins: [
+    react(),
+    tsConfigPaths(),
+    svgr(),
+    commonjs({
+      include: "/node_modules/",
+    }),
+  ],
   build: {
     outDir: "dist",
     commonjsOptions: {
@@ -26,5 +33,8 @@ export default defineConfig({
     proxy: {
       "^/api": "http://localhost:8000",
     },
+  },
+  optimizeDeps: {
+    include: ["@canvasjs/react-charts"],
   },
 });

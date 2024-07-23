@@ -65,7 +65,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-slate-50 w-full flex flex-row justify-between items-center dark:bg-slate-700">
+    <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
       <img
         className="cursor-pointer"
         onClick={handleHomeClick}

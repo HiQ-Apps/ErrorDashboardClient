@@ -9,8 +9,10 @@ import {
 import { Modal, BaseButton } from "components/base";
 import { NamespaceDataTable, NamespaceSidebar } from "components/composite";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
+import { usePageHeight } from "hooks/usePageHeight";
 
 const Namespaces = () => {
+  const height = usePageHeight();
   const dispatch = useDispatch();
 
   const isOpen = useSelector(selectIsOpen);
@@ -33,7 +35,7 @@ const Namespaces = () => {
   };
 
   return (
-    <div className="bg-slate-50 text-slate-900 min-h-screen w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
+    <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <Modal
         header="Create Namespace"
         content={
@@ -44,10 +46,14 @@ const Namespaces = () => {
         showConfirmButtons={false}
         onConfirm={handleConfirmCreateNamespace}
       />
-      <div className="bg-slate-50 w-52 p-4 bg-gray-200 h-screen dark:bg-slate-800">
+      <div
+        style={{ height: height ?? `${height}px` }}
+        className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
+      >
         <NamespaceSidebar />
       </div>
-      <div className="flex-1 p-4">
+      <div className="min-w-52" />
+      <div className="flex-1 px-4 pb-4">
         <BaseButton
           content="Create Namespace"
           size="sm"

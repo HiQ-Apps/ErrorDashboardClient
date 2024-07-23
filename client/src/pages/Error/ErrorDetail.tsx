@@ -3,8 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
 import { BaseButton } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
+import { usePageHeight } from "hooks/usePageHeight";
 
 const ErrorDetail = () => {
+  const height = usePageHeight();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -32,10 +34,14 @@ const ErrorDetail = () => {
   }
 
   return (
-    <div className="bg-slate-50 text-slate-900 min-h-screen w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
-      <div className="bg-slate-50 w-52 bg-gray-200 h-screen dark:bg-slate-800">
+    <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
+      <div
+        style={{ height: height ?? `${height}px` }}
+        className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
+      >
         <ErrorSidebar links={links} />
       </div>
+      <div className="min-w-52" />
       <div className="flex flex-row px-4 justify-between">
         <ErrorDetailCard error={data} />
       </div>
