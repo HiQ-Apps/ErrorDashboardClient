@@ -13,10 +13,10 @@ import {
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
 import { selectParams } from "features/aggregateTableSlice";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const NamespaceDetail = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   const { id } = useParams();
   const params = useSelector(selectParams);
   const [offset, setOffset] = useState(0);

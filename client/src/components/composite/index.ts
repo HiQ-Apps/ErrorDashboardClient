@@ -9,6 +9,7 @@ import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import FooterMenu from "./FooterMenu/FooterMenu";
 import Footer from "./Footer/Footer";
+import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
@@ -35,6 +36,7 @@ export {
   ErrorSidebar,
   FooterMenu,
   Footer,
+  HomeAnimation,
   HomeSidebar,
   NamespaceDataTable,
   NamespaceSidebar,

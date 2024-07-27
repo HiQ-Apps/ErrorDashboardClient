@@ -5,10 +5,10 @@ import {
   ErrorLogTable,
   NamespaceTitleCard,
 } from "components/composite";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const NamespaceLogs = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   const { id } = useParams();
 
   if (!id) {

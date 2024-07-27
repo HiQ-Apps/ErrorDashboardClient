@@ -1,9 +1,9 @@
 import { HomeSidebar } from "components/composite";
 import { Card, CardContent, CardHeader } from "components/ui/card";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const TermsOfServices = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div

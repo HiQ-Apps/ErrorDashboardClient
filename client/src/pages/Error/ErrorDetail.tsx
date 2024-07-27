@@ -3,10 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
 import { BaseButton } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const ErrorDetail = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   const navigate = useNavigate();
   const { id } = useParams();
 

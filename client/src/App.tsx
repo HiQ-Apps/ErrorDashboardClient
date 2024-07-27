@@ -32,7 +32,7 @@ const App = () => {
   }, [isDark]);
 
   return (
-    <div className="flex flex-col h-full justify-center items-center dark:bg-slate-800 font-sans">
+    <div className="flex flex-col h-full justify-center items-center dark:bg-slate-800">
       <Navbar />
       <ModalHandlerProvider>
         <TooltipProvider>
