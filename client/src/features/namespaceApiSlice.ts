@@ -13,10 +13,10 @@ import type { QueryParamWithId, PaginationWithId } from "shared/types/extra";
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createNamespace: builder.mutation<string, CreateNamespaceRequest>({
-      query: (new_namespace) => ({
+      query: (newNamespace) => ({
         url: "/namespace/",
         method: "POST",
-        body: new_namespace,
+        body: newNamespace,
       }),
       invalidatesTags: ["AllNamespace"],
     }),
@@ -55,11 +55,11 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
         id,
         offset = 0,
         limit = 10,
-        group_by = "status_code",
+        groupBy = "statusCode",
       }: QueryParamWithId) => ({
         url: `/namespace/${id}/errors`,
         method: "GET",
-        params: { offset, limit, group_by },
+        params: { offset, limit, groupBy },
       }),
       providesTags: ["NamespaceErrors"],
     }),

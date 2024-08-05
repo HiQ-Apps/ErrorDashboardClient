@@ -17,7 +17,7 @@ interface CreateNamespaceFormProps {
 const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
   const { form, handleChange, validate, errors } =
     useForm<CreateNamespaceSchema>(
-      { service_name: "", environment_type: "" },
+      { serviceName: "", environmentType: "" },
       createNamespaceSchema
     );
 
@@ -59,30 +59,30 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
   return (
     <form>
       <div className="mb-4">
-        <Label htmlFor="environment_type" text="Environment Type" />
+        <Label htmlFor="environmentType" text="Environment Type" />
         <Input
           type="text"
-          name="environment_type"
-          value={form.environment_type}
+          name="environmentType"
+          value={form.environmentType}
           onChange={handleChange}
         />
-        {errors.errorMessages.environment_type && (
+        {errors.errorMessages.environmentType && (
           <span className="text-error text-sm">
-            {errors.errorMessages.environment_type}
+            {errors.errorMessages.environmentType}
           </span>
         )}
       </div>
       <div className="mb-4">
-        <Label htmlFor="service_name" text="Service Name" />
+        <Label htmlFor="serviceName" text="Service Name" />
         <Input
           type="text"
-          name="service_name"
-          value={form.service_name}
+          name="serviceName"
+          value={form.serviceName}
           onChange={handleChange}
         />
-        {errors.errorMessages.service_name && (
+        {errors.errorMessages.serviceName && (
           <span className="text-error text-sm">
-            {errors.errorMessages.service_name}
+            {errors.errorMessages.serviceName}
           </span>
         )}
       </div>

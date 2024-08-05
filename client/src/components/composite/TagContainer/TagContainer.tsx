@@ -10,9 +10,9 @@ const TagContainer = ({ tags }: TagContainerProps) => {
   if (!Array.isArray(tags)) {
     return (
       <Tag
-        tag_key={tags.tag_key}
-        tag_value={tags.tag_value}
-        tag_color={tags.tag_color}
+        tagKey={tags.tagKey}
+        tagValue={tags.tagValue}
+        tagColor={tags.tagColor}
       ></Tag>
     );
   }
@@ -23,9 +23,9 @@ const TagContainer = ({ tags }: TagContainerProps) => {
         {tags.map((tag, index) => (
           <Tag
             key={index}
-            tag_key={tag.tag_key}
-            tag_value={tag.tag_value}
-            tag_color={tag.tag_color}
+            tagKey={tag.tagKey}
+            tagValue={tag.tagValue}
+            tagColor={tag.tagColor}
           />
         ))}
       </div>
@@ -36,9 +36,9 @@ const TagContainer = ({ tags }: TagContainerProps) => {
         {tags.map((tag, index) => (
           <Tag
             key={index}
-            tag_key={tag.tag_key}
-            tag_value={tag.tag_value}
-            tag_color={tag.tag_color}
+            tagKey={tag.tagKey}
+            tagValue={tag.tagValue}
+            tagColor={tag.tagColor}
           />
         ))}
       </ScrollArea>

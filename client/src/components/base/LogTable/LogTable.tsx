@@ -27,7 +27,7 @@ const LogTable = <T extends object>({ data }: LogTableProps<T>) => {
                     key={index}
                     className="px-5 py-3 border-b-2 border-gray-300 text-left text-md font-semibold text-gray-700 uppercase tracking-wider"
                   >
-                    {column.replace(/_/g, " ")}
+                    {column}
                   </TableHead>
                 ))}
               </TableRow>

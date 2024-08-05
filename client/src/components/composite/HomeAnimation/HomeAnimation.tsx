@@ -71,7 +71,7 @@ const HomeAnimation = () => {
 
     // Load a font and create text geometry
     const loader = new FontLoader();
-    loader.load("src/assets/fonts/Lexend_Medium_Regular.json", (font) => {
+    loader.load("/fonts/Lexend_Medium_Regular.json", (font) => {
       // Create "HiGuard" text
       const hiGuardGeometry = new TextGeometry("HiGuard", {
         font: font,

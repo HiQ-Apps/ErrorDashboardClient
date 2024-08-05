@@ -32,7 +32,7 @@ const ErrorGraphForm = ({
 }: ErrorGraphFormProps) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-  const timezone = useSelector(selectTimeZone);
+  const timezone: string = useSelector(selectTimeZone);
 
   if (!id) {
     throw new Error("Namespace id is required");
@@ -40,9 +40,9 @@ const ErrorGraphForm = ({
 
   const { form, setForm, validate } = useForm<ErrorGraphSchema>(
     {
-      namespace_id: id,
-      start_time: startTime,
-      time_interval_minutes: timeIntervalMinutes,
+      namespaceId: id,
+      startTime: startTime,
+      timeIntervalMinutes: timeIntervalMinutes,
       timezone,
     },
     errorGraphSchema
@@ -62,7 +62,7 @@ const ErrorGraphForm = ({
       setStartTime(newStartTime);
       setForm((prevForm) => ({
         ...prevForm,
-        start_time: newStartTime,
+        startTime: newStartTime,
       }));
     } catch (err) {
       console.error("Failed to set start time:", err);
@@ -74,7 +74,7 @@ const ErrorGraphForm = ({
     setTimeIntervalMinutes(newInterval);
     setForm((prevForm) => ({
       ...prevForm,
-      time_interval_minutes: newInterval,
+      timeIntervalMinutes: newInterval,
     }));
   };
 
@@ -98,7 +98,7 @@ const ErrorGraphForm = ({
       <div className="flex flex-col">
         <div className="space-y-2">
           <Label
-            htmlFor="start_time"
+            htmlFor="startTime"
             className={"text-xs"}
             text="Select Date to view"
           />
@@ -107,12 +107,12 @@ const ErrorGraphForm = ({
               <div className="cursor-pointer flex flex-row border rounded-md border-slate-200 justify-center align-center items-center dark:bg-slate-900 dark:text-slate-100">
                 <Input
                   type="text"
-                  name="start_time"
+                  name="startTime"
                   value={DateTime.fromISO(startTime, {
                     zone: timezone,
                   }).toLocaleString(DateTime.DATE_MED)}
                   readonly={true}
-                  override_styles="py-0 mt-0 h-full border-none dark:text-slate-100"
+                  overrideStyles="py-0 mt-0 h-full border-none dark:text-slate-100"
                 />
                 <CalendarIcon
                   className="text-slate-900 dark:text-slate-100"
@@ -137,16 +137,16 @@ const ErrorGraphForm = ({
       </div>
       <div className="flex grow-1 flex-col mt-4 space-y-2">
         <Label
-          htmlFor="time_interval_minutes"
+          htmlFor="timeIntervalMinutes"
           className={"text-xs"}
           text="Time Interval (minutes)"
         />
         <Input
           type="number"
-          name="time_interval_minutes"
+          name="timeIntervalMinutes"
           value={timeIntervalMinutes}
           onChange={handleIntervalChange}
-          override_styles="p-0 dark:bg-slate-900"
+          overrideStyles="p-0 dark:bg-slate-900"
         />
         <BaseButton
           size="sm"

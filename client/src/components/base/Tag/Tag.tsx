@@ -1,24 +1,24 @@
 import { colorList } from "components/composite";
 
 interface TagProps {
-  tag_key: string;
-  tag_value: string;
-  tag_color: string;
+  tagKey: string;
+  tagValue: string;
+  tagColor: string;
 }
 
-const Tag = ({ tag_key, tag_value, tag_color }: TagProps) => {
-  let font_color;
+const Tag = ({ tagKey, tagValue, tagColor }: TagProps) => {
+  let fontColor;
   for (const color of colorList) {
-    if (color.background === tag_color) {
-      font_color = color.text;
+    if (color.background === tagColor) {
+      fontColor = color.text;
     }
   }
   return (
     <div
       className="my-1 mx-6 text-slate-900 flex text-2xs py-1 border border-slate-600 justify-center text-center text-balance align-center items-center rounded-full dark:text-slate-900"
-      style={{ backgroundColor: tag_color, color: font_color }}
+      style={{ backgroundColor: tagColor, color: fontColor }}
     >
-      {tag_key}: {tag_value}
+      {tagKey}: {tagValue}
     </div>
   );
 };
