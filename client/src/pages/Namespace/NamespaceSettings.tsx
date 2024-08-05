@@ -6,10 +6,10 @@ import {
   UpdateNamespaceCard,
 } from "components/composite";
 import { Separator } from "components/ui/separator";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const NamespaceSettings = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   const { id } = useParams();
 
   if (!id) {

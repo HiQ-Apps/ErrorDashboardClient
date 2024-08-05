@@ -1,8 +1,8 @@
 import { HomeSidebar } from "components/composite";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const About = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div
@@ -11,7 +11,8 @@ const About = () => {
       >
         <HomeSidebar />
       </div>
-      <div className="flex-1 p-4">
+      <div className="min-w-52" />
+      <div className="flex-1 px-4 pb-4">
         <h1>About</h1>
       </div>
     </div>

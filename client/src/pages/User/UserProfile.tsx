@@ -1,9 +1,9 @@
 import { UserSidebar } from "components/composite";
 import { UpdateUserProfileCard } from "components/composite";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const UserProfile = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
 
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">

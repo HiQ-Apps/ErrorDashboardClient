@@ -9,10 +9,10 @@ import {
 import { Modal, BaseButton } from "components/base";
 import { NamespaceDataTable, NamespaceSidebar } from "components/composite";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
-import { usePageHeight } from "hooks/usePageHeight";
+import { usePageDimensions } from "hooks/usePageDimensions";
 
 const Namespaces = () => {
-  const height = usePageHeight();
+  const { height } = usePageDimensions();
   const dispatch = useDispatch();
 
   const isOpen = useSelector(selectIsOpen);

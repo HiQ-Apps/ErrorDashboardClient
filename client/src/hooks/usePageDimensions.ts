@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 
-export const usePageHeight = () => {
+export const usePageDimensions = () => {
   const [height, setHeight] = useState(() => window.innerHeight - 100);
+  const [width, setWidth] = useState(() => window.innerWidth);
 
   useEffect(() => {
-    const handleResize = () => setHeight(window.innerHeight - 100);
+    const handleResize = () => {
+      setHeight(window.innerHeight - 100);
+      setWidth(window.innerWidth);
+    };
 
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -12,5 +16,5 @@ export const usePageHeight = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return height;
+  return { height, width };
 };
