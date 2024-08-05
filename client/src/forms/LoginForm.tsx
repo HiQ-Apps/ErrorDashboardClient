@@ -33,9 +33,9 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
     if (validate()) {
       try {
         const data = await login(form).unwrap();
-        dispatch(setToken(data.access_token));
+        dispatch(setToken(data.accessToken));
         dispatch(setUser(data.user));
-        dispatch(setProfile(data.user_profile));
+        dispatch(setProfile(data.userProfile));
         dispatch(setIsAuthenticated(true));
       } catch (err) {
         console.error("Failed to login:", err);

@@ -23,7 +23,7 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
     return null;
   }
 
-  const { active, service_name, environment_type, created_at, updated_at } =
+  const { active, serviceName, environmentType, createdAt, updatedAt } =
     namespace;
 
   const transformDate = (date: Date) => {
@@ -50,13 +50,13 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
             <div>
               <span>Service Name: </span>
               <span className="underline underline-offset-4 decoration-default">
-                {service_name}
+                {serviceName}
               </span>
             </div>
             <div>
               <span>Environment Type: </span>
               <span className="underline underline-offset-4 decoration-default">
-                {environment_type}
+                {environmentType}
               </span>
             </div>
           </div>
@@ -64,13 +64,13 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
             <div className="text-nowrap">
               <span>Created At: </span>
               <span className="underline underline-offset-4 decoration-default">
-                {transformDate(created_at)}
+                {transformDate(createdAt)}
               </span>
             </div>
             <div className="text-nowrap">
               <span>Updated At: </span>
               <span className="underline underline-offset-4 m-b-0 decoration-default">
-                {transformDate(updated_at)}
+                {transformDate(updatedAt)}
               </span>
             </div>
           </div>

@@ -11,34 +11,34 @@ export type StreamErrorData = {
   id: string;
   message: string;
   resolved: boolean;
-  namespace_id: string;
-  stack_trace: string;
+  namespaceId: string;
+  stackTrace: string;
 };
 
 export type AggregateErrorGroupByStatusResponseData = {
-  aggregated_tags: ShortTagType[];
-  user_affected_count: number;
-  error_count: number;
+  aggregatedTags: ShortTagType[];
+  userAffectedCount: number;
+  errorCount: number;
 };
 
 export type AggregateErrorGroupByLineResponseData = {
   line: number;
-  aggregated_tags: ShortTagType[];
-  user_affected_count: number;
-  error_count: number;
+  aggregatedTags: ShortTagType[];
+  userAffectedCount: number;
+  errorCount: number;
 };
 
 export type AggregateErrorGroupByMessageResponseData = {
   message: string;
-  aggregated_tags: ShortTagType[];
-  user_affected_count: number;
-  error_count: number;
+  aggregatedTags: ShortTagType[];
+  userAffectedCount: number;
+  errorCount: number;
 };
 
 export type AggregateErrorGroupByTagResponseData = {
   tag: ShortTagType;
-  user_affected_count: number;
-  error_count: number;
+  userAffectedCount: number;
+  errorCount: number;
 };
 
 export type AggregateErrorResponseData =
@@ -48,15 +48,15 @@ export type AggregateErrorResponseData =
 
 export type ErrorData = {
   id: string;
-  user_affected: string;
+  userAffected: string;
   path: string;
   line: number;
   message: string;
-  stack_trace: string;
+  stackTrace: string;
   resolved: boolean;
   tags: TagType[];
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type ErrorAggregateData = {
@@ -69,21 +69,21 @@ export type ErrorAggregateDataResponse = ErrorAggregateData[];
 export type ErrorMetaData = {
   id: string;
   resolved: boolean;
-  created_at: string;
+  createdAt: string;
 };
 
 export type ErrorMetaDataRequest = {
-  namespace_id: string;
-  group_by: string;
-  group_key?: string;
+  namespaceId: string;
+  groupBy: string;
+  groupKey?: string;
   offset: number;
   limit: number;
 };
 
 export type GetErrorAggregateRequest = {
-  namespace_id: string;
-  start_time: string;
-  time_interval_minutes: number;
+  namespaceId: string;
+  startTime: string;
+  timeIntervalMinutes: number;
   timezone: string;
 };
 

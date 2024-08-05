@@ -4,11 +4,11 @@ import type { RootState } from "configs/store";
 type GroupByType = "message" | "tags" | "line";
 
 interface AggregateTableState {
-  params: { offset: number; limit: number; group_by: GroupByType };
+  params: { offset: number; limit: number; groupBy: GroupByType };
 }
 
 const initialState: AggregateTableState = {
-  params: { offset: 0, limit: 100, group_by: "message" },
+  params: { offset: 0, limit: 100, groupBy: "message" },
 };
 
 let aggregateTableSlice = createSlice({
@@ -22,7 +22,7 @@ let aggregateTableSlice = createSlice({
       state.params.limit = action.payload;
     },
     setGroupBy: (state: AggregateTableState, action) => {
-      state.params.group_by = action.payload;
+      state.params.groupBy = action.payload;
     },
     resetParams: (state: AggregateTableState) => {
       state.params = initialState.params;

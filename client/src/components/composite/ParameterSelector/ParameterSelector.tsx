@@ -24,7 +24,7 @@ const ParameterSelector = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="status_code">Status Code</SelectItem>
+          <SelectItem value="statusCode">Status Code</SelectItem>
           <SelectItem value="message">Error Message</SelectItem>
           <SelectItem value="line">Line</SelectItem>
           <SelectItem value="tags">Tag</SelectItem>

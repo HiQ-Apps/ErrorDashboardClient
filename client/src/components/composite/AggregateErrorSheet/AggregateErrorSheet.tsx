@@ -43,7 +43,7 @@ const AggregateErrorSheet = ({ errorMeta }: AggregateErrorSheetProps) => {
               </p>
               <StatusDot status={error.resolved} />
               <p className="flex text-center">
-                {DateTime.fromISO(error.created_at)
+                {DateTime.fromISO(error.createdAt)
                   .setZone(timezone)
                   .toFormat("MM-dd-yyyy HH:mm")}
               </p>

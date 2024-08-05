@@ -25,7 +25,7 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
 
   const { form, setForm, handleChange, validate, errors } =
     useForm<CreateTagSchema>(
-      { tag_key: "", tag_value: "", error_id: id, tag_color: tagColor },
+      { tagKey: "", tagValue: "", errorId: id, tagColor: tagColor },
       createTagSchema
     );
 
@@ -43,7 +43,7 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
   };
 
   useEffect(() => {
-    setForm((prevForm) => ({ ...prevForm, tag_color: tagColor }));
+    setForm((prevForm) => ({ ...prevForm, tagColor: tagColor }));
   }, [tagColor]);
 
   useEffect(() => {
@@ -67,30 +67,30 @@ const CreateTagForm = ({ onClose }: CreateTagFormProps) => {
   return (
     <form>
       <div className="mb-4">
-        <Label htmlFor="tag_key" text="Key" />
+        <Label htmlFor="tagKey" text="Key" />
         <Input
           type="text"
-          name="tag_key"
-          value={form.tag_key}
+          name="tagKey"
+          value={form.tagKey}
           onChange={handleChange}
         />
-        {errors.errorMessages.tag_key && (
+        {errors.errorMessages.tagKey && (
           <span className="text-error text-sm">
-            {errors.errorMessages.tag_key}
+            {errors.errorMessages.tagKey}
           </span>
         )}
       </div>
       <div className="mb-4">
-        <Label htmlFor="tag_value" text="Value" />
+        <Label htmlFor="tagValue" text="Value" />
         <Input
           type="text"
-          name="tag_value"
-          value={form.tag_value}
+          name="tagValue"
+          value={form.tagValue}
           onChange={handleChange}
         />
-        {errors.errorMessages.tag_value && (
+        {errors.errorMessages.tagValue && (
           <span className="text-error text-sm">
-            {errors.errorMessages.tag_value}
+            {errors.errorMessages.tagValue}
           </span>
         )}
       </div>

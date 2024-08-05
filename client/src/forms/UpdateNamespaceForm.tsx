@@ -51,10 +51,10 @@ const UpdateNamespaceForm = () => {
     useForm<UpdateNamespaceSchema>(
       {
         active: null,
-        client_id: null,
-        client_secret: null,
-        service_name: null,
-        environment_type: null,
+        clientId: null,
+        clientSecret: null,
+        serviceName: null,
+        environmentType: null,
       },
       updateNamespaceSchema
     );
@@ -63,10 +63,10 @@ const UpdateNamespaceForm = () => {
     if (data) {
       setForm({
         active: data.active,
-        client_id: data.client_id,
-        client_secret: data.client_secret,
-        service_name: data.service_name,
-        environment_type: data.environment_type,
+        clientId: data.clientId,
+        clientSecret: data.clientSecret,
+        serviceName: data.serviceName,
+        environmentType: data.environmentType,
       });
     }
   }, [data]);
@@ -127,7 +127,7 @@ const UpdateNamespaceForm = () => {
 
       if (fieldName === "active") {
         value = !form[fieldName];
-      } else if (fieldName === "client_secret") {
+      } else if (fieldName === "clientSecret") {
         value = true;
       } else {
         value = form[fieldName];
@@ -155,25 +155,25 @@ const UpdateNamespaceForm = () => {
   return (
     <form className="grid grid-cols-1 gap-6 place-items-center max-w-2xl mx-auto mt-8">
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <Label htmlFor="client_id" text="Client ID:" />
+        <Label htmlFor="clientId" text="Client ID:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             disabled
             type={clientIdVisible ? "text" : "password"}
-            name="client_id"
-            value={form.client_id || ""}
+            name="clientId"
+            value={form.clientId || ""}
             onChange={handleChange}
           />
-          {errors.errorMessages.client_id && (
+          {errors.errorMessages.clientId && (
             <span className="text-error text-sm">
-              {errors.errorMessages.client_id}
+              {errors.errorMessages.clientId}
             </span>
           )}
           <Tooltip>
             <TooltipTrigger asChild>
               <div
                 className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
-                onClick={(e) => copyToClipboard(e, "client_id")}
+                onClick={(e) => copyToClipboard(e, "clientId")}
               >
                 <ClipboardCopyIcon />
               </div>
@@ -199,7 +199,7 @@ const UpdateNamespaceForm = () => {
             <TooltipTrigger asChild>
               <div
                 className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
-                onClick={(e) => handleGenerateUUID(e, "client_id")}
+                onClick={(e) => handleGenerateUUID(e, "clientId")}
               >
                 <UpdateIcon />
               </div>
@@ -212,31 +212,31 @@ const UpdateNamespaceForm = () => {
             size="sm"
             content="Update"
             variant="default"
-            onClick={(e) => handleSubmit(e, "client_id")}
+            onClick={(e) => handleSubmit(e, "clientId")}
             overrideStyles="my-4"
           />
         </div>
       </div>
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <Label htmlFor="client_secret" text="Client Secret:" />
+        <Label htmlFor="clientSecret" text="Client Secret:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             disabled
             type={clientSecretVisible ? "text" : "password"}
-            name="client_secret"
-            value={form.client_secret || ""}
+            name="clientSecret"
+            value={form.clientSecret || ""}
             onChange={handleChange}
           />
-          {errors.errorMessages.client_secret && (
+          {errors.errorMessages.clientSecret && (
             <span className="text-error text-sm">
-              {errors.errorMessages.client_secret}
+              {errors.errorMessages.clientSecret}
             </span>
           )}
           <Tooltip>
             <TooltipTrigger>
               <div
                 className="flex items-center space-x-2 border rounded-md p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-slate-300 dark:bg-transparent"
-                onClick={(e) => copyToClipboard(e, "client_secret")}
+                onClick={(e) => copyToClipboard(e, "clientSecret")}
               >
                 <ClipboardCopyIcon />
               </div>
@@ -262,54 +262,54 @@ const UpdateNamespaceForm = () => {
             size="sm"
             content={<UpdateIcon />}
             variant="default"
-            onClick={(e) => handleSubmit(e, "client_secret")}
+            onClick={(e) => handleSubmit(e, "clientSecret")}
             overrideStyles="my-4"
           />
         </div>
       </div>
 
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <Label htmlFor="service_name" text="Service Name:" />
+        <Label htmlFor="serviceName" text="Service Name:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             type="text"
-            name="service_name"
-            value={form.service_name || ""}
+            name="serviceName"
+            value={form.serviceName || ""}
             onChange={handleChange}
           />
-          {errors.errorMessages.service_name && (
+          {errors.errorMessages.serviceName && (
             <span className="text-error text-sm">
-              {errors.errorMessages.service_name}
+              {errors.errorMessages.serviceName}
             </span>
           )}
           <BaseButton
             size="sm"
             content="Update"
             variant="default"
-            onClick={(e) => handleSubmit(e, "service_name")}
+            onClick={(e) => handleSubmit(e, "serviceName")}
             overrideStyles="my-4"
           />
         </div>
       </div>
       <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-        <Label htmlFor="environment_type" text="Environment Type:" />
+        <Label htmlFor="environmentType" text="Environment Type:" />
         <div className="relative col-span-3 flex items-center space-x-2">
           <Input
             type="text"
-            name="environment_type"
-            value={form.environment_type || ""}
+            name="environmentType"
+            value={form.environmentType || ""}
             onChange={handleChange}
           />
-          {errors.errorMessages.environment_type && (
+          {errors.errorMessages.environmentType && (
             <span className="text-error text-sm">
-              {errors.errorMessages.environment_type}
+              {errors.errorMessages.environmentType}
             </span>
           )}
           <BaseButton
             size="sm"
             content="Update"
             variant="default"
-            onClick={(e) => handleSubmit(e, "environment_type")}
+            onClick={(e) => handleSubmit(e, "environmentType")}
             overrideStyles="my-4"
           />
         </div>

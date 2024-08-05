@@ -43,9 +43,9 @@ const TagManagerContainer = ({ tags }: TagManagerContainerProps) => {
 
   const [deleteTag] = useDeleteTagMutation();
 
-  const handleDeleteTag = async (tag_id: string) => {
+  const handleDeleteTag = async (tagId: string) => {
     try {
-      await deleteTag(tag_id).unwrap();
+      await deleteTag(tagId).unwrap();
       toast({
         title: "Tag deleted successfully",
       });
@@ -79,9 +79,9 @@ const TagManagerContainer = ({ tags }: TagManagerContainerProps) => {
               X
             </div>
             <Tag
-              tag_key={tag.tag_key}
-              tag_value={tag.tag_value}
-              tag_color={tag.tag_color}
+              tagKey={tag.tagKey}
+              tagValue={tag.tagValue}
+              tagColor={tag.tagColor}
             />
           </div>
         ))}
