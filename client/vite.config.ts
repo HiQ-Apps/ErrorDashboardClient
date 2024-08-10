@@ -17,7 +17,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "dist",
+    outDir: "../../ErrorDashboardServer/server/static/dist",
     commonjsOptions: {
       transformMixedEsModules: true,
     },

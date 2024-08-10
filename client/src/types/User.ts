@@ -4,10 +4,7 @@ export type RegisterUserRequest = {
   confirmPassword: string;
 };
 
-export type LoginUserRequest = {
-  email: string;
-  password: string;
-};
+export type LoginUserRequest = Pick<RegisterUserRequest, "email" | "password">;
 
 export type ShortUserData = {
   id: string;
@@ -16,18 +13,18 @@ export type ShortUserData = {
 };
 
 export type ShortUserProfile = {
-  first_name: string;
-  last_name: string;
-  avatar_color: string;
+  firstName: string;
+  lastName: string;
+  avatarColor: string;
 };
 
 export type ShortUserProfileOpt = Partial<ShortUserProfile>;
 
 export type UpdateUserProfile = {
   id: string;
-  first_name: string;
-  last_name: string;
-  avatar_color: string;
+  firstName: string;
+  lastName: string;
+  avatarColor: string;
   username: string;
   password: string;
 };
@@ -38,6 +35,6 @@ export type VerifyUserRequest = Pick<LoginUserRequest, "password">;
 
 export type AuthResponse = {
   user: ShortUserData;
-  user_profile: ShortUserProfile;
-  access_token: string;
+  userProfile: ShortUserProfile;
+  accessToken: string;
 };
