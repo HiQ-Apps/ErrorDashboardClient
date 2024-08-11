@@ -145,20 +145,20 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
     },
     {
       header: "User Affected Count",
-      accessorKey: "user_affected_count",
+      accessorKey: "userAffectedCount",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) => (
         <div className="flex justify-center text-center">{info.getValue()}</div>
       ),
     },
     {
       header: "Error Count",
-      accessorKey: "error_count",
+      accessorKey: "errorCount",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) =>
-        renderErrorCountCell(info, "error_count"),
+        renderErrorCountCell(info, "errorCount"),
     },
     {
       header: "Tags",
-      accessorKey: "aggregated_tags",
+      accessorKey: "aggregatedTags",
       cell: (info: CellContext<AggregateErrorGroupByLineResponseData, any>) =>
         renderTagsCell(info.getValue() as ShortTagType[]),
     },
@@ -174,7 +174,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
       },
       {
         header: "User Affected Count",
-        accessorKey: "user_affected_count",
+        accessorKey: "userAffectedCount",
         cell: (
           info: CellContext<AggregateErrorGroupByTagResponseData, any>
         ) => (
@@ -185,9 +185,9 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
       },
       {
         header: "Error Count",
-        accessorKey: "error_count",
+        accessorKey: "errorCount",
         cell: (info: CellContext<AggregateErrorGroupByTagResponseData, any>) =>
-          renderErrorCountCell(info, "error_count"),
+          renderErrorCountCell(info, "errorCount"),
       },
     ];
 
