@@ -28,7 +28,7 @@ export const getInitials = (name: string): string => {
   const nameList: string[] = name.split(" ");
   let nameInitials: string = "";
   if (nameList.length > 1) {
-    for (let i = 0; nameList.length; i++) {
+    for (let i = 0; i < nameList.length; i++) {
       nameInitials += nameList[0].toUpperCase();
     }
   } else {
