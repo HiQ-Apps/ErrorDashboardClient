@@ -1,6 +1,5 @@
-import { HomeSidebar } from "components/composite";
+import { HomeSidebar, AboutSection } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
-
 const About = () => {
   const { height } = usePageDimensions();
   return (
@@ -13,7 +12,7 @@ const About = () => {
       </div>
       <div className="min-w-52" />
       <div className="flex-1 px-4 pb-4">
-        <h1>About</h1>
+        <AboutSection />
       </div>
     </div>
   );
