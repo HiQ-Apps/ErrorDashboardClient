@@ -3,6 +3,7 @@ import BaseButton from "./Button/Button";
 import Clock from "./Clock/Clock";
 import { DataTable } from "./DataTable/DataTable";
 import ErrorBounary404 from "./ErrorBoundaries/404";
+import IconRow from "./IconRow/IconRow";
 import { Input } from "./Input/Input";
 import { Label } from "./Label/Label";
 import LogTable from "./LogTable/LogTable";
@@ -19,6 +20,7 @@ export {
   Clock,
   DataTable,
   ErrorBounary404,
+  IconRow,
   Input,
   Label,
   LogTable,

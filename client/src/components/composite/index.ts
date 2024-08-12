@@ -1,3 +1,4 @@
+import AboutSection from "./AboutSection/AboutSection";
 import AggregateErrorSheet from "./AggregateErrorSheet/AggregateErrorSheet";
 import BarGraphCard from "./GraphCard/BarGraphCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
@@ -22,8 +23,10 @@ import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import UpdateUserProfileCard from "./UpdateUserProfileCard/UpdateUserProfileCard";
 import UserSidebar from "./UserSidebar/UserSidebar";
+import IconRow from "../base/IconRow/IconRow";
 
 export {
+  AboutSection,
   AggregateErrorSheet,
   BarGraphCard,
   ColorSelector,
@@ -38,6 +41,7 @@ export {
   Footer,
   HomeAnimation,
   HomeSidebar,
+  IconRow,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,
