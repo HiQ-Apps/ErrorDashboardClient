@@ -1,32 +1,31 @@
 import { ChangeLogCard, HomeSidebar } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
-
+const releaseData = [
+  {
+    version: "HiGuard 1.0.1",
+    date: "August 8th, 2024",
+    changes: [
+      "Base backend services for namespace, users, errors were implemented!",
+      "Base frontend skeleton complete for main services.",
+      "Client SDK initialized. SKRRRRRRRRRR. Lorem Ipsum Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
+      "Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
+    ],
+  },
+  {
+    version: "HiGuard 0.0.075",
+    date: "August 4th, 2024",
+    changes: [
+      "Client SDK initialized. SKRRRRRRRRRR. Lorem Ipsum Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
+    ],
+  },
+  {
+    version: "HiGuard 0.0.00008",
+    date: "August 1st, 2024",
+    changes: ["Initial alpha release notes..."],
+  },
+];
 const Releases = () => {
   const { height } = usePageDimensions();
-  const releaseData = [
-    {
-      version: "HiGuard 1.0.1",
-      date: "August 8th, 2024",
-      changes: [
-        "Base backend services for namespace, users, errors were implemented!",
-        "Base frontend skeleton complete for main services.",
-        "Client SDK initialized. SKRRRRRRRRRR. Lorem Ipsum Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
-        "Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
-      ],
-    },
-    {
-      version: "HiGuard 0.0.075",
-      date: "August 4th, 2024",
-      changes: [
-        "Client SDK initialized. SKRRRRRRRRRR. Lorem Ipsum Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row., Testing to see the bullet points to see if they wrap correclty so I'm writing a quite mundane paragraph to act as a placeholder to test a big wall of text in a row.",
-      ],
-    },
-    {
-      version: "HiGuard 0.0.00008",
-      date: "August 1st, 2024",
-      changes: ["Initial alpha release notes..."],
-    },
-  ];
 
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">

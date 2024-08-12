@@ -1,5 +1,4 @@
 import { Card, CardHeader, CardTitle, CardContent } from "components/ui/card";
-import React from "react";
 
 interface ChangeLogCardProps {
   version: string;
@@ -7,11 +6,7 @@ interface ChangeLogCardProps {
   changes: string[];
 }
 
-const ChangeLogCard: React.FC<ChangeLogCardProps> = ({
-  version,
-  date,
-  changes,
-}) => {
+const ChangeLogCard = ({version, date, changes}: ChangeLogCardProps) => {
   return (
     <Card className="flex flex-col md:flex-row border-none shadow-none p-3 min-h-[400px]">
       <div className="flex flex-col w-1/4">

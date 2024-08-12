@@ -1,8 +1,7 @@
-import React from "react";
 import { HomeSidebar, HomeAnimation } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 
-const Home: React.FC = () => {
+const Home = () => {
   const { height } = usePageDimensions();
 
   return (
