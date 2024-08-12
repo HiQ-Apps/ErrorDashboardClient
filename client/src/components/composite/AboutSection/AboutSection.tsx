@@ -34,16 +34,16 @@ const AboutSection = () => {
         <IconRow />
       </div>
 
-      <div className="flex flex-col lg:flex-row justify-between items-start w-full px-10">
+      <div className="flex flex-col lg:flex-row justify-between items-start w-full px-16">
         {sections.map((section) => (
           <Card
             key={section.id}
-            className="bg-grey-300 border-none shadow-none p-8 m-4 leg:w-1/2 w-full"
+            className="bg-grey-300 border-none shadow-none p-8 m-4 lg:w-1/3  w-full"
           >
-            <CardTitle className="text-2xl text-right">
+            <CardTitle className="text-2xl text-left mx-5">
               {section.title}
             </CardTitle>
-            <CardDescription className="text-lg text-left">
+            <CardDescription className="text-lg text-left mx-5">
               {section.description}
             </CardDescription>
           </Card>
