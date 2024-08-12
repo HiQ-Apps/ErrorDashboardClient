@@ -15,7 +15,7 @@ const ChangeLogCard = ({version, date, changes}: ChangeLogCardProps) => {
           <div className="ml-0 text-md text-default text-wrap">{date}</div>
         </CardHeader>
       </div>
-      <CardContent className="list-disc space-y-2 md:pl-10 w-full border-left border-grey md:border-l-2 min-h-[100px] ">
+      <CardContent className="list-disc space-y-2 md:pl-10 w-full border-default md:border-l-2 min-h-[100px] ">
         {changes.map((change, index) => (
           <li key={index}>{change}</li>
         ))}
