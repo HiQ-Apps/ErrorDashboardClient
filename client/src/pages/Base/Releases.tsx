@@ -1,4 +1,5 @@
 import { ChangeLogCard, HomeSidebar } from "components/composite";
+import { Separator } from "components/ui/separator";
 import { usePageDimensions } from "hooks/usePageDimensions";
 const releaseData = [
   {
@@ -19,7 +20,7 @@ const releaseData = [
     ],
   },
   {
-    version: "HiGuard 0.0.00008",
+    version: "HiGuard 0.1.0.23",
     date: "August 1st, 2024",
     changes: ["Initial alpha release notes..."],
   },
@@ -37,16 +38,20 @@ const Releases = () => {
       </div>
 
       <div className="min-w-52" />
-      <div className="flex flex-col  px-10 items-left w-3/4">
+      <div className="flex flex-col px-10 items-left w-3/4">
         <h1 className="font-bold text-6xl mb-8">HiGuard: Release Notes</h1>
         {releaseData.map((log, index) => (
+          <>
           <ChangeLogCard
             key={index}
             version={log.version}
             date={log.date}
             changes={log.changes}
           />
+          {index !== releaseData.length - 1 && <Separator />}
+          </>
         ))}
+
       </div>
     </div>
   );
