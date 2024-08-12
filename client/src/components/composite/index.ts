@@ -1,5 +1,6 @@
 import AggregateErrorSheet from "./AggregateErrorSheet/AggregateErrorSheet";
 import BarGraphCard from "./GraphCard/BarGraphCard";
+import ChangeLogCard from "./ChangeLogCard/ChangeLogCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
@@ -26,6 +27,7 @@ import UserSidebar from "./UserSidebar/UserSidebar";
 export {
   AggregateErrorSheet,
   BarGraphCard,
+  ChangeLogCard,
   ColorSelector,
   colorList,
   ConfirmationModal,
