@@ -12,6 +12,7 @@ import NamespaceRoutes from "routes/NamespaceRoutes";
 import BaseRoutes from "routes/BaseRoutes";
 import ErrorRoutes from "routes/ErrorRoutes";
 import UserRoutes from "routes/UserRoutes";
+import DocumentationRoutes from "routes/DocumentationRoutes";
 
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 import { ModalHandlerProvider } from "shared/context/modalHandlerContext";
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/namespace/*" element={<NamespaceRoutes />} />
             <Route path="/error/*" element={<ErrorRoutes />} />
             <Route path="/user/*" element={<UserRoutes />} />
+            <Route path="/documentation/*" element={<DocumentationRoutes />} />
           </Routes>
         </TooltipProvider>
       </ModalHandlerProvider>

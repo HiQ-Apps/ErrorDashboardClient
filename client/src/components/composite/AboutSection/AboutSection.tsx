@@ -11,7 +11,7 @@ const sections = [
     id: 1,
     title: "who we are",
     description:
-      "Welcome to HiGuard, a premium error monitoring and performance management solution. Designed to give developers and organizations insight into their software systems. As a robust alternative to Sentry, HiGuard is excels in delivering reliable real-time error tracking and diagnostics. HiGuard combines the performance advantages of Rust with the flexibility and modern tooling of TypeScript, ensuring a seamless, high-performance experience across all environments.",
+      "Welcome to HiGuard, a premium error monitoring and performance management solution. Designed to give developers and organizations insight into their software systems. HiGuard is excels in delivering reliable real-time error tracking and diagnostics. HiGuard combines the performance advantages of Rust with the flexibility and modern tooling of TypeScript, ensuring a seamless, high-performance experience across all environments.",
   },
   {
     id: 2,
