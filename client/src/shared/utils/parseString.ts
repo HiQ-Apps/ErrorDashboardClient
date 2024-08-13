@@ -66,7 +66,7 @@ export const parseUserAgent = (userAgent: string): UserAgentResult => {
       case "Chrome":
       case "Firefox":
       case "Safari":
-      case "Edg":
+      case "Edge":
         browser = browserMatch[1];
         browserVersion = browserMatch[2];
         break;

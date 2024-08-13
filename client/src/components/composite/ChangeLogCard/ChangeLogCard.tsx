@@ -6,11 +6,13 @@ interface ChangeLogCardProps {
   changes: string[];
 }
 
-const ChangeLogCard = ({version, date, changes}: ChangeLogCardProps) => {
+const ChangeLogCard = ({ version, date, changes }: ChangeLogCardProps) => {
   return (
     <Card className="flex flex-col md:flex-row border-none shadow-none p-8 min-h-[400px] items-center space-x-4 bg-white-200">
       <div className="flex flex-col w-full md:w-1/4 ">
-        <CardTitle className="text-2xl font-semibold mb-4 text-wrap">{version}</CardTitle>
+        <CardTitle className="text-2xl font-semibold mb-4 text-wrap">
+          {version}
+        </CardTitle>
         <CardHeader className="w-full place-items-center mb-4 p-0 flex flex-row text-nowrap">
           <div className="ml-0 text-md text-default text-wrap">{date}</div>
         </CardHeader>

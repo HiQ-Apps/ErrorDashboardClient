@@ -4,6 +4,7 @@ import BarGraphCard from "./GraphCard/BarGraphCard";
 import ChangeLogCard from "./ChangeLogCard/ChangeLogCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import DocumentationSidebar from "./DocumentationSidebar/DocumentationSidebar";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
 import ErrorDetailCard from "./ErrorDetailCard/ErrorDetailCard";
 import ErrorLogTable from "./ErrorLogTable/ErrorLogTable";
@@ -39,6 +40,7 @@ export {
   ErrorDetailCard,
   ErrorLogTable,
   ErrorSidebar,
+  DocumentationSidebar,
   FooterMenu,
   Footer,
   HomeAnimation,

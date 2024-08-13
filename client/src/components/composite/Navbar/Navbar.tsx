@@ -64,6 +64,10 @@ const Navbar = () => {
     });
   };
 
+  const handleDocumentationClick = () => {
+    navigate("/documentation");
+  };
+
   return (
     <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
       <img
@@ -80,7 +84,11 @@ const Navbar = () => {
           onClick={handleHomeClick}
           variant="navbutton"
         />
-
+        <BaseButton
+          content="Docs"
+          onClick={handleDocumentationClick}
+          variant="navbutton"
+        />
         {isAuthenticated ? (
           <>
             <BaseButton

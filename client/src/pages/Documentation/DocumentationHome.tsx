@@ -1,4 +1,4 @@
-import { HomeSidebar } from "components/composite";
+import { DocumentationSidebar } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 
 const Documentation = () => {
@@ -9,7 +9,7 @@ const Documentation = () => {
         style={{ height: height ?? `${height}px` }}
         className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
       >
-        <HomeSidebar />
+        <DocumentationSidebar />
       </div>
       <div className="min-w-52" />
       <div className="flex-1 px-4 pb-4">

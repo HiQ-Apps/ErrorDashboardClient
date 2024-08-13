@@ -10,10 +10,6 @@ const HomeSidebar = () => {
     navigate("/about");
   };
 
-  const handleDocumentationClick = () => {
-    navigate("/documentation");
-  };
-
   const handleTermsOfServiceClick = () => {
     navigate("/termsofservice");
   };
@@ -28,12 +24,6 @@ const HomeSidebar = () => {
       content={"About"}
       variant="sidenavbutton"
       onClick={handleAboutClick}
-    />,
-    <BaseButton
-      size="sm"
-      content={"Documentation"}
-      variant="sidenavbutton"
-      onClick={handleDocumentationClick}
     />,
     <BaseButton
       size="sm"
