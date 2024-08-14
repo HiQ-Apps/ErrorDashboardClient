@@ -59,7 +59,7 @@ const Namespaces = () => {
           size="sm"
           variant="accent"
           onClick={handleOpenCreateNamespaceModal}
-          overrideStyles="my-4"
+          overrideStyles="my-4 px-3"
         />
         <NamespaceDataTable />
       </div>

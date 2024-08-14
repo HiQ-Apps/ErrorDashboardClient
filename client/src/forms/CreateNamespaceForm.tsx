@@ -90,6 +90,7 @@ const CreateNamespaceForm = ({ onClose }: CreateNamespaceFormProps) => {
         size="sm"
         onClick={handleCreateNamespaceClick}
         variant="accent"
+        overrideStyles="px-3"
         content={
           isSuccess ? (
             "Success"

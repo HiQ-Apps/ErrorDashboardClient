@@ -153,6 +153,7 @@ const ErrorGraphForm = ({
           variant="default"
           content="Update Timeframe"
           onClick={handleSubmit}
+          overrideStyles="px-3"
         />
       </div>
     </form>

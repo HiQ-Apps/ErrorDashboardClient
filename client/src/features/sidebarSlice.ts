@@ -6,26 +6,26 @@ interface SidebarState {
 }
 
 const initialState: SidebarState = {
-  isOpen: JSON.parse(localStorage.getItem("isOpen") || "false"),
+  isOpen: JSON.parse(localStorage.getItem("isOpen") || "true"),
 };
 
 let sidebarSlice = createSlice({
   name: "Sidebar",
   initialState,
   reducers: {
-    toggleDark: (state: SidebarState) => {
+    isOpen: (state: SidebarState) => {
       state.isOpen = !state.isOpen;
       localStorage.setItem("isOpen", JSON.stringify(state.isOpen));
     },
-    setDarkMode: (state: SidebarState, action: PayloadAction<boolean>) => {
+    setIsOpen: (state: SidebarState, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload;
       localStorage.setItem("isOpen", JSON.stringify(state.isOpen));
     },
   },
 });
 
-export const { toggleDark, setDarkMode } = sidebarSlice.actions;
+export const { isOpen, setIsOpen } = sidebarSlice.actions;
 
-export const selectIsDark = (state: RootState) => state.dark.isDark;
+export const selectIsOpen = (state: RootState) => state.sidebar.isOpen;
 
 export default sidebarSlice.reducer;

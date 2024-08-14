@@ -12,7 +12,7 @@ const Home = () => {
       >
         <HomeSidebar />
       </div>
-      <div className="min-w-52" />
+      {/* <div className="min-w-52" /> */}
       <div className="flex-1 px-4 pb-4 flex justify-center items-center">
         <HomeAnimation />
       </div>

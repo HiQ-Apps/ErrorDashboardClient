@@ -28,14 +28,18 @@ const buttonVariants = cva(
           "border bg-error text-slate-50 shadow-sm  dark:bg-error dark:text-slate-50",
         navbutton:
           "font-lexend bg-white text-lg text-slate-900 mx-1 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-500",
-        sidenavbutton:
-          "underline-offset-4 text-lg text-gray-700 bg-transparent hover:text-default hover:underline hover:decoration-default hover:bg-slate-300 dark:text-gray-200 dark:hover:text-gray-200 dark:hover:bg-slate-800 dark:bg-transparent dark:hover:text-default",
+        sidenavbutton: `
+          text-2xl text-gray-700 bg-transparent hover:text-default hover:decoration-default 
+          dark:text-gray-200 dark:hover:text-gray-200 dark:bg-transparent dark:hover:text-default
+          relative before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[1px] before:bg-default before:transition-all before:duration-500
+          hover:before:w-full px-0
+        `,
         accent:
           "bg-default text-slate-50 hover:bg-default/80 dark:bg-default dark:text-slate-50 dark:hover:bg-default/90",
       },
       size: {
         default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3",
+        sm: "h-8 rounded-md", 
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
       },

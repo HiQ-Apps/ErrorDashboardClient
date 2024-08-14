@@ -11,7 +11,7 @@ const Documentation = () => {
       >
         <DocumentationSidebar />
       </div>
-      <div className="min-w-52" />
+      <div className="min-w-60" />
       <div className="flex-1 px-4 pb-4">
         <h1>Documentation</h1>
       </div>
