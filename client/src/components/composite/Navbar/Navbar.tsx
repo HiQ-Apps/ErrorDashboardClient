@@ -70,6 +70,7 @@ const Navbar = () => {
 
   return (
     <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
+      <div className="relative min-w-32">
       <img
         className="cursor-pointer"
         onClick={handleHomeClick}
@@ -78,6 +79,8 @@ const Navbar = () => {
         width="100px"
         height="100px"
       />
+            <span className="absolute right-1.5 bottom-3 text-sm text-default">BETA</span>
+      </div>
       <div className="flex flex-row mx-2">
         <BaseButton
           image={isDarkMode ? WhiteHome : BlackHome}
