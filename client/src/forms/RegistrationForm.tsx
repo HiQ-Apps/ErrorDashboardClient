@@ -124,6 +124,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
       <BaseButton
         size="sm"
         onClick={handleSubmit}
+        overrideStyles="px-3"
         variant="accent"
         content={
           isSuccess ? (

@@ -88,6 +88,7 @@ export function DataTable<TData, TValue>({
           variant="default"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          overrideStyles="px-3"
         />
         <BaseButton
           size="sm"
@@ -95,6 +96,7 @@ export function DataTable<TData, TValue>({
           variant="default"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          overrideStyles="px-3"
         />
       </div>
     </div>

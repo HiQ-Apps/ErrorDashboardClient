@@ -213,7 +213,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "clientId")}
-            overrideStyles="my-4"
+            overrideStyles="my-4 px-3"
           />
         </div>
       </div>
@@ -263,7 +263,7 @@ const UpdateNamespaceForm = () => {
             content={<UpdateIcon />}
             variant="default"
             onClick={(e) => handleSubmit(e, "clientSecret")}
-            overrideStyles="my-4"
+            overrideStyles="my-4 px-3"
           />
         </div>
       </div>
@@ -287,7 +287,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "serviceName")}
-            overrideStyles="my-4"
+            overrideStyles="my-4 px-3"
           />
         </div>
       </div>
@@ -310,7 +310,7 @@ const UpdateNamespaceForm = () => {
             content="Update"
             variant="default"
             onClick={(e) => handleSubmit(e, "environmentType")}
-            overrideStyles="my-4"
+            overrideStyles="my-4 px-3"
           />
         </div>
       </div>
@@ -323,7 +323,7 @@ const UpdateNamespaceForm = () => {
             content={form.active ? "Deactivate" : "Activate"}
             variant={form.active ? "destructive" : "success"}
             onClick={(e) => handleSubmit(e, "active")}
-            overrideStyles="my-4"
+            overrideStyles="my-4 px-3"
           />
         </div>
       </div>

@@ -89,6 +89,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         size="sm"
         onClick={handleLoginClick}
         variant="accent"
+        overrideStyles="px-3"
         content={
           isSuccess ? (
             "Success"

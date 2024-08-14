@@ -29,7 +29,7 @@ const Releases = () => {
 
       <div className="min-w-52" />
       <div className="flex flex-col px-10 items-left w-3/4">
-        <h1 className="font-bold text-6xl mb-8">HiGuard: Release Notes</h1>
+        <h1 className="font-bold text-6xl mb-8 mt-8">HiGuard: Release Notes</h1>
         {releaseData.map((log, index) => (
           <div key={index}>
             <ChangeLogCard

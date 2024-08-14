@@ -26,6 +26,7 @@ const ErrorDetail = () => {
       size="sm"
       variant="sidenavbutton"
       onClick={handleErrorsClick}
+      overrideStyles="px-3"
     />,
   ];
 

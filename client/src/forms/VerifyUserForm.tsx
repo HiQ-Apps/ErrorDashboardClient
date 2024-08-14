@@ -57,6 +57,7 @@ const VerifyUserForm = ({ onConfirm }: VerifyUserFormProps) => {
         <BaseButton
           variant="accent"
           size="sm"
+          overrideStyles="px-3"
           onClick={handleSubmit}
           content={
             isLoading ? (
