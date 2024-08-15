@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { useSelector } from "react-redux";
 
+import { selectIsOpen } from "features/sidebarSlice";
 import Sidebar from "components/base/Sidebar/Sidebar";
 
 interface ErrorSidebarProps {
@@ -7,7 +9,13 @@ interface ErrorSidebarProps {
 }
 
 const ErrorSidebar = ({ links }: ErrorSidebarProps) => {
-  return <Sidebar isOpen={true} header="Error" links={links} />;
+  const sidebarIsOpen = useSelector(selectIsOpen);
+
+  return (
+    <div className="relative">
+      <Sidebar isOpen={sidebarIsOpen} header="Error" links={links} />
+    </div>
+  );
 };
 
 export default ErrorSidebar;
