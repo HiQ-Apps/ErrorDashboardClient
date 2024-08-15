@@ -20,7 +20,11 @@ const DocumentationSidebar = () => {
     />,
   ];
 
-  return <Sidebar isOpen={true} header="Documentation" links={links} />;
+  return (
+    <div className="relative">
+      <Sidebar isOpen={true} header="Documentation" links={links} />
+    </div>
+  );
 };
 
 export default DocumentationSidebar;

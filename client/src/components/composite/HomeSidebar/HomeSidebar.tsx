@@ -1,15 +1,14 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import BaseButton from "components/base/Button/Button";
-
 import Sidebar from "components/base/Sidebar/Sidebar";
-import { useSelector } from "react-redux";
 import { selectIsOpen } from "features/sidebarSlice";
 
 const HomeSidebar = () => {
-
   const navigate = useNavigate();
   const isOpen = useSelector(selectIsOpen);
+
   const handleAboutClick = () => {
     navigate("/about");
   };
@@ -45,7 +44,7 @@ const HomeSidebar = () => {
 
   return (
     <div className="relative">
-        <Sidebar isOpen={isOpen} header="Home" links={links} />
+      <Sidebar isOpen={isOpen} header="Home" links={links} />
     </div>
   );
 };

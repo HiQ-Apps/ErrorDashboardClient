@@ -14,6 +14,7 @@ import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
 import { selectParams } from "features/aggregateTableSlice";
 import { usePageDimensions } from "hooks/usePageDimensions";
+import { selectIsOpen } from "features/sidebarSlice";
 
 const NamespaceDetail = () => {
   const { height } = usePageDimensions();
@@ -22,6 +23,7 @@ const NamespaceDetail = () => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(50);
   const [groupKey, setGroupKey] = useState("");
+  const sidebarIsOpen = useSelector(selectIsOpen);
 
   if (!id) {
     throw new Error("Namespace ID is required");
@@ -51,7 +53,11 @@ const NamespaceDetail = () => {
       >
         <NamespaceSidebar />
       </div>
-      <div className="min-w-52" />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="flex-1 px-4 pb-4">
         <NamespaceTitleCard header="Namespace Details" />
         <div className="my-4">

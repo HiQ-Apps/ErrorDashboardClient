@@ -3,19 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
   closeModal,
-  selectIsOpen,
+  selectIsOpen as modalSelectIsOpen,
   selectModalType,
 } from "features/modalSlice";
 import { Modal, BaseButton } from "components/base";
 import { NamespaceDataTable, NamespaceSidebar } from "components/composite";
 import CreateNamespaceForm from "forms/CreateNamespaceForm";
 import { usePageDimensions } from "hooks/usePageDimensions";
+import { selectIsOpen as sidebarSelectIsOpen } from "features/sidebarSlice";
 
 const Namespaces = () => {
   const { height } = usePageDimensions();
   const dispatch = useDispatch();
+  const sidebarIsOpen = useSelector(sidebarSelectIsOpen);
 
-  const isOpen = useSelector(selectIsOpen);
+  const modalIsOpen = useSelector(modalSelectIsOpen);
   const modalType = useSelector(selectModalType);
 
   const handleOpenCreateNamespaceModal = () => {
@@ -41,7 +43,7 @@ const Namespaces = () => {
         content={
           <CreateNamespaceForm onClose={handleCloseCreateNamespaceModal} />
         }
-        open={isOpen && modalType === "createNamespace"}
+        open={modalIsOpen && modalType === "createNamespace"}
         onClose={handleCloseCreateNamespaceModal}
         showConfirmButtons={false}
         onConfirm={handleConfirmCreateNamespace}
@@ -52,7 +54,11 @@ const Namespaces = () => {
       >
         <NamespaceSidebar />
       </div>
-      <div className="min-w-52" />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="flex-1 px-4 pb-4">
         <BaseButton
           content="Create Namespace"
