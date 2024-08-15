@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { selectIsOpen } from "features/sidebarSlice";
 import {
   NamespaceSidebar,
   ErrorLogTable,
@@ -10,6 +12,7 @@ import { usePageDimensions } from "hooks/usePageDimensions";
 const NamespaceLogs = () => {
   const { height } = usePageDimensions();
   const { id } = useParams();
+  const sidebarIsOpen = useSelector(selectIsOpen);
 
   if (!id) {
     return;
@@ -23,7 +26,11 @@ const NamespaceLogs = () => {
       >
         <NamespaceSidebar />
       </div>
-      <div className="min-w-52" />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="flex-1 px-4 pb-4">
         <NamespaceTitleCard header="Namespace Error Logs" />
         <ErrorLogTable id={id} />

@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import {
   BarGraphCard,
@@ -6,10 +7,12 @@ import {
   NamespaceTitleCard,
 } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
+import { selectIsOpen } from "features/sidebarSlice";
 
 const NamespaceMetrics = () => {
   const { height } = usePageDimensions();
   const { id } = useParams();
+  const sidebarIsOpen = useSelector(selectIsOpen);
 
   if (!id) {
     throw new Error("Namespace ID is required");
@@ -23,7 +26,11 @@ const NamespaceMetrics = () => {
       >
         <NamespaceSidebar />
       </div>
-      <div className="min-w-52" />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="flex-1 px-4 pb-4">
         <NamespaceTitleCard header="Namespace Metrics" />
         <BarGraphCard />

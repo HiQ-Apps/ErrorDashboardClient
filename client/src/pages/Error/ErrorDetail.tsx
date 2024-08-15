@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+import { selectIsOpen } from "features/sidebarSlice";
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
 import { BaseButton } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
@@ -9,6 +11,7 @@ const ErrorDetail = () => {
   const { height } = usePageDimensions();
   const navigate = useNavigate();
   const { id } = useParams();
+  const sidebarIsOpen = useSelector(selectIsOpen);
 
   if (!id) {
     throw new Error("Error ID is required");
@@ -42,7 +45,11 @@ const ErrorDetail = () => {
       >
         <ErrorSidebar links={links} />
       </div>
-      <div className="min-w-52" />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="flex flex-row px-4 justify-between">
         <ErrorDetailCard error={data} />
       </div>
