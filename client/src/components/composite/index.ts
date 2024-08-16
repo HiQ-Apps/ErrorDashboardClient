@@ -12,6 +12,7 @@ import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import FooterMenu from "./FooterMenu/FooterMenu";
 import Footer from "./Footer/Footer";
+import GettingStartedCard from "./GettingStartedCard/GettingStartedCard";
 import InstallationCard from "./InstallationCard/InstallationCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
@@ -44,6 +45,7 @@ export {
   DocumentationSidebar,
   FooterMenu,
   Footer,
+  GettingStartedCard,
   HomeAnimation,
   HomeSidebar,
   IconRow,
