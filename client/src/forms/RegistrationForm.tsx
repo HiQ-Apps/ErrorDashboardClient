@@ -132,7 +132,7 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
           ) : isLoading ? (
             <UpdateIcon className="animate-ease-in-out-rotation" />
           ) : (
-            "Login"
+            "Register"
           )
         }
       />

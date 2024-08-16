@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 
 import { selectIsOpen } from "features/sidebarSlice";
-import { DocumentationSidebar } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
+import { DocumentationSidebar } from "components/composite";
+import { GettingStartedCard } from "components/composite";
 
-const Documentation = () => {
+const GettingStartedDocumentation = () => {
   const { height } = usePageDimensions();
   const sidebarIsOpen = useSelector(selectIsOpen);
 
@@ -21,11 +22,11 @@ const Documentation = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div className="flex-1 px-4 pb-4">
-        <h1>Documentation</h1>
+      <div className="flex-1 justify-center px-4 pb-4 mt-3">
+        <GettingStartedCard />
       </div>
     </div>
   );
 };
 
-export default Documentation;
+export default GettingStartedDocumentation;

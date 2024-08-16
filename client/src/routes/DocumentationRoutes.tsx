@@ -1,10 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import Documentation from "pages/Documentation/DocumentationHome";
+import InstallationDocumentation from "pages/Documentation/InstallationDocumentation";
+import GettingStartedDocumentation from "pages/Documentation/GettingStartedDocumentation";
 
 const DocumentationRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Documentation />} />
+      <Route path="/installation" element={<InstallationDocumentation />} />
+      <Route
+        path="/getting-started"
+        element={<GettingStartedDocumentation />}
+      />
+      {/* <Route
+        path="/getting-started"
+        element={<GettingStartedDocumentation />}
+      /> */}
     </Routes>
   );
 };
