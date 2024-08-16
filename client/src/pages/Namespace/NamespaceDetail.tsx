@@ -41,10 +41,6 @@ const NamespaceDetail = () => {
     { skip: !groupKey }
   );
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div
@@ -59,14 +55,20 @@ const NamespaceDetail = () => {
         }`}
       />
       <div className="flex-1 px-4 pb-4">
-        <NamespaceTitleCard header="Namespace Details" />
-        <div className="my-4">
-          <ParameterSelector />
-        </div>
-        <Sheet>
-          {id ? <ErrorDataTable id={id} setGroupKey={setGroupKey} /> : null}
-          <AggregateErrorSheet errorMeta={errorMeta} />
-        </Sheet>
+        {isLoading ? (
+          <div className="flex text-center w-full h-full">Loading...</div>
+        ) : (
+          <>
+            <NamespaceTitleCard header="Namespace Details" />
+            <div className="my-4">
+              <ParameterSelector />
+            </div>
+            <Sheet>
+              {id ? <ErrorDataTable id={id} setGroupKey={setGroupKey} /> : null}
+              <AggregateErrorSheet errorMeta={errorMeta} />
+            </Sheet>
+          </>
+        )}
       </div>
     </div>
   );
