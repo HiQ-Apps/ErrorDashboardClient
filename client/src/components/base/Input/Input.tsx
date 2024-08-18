@@ -34,7 +34,7 @@ const CustomInput = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={`${overrideStyles} border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50`}
+      className={`border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50 ${overrideStyles}`}
     />
   );
 };

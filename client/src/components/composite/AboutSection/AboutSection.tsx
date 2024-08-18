@@ -11,7 +11,7 @@ const sections = [
     id: 1,
     title: "who we are",
     description:
-      "Welcome to HiGuard, a premium error monitoring and performance management solution. Designed to give developers and organizations insight into their software systems. HiGuard is excels in delivering reliable real-time error tracking and diagnostics. HiGuard combines the performance advantages of Rust with the flexibility and modern tooling of TypeScript, ensuring a seamless, high-performance experience across all environments.",
+      "Welcome to HiGuard, a lightweight error monitoring and performance management solution. Designed to give developers and organizations insight into their software systems. HiGuard is excels in delivering reliable real-time error tracking and diagnostics. HiGuard combines the performance advantages of Rust with the flexibility and modern tooling of TypeScript, ensuring a seamless, high-performance experience across all environments.",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const sections = [
     id: 3,
     title: "insights",
     description:
-      "HiGuard isn’t just about tracking errors; it’s about empowering your team with actionable insights. Our platform integrates deeply with your existing tech stack, offering customizable alerts, detailed analytics, and integrations with popular tools, ensuring that your developers have the information they need at their fingertips. Whether you’re a small startup or a large enterprise, HiGuard scales with you, offering both the simplicity and power you need to keep your applications running smoothly and efficiently.",
+      "HiGuard isn't just about tracking errors; it's about empowering your team with actionable insights. Our platform integrates deeply with your existing tech stack, offering customizable alerts, detailed analytics, and integrations with popular tools, ensuring that your developers have the information they need at their fingertips. Whether you're a small startup or a large enterprise, HiGuard scales with you, offering both the simplicity and power you need to keep your applications running smoothly and efficiently.",
   },
 ];
 

@@ -1,9 +1,9 @@
 import {
   type FormEvent,
   type MouseEvent,
+  type MouseEventHandler,
   useEffect,
   useState,
-  MouseEventHandler,
 } from "react";
 import { useParams } from "react-router-dom";
 

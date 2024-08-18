@@ -77,6 +77,10 @@ const NamespaceDataTable = () => {
     navigate(`/namespace/${id}`);
   };
 
+  const handleRedirectBack = () => {
+    navigate("/namespace/console");
+  };
+
   const handleDelete = async (id: string) => {
     registerHandler(
       async (password: VerifyUserRequest) => {
@@ -106,12 +110,10 @@ const NamespaceDataTable = () => {
     return <StatusDot status={value} />;
   };
 
-  if (namespaceLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (!namespaceData || namespaceData.length === 0) {
-    return <div>No namespaces found.</div>;
+    return (
+      <div className="flex text-center w-full h-full">No namespaces found</div>
+    );
   }
 
   const columns: ColumnDef<(typeof namespaceData)[0]>[] = Object.keys(
@@ -148,6 +150,9 @@ const NamespaceDataTable = () => {
 
   return (
     <>
+      {namespaceLoading && (
+        <div className="flex text-center w-full h-full">Loading...</div>
+      )}
       <DataTable data={namespaceData} columns={columns} />
       <ConfirmationModal />
     </>
