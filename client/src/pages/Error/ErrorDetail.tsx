@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { selectIsOpen } from "features/sidebarSlice";
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
-import { BaseButton } from "components/base";
+import { BaseButton, LoadingCard } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 
@@ -34,7 +34,7 @@ const ErrorDetail = () => {
   ];
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingCard />;
   }
 
   return (

@@ -2,7 +2,6 @@ import { type MouseEvent, type MouseEventHandler, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
-  UpdateIcon,
   EyeClosedIcon,
   EyeOpenIcon,
   ClipboardCopyIcon,
@@ -33,7 +32,7 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
   const namespace = useSelector(selectNamespaceById(id));
 
   if (!namespace) {
-    return null;
+    return <></>;
   }
 
   const { active, serviceName, environmentType, createdAt, updatedAt } =
@@ -91,23 +90,23 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col justify-between lg:flex-row text-sm">
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-3 w-full ">
             <div>
-              <span>Service Name: </span>
-              <span className="underline underline-offset-4 decoration-default">
+              <span className="text-sm">Service Name: </span>
+              <span className="underline underline-offset-4 decoration-default text-sm">
                 {serviceName}
               </span>
             </div>
             <div>
-              <span>Environment Type: </span>
-              <span className="underline underline-offset-4 decoration-default">
+              <span className="text-sm">Environment Type: </span>
+              <span className="underline underline-offset-4 decoration-default text-sm">
                 {environmentType}
               </span>
             </div>
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex flex-col">
+            <div className="flex flex-col justify-between w-full text-sm lg:flex-row">
+              <div className="flex flex-col border rounded-md p-2 shadow-sm">
                 <div className="flex flex-row justify-center items-center text-center whitespace-nowrap space-x-2">
-                  <Label htmlFor="clientSecret" text="Client Secret:" />
+                  <span className="text-sm">Client Secret: </span>
                   <Input
                     disabled
                     type={showClientSecret ? "text" : "password"}
@@ -143,7 +142,7 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
                   </Tooltip>
                 </div>
                 <div className="flex flex-row justify-center items-center text-center whitespace-nowrap space-x-2">
-                  <Label htmlFor="clientId" text="Client Id:" />
+                  <span className="text-sm">Client ID:</span>
                   <Input
                     disabled
                     type={showClientId ? "text" : "password"}
@@ -181,14 +180,14 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
               </div>
               <div className="flex flex-col justify-center space-y-2">
                 <div className="text-nowrap">
-                  <span>Created At: </span>
-                  <span className="underline underline-offset-4 decoration-default">
+                  <span className="text-sm">Created At: </span>
+                  <span className="underline underline-offset-4 decoration-default text-sm">
                     {transformDate(createdAt)}
                   </span>
                 </div>
                 <div className="text-nowrap">
-                  <span>Updated At: </span>
-                  <span className="underline underline-offset-4 m-b-0 decoration-default">
+                  <span className="text-sm">Updated At: </span>
+                  <span className="underline underline-offset-4 m-b-0 decoration-default text-sm">
                     {transformDate(updatedAt)}
                   </span>
                 </div>

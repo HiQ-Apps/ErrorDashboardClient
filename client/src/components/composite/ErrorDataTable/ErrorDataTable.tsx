@@ -5,7 +5,7 @@ import { UpdateIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 
 import { selectParams } from "features/aggregateTableSlice";
 import { useGetNamespaceErrorsQuery } from "features/namespaceApiSlice";
-import { BaseButton, DataTable } from "components/base";
+import { BaseButton, DataTable, LoadingCard } from "components/base";
 import { TagContainer } from "components/composite";
 import { SheetTrigger } from "components/ui/sheet";
 import {
@@ -43,7 +43,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
 
   useEffect(() => {
     if (isLoading) {
-      <div>Loading...</div>;
+      <LoadingCard />;
     }
   }, [isLoading]);
 
