@@ -9,7 +9,7 @@ import {
 
 import { useVerifyUserMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
-import { DataTable, TrashCan, StatusDot } from "components/base";
+import { DataTable, TrashCan, StatusDot, LoadingCard } from "components/base";
 import { selectUser } from "features/authSlice";
 import { formatHeader } from "shared/utils/parseString";
 import { useToast } from "components/ui/use-toast";
@@ -150,9 +150,7 @@ const NamespaceDataTable = () => {
 
   return (
     <>
-      {namespaceLoading && (
-        <div className="flex text-center w-full h-full">Loading...</div>
-      )}
+      {namespaceLoading && <LoadingCard />}
       <DataTable data={namespaceData} columns={columns} />
       <ConfirmationModal />
     </>

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { selectIsOpen } from "features/sidebarSlice";
 import { useGetErrorByIdQuery } from "features/errorApiSlice";
-import { BaseButton } from "components/base";
+import { BaseButton, LoadingCard } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 
@@ -33,10 +33,6 @@ const ErrorDetail = () => {
     />,
   ];
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div
@@ -50,7 +46,8 @@ const ErrorDetail = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div className="flex flex-row px-4 justify-between">
+      <div className="flex flex-row w-full h-full px-4 justify-between">
+        {isLoading && <LoadingCard />}
         <ErrorDetailCard error={data} />
       </div>
     </div>

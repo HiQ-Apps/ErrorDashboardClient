@@ -235,7 +235,7 @@ module.exports = {
         "lid-up": "lid-up 0.3s ease-out forwards",
         "lid-down": "lid-down 0.3s ease-out forwards",
         "fade-error": "fade-error 0.3s ease-out forwards",
-        "ease-in-out-rotation": "ease-in-out-rotation 1s infinite",
+        "ease-in-out-rotation": "ease-in-out-rotation 2s infinite",
       },
     },
   },

@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Sheet } from "components/ui/sheet";
-import { AggregateErrorSheet } from "components/composite";
 import {
+  AggregateErrorSheet,
   NamespaceSidebar,
   ErrorDataTable,
   NamespaceTitleCard,
@@ -15,6 +15,7 @@ import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
 import { selectParams } from "features/aggregateTableSlice";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import { selectIsOpen } from "features/sidebarSlice";
+import { LoadingCard } from "components/base";
 
 const NamespaceDetail = () => {
   const { height } = usePageDimensions();
@@ -56,7 +57,7 @@ const NamespaceDetail = () => {
       />
       <div className="flex-1 px-4 pb-4">
         {isLoading ? (
-          <div className="flex text-center w-full h-full">Loading...</div>
+          <LoadingCard />
         ) : (
           <>
             <NamespaceTitleCard header="Namespace Details" />

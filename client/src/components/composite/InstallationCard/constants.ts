@@ -40,3 +40,30 @@ export const pySendErrorCode = `try:
         [{"key": "key", "value": "tag_value"}],
         "affected_user_id"
      )`;
+
+export const rustImportCode = `use error_dashboard_sdk_rust::client::ErrorDashboardClient;`;
+
+export const rustInitializationCode = `
+    let client_id = "your_client_id";
+    let client_secret = "your_client_secret";
+
+    let error_dashboard_client = ErrorDashboardClient::initialize(client_id, client_secret);
+`;
+
+export const rustSendErrorCode = `
+  // Example function that might fail
+  fn perform_action() -> Result<(), Box<dyn Error>> {
+      // Simulate a possible error (e.g., file not found)
+      let _file = File::open("non_existent_file.txt")?;
+      Ok(())
+  }
+
+  match perform_action() {
+      Ok(_) => println!("Action performed successfully"),
+      Err(e) => {
+          // Send the error to the error dashboard
+          error_dashboard_client.send_error(e, "Failed to perform action").await;
+        }
+    }
+}
+`;

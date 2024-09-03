@@ -18,6 +18,12 @@ export const userApiSlice = baseApi.injectEndpoints({
         body: credentials,
       }),
     }),
+    googleLogin: builder.query<AuthResponse, void>({
+      query: () => ({
+        url: "/auth/login/google",
+        method: "GET",
+      }),
+    }),
     register: builder.mutation<AuthResponse, RegisterUserRequest>({
       query: (credentials) => ({
         url: "/auth/register",
@@ -25,7 +31,7 @@ export const userApiSlice = baseApi.injectEndpoints({
         body: credentials,
       }),
     }),
-    refreshAccessToken: builder.query<AuthResponse, null>({
+    refreshAccessToken: builder.query<AuthResponse, void>({
       query: () => ({
         url: "/auth/refresh",
         method: "GET",
@@ -65,5 +71,6 @@ export const {
   useRefreshAccessTokenQuery,
   useVerifyUserMutation,
   useGetUserProfileQuery,
+  useGoogleLoginQuery,
   useUpdateUserProfileMutation,
 } = userApiSlice;

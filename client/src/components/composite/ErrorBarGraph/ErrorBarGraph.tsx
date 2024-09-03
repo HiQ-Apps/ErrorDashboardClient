@@ -13,6 +13,7 @@ import { getTodayDateString } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
 import type { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
+import { LoadingCard } from "components/base";
 
 interface ErrorBarGraphProps {
   formAddOn?: boolean;
@@ -139,7 +140,7 @@ const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
       className="flex flex-col w-full relative"
       style={{ minHeight: "100vh" }}
     >
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <LoadingCard />}
       {data && chartOptions && <CanvasJSChart options={chartOptions} />}
       {formAddOn && (
         <div className="absolute top-56 left-6">
