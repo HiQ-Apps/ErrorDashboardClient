@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const PersistAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, isSuccess, isError } = useRefreshAccessTokenQuery(null);
+  const { data, isSuccess, isError } = useRefreshAccessTokenQuery();
 
   useEffect(() => {
     if (isSuccess) {

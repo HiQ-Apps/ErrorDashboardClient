@@ -14,6 +14,8 @@ import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
+import { useGoogleLoginQuery } from "features/userApiSlice";
+import { useState } from "react";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -21,7 +23,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isDarkMode = useSelector(selectIsDark);
-
   const isOpen = useSelector(selectIsOpen);
   const modalType = useSelector(selectModalType);
 
@@ -66,6 +67,10 @@ const Navbar = () => {
 
   const handleDocumentationClick = () => {
     navigate("/documentation/installation");
+  };
+
+  const handleGoogleLoginClick = () => {
+    window.location.href = "http://localhost:8000/api/auth/login/google";
   };
 
   return (
@@ -133,7 +138,12 @@ const Navbar = () => {
       </div>
       <Modal
         header="Login"
-        content={<LoginForm onClose={handleCloseModalClick} />}
+        content={
+          <div>
+            <LoginForm onClose={handleCloseModalClick} />
+            <div onClick={handleGoogleLoginClick}>Google Login</div>
+          </div>
+        }
         open={isOpen && modalType === "login"}
         onClose={handleCloseModalClick}
         showConfirmButtons={false}

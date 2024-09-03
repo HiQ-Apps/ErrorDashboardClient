@@ -15,6 +15,9 @@ import {
   pyImportCode,
   pyInitializationCode,
   pySendErrorCode,
+  rustImportCode,
+  rustInitializationCode,
+  rustSendErrorCode,
 } from "./constants";
 
 const InstallationCard = () => {
@@ -136,7 +139,40 @@ const InstallationCard = () => {
           </CardContent>
         </TabsContent>
         <TabsContent value="Rust">
-          <CardContent>Coming Soon!</CardContent>
+          <CardContent>
+            <div className="mb-4 space-y-4">
+              <div>Install the HiGuard SDK using cargo.</div>
+              <CopyBlock
+                text={"cargo add higuard-sdk"}
+                language={"bash"}
+                showLineNumbers={false}
+                theme={anOldHope}
+              />
+            </div>
+            <div className="mb-12 flex flex-col justify-start space-y-4">
+              <div>Import the SDK into your project</div>
+              <CopyBlock
+                text={rustImportCode}
+                language={"rust"}
+                showLineNumbers={false}
+                theme={anOldHope}
+              />
+              <div>Initialize client in root file. Typically index/main.</div>
+              <CopyBlock
+                text={rustInitializationCode}
+                language={"rust"}
+                showLineNumbers={false}
+                theme={anOldHope}
+              />
+              <div>Sending an error to the HiGuard Dashboard</div>
+              <CopyBlock
+                text={rustSendErrorCode}
+                language={"rust"}
+                showLineNumbers={false}
+                theme={anOldHope}
+              />
+            </div>
+          </CardContent>
         </TabsContent>
         <TabsContent value="Java">
           <CardContent>Coming Soon!</CardContent>

@@ -33,10 +33,6 @@ const ErrorDetail = () => {
     />,
   ];
 
-  if (isLoading) {
-    return <LoadingCard />;
-  }
-
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div
@@ -50,7 +46,8 @@ const ErrorDetail = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div className="flex flex-row px-4 justify-between">
+      <div className="flex flex-row w-full h-full px-4 justify-between">
+        {isLoading && <LoadingCard />}
         <ErrorDetailCard error={data} />
       </div>
     </div>
