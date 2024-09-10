@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import {
   BarGraphCard,
+  LineGraphCard,
   NamespaceSidebar,
   NamespaceTitleCard,
 } from "components/composite";
@@ -34,6 +35,7 @@ const NamespaceMetrics = () => {
       <div className="flex-1 px-4 pb-4">
         <NamespaceTitleCard header="Namespace Metrics" />
         <BarGraphCard />
+        <LineGraphCard />
       </div>
     </div>
   );

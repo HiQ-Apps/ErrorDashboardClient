@@ -8,12 +8,14 @@ import DocumentationSidebar from "./DocumentationSidebar/DocumentationSidebar";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
 import ErrorDetailCard from "./ErrorDetailCard/ErrorDetailCard";
 import ErrorLogTable from "./ErrorLogTable/ErrorLogTable";
+import ErrorLineGraph from "./ErrorLineGraph/ErrorLineGraph";
 import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import FooterMenu from "./FooterMenu/FooterMenu";
 import Footer from "./Footer/Footer";
 import GettingStartedCard from "./GettingStartedCard/GettingStartedCard";
 import InstallationCard from "./InstallationCard/InstallationCard";
+import LineGraphCard from "./GraphCard/LineGraphCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
@@ -40,6 +42,7 @@ export {
   ErrorBarGraph,
   ErrorDataTable,
   ErrorDetailCard,
+  ErrorLineGraph,
   ErrorLogTable,
   ErrorSidebar,
   DocumentationSidebar,
@@ -50,6 +53,7 @@ export {
   HomeSidebar,
   IconRow,
   InstallationCard,
+  LineGraphCard,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,

@@ -85,21 +85,22 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           </span>
         )}
       </div>
-      <BaseButton
-        size="sm"
-        onClick={handleLoginClick}
-        variant="accent"
-        overrideStyles="px-3"
-        content={
-          isSuccess ? (
-            "Success"
-          ) : isLoading ? (
-            <UpdateIcon className="animate-ease-in-out-rotation" />
-          ) : (
-            "Login"
-          )
-        }
-      />
+      <div className="w-full">
+        <BaseButton
+          onClick={handleLoginClick}
+          variant="accent"
+          overrideStyles="w-full"
+          content={
+            isSuccess ? (
+              "Success"
+            ) : isLoading ? (
+              <UpdateIcon className="animate-ease-in-out-rotation" />
+            ) : (
+              "Login"
+            )
+          }
+        />
+      </div>
     </form>
   );
 };

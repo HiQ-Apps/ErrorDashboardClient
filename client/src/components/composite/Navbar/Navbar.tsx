@@ -69,10 +69,6 @@ const Navbar = () => {
     navigate("/documentation/installation");
   };
 
-  const handleGoogleLoginClick = () => {
-    window.location.href = "http://localhost:8000/api/auth/login/google";
-  };
-
   return (
     <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
       <div className="relative min-w-32">
@@ -90,7 +86,7 @@ const Navbar = () => {
       </div>
       <div className="flex flex-row mx-2">
         <BaseButton
-          image={isDarkMode ? WhiteHome : BlackHome}
+          content="Home"
           onClick={handleHomeClick}
           variant="navbutton"
         />
@@ -139,9 +135,8 @@ const Navbar = () => {
       <Modal
         header="Login"
         content={
-          <div>
+          <div className="flex flex-col space-y-2">
             <LoginForm onClose={handleCloseModalClick} />
-            <div onClick={handleGoogleLoginClick}>Google Login</div>
           </div>
         }
         open={isOpen && modalType === "login"}

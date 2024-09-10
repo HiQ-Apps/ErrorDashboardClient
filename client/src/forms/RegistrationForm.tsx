@@ -121,21 +121,22 @@ const RegistrationForm = ({ onClose }: RegistrationFormProps) => {
           </span>
         )}
       </div>
-      <BaseButton
-        size="sm"
-        onClick={handleSubmit}
-        overrideStyles="px-3"
-        variant="accent"
-        content={
-          isSuccess ? (
-            "Success"
-          ) : isLoading ? (
-            <UpdateIcon className="animate-ease-in-out-rotation" />
-          ) : (
-            "Register"
-          )
-        }
-      />
+      <div className="w-full space-y-2">
+        <BaseButton
+          onClick={handleSubmit}
+          overrideStyles="w-full"
+          variant="accent"
+          content={
+            isSuccess ? (
+              "Success"
+            ) : isLoading ? (
+              <UpdateIcon className="animate-ease-in-out-rotation" />
+            ) : (
+              "Register"
+            )
+          }
+        />
+      </div>
     </form>
   );
 };
