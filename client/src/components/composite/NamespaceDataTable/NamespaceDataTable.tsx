@@ -77,10 +77,6 @@ const NamespaceDataTable = () => {
     navigate(`/namespace/${id}`);
   };
 
-  const handleRedirectBack = () => {
-    navigate("/namespace/console");
-  };
-
   const handleDelete = async (id: string) => {
     registerHandler(
       async (password: VerifyUserRequest) => {

@@ -9,7 +9,7 @@ const initialState: SidebarState = {
   isOpen: JSON.parse(localStorage.getItem("isOpen") || "true"),
 };
 
-let sidebarSlice = createSlice({
+const sidebarSlice = createSlice({
   name: "Sidebar",
   initialState,
   reducers: {

@@ -15,7 +15,7 @@ import ErrorGraphForm from "forms/ErrorGraphForm";
 import type { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
 import { LoadingCard } from "components/base";
 
-interface ErrorBarGraphProps {
+interface ErrorLineGraphProps {
   formAddOn?: boolean;
 }
 
@@ -50,7 +50,7 @@ interface ChartOptions {
   width: number;
 }
 
-const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
+const ErrorLineGraph = ({ formAddOn }: ErrorLineGraphProps) => {
   const { CanvasJSChart } = CanvasJS;
   const { id } = useParams<{ id: string }>();
 
@@ -107,7 +107,7 @@ const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
         },
         data: [
           {
-            type: "column",
+            type: "line",
             dataPoints: data.map((item: ErrorAggregateData) => ({
               x: DateTime.fromISO(new Date(item.time).toISOString())
                 .setZone(timezone)
@@ -138,7 +138,11 @@ const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
   return (
     <div className="flex flex-col w-full relative">
       {isLoading && <LoadingCard />}
-      {data && chartOptions && <CanvasJSChart options={chartOptions} />}
+      {data && chartOptions && (
+        <div className="flex">
+          <CanvasJSChart options={chartOptions} />
+        </div>
+      )}
       {formAddOn && (
         <div className="flex justify-center">
           <ErrorGraphForm
@@ -154,4 +158,4 @@ const ErrorBarGraph = ({ formAddOn }: ErrorBarGraphProps) => {
   );
 };
 
-export default ErrorBarGraph;
+export default ErrorLineGraph;

@@ -9,6 +9,12 @@ const HomeSidebar = () => {
   const navigate = useNavigate();
   const isOpen = useSelector(selectIsOpen);
 
+  const handleDonateClick = () => {
+    window.open(
+      "https://www.paypal.com/donate/?business=9CQ3XGH3L2SLJ&no_recurring=0&item_name=Thank+you+for+donating+to+HiGuard.+All+donations+will+be+used+to+improve+the+product.&currency_code=USD"
+    );
+  };
+
   const handleAboutClick = () => {
     navigate("/about");
   };
@@ -39,6 +45,12 @@ const HomeSidebar = () => {
       content={"Releases"}
       variant="sidenavbutton"
       onClick={handleReleasesClick}
+    />,
+    <BaseButton
+      size="sm"
+      content={"Buy me a coffee"}
+      variant="sidenavbutton"
+      onClick={handleDonateClick}
     />,
   ];
 

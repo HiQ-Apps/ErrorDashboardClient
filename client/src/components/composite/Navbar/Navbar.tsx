@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
+import { Light, Dark, AppIcon } from "assets/index";
 import { selectIsAuthenticated, clearAuth } from "features/authSlice";
 import {
   openModal,
@@ -14,8 +14,6 @@ import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
-import { useGoogleLoginQuery } from "features/userApiSlice";
-import { useState } from "react";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -69,10 +67,6 @@ const Navbar = () => {
     navigate("/documentation/installation");
   };
 
-  const handleGoogleLoginClick = () => {
-    window.location.href = "http://localhost:8000/api/auth/login/google";
-  };
-
   return (
     <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
       <div className="relative min-w-32">
@@ -90,7 +84,7 @@ const Navbar = () => {
       </div>
       <div className="flex flex-row mx-2">
         <BaseButton
-          image={isDarkMode ? WhiteHome : BlackHome}
+          content="Home"
           onClick={handleHomeClick}
           variant="navbutton"
         />
@@ -139,9 +133,8 @@ const Navbar = () => {
       <Modal
         header="Login"
         content={
-          <div>
+          <div className="flex flex-col space-y-2">
             <LoginForm onClose={handleCloseModalClick} />
-            <div onClick={handleGoogleLoginClick}>Google Login</div>
           </div>
         }
         open={isOpen && modalType === "login"}

@@ -80,6 +80,18 @@ export type ErrorMetaDataRequest = {
   limit: number;
 };
 
+export type ErrorPieChartDataRequest = Omit<
+  ErrorMetaDataRequest,
+  "offset" | "limit"
+>;
+
+export type ErrorPieChartData = {
+  groupKey: string;
+  count: number;
+};
+
+export type ErrorPieChartDataResponse = ErrorPieChartData[];
+
 export type GetErrorAggregateRequest = {
   namespaceId: string;
   startTime: string;

@@ -16,7 +16,6 @@ import {
 } from "features/userApiSlice";
 import { useVerifyUserMutation } from "features/userApiSlice";
 import { Input, Label, BaseButton, Avatar } from "components/base";
-import { ConfirmationModal } from "components/composite";
 import {
   updateUserProfileSchema,
   type UpdateUserProfileSchema,
@@ -31,7 +30,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
 import { formatHeader } from "shared/utils/parseString";
 import useForm from "hooks/useForm";
-import ColorSelector from "components/composite/ColorSelector/ColorSelector";
+import { ColorSelector, ConfirmationModal } from "components/composite";
 import { generateUUID } from "shared/utils/generateUUID";
 import { VerifyUserRequest } from "types/User";
 

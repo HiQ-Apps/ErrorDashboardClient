@@ -9,7 +9,7 @@ const initialState: DarkModeState = {
   isDark: JSON.parse(localStorage.getItem("isDark") || "false"),
 };
 
-let darkSlice = createSlice({
+const darkSlice = createSlice({
   name: "DarkMode",
   initialState,
   reducers: {
