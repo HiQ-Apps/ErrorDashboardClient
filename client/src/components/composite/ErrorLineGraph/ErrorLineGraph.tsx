@@ -136,14 +136,15 @@ const ErrorLineGraph = ({ formAddOn }: ErrorLineGraphProps) => {
   }, [error, toast]);
 
   return (
-    <div
-      className="flex flex-col w-full relative"
-      style={{ minHeight: "100vh" }}
-    >
+    <div className="flex flex-col w-full relative">
       {isLoading && <LoadingCard />}
-      {data && chartOptions && <CanvasJSChart options={chartOptions} />}
+      {data && chartOptions && (
+        <div className="flex">
+          <CanvasJSChart options={chartOptions} />
+        </div>
+      )}
       {formAddOn && (
-        <div className="absolute top-56 left-6">
+        <div className="flex justify-center">
           <ErrorGraphForm
             startTime={startTime}
             timeIntervalMinutes={timeIntervalMinutes}

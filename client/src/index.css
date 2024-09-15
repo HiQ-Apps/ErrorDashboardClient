@@ -11,6 +11,10 @@ html {
     display: none !important;
 }
 
+/* .canvasjs-chart-canvas {
+  position: static !important;
+} */
+
 .trash-can:hover .lid {
       animation: lid-up 0.3s ease-out forwards;
 }

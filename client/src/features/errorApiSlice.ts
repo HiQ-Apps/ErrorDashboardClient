@@ -5,6 +5,8 @@ import type {
   ErrorMetaData,
   ErrorMetaDataRequest,
   GetErrorAggregateRequest,
+  ErrorPieChartDataResponse,
+  ErrorPieChartDataRequest,
 } from "types/Error";
 
 export const errorApiSlice = baseApi.injectEndpoints({
@@ -45,6 +47,19 @@ export const errorApiSlice = baseApi.injectEndpoints({
         },
       }),
     }),
+    getErrorPieChartData: builder.query<
+      ErrorPieChartDataResponse,
+      ErrorPieChartDataRequest
+    >({
+      query: ({ namespaceId, groupBy, groupKey }) => ({
+        url: `/error/aggregate/details/namespace/${namespaceId}/pie`,
+        method: "GET",
+        params: {
+          groupBy,
+          groupKey,
+        },
+      }),
+    }),
   }),
 });
 
@@ -52,4 +67,5 @@ export const {
   useGetErrorByIdQuery,
   useGetErrorAggregatesByNamespaceIdQuery,
   useGetErrorMetaGroupedByParamsQuery,
+  useGetErrorPieChartDataQuery,
 } = errorApiSlice;

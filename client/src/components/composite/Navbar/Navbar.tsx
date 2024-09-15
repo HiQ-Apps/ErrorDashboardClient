@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Light, Dark, BlackHome, WhiteHome, AppIcon } from "assets/index";
+import { Light, Dark, AppIcon } from "assets/index";
 import { selectIsAuthenticated, clearAuth } from "features/authSlice";
 import {
   openModal,
@@ -14,8 +14,6 @@ import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
-import { useGoogleLoginQuery } from "features/userApiSlice";
-import { useState } from "react";
 
 const Navbar = () => {
   const { toast } = useToast();

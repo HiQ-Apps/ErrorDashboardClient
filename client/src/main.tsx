@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -9,14 +8,12 @@ import ErrorBoundary from "shared/utils/ErrorBoundary.tsx";
 import PersistAuth from "shared/utils/PersistAuth.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ErrorBoundary>
-          <PersistAuth />
-          <App />
-        </ErrorBoundary>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <ErrorBoundary>
+        <PersistAuth />
+        <App />
+      </ErrorBoundary>
+    </BrowserRouter>
+  </Provider>
 );

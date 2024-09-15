@@ -5,12 +5,13 @@ import ChangeLogCard from "./ChangeLogCard/ChangeLogCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import DocumentationSidebar from "./DocumentationSidebar/DocumentationSidebar";
+import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
 import ErrorDetailCard from "./ErrorDetailCard/ErrorDetailCard";
 import ErrorLogTable from "./ErrorLogTable/ErrorLogTable";
 import ErrorLineGraph from "./ErrorLineGraph/ErrorLineGraph";
 import ErrorSidebar from "./ErrorSidebar/ErrorSidebar";
-import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
+import ErrorPieChart from "./ErrorPieChart/ErrorPieChart";
 import FooterMenu from "./FooterMenu/FooterMenu";
 import Footer from "./Footer/Footer";
 import GettingStartedCard from "./GettingStartedCard/GettingStartedCard";
@@ -23,6 +24,7 @@ import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
 import Navbar from "./Navbar/Navbar";
 import ParameterSelector from "./ParameterSelector/ParameterSelector";
+import PieChartCard from "./GraphCard/PieChartCard";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
@@ -44,6 +46,7 @@ export {
   ErrorDetailCard,
   ErrorLineGraph,
   ErrorLogTable,
+  ErrorPieChart,
   ErrorSidebar,
   DocumentationSidebar,
   FooterMenu,
@@ -59,6 +62,7 @@ export {
   NamespaceTitleCard,
   Navbar,
   ParameterSelector,
+  PieChartCard,
   TagContainer,
   TagManagerContainer,
   TimezoneSelector,

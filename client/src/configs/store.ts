@@ -4,20 +4,20 @@ import { baseApi } from "features/baseApi";
 import authReducer from "features/authSlice";
 import aggregateTableSlice from "features/aggregateTableSlice";
 import darkReducer from "features/darkSlice";
-import sidebarReducer from "features/sidebarSlice";
-import modalReducer from "features/modalSlice";
 import errorGraphReducer from "features/errorGraphSlice";
 import errorBoundaryReducer from "features/errorBoundarySlice";
+import modalReducer from "features/modalSlice";
+import sidebarReducer from "features/sidebarSlice";
 import timezoneReducer from "features/timezoneSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   aggregateTable: aggregateTableSlice,
-  modal: modalReducer,
   dark: darkReducer,
-  sidebar: sidebarReducer,
   errorGraph: errorGraphReducer,
   errorBoundary: errorBoundaryReducer,
+  modal: modalReducer,
+  sidebar: sidebarReducer,
   timezone: timezoneReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 });

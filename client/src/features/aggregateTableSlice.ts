@@ -11,7 +11,7 @@ const initialState: AggregateTableState = {
   params: { offset: 0, limit: 100, groupBy: "message" },
 };
 
-let aggregateTableSlice = createSlice({
+const aggregateTableSlice = createSlice({
   name: "AggregateTable",
   initialState,
   reducers: {
