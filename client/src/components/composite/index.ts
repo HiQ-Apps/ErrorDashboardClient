@@ -19,6 +19,7 @@ import InstallationCard from "./InstallationCard/InstallationCard";
 import LineGraphCard from "./GraphCard/LineGraphCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
+import NamespaceAlertCard from "./NamespaceAlertCard/NamespaceAlertCard";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
@@ -30,8 +31,8 @@ import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import UpdateUserProfileCard from "./UpdateUserProfileCard/UpdateUserProfileCard";
+import UserAlertCard from "./UserAlertCard/UserAlertCard";
 import UserSidebar from "./UserSidebar/UserSidebar";
-import IconRow from "../base/IconRow/IconRow";
 
 export {
   AboutSection,
@@ -54,9 +55,9 @@ export {
   GettingStartedCard,
   HomeAnimation,
   HomeSidebar,
-  IconRow,
   InstallationCard,
   LineGraphCard,
+  NamespaceAlertCard,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,
@@ -68,5 +69,6 @@ export {
   TimezoneSelector,
   UpdateNamespaceCard,
   UpdateUserProfileCard,
+  UserAlertCard,
   UserSidebar,
 };
