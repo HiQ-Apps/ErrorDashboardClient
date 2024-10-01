@@ -1,8 +1,9 @@
+export type AlertMethod = "email" | "discord" | "slack";
+
 export type NamespaceAlert = {
   id: string;
   namespaceId: string;
-  alertMethod: string;
-  errorName: string;
+  alertMethod: AlertMethod;
   path: string;
   line: number;
   message: string;
@@ -16,9 +17,8 @@ export type NamespaceAlert = {
   updatedAt: Date;
 };
 
-export type CreateNamespaceAlertRequest = Omit<
-  NamespaceAlert,
-  "id" | "createdAt" | "updatedAt"
+export type CreateNamespaceAlertRequest = Partial<
+  Omit<NamespaceAlert, "id" | "createdAt" | "updatedAt">
 >;
 
 export type ShortNamespaceAlert = Omit<
