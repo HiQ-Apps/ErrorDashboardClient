@@ -13,20 +13,20 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
       string
     >({
       query: (id: string) => ({
-        url: `/alerts/namespace/${id}`,
+        url: `/alert/namespace/${id}`,
         method: "GET",
       }),
     }),
     getNamespaceAlertsByUserId: builder.query<ShortNamespaceAlert[], string>({
       query: (id: string) => ({
-        url: `/alerts/user/${id}`,
+        url: `/alert/user/${id}`,
         method: "GET",
       }),
     }),
     createNamespaceAlert: builder.mutation<string, CreateNamespaceAlertRequest>(
       {
         query: (data) => ({
-          url: `/alerts`,
+          url: `/alert/`,
           method: "POST",
           body: data,
         }),
@@ -34,14 +34,14 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
     ),
     updateNamespaceAlert: builder.mutation<null, UpdateNamespaceAlertRequest>({
       query: (data) => ({
-        url: `/alerts`,
+        url: `/alert`,
         method: "PUT",
         body: data,
       }),
     }),
     deleteNamespaceAlertById: builder.mutation<string, string>({
       query: (id: string) => ({
-        url: `/alerts/${id}`,
+        url: `/alert/${id}`,
         method: "DELETE",
       }),
     }),
@@ -50,7 +50,7 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
       NamespaceAlertSubscriptionRequest
     >({
       query: () => ({
-        url: `/alerts/subscribe`,
+        url: `/alert/subscribe`,
         method: "POST",
       }),
     }),
@@ -59,7 +59,7 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
       NamespaceAlertSubscriptionRequest
     >({
       query: () => ({
-        url: `/alerts/unsubscribe`,
+        url: `/alert/unsubscribe`,
         method: "POST",
       }),
     }),

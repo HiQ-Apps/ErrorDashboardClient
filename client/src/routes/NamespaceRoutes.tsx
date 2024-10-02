@@ -5,6 +5,7 @@ import NamespaceDetail from "pages/Namespace/NamespaceDetail";
 import NamespaceLogs from "pages/Namespace/NamespaceLogs";
 import NamespaceMetrics from "pages/Namespace/NamespaceMetrics";
 import NamespaceSettings from "pages/Namespace/NamespaceSettings";
+import NamespaceAlerts from "pages/Namespace/NamespaceAlerts";
 
 const NamespaceRoutes = () => {
   return (
@@ -46,6 +47,14 @@ const NamespaceRoutes = () => {
         element={
           <ProtectedRoutes>
             <NamespaceSettings />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/:id/alerts"
+        element={
+          <ProtectedRoutes>
+            <NamespaceAlerts />
           </ProtectedRoutes>
         }
       />

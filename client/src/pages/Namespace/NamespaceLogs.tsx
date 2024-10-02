@@ -24,7 +24,7 @@ const NamespaceLogs = () => {
         style={{ height: height ?? `${height}px` }}
         className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
       >
-        <NamespaceSidebar />
+        <NamespaceSidebar isLoading={!!id} />
       </div>
       <div
         className={`transition-all duration-300 ease-in-out ${

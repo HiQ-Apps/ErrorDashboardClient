@@ -99,6 +99,11 @@ export type GetErrorAggregateRequest = {
   timezone: string;
 };
 
+export type GetUniqueMetaByNamespaceIdRequest = {
+  namespaceId: string;
+  filterRequest: string;
+};
+
 export const isGroupByLineResponse = (
   data: AggregateErrorResponseData
 ): data is AggregateErrorGroupByLineResponseData[] => {

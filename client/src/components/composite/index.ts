@@ -4,6 +4,7 @@ import BarGraphCard from "./GraphCard/BarGraphCard";
 import ChangeLogCard from "./ChangeLogCard/ChangeLogCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import CreateNamespaceAlertCard from "./CreateNamespaceAlertCard/CreateNamespaceAlertCard";
 import DocumentationSidebar from "./DocumentationSidebar/DocumentationSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
@@ -20,6 +21,7 @@ import LineGraphCard from "./GraphCard/LineGraphCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceAlertCard from "./NamespaceAlertCard/NamespaceAlertCard";
+import NamespaceAlertListCard from "./NamespaceAlertListCard/NamespaceAlertListCard";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
@@ -42,6 +44,7 @@ export {
   ColorSelector,
   colorList,
   ConfirmationModal,
+  CreateNamespaceAlertCard,
   ErrorBarGraph,
   ErrorDataTable,
   ErrorDetailCard,
@@ -58,6 +61,7 @@ export {
   InstallationCard,
   LineGraphCard,
   NamespaceAlertCard,
+  NamespaceAlertListCard,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,

@@ -1,17 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { selectIsOpen } from "features/sidebarSlice";
 import {
   NamespaceSidebar,
-  NamespaceTitleCard,
-  UpdateNamespaceCard,
+  CreateNamespaceAlertCard,
+  NamespaceAlertListCard,
 } from "components/composite";
-import { Separator } from "components/ui/separator";
 import { usePageDimensions } from "hooks/usePageDimensions";
-import CreateNamespaceAlertForm from "forms/CreateNamespaceAlertForm";
+import { selectIsOpen } from "features/sidebarSlice";
+import { LoadingCard } from "components/base";
 
-const NamespaceSettings = () => {
+const NamespaceAlerts = () => {
   const { height } = usePageDimensions();
   const { id } = useParams();
   const sidebarIsOpen = useSelector(selectIsOpen);
@@ -33,12 +32,12 @@ const NamespaceSettings = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div className="flex-1 px-4 pb-4">
-        <NamespaceTitleCard header="Namespace Settings" />
-        <UpdateNamespaceCard />
+      <div>
+        <NamespaceAlertListCard namespaceId={id} />
+        <CreateNamespaceAlertCard />
       </div>
     </div>
   );
 };
 
-export default NamespaceSettings;
+export default NamespaceAlerts;

@@ -1,9 +1,8 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { type FormEvent, useEffect } from "react";
 import { UpdateIcon } from "@radix-ui/react-icons";
-import { Checkbox } from "components/ui/checkbox";
 
 import { Input, Label, BaseButton } from "components/base";
 import {
@@ -13,30 +12,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "components/ui/select";
-
 import { useToast } from "components/ui/use-toast";
 import {
   createNamespaceAlertSchema,
   type CreateNamespaceAlertSchema,
 } from "schemas/createNamespaceAlertSchema";
 import useForm from "hooks/useForm";
-import { useCreateNamespaceAlertMutation } from "features/namespaceAlertSlice";
+import { useCreateNamespaceAlertMutation } from "features/namespaceAlertApiSlice";
+import { useGetUniqueMetaByNamespaceIdQuery } from "features/errorApiSlice";
 import type { AlertMethod } from "types/NamespaceAlert";
 
 type AlertChoices = "path" | "line" | "message" | "stackTrace";
 type RateType = "count" | "rate";
 
 const CreateNamespaceAlertForm = () => {
-  const { namespaceId } = useParams<{ namespaceId: string }>();
-  const dispatch = useDispatch();
+  const { id: namespaceId } = useParams();
   const { toast } = useToast();
-  const selectorList = useState<string[]>([]);
-  const [isCustom, setIsCustom] = useState<boolean>(false);
   const [selectedAlertByChoice, setSelectedAlertByChoice] =
     useState<AlertChoices>("message");
   const [selectedAlertMethod, setSelectedAlertMethod] =
     useState<AlertMethod>("email");
   const [selectedRateType, setSelectedRateType] = useState<RateType>("count");
+  const [customTrigger, setCustomTrigger] = useState(true);
 
   if (!namespaceId) {
     throw new Error("Namespace id is required");
@@ -60,8 +57,20 @@ const CreateNamespaceAlertForm = () => {
       createNamespaceAlertSchema
     );
 
-  const [createNamespaceAlert, { isSuccess, isError, isLoading }] =
-    useCreateNamespaceAlertMutation();
+  const [
+    createNamespaceAlert,
+    {
+      isSuccess: createNamespaceAlertIsSuccess,
+      isError: createNamespaceAlertIsError,
+      isLoading: createNamespaceAlertLoading,
+    },
+  ] = useCreateNamespaceAlertMutation();
+
+  const { data: uniqueErrorMetaList, refetch } =
+    useGetUniqueMetaByNamespaceIdQuery({
+      namespaceId,
+      filterRequest: selectedAlertByChoice,
+    });
 
   const updateFormAlterChoiceFields = (value: string) => {
     const updatedAlertSearchForm = {
@@ -89,19 +98,22 @@ const CreateNamespaceAlertForm = () => {
     }
   };
 
+  const handleSelectChange = (value: string) => {
+    if (value === "custom") {
+      setCustomTrigger(false);
+    } else {
+      setCustomTrigger(true);
+    }
+  };
+
   useEffect(() => {
-    if (isSuccess) {
+    if (createNamespaceAlertIsSuccess) {
       toast({
         title: "Namespace alert created successfully",
         description: `Namespace alert created successfully`,
       });
-    } else if (isError) {
-      toast({
-        title: "Failed to create namespace alert",
-        description: "Please try again",
-      });
     }
-  }, [isSuccess, isError]);
+  }, [createNamespaceAlertIsSuccess]);
 
   // we need an endpoint that returns unique results for each choice
   // find all unique error names
@@ -143,6 +155,8 @@ const CreateNamespaceAlertForm = () => {
         <Select
           value={selectedAlertByChoice}
           onValueChange={(value: AlertChoices) => {
+            refetch();
+            setCustomTrigger(true);
             setSelectedAlertByChoice(value);
           }}
         >
@@ -158,10 +172,30 @@ const CreateNamespaceAlertForm = () => {
         </Select>
       </div>
 
-      {selectedAlertByChoice == "path" ?? (
+      {selectedAlertByChoice == "path" && (
         <div>
           <Label htmlFor="path" text="Path" />
+          <Select
+            onValueChange={(value: string) => {
+              handleSelectChange(value);
+              updateFormAlterChoiceFields(value);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue>
+                {uniqueErrorMetaList?.map((errorMeta, index) => (
+                  <SelectItem key={index} value={errorMeta}>
+                    {errorMeta}
+                  </SelectItem>
+                ))}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Custom</SelectItem>
+            </SelectContent>
+          </Select>
           <Input
+            disabled={customTrigger}
             type="text"
             name="path"
             value={form.path || ""}
@@ -174,10 +208,30 @@ const CreateNamespaceAlertForm = () => {
           )}
         </div>
       )}
-      {selectedAlertByChoice == "line" ?? (
+      {selectedAlertByChoice == "line" && (
         <div>
           <Label htmlFor="line" text="Line" />
+          <Select
+            onValueChange={(value: string) => {
+              handleSelectChange(value);
+              updateFormAlterChoiceFields(value);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue>
+                {uniqueErrorMetaList?.map((errorMeta, index) => (
+                  <SelectItem key={index} value={errorMeta}>
+                    {errorMeta}
+                  </SelectItem>
+                ))}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Custom</SelectItem>
+            </SelectContent>
+          </Select>
           <Input
+            disabled={customTrigger}
             type="number"
             name="line"
             value={form.line || Number()}
@@ -190,10 +244,30 @@ const CreateNamespaceAlertForm = () => {
           )}
         </div>
       )}
-      {selectedAlertByChoice == "message" ?? (
+      {selectedAlertByChoice == "message" && (
         <div>
           <Label htmlFor="message" text="Message" />
+          <Select
+            onValueChange={(value: string) => {
+              handleSelectChange(value);
+              updateFormAlterChoiceFields(value);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue>
+                {uniqueErrorMetaList?.map((errorMeta, index) => (
+                  <SelectItem key={index} value={errorMeta}>
+                    {errorMeta}
+                  </SelectItem>
+                ))}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Custom</SelectItem>
+            </SelectContent>
+          </Select>
           <Input
+            disabled={customTrigger}
             type="text"
             name="message"
             value={form.message || ""}
@@ -206,10 +280,30 @@ const CreateNamespaceAlertForm = () => {
           )}
         </div>
       )}
-      {selectedAlertByChoice == "stackTrace" ?? (
+      {selectedAlertByChoice == "stackTrace" && (
         <div>
           <Label htmlFor="stackTrace" text="Stack trace" />
+          <Select
+            onValueChange={(value: string) => {
+              handleSelectChange(value);
+              updateFormAlterChoiceFields(value);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue>
+                {uniqueErrorMetaList?.map((errorMeta, index) => (
+                  <SelectItem key={index} value={errorMeta}>
+                    {errorMeta}
+                  </SelectItem>
+                ))}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Custom</SelectItem>
+            </SelectContent>
+          </Select>
           <Input
+            disabled={customTrigger}
             type="text"
             name="stackTrace"
             value={form.stackTrace || ""}
@@ -239,7 +333,7 @@ const CreateNamespaceAlertForm = () => {
           </SelectContent>
         </Select>
       </div>
-      {selectedRateType == "count" ?? (
+      {selectedRateType == "count" && (
         <div>
           <div>
             <Label htmlFor="countThreshold" text="Count threshold" />
@@ -271,24 +365,8 @@ const CreateNamespaceAlertForm = () => {
           </div>
         </div>
       )}
-      <div>
-        <Label
-          htmlFor="unresolvedTimeThreshold"
-          text="Unresolved time threshold"
-        />
-        <Input
-          type="number"
-          name="unresolvedTimeThreshold"
-          value={form.unresolvedTimeThreshold || Number()}
-          onChange={handleChange}
-        />
-        {errors.errorMessages.unresolvedTimeThreshold && (
-          <span className="text-error text-sm">
-            {errors.errorMessages.unresolvedTimeThreshold}
-          </span>
-        )}
-      </div>
-      {selectedRateType == "rate" ?? (
+
+      {selectedRateType == "rate" && (
         <div>
           <div>
             <Label htmlFor="rateThreshold" text="Rate threshold" />
@@ -320,6 +398,37 @@ const CreateNamespaceAlertForm = () => {
           </div>
         </div>
       )}
+      <div>
+        <Label
+          htmlFor="unresolvedTimeThreshold"
+          text="Unresolved time threshold"
+        />
+        <Input
+          type="number"
+          name="unresolvedTimeThreshold"
+          value={form.unresolvedTimeThreshold || Number()}
+          onChange={handleChange}
+        />
+        {errors.errorMessages.unresolvedTimeThreshold && (
+          <span className="text-error text-sm">
+            {errors.errorMessages.unresolvedTimeThreshold}
+          </span>
+        )}
+      </div>
+      <BaseButton
+        size="sm"
+        content={
+          createNamespaceAlertIsSuccess ? (
+            "Success"
+          ) : createNamespaceAlertLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            "Create Alert"
+          )
+        }
+        variant="accent"
+        onClick={handleSubmit}
+      />
     </form>
   );
 };
