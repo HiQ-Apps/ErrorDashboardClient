@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader } from "components/ui/card";
 
 const CreateNamespaceAlertCard = () => {
   return (
-    <Card>
-      <CardHeader>Namespace Alerts</CardHeader>
+    <Card className="mb-10 mr-4">
+      <CardHeader>Add an alert</CardHeader>
       <CardContent>
         <CreateNamespaceAlertForm />
       </CardContent>

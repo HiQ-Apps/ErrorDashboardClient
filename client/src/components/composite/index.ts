@@ -21,7 +21,7 @@ import LineGraphCard from "./GraphCard/LineGraphCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceAlertCard from "./NamespaceAlertCard/NamespaceAlertCard";
-import NamespaceAlertListCard from "./NamespaceAlertListCard/NamespaceAlertListCard";
+import NamespaceAlertDataTable from "./NamespaceAlertDataTable/NamespaceAlertDataTable";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
@@ -61,7 +61,7 @@ export {
   InstallationCard,
   LineGraphCard,
   NamespaceAlertCard,
-  NamespaceAlertListCard,
+  NamespaceAlertDataTable,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,

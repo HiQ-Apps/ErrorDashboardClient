@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import {
   NamespaceSidebar,
   CreateNamespaceAlertCard,
-  NamespaceAlertListCard,
+  NamespaceAlertDataTable,
+  NamespaceTitleCard,
 } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import { selectIsOpen } from "features/sidebarSlice";
-import { LoadingCard } from "components/base";
 
 const NamespaceAlerts = () => {
   const { height } = usePageDimensions();
@@ -32,8 +32,9 @@ const NamespaceAlerts = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div>
-        <NamespaceAlertListCard namespaceId={id} />
+      <div className="flex-1 px-4 pb-4 justify-around overflow-hidden">
+        <NamespaceTitleCard header="Namespace Alerts" />
+        <NamespaceAlertDataTable namespaceId={id} />
         <CreateNamespaceAlertCard />
       </div>
     </div>

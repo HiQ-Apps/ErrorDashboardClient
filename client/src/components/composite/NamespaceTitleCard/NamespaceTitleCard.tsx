@@ -85,7 +85,7 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
           ) : (
             <StatusDot status={active} />
           )}{" "}
-          <h1>Namespace: {id}</h1>
+          <h1 className="text-wrap">Namespace: {id}</h1>
         </div>
       </CardHeader>
       <CardContent>
@@ -178,14 +178,14 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
                   </Tooltip>
                 </div>
               </div>
-              <div className="flex flex-col justify-center space-y-2">
-                <div className="text-nowrap">
+              <div className="flex flex-col justify-center space-y-3 mt-3">
+                <div className="text-wrap">
                   <span className="text-sm">Created At: </span>
                   <span className="underline underline-offset-4 decoration-default text-sm">
                     {transformDate(createdAt)}
                   </span>
                 </div>
-                <div className="text-nowrap">
+                <div className="text-wrap">
                   <span className="text-sm">Updated At: </span>
                   <span className="underline underline-offset-4 m-b-0 decoration-default text-sm">
                     {transformDate(updatedAt)}

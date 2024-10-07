@@ -16,12 +16,14 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
         url: `/alert/namespace/${id}`,
         method: "GET",
       }),
+      providesTags: ["NamespaceAlerts"],
     }),
     getNamespaceAlertsByUserId: builder.query<ShortNamespaceAlert[], string>({
       query: (id: string) => ({
         url: `/alert/user/${id}`,
         method: "GET",
       }),
+      providesTags: ["UserAlerts"],
     }),
     createNamespaceAlert: builder.mutation<string, CreateNamespaceAlertRequest>(
       {
@@ -30,6 +32,7 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
           method: "POST",
           body: data,
         }),
+        invalidatesTags: ["NamespaceAlerts", "UserAlerts"],
       }
     ),
     updateNamespaceAlert: builder.mutation<null, UpdateNamespaceAlertRequest>({
@@ -38,12 +41,14 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["NamespaceAlerts", "UserAlerts"],
     }),
     deleteNamespaceAlertById: builder.mutation<string, string>({
       query: (id: string) => ({
         url: `/alert/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["NamespaceAlerts", "UserAlerts"],
     }),
     subscribeToNamespaceAlerts: builder.query<
       null,

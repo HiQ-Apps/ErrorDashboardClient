@@ -115,28 +115,10 @@ const CreateNamespaceAlertForm = () => {
     }
   }, [createNamespaceAlertIsSuccess]);
 
-  // we need an endpoint that returns unique results for each choice
-  // find all unique error names
-  // find all unique paths
-  // find all unique lines
-  // find all unique messages
-  // find all unique stack traces (check if input is within stack trace in db)
-  // return as array
-  // for each choice, we need to query the endpoint and populate the select dropdown
-  // add a custom option to allow user to input their own value
-
-  // Interval form:
-  // count threshold or rate threshhold
-  // count threshhold should use time window and unresolved time threshold
-
-  // final query should take in on of the alert choices (errorName, path, line, message, stackTrace)
-  // and the interval form (count threshold or rate threshold)
-  // and send the request
-
   return (
-    <form>
+    <form className="space-y-2">
       <div>
-        <Label htmlFor="alertMethod" text="Alert method" />
+        <Label htmlFor="alertMethod" text="Select an alert method:" />
         <Select
           value={selectedAlertMethod}
           onValueChange={(value: string) =>
@@ -152,6 +134,7 @@ const CreateNamespaceAlertForm = () => {
         </Select>
       </div>
       <div>
+        <Label htmlFor="alertBy" text="Search by specific column:" />
         <Select
           value={selectedAlertByChoice}
           onValueChange={(value: AlertChoices) => {
@@ -174,7 +157,7 @@ const CreateNamespaceAlertForm = () => {
 
       {selectedAlertByChoice == "path" && (
         <div>
-          <Label htmlFor="path" text="Path" />
+          <Label htmlFor="path" text={"Filter by path:"} />
           <Select
             onValueChange={(value: string) => {
               handleSelectChange(value);
@@ -210,7 +193,7 @@ const CreateNamespaceAlertForm = () => {
       )}
       {selectedAlertByChoice == "line" && (
         <div>
-          <Label htmlFor="line" text="Line" />
+          <Label htmlFor="line" text="Filter by line:" />
           <Select
             onValueChange={(value: string) => {
               handleSelectChange(value);
@@ -246,7 +229,7 @@ const CreateNamespaceAlertForm = () => {
       )}
       {selectedAlertByChoice == "message" && (
         <div>
-          <Label htmlFor="message" text="Message" />
+          <Label htmlFor="message" text="Filter by message:" />
           <Select
             onValueChange={(value: string) => {
               handleSelectChange(value);
@@ -282,7 +265,7 @@ const CreateNamespaceAlertForm = () => {
       )}
       {selectedAlertByChoice == "stackTrace" && (
         <div>
-          <Label htmlFor="stackTrace" text="Stack trace" />
+          <Label htmlFor="stackTrace" text="Filter by stack trace:" />
           <Select
             onValueChange={(value: string) => {
               handleSelectChange(value);
@@ -336,7 +319,7 @@ const CreateNamespaceAlertForm = () => {
       {selectedRateType == "count" && (
         <div>
           <div>
-            <Label htmlFor="countThreshold" text="Count threshold" />
+            <Label htmlFor="countThreshold" text="Count threshold:" />
             <Input
               type="number"
               name="countThreshold"
@@ -350,7 +333,7 @@ const CreateNamespaceAlertForm = () => {
             )}
           </div>
           <div>
-            <Label htmlFor="timeWindow" text="Time window" />
+            <Label htmlFor="timeWindow" text="Time window:" />
             <Input
               type="number"
               name="timeWindow"
@@ -369,7 +352,7 @@ const CreateNamespaceAlertForm = () => {
       {selectedRateType == "rate" && (
         <div>
           <div>
-            <Label htmlFor="rateThreshold" text="Rate threshold" />
+            <Label htmlFor="rateThreshold" text="Rate threshold:" />
             <Input
               type="number"
               name="rateThreshold"
@@ -383,7 +366,7 @@ const CreateNamespaceAlertForm = () => {
             )}
           </div>
           <div>
-            <Label htmlFor="rateTimeWindow" text="Rate time window" />
+            <Label htmlFor="rateTimeWindow" text="Rate time window:" />
             <Input
               type="number"
               name="rateTimeWindow"
@@ -401,7 +384,7 @@ const CreateNamespaceAlertForm = () => {
       <div>
         <Label
           htmlFor="unresolvedTimeThreshold"
-          text="Unresolved time threshold"
+          text="Unresolved time threshold:"
         />
         <Input
           type="number"
@@ -428,6 +411,7 @@ const CreateNamespaceAlertForm = () => {
         }
         variant="accent"
         onClick={handleSubmit}
+        overrideStyles="px-3"
       />
     </form>
   );

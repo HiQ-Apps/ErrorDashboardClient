@@ -22,6 +22,8 @@ export const baseApi = createApi({
     "ErrorDetail",
     "NamespaceErrors",
     "UserProfile",
+    "NamespaceAlerts",
+    "UserAlerts",
   ],
 });
 
