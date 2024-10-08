@@ -49,7 +49,7 @@ const Sidebar = ({
         </CardHeader>
       </Card>
       <BaseButton
-        overrideStyles={`fixed h-full dark:bg-slate-900 dark:hover:bg-default hover:bg-default bg-slate-50 hover:opacity-70 top-1/2 transform -translate-y-1/2 shadow-none text-black hover:text-white rounded opacity-0.1 z-48 transition-transform duration-300 ease-in-out`}
+        overrideStyles={`fixed left-0 h-full dark:bg-slate-900 dark:hover:bg-default hover:bg-default bg-slate-50 hover:opacity-70 top-1/2 transform -translate-y-1/2 shadow-none text-black hover:text-white rounded opacity-0.1 z-48 transition-transform duration-300 ease-in-out`}
         onClick={handleToggle}
         content={
           isOpen ? (

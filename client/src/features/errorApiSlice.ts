@@ -7,6 +7,7 @@ import type {
   GetErrorAggregateRequest,
   ErrorPieChartDataResponse,
   ErrorPieChartDataRequest,
+  GetUniqueMetaByNamespaceIdRequest,
 } from "types/Error";
 
 export const errorApiSlice = baseApi.injectEndpoints({
@@ -60,6 +61,18 @@ export const errorApiSlice = baseApi.injectEndpoints({
         },
       }),
     }),
+    getUniqueMetaByNamespaceId: builder.query<
+      string[],
+      GetUniqueMetaByNamespaceIdRequest
+    >({
+      query: ({ namespaceId, filterRequest }) => ({
+        url: `/error/unique/meta/namespace/${namespaceId}`,
+        method: "GET",
+        params: {
+          filterRequest,
+        },
+      }),
+    }),
   }),
 });
 
@@ -68,4 +81,5 @@ export const {
   useGetErrorAggregatesByNamespaceIdQuery,
   useGetErrorMetaGroupedByParamsQuery,
   useGetErrorPieChartDataQuery,
+  useGetUniqueMetaByNamespaceIdQuery,
 } = errorApiSlice;

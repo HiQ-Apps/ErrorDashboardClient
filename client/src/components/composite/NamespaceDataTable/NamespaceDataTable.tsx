@@ -14,7 +14,7 @@ import { selectUser } from "features/authSlice";
 import { formatHeader } from "shared/utils/parseString";
 import { useToast } from "components/ui/use-toast";
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
-import ConfirmationModal from "components/composite/ConfirmationModal/ConfirmationModal";
+import { ConfirmationModal } from "components/composite";
 import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import type { VerifyUserRequest } from "types/User";
 

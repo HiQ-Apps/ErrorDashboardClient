@@ -4,6 +4,7 @@ import BarGraphCard from "./GraphCard/BarGraphCard";
 import ChangeLogCard from "./ChangeLogCard/ChangeLogCard";
 import ColorSelector, { colorList } from "./ColorSelector/ColorSelector";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import CreateNamespaceAlertCard from "./CreateNamespaceAlertCard/CreateNamespaceAlertCard";
 import DocumentationSidebar from "./DocumentationSidebar/DocumentationSidebar";
 import ErrorBarGraph from "./ErrorBarGraph/ErrorBarGraph";
 import ErrorDataTable from "./ErrorDataTable/ErrorDataTable";
@@ -19,6 +20,8 @@ import InstallationCard from "./InstallationCard/InstallationCard";
 import LineGraphCard from "./GraphCard/LineGraphCard";
 import HomeAnimation from "./HomeAnimation/HomeAnimation";
 import HomeSidebar from "./HomeSidebar/HomeSidebar";
+import NamespaceAlertCard from "./NamespaceAlertCard/NamespaceAlertCard";
+import NamespaceAlertDataTable from "./NamespaceAlertDataTable/NamespaceAlertDataTable";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
@@ -30,8 +33,8 @@ import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
 import UpdateNamespaceCard from "./UpdateNamespaceCard/UpdateNamespaceCard";
 import UpdateUserProfileCard from "./UpdateUserProfileCard/UpdateUserProfileCard";
+import UserAlertCard from "./UserAlertCard/UserAlertCard";
 import UserSidebar from "./UserSidebar/UserSidebar";
-import IconRow from "../base/IconRow/IconRow";
 
 export {
   AboutSection,
@@ -41,6 +44,7 @@ export {
   ColorSelector,
   colorList,
   ConfirmationModal,
+  CreateNamespaceAlertCard,
   ErrorBarGraph,
   ErrorDataTable,
   ErrorDetailCard,
@@ -54,9 +58,10 @@ export {
   GettingStartedCard,
   HomeAnimation,
   HomeSidebar,
-  IconRow,
   InstallationCard,
   LineGraphCard,
+  NamespaceAlertCard,
+  NamespaceAlertDataTable,
   NamespaceDataTable,
   NamespaceSidebar,
   NamespaceTitleCard,
@@ -68,5 +73,6 @@ export {
   TimezoneSelector,
   UpdateNamespaceCard,
   UpdateUserProfileCard,
+  UserAlertCard,
   UserSidebar,
 };

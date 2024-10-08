@@ -1,13 +1,28 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Sidebar, BaseButton } from "components/base";
-import { selectIsOpen } from "features/sidebarSlice";
+import { selectIsOpen as selectNavIsOpen } from "features/sidebarSlice";
+import { Modal } from "components/base";
+import {
+  selectIsOpen as selectModalIsOpen,
+  selectModalType,
+  openModal,
+  closeModal,
+  setIsLoading,
+} from "features/modalSlice";
 
-const NamespaceSidebar = () => {
+interface NamespaceSidebarProps {
+  isLoading: boolean;
+}
+
+const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isOpen = useSelector(selectIsOpen);
+  const dispatch = useDispatch();
+  const navIsOpen = useSelector(selectNavIsOpen);
+  const modalIsOpen = useSelector(selectModalIsOpen);
+  const modalType = useSelector(selectModalType);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
@@ -27,6 +42,22 @@ const NamespaceSidebar = () => {
 
   const handleNamespaceMetricClick = () => {
     navigate(`/namespace/${id}/metrics`);
+  };
+
+  const handleNamespaceAlertsClick = () => {
+    navigate(`/namespace/${id}/alerts`);
+  };
+
+  const handleOpenInviteUserModal = () => {
+    dispatch(
+      openModal({
+        modalType: "namespaceInviteUser",
+      })
+    );
+  };
+
+  const handleCloseInviteUserModal = () => {
+    dispatch(closeModal());
   };
 
   let links;
@@ -72,12 +103,32 @@ const NamespaceSidebar = () => {
         variant="sidenavbutton"
         onClick={handleNamespaceMetricClick}
       />,
+      <BaseButton
+        content="Alerts"
+        size="sm"
+        variant="sidenavbutton"
+        onClick={handleNamespaceAlertsClick}
+      />,
+      <BaseButton
+        content="Invite User"
+        size="sm"
+        variant="sidenavbutton"
+        onClick={handleOpenInviteUserModal}
+      />,
     ];
   }
 
   return (
     <div className="relative">
-      <Sidebar isOpen={isOpen} header="Namespace" links={links} />;
+      <Sidebar isOpen={navIsOpen} header="Namespace" links={links} />
+      <Modal
+        header="Invite User"
+        content={<div>Invite user form</div>}
+        open={modalIsOpen && modalType === "namespaceInviteUser"}
+        showConfirmButtons={false}
+        onClose={handleCloseInviteUserModal}
+        onConfirm={handleCloseInviteUserModal}
+      />
     </div>
   );
 };

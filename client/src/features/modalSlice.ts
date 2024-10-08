@@ -9,7 +9,8 @@ interface ModalState {
     | "confirmation"
     | "login"
     | "registration"
-    | "createTag";
+    | "createTag"
+    | "namespaceInviteUser";
 }
 
 const initialState: ModalState = {
@@ -30,7 +31,8 @@ const modalSlice = createSlice({
           | "confirmation"
           | "login"
           | "registration"
-          | "createTag";
+          | "createTag"
+          | "namespaceInviteUser";
       }>
     ) => {
       state.isOpen = true;
