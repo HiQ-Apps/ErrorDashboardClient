@@ -23,6 +23,7 @@ import HomeSidebar from "./HomeSidebar/HomeSidebar";
 import NamespaceAlertCard from "./NamespaceAlertCard/NamespaceAlertCard";
 import NamespaceAlertDataTable from "./NamespaceAlertDataTable/NamespaceAlertDataTable";
 import NamespaceDataTable from "./NamespaceDataTable/NamespaceDataTable";
+import NamespaceMemberList from "./NamespaceMemberList/NamespaceMemberList";
 import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
 import Navbar from "./Navbar/Navbar";
@@ -64,6 +65,7 @@ export {
   NamespaceAlertDataTable,
   NamespaceDataTable,
   NamespaceSidebar,
+  NamespaceMemberList,
   NamespaceTitleCard,
   Navbar,
   ParameterSelector,

@@ -10,6 +10,8 @@ import {
 import { Separator } from "components/ui/separator";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import CreateNamespaceAlertForm from "forms/CreateNamespaceAlertForm";
+import { Sheet, SheetTrigger } from "components/ui/sheet";
+import { BaseButton } from "components/base";
 
 const NamespaceSettings = () => {
   const { height } = usePageDimensions();

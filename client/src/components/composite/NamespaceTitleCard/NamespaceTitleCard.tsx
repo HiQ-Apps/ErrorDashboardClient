@@ -7,9 +7,11 @@ import {
   ClipboardCopyIcon,
 } from "@radix-ui/react-icons";
 
+import { NamespaceMemberList } from "components/composite";
 import { useToast } from "components/ui/use-toast";
+import { Sheet, SheetTrigger } from "components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
-import { StatusDot, Input, Label } from "components/base";
+import { StatusDot, Input, Label, BaseButton } from "components/base";
 import { selectNamespaceById } from "features/namespaceApiSlice";
 import { Card, CardContent, CardHeader } from "components/ui/card";
 import { selectTimeZone } from "features/timezoneSlice";
@@ -195,8 +197,19 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
             </div>
           </div>
         </div>
-        <div className="flex mt-8 underline unline-offset-4 decoration-default">
+        <div className="flex mt-8 justify-between underline unline-offset-4 decoration-default">
           {header ? <h1>{header}</h1> : <></>}
+          <Sheet>
+            <SheetTrigger asChild>
+              <BaseButton
+                variant="accent"
+                size="sm"
+                overrideStyles="px-3"
+                content="View Members"
+              />
+            </SheetTrigger>
+            <NamespaceMemberList />
+          </Sheet>
         </div>
       </CardContent>
     </Card>
