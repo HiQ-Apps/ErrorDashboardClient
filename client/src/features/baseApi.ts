@@ -24,6 +24,7 @@ export const baseApi = createApi({
     "UserProfile",
     "NamespaceAlerts",
     "UserAlerts",
+    "NamespaceMembers",
   ],
 });
 

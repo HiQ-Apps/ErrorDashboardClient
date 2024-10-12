@@ -11,6 +11,7 @@ import {
   closeModal,
   setIsLoading,
 } from "features/modalSlice";
+import InviteUserNamespaceForm from "forms/InviteUserNamespaceForm";
 
 interface NamespaceSidebarProps {
   isLoading: boolean;
@@ -123,7 +124,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
       <Sidebar isOpen={navIsOpen} header="Namespace" links={links} />
       <Modal
         header="Invite User"
-        content={<div>Invite user form</div>}
+        content={<InviteUserNamespaceForm />}
         open={modalIsOpen && modalType === "namespaceInviteUser"}
         showConfirmButtons={false}
         onClose={handleCloseInviteUserModal}

@@ -9,6 +9,7 @@ import type {
 } from "types/Namespace";
 import type { AggregateErrorResponseData } from "types/Error";
 import type { QueryParamWithId, PaginationWithId } from "shared/types/extra";
+import { ShortUserData, UserMemberData } from "types/User";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -70,6 +71,27 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["AllNamespace"],
     }),
+    inviteUserToNamespace: builder.mutation({
+      query: ({ userId, namespaceId, role }) => ({
+        url: `/namespace/${namespaceId}/invite`,
+        method: "POST",
+        body: { userId, role },
+      }),
+    }),
+    removeUserFromNamespace: builder.mutation({
+      query: ({ userId, namespaceId }) => ({
+        url: `/namespace/${namespaceId}/remove/${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["NamespaceMembers"],
+    }),
+    getNamespaceMembers: builder.query<UserMemberData[], string>({
+      query: (id) => ({
+        url: `/namespace/${id}/members`,
+        method: "GET",
+      }),
+      providesTags: ["NamespaceMembers"],
+    }),
   }),
 });
 
@@ -80,6 +102,9 @@ export const {
   useUpdateNamespaceByIdMutation,
   useGetNamespaceErrorsQuery,
   useDeleteNamespaceByIdMutation,
+  useInviteUserToNamespaceMutation,
+  useRemoveUserFromNamespaceMutation,
+  useGetNamespaceMembersQuery,
 } = namespaceApiSlice;
 
 export const selectNamespaceById = (id: string) =>

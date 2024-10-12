@@ -12,6 +12,10 @@ export type ShortUserData = {
   username: string;
 };
 
+export type UserMemberData = ShortUserData & {
+  role: string;
+};
+
 export type ShortUserProfile = {
   firstName: string;
   lastName: string;
