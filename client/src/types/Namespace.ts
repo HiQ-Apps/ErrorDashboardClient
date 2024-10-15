@@ -1,7 +1,13 @@
+import { Role } from "shared/utils/role";
+
 export type ShortNamespaceData = {
   id: string;
   serviceName: string;
   environmentType: string;
+};
+
+export type GetUserNamespacesData = ShortNamespaceData & {
+  role: Role;
 };
 
 export type CreateNamespaceRequest = {

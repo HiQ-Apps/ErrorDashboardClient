@@ -2,14 +2,16 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { baseApi } from "features/baseApi";
 import type {
-  ShortNamespaceData,
   NamespaceData,
   CreateNamespaceRequest,
   UpdateNamespaceRequest,
+  GetUserNamespacesData,
 } from "types/Namespace";
+import type { UpdateUserNamespaceRoleRequest } from "types/User";
 import type { AggregateErrorResponseData } from "types/Error";
 import type { QueryParamWithId, PaginationWithId } from "shared/types/extra";
 import { ShortUserData, UserMemberData } from "types/User";
+import { Role } from "shared/utils/role";
 
 export const namespaceApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,7 +23,10 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["AllNamespace"],
     }),
-    getNamespacesByUser: builder.query<ShortNamespaceData[], PaginationWithId>({
+    getNamespacesByUser: builder.query<
+      GetUserNamespacesData[],
+      PaginationWithId
+    >({
       query: ({ id, offset = 0, limit = 10 }) => ({
         url: `/namespace/user/${id}`,
         method: "GET",
@@ -77,6 +82,7 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
         method: "POST",
         body: { userId, role },
       }),
+      invalidatesTags: ["NamespaceMembers"],
     }),
     removeUserFromNamespace: builder.mutation({
       query: ({ userId, namespaceId }) => ({
@@ -92,6 +98,24 @@ export const namespaceApiSlice = baseApi.injectEndpoints({
       }),
       providesTags: ["NamespaceMembers"],
     }),
+    getUserRole: builder.query<Role, string>({
+      query: (namespaceId) => ({
+        url: `/namespace/${namespaceId}/user-role`,
+        method: "GET",
+      }),
+      providesTags: ["UserNamespaceRole"],
+    }),
+    updateUserNamespaceRole: builder.mutation<
+      null,
+      UpdateUserNamespaceRoleRequest
+    >({
+      query: ({ userId, namespaceId, role }) => ({
+        url: `/namespace/${namespaceId}/user-role`,
+        method: "PUT",
+        body: { userId, role },
+      }),
+      invalidatesTags: ["NamespaceMembers", "AllNamespace"],
+    }),
   }),
 });
 
@@ -105,6 +129,8 @@ export const {
   useInviteUserToNamespaceMutation,
   useRemoveUserFromNamespaceMutation,
   useGetNamespaceMembersQuery,
+  useGetUserRoleQuery,
+  useUpdateUserNamespaceRoleMutation,
 } = namespaceApiSlice;
 
 export const selectNamespaceById = (id: string) =>

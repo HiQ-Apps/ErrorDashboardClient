@@ -17,6 +17,7 @@ import { useModalHandlerContext } from "shared/context/modalHandlerContext";
 import { ConfirmationModal } from "components/composite";
 import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import type { VerifyUserRequest } from "types/User";
+import { checkPermission, RoleRules, type Role } from "shared/utils/role";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);
@@ -137,11 +138,14 @@ const NamespaceDataTable = () => {
   columns.push({
     header: "Delete",
     id: "actions",
-    cell: ({ row }) => (
-      <div className="cursor-pointer flex justify-center">
-        <div onClick={() => handleDelete(row.original.id)}>{<TrashCan />}</div>
-      </div>
-    ),
+    cell: ({ row }) =>
+      checkPermission(row.original.role, "delete") && (
+        <div className="cursor-pointer flex justify-center">
+          <div onClick={() => handleDelete(row.original.id)}>
+            {<TrashCan />}
+          </div>
+        </div>
+      ),
   });
 
   return (

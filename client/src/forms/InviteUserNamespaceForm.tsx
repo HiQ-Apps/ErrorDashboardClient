@@ -1,10 +1,14 @@
+import { useEffect, type FormEvent } from "react";
 import useForm from "hooks/useForm";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { UpdateIcon } from "@radix-ui/react-icons";
+
 import {
   inviteUserNamespaceSchema,
   type InviteUserNamespaceSchema,
 } from "schemas/inviteUserNamespaceSchema";
-
+import { selectUser } from "features/authSlice";
 import {
   Select,
   SelectContent,
@@ -13,14 +17,17 @@ import {
 } from "components/ui/select";
 import { Input, Label, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
-import { useInviteUserToNamespaceMutation } from "features/namespaceApiSlice";
-import { useEffect, type FormEvent } from "react";
-import { UpdateIcon } from "@radix-ui/react-icons";
+import {
+  useInviteUserToNamespaceMutation,
+  useGetUserRoleQuery,
+} from "features/namespaceApiSlice";
 import { formatHeader } from "shared/utils/parseString";
+import { RoleRules, checkPermission, type Role } from "shared/utils/role";
 
 interface InviteUserNamespaceFormProps {}
 
 const InviteUserNamespaceForm = () => {
+  const user = useSelector(selectUser);
   const { toast } = useToast();
   const { id } = useParams();
   const { form, handleChange, setForm, validate, errors } =
@@ -33,8 +40,21 @@ const InviteUserNamespaceForm = () => {
       inviteUserNamespaceSchema
     );
 
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  if (!id) {
+    throw new Error("Namespace ID not found");
+  }
+
   const [inviteUserToNamespace, { isSuccess, isLoading }] =
     useInviteUserToNamespaceMutation();
+
+  const { data: userRole } = useGetUserRoleQuery(id, {
+    skip: !id,
+    refetchOnMountOrArgChange: true,
+  });
 
   const handleInviteUserClick = async (event: FormEvent) => {
     event.preventDefault();
@@ -47,7 +67,7 @@ const InviteUserNamespaceForm = () => {
     }
   };
 
-  const handleSelectRole = (role: string) => {
+  const handleSelectRole = (role: Role) => {
     setForm((prev) => ({
       ...prev,
       role: role,
@@ -79,15 +99,23 @@ const InviteUserNamespaceForm = () => {
           </span>
         )}
       </div>
-      <div>
+      <div className="space-y-1">
         <Label htmlFor="role" text="Role:" />
         <Select defaultValue="guest" onValueChange={handleSelectRole}>
           <SelectTrigger>{formatHeader(form.role)}</SelectTrigger>
           <SelectContent>
-            <SelectItem value="manager">Manager</SelectItem>
-            <SelectItem value="contributor">Contributor</SelectItem>
-            <SelectItem value="member">Member</SelectItem>
-            <SelectItem value="guest">Guest</SelectItem>
+            {/* Check current user role to and it's weight and only show roles that have less weight */}
+            {userRole &&
+              checkPermission(userRole, "invite") &&
+              Object.entries(RoleRules)
+                .filter(
+                  ([key, value]) => value.weight <= RoleRules[userRole].weight
+                )
+                .map(([key, value]) => (
+                  <SelectItem key={key} value={key}>
+                    {formatHeader(key)}
+                  </SelectItem>
+                ))}
           </SelectContent>
         </Select>
         {errors.errorMessages.role && (
@@ -99,7 +127,7 @@ const InviteUserNamespaceForm = () => {
       <BaseButton
         onClick={handleInviteUserClick}
         variant="accent"
-        overrideStyles="px-3 w-full"
+        overrideStyles="px-2"
         content={
           isSuccess ? (
             "Success"

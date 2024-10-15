@@ -1,3 +1,5 @@
+import { Role } from "shared/utils/role";
+
 export type RegisterUserRequest = {
   email: string;
   password: string;
@@ -13,7 +15,13 @@ export type ShortUserData = {
 };
 
 export type UserMemberData = ShortUserData & {
-  role: string;
+  role: Role;
+};
+
+export type UpdateUserNamespaceRoleRequest = {
+  userId: string;
+  namespaceId: string;
+  role: Role;
 };
 
 export type ShortUserProfile = {
