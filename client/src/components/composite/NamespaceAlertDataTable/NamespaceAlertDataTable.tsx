@@ -6,7 +6,7 @@ import {
   useGetNamespaceAlertsByNamespaceIdQuery,
   useDeleteNamespaceAlertByIdMutation,
 } from "features/namespaceAlertApiSlice";
-import { useToast } from "components/ui/use-toast";
+
 import { DataTable, TrashCan } from "components/base";
 import { type ColumnDef } from "@tanstack/react-table";
 
@@ -17,9 +17,6 @@ interface NamespaceAlertDataTableProps {
 const NamespaceAlertDataTable = ({
   namespaceId,
 }: NamespaceAlertDataTableProps) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { toast } = useToast();
   const {
     data: alertData,
     error,
