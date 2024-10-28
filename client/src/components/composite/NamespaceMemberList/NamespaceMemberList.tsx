@@ -73,7 +73,7 @@ const NamespaceMemberList = () => {
               key={member.id}
             >
               <div className="text-sm">{member.email}</div>
-              <div className="flex flex-row space-x-2">
+              <div className="flex flex-row space-x-2 text-center items-center justify-center">
                 {viewUpdateForm ? (
                   <UpdateUserNamespaceRoleForm
                     userId={member.id}
@@ -82,7 +82,9 @@ const NamespaceMemberList = () => {
                     viewerRole={userRole as Role}
                   />
                 ) : (
-                  <div className="text-xs">{member.role}</div>
+                  <div className="text-xs flex flex-row text-center items-center justify-center">
+                    <p>{member.role}</p>
+                  </div>
                 )}
                 {userRole &&
                   checkPermission(userRole, "remove user") &&
