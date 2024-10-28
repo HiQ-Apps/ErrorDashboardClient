@@ -12,6 +12,7 @@ export type ShortUserData = {
   id: string;
   email: string;
   username: string;
+  verified: boolean;
 };
 
 export type UserMemberData = ShortUserData & {
