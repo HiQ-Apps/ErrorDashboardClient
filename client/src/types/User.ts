@@ -51,3 +51,7 @@ export type AuthResponse = {
   userProfile: ShortUserProfile;
   accessToken: string;
 };
+
+export type ForgotPasswordRequest = {
+  email: string;
+}

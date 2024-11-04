@@ -7,6 +7,7 @@ import type {
   RegisterUserRequest,
   VerifyUserRequest,
   UpdateUserProfileOpt,
+  ForgotPasswordRequest,
 } from "types/User";
 
 export const userApiSlice = baseApi.injectEndpoints({
@@ -44,9 +45,22 @@ export const userApiSlice = baseApi.injectEndpoints({
         body: password,
       }),
     }),
+    forgotPassword: builder.mutation<null, ForgotPasswordRequest>({
+      query: (email) => ({
+        url: `/users/${email}/forgot-password}`,
+        method: "POST",
+      })
+    }),
+    resetPassword: builder.mutation<AuthResponse, RegisterUserRequest>({
+      query: ({email, password, confirmPassword}) => ({
+        url: `/users/${email}/reset-password`,
+        method: "PUT",
+        body: { password, confirmPassword }
+      })
+    }),
     getUserProfile: builder.query<ShortUserProfile, string>({
       query: (id) => ({
-        url: `users/${id}/profile`,
+        url: `/users/${id}/profile`,
         method: "GET",
       }),
       providesTags: ["UserProfile"],
@@ -56,7 +70,7 @@ export const userApiSlice = baseApi.injectEndpoints({
       UpdateUserProfileOpt
     >({
       query: (profile) => ({
-        url: `users/${profile.id}/profile`,
+        url: `/users/${profile.id}/profile`,
         method: "PUT",
         body: profile,
       }),
@@ -70,6 +84,8 @@ export const {
   useRegisterMutation,
   useRefreshAccessTokenQuery,
   useVerifyUserMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
   useGetUserProfileQuery,
   useGoogleLoginQuery,
   useUpdateUserProfileMutation,

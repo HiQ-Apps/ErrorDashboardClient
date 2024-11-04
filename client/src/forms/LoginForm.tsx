@@ -100,6 +100,12 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
             )
           }
         />
+        <BaseButton
+          onClick={handleForgotPasswordClick}
+          variant="accent"
+          overrideStyles="w-full"
+          content="Forgot my Password"
+        />
       </div>
     </form>
   );
