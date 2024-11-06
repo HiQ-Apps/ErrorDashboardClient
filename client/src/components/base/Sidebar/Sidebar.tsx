@@ -1,15 +1,18 @@
-import type { ReactNode } from "react";
+import type { ReactElement } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 import BaseButton from "../Button/Button";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useDispatch } from "react-redux";
 import { setIsOpen } from "features/sidebarSlice";
+import { useLocation } from "react-router-dom";
+import React from "react";
 
 interface SidebarProps {
   isOpen?: boolean;
   header: string;
-  links: ReactNode[];
+  links: { name: string; path: string; component: ReactElement }[];
   overrideStyles?: string;
+  activeStyle?: string;
 }
 
 const Sidebar = ({
@@ -19,6 +22,7 @@ const Sidebar = ({
   isOpen = true,
 }: SidebarProps) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   localStorage.removeItem("isOpen");
 
   const handleToggle = () => {
@@ -40,11 +44,17 @@ const Sidebar = ({
             {header}
           </CardTitle>
           <CardContent className="p-0 font-markazi ml-6">
-            {links.map((link, index) => (
-              <div className="my-3" key={index}>
-                {link}
-              </div>
-            ))}
+            {links.map((link, index) => {
+              const isActive = location.pathname === link.path;
+
+              return (
+                <div key={index} className="my-3">
+                  {React.cloneElement(link.component, {
+                    isActive,
+                  })}
+                </div>
+              );
+            })}
           </CardContent>
         </CardHeader>
       </Card>
