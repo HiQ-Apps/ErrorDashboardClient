@@ -10,10 +10,6 @@ const DocumentationRoutes = () => {
         path="/getting-started"
         element={<GettingStartedDocumentation />}
       />
-      {/* <Route
-        path="/getting-started"
-        element={<GettingStartedDocumentation />}
-      /> */}
     </Routes>
   );
 };

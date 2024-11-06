@@ -14,6 +14,7 @@ import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
+import EmailForm from "forms/EmailForm";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -24,6 +25,8 @@ const Navbar = () => {
   const isOpen = useSelector(selectIsOpen);
   const modalType = useSelector(selectModalType);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [forgotPasswordFormTrigger, setForgotPasswordFormTrigger] =
+    useState(false);
 
   const handleRegisterOpenModalClick = () => {
     dispatch(
@@ -75,6 +78,11 @@ const Navbar = () => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const toggleForgetPasswordForm = () => {
+    setForgotPasswordFormTrigger(!forgotPasswordFormTrigger);
+  };
+
   return (
     <div className="z-50 bg-slate-50 w-full sticky top-0 flex flex-row justify-between items-center dark:bg-slate-700">
       <div className="relative min-w-32">
@@ -230,10 +238,30 @@ const Navbar = () => {
       </div>
 
       <Modal
-        header="Login"
+        header={forgotPasswordFormTrigger ? "Forgot Password" : "Login"}
         content={
           <div className="flex flex-col space-y-2">
-            <LoginForm onClose={handleCloseModalClick} />
+            {forgotPasswordFormTrigger ? (
+              <>
+                <EmailForm onClose={handleCloseModalClick} />
+                <div
+                  className="hover:underline-default hover:text-default hover:underline cursor-pointer"
+                  onClick={toggleForgetPasswordForm}
+                >
+                  Back to Login
+                </div>
+              </>
+            ) : (
+              <>
+                <LoginForm onClose={handleCloseModalClick} />
+                <div
+                  className="hover:underline-default hover:text-default hover:underline cursor-pointer"
+                  onClick={toggleForgetPasswordForm}
+                >
+                  Forgot Password?
+                </div>
+              </>
+            )}
           </div>
         }
         open={isOpen && modalType === "login"}
