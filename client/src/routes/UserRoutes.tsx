@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "shared/utils/ProtectedRoutes";
 import UserProfile from "pages/User/UserProfile";
+import VerifyUser from "pages/Base/VerifyUser";
 
 const UserRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const UserRoutes = () => {
           </ProtectedRoutes>
         }
       />
+      <Route path=":id/verify" element={<VerifyUser />} />
     </Routes>
   );
 };
