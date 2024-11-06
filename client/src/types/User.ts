@@ -6,6 +6,12 @@ export type RegisterUserRequest = {
   confirmPassword: string;
 };
 
+export type ResetPasswordRequest = {
+  id: string;
+  email: string;
+  password: string;
+};
+
 export type LoginUserRequest = Pick<RegisterUserRequest, "email" | "password">;
 
 export type ShortUserData = {
@@ -54,4 +60,4 @@ export type AuthResponse = {
 
 export type ForgotPasswordRequest = {
   email: string;
-}
+};

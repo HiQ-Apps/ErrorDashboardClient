@@ -13,7 +13,10 @@ import { useNavigate } from "react-router-dom";
 const PersistAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, isSuccess, isError } = useRefreshAccessTokenQuery();
+  const cookies = document.cookie;
+  const { data, isSuccess, isError } = useRefreshAccessTokenQuery(undefined, {
+    skip: !!cookies,
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -24,7 +27,6 @@ const PersistAuth = () => {
     } else if (isError) {
       dispatch(clearAuth());
     }
-    navigate("/");
   }, [isSuccess, isError]);
 
   return null;

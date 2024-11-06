@@ -8,6 +8,7 @@ import type {
   VerifyUserRequest,
   UpdateUserProfileOpt,
   ForgotPasswordRequest,
+  ResetPasswordRequest,
 } from "types/User";
 
 export const userApiSlice = baseApi.injectEndpoints({
@@ -47,16 +48,17 @@ export const userApiSlice = baseApi.injectEndpoints({
     }),
     forgotPassword: builder.mutation<null, ForgotPasswordRequest>({
       query: (email) => ({
-        url: `/users/${email}/forgot-password}`,
+        url: `/users/forgot-password`,
         method: "POST",
-      })
+        body: email,
+      }),
     }),
-    resetPassword: builder.mutation<AuthResponse, RegisterUserRequest>({
-      query: ({email, password, confirmPassword}) => ({
-        url: `/users/${email}/reset-password`,
+    resetPassword: builder.mutation<AuthResponse, ResetPasswordRequest>({
+      query: ({ id, email, password }) => ({
+        url: `/users/${id}/${email}/reset-password`,
         method: "PUT",
-        body: { password, confirmPassword }
-      })
+        body: { password },
+      }),
     }),
     getUserProfile: builder.query<ShortUserProfile, string>({
       query: (id) => ({
