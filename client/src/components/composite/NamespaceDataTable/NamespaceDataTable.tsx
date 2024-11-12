@@ -7,7 +7,7 @@ import {
   useDeleteNamespaceByIdMutation,
 } from "features/namespaceApiSlice";
 
-import { useVerifyUserMutation } from "features/userApiSlice";
+import { useVerifyUserPasswordMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
 import { DataTable, TrashCan, StatusDot, LoadingCard } from "components/base";
 import { selectUser } from "features/authSlice";
@@ -27,7 +27,7 @@ const NamespaceDataTable = () => {
   const { registerHandler, unregisterHandler } = useModalHandlerContext();
   const [params, setParams] = useState({ offset: 0, limit: 10 });
 
-  const [verifyUser] = useVerifyUserMutation();
+  const [verifyUser] = useVerifyUserPasswordMutation();
 
   const {
     data: namespaceData,

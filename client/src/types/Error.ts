@@ -13,6 +13,7 @@ export type StreamErrorData = {
   resolved: boolean;
   namespaceId: string;
   stackTrace: string;
+  userAffected: string;
 };
 
 export type AggregateErrorGroupByStatusResponseData = {

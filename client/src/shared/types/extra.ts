@@ -1,5 +1,9 @@
 import { FormEvent, MouseEvent } from "react";
 
+export type Id = {
+  id: string;
+};
+
 export type QueryParamWithId = {
   id: string;
   offset?: number;

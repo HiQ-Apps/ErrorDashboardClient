@@ -15,6 +15,7 @@ import LoginForm from "forms/LoginForm";
 import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
 import EmailForm from "forms/EmailForm";
+import { useLogoutMutation } from "features/userApiSlice";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -27,6 +28,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [forgotPasswordFormTrigger, setForgotPasswordFormTrigger] =
     useState(false);
+
+  const [logout, { isLoading }] = useLogoutMutation();
 
   const handleRegisterOpenModalClick = () => {
     dispatch(
@@ -61,6 +64,7 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = () => {
+    logout();
     dispatch(clearAuth());
     toast({
       title: "Logged out successfully",

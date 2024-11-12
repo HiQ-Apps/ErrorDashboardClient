@@ -9,7 +9,7 @@ interface ErrorLogProps {
 }
 
 const ErrorLogTable = ({ id }: ErrorLogProps) => {
-  const wsUrl = `/api/namespace/${id}/error/ws`;
+  const wsUrl = `/api/ws/namespace/${id}/error`;
   const { messages, resetMessages } = useWebSocket<StreamErrorData>(wsUrl);
 
   const [errors, setErrors] = useState<StreamErrorData[]>([]);
@@ -26,7 +26,11 @@ const ErrorLogTable = ({ id }: ErrorLogProps) => {
     }
   }, [messages, resetMessages]);
 
-  return <LogTable data={errors} />;
+  return (
+    <div className="mb-36">
+      <LogTable data={errors} />
+    </div>
+  );
 };
 
 export default ErrorLogTable;

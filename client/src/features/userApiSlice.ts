@@ -20,6 +20,12 @@ export const userApiSlice = baseApi.injectEndpoints({
         body: credentials,
       }),
     }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+    }),
     googleLogin: builder.query<AuthResponse, void>({
       query: () => ({
         url: "/auth/login/google",
@@ -39,11 +45,17 @@ export const userApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    verifyUser: builder.mutation<null, VerifyUserRequest>({
+    verifyUserPassword: builder.mutation<null, VerifyUserRequest>({
       query: (password) => ({
         url: "/verified/auth/check",
         method: "POST",
         body: password,
+      }),
+    }),
+    verifyUser: builder.mutation<null, string>({
+      query: (id) => ({
+        url: `/users/${id}/verify`,
+        method: "PUT",
       }),
     }),
     forgotPassword: builder.mutation<null, ForgotPasswordRequest>({
@@ -83,8 +95,10 @@ export const userApiSlice = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useLogoutMutation,
   useRegisterMutation,
   useRefreshAccessTokenQuery,
+  useVerifyUserPasswordMutation,
   useVerifyUserMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
