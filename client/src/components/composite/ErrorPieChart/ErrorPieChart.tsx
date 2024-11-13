@@ -172,8 +172,8 @@ const ErrorPieChart = () => {
           >
             <div
               style={{
-                width: "8px",
-                height: "8px",
+                minWidth: "8px",
+                minHeight: "8px",
                 backgroundColor: legendItem.color,
                 marginRight: "8px",
               }}

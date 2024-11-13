@@ -59,7 +59,7 @@ const Namespaces = () => {
           sidebarIsOpen ? "min-w-60" : "min-w-8"
         }`}
       />
-      <div className="flex-1 px-4 pb-4 overflow-hidden">
+      <div className="flex-1 px-4 pb-4 overflow-hidden mb-36">
         <BaseButton
           content="Create Namespace"
           size="sm"

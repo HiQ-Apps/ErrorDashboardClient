@@ -19,6 +19,15 @@ export const formatHeader = (key: string): string => {
     .join(" ");
 };
 
+export const camelToTitleCase = (text: string): string => {
+  return text
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^ /, "")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+};
+
 export const getFirstLetterCaps = (text?: string) => {
   if (!text) return "";
   return text[0].toUpperCase();

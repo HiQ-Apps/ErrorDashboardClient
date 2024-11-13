@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
+
 import { useWebSocket } from "hooks/useWebSocket";
 import type { StreamErrorData } from "types/Error";
-
 import LogTable from "components/base/LogTable/LogTable";
 
 interface ErrorLogProps {
