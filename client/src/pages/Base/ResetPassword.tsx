@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
-import { BaseButton } from "components/base";
 import { HomeSidebar } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import ForgotPasswordForm from "forms/ForgotPasswordForm";

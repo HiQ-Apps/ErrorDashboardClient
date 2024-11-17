@@ -8,11 +8,12 @@ import { Navbar, Footer } from "components/composite";
 import { Toaster } from "components/ui/toaster";
 
 // Routes
-import NamespaceRoutes from "routes/NamespaceRoutes";
-import BaseRoutes from "routes/BaseRoutes";
-import ErrorRoutes from "routes/ErrorRoutes";
-import UserRoutes from "routes/UserRoutes";
-import DocumentationRoutes from "routes/DocumentationRoutes";
+import AdminRoutes from "src/routes/AdminRoutes";
+import NamespaceRoutes from "src/routes/NamespaceRoutes";
+import BaseRoutes from "src/routes/BaseRoutes";
+import ErrorRoutes from "src/routes/ErrorRoutes";
+import UserRoutes from "src/routes/UserRoutes";
+import DocumentationRoutes from "src/routes/DocumentationRoutes";
 
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 import { ModalHandlerProvider } from "shared/context/modalHandlerContext";
@@ -39,6 +40,7 @@ const App = () => {
         <TooltipProvider>
           <Routes>
             <Route path="/*" element={<BaseRoutes />} />
+            <Route path="/admin/*" element={<AdminRoutes />} />
             <Route path="/namespace/*" element={<NamespaceRoutes />} />
             <Route path="/error/*" element={<ErrorRoutes />} />
             <Route path="/user/*" element={<UserRoutes />} />

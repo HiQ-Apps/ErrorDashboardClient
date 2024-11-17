@@ -1,83 +1,58 @@
-import { type ReactNode, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { type ColumnDef } from "@tanstack/react-table";
-import {
-  useGetNamespacesByUserQuery,
-  useDeleteNamespaceByIdMutation,
-} from "features/namespaceApiSlice";
-
-import { useVerifyUserPasswordMutation } from "features/userApiSlice";
-import { setError, clearError } from "features/errorBoundarySlice";
-import { DataTable, TrashCan, StatusDot, LoadingCard } from "components/base";
-import { selectUser } from "features/authSlice";
-import { formatHeader } from "shared/utils/parseString";
+import { useEffect, type ReactNode } from "react";
+import { useDispatch } from "react-redux";
 import { useToast } from "components/ui/use-toast";
-import { useModalHandlerContext } from "shared/context/modalHandlerContext";
-import { ConfirmationModal } from "components/composite";
-import { openModal, closeModal, setIsLoading } from "features/modalSlice";
-import type { VerifyUserRequest } from "types/User";
-import { checkPermission, RoleRules, type Role } from "shared/utils/role";
-import { GetUserNamespacesData } from "types/Namespace";
+import { type ColumnDef } from "@tanstack/react-table";
 
-const NamespaceDataTable = () => {
-  const user = useSelector(selectUser);
-  const navigate = useNavigate();
+import { DataTable, StatusDot, TrashCan } from "components/base";
+import { useGetNamespacesAdminQuery } from "features/adminApiSlice";
+import { useDeleteNamespaceByIdMutation } from "features/namespaceApiSlice";
+import { UpdateNamespaceCard, ConfirmationModal } from "components/composite";
+import { LoadingCard } from "components/base";
+import { useModalHandlerContext } from "shared/context/modalHandlerContext";
+import type { ShortNamespaceData } from "types/Namespace";
+import { formatHeader } from "shared/utils/parseString";
+import { checkPermission } from "shared/utils/role";
+import { useVerifyUserPasswordMutation } from "features/userApiSlice";
+import { VerifyUserRequest } from "types/User";
+import { openModal, closeModal, setIsLoading } from "features/modalSlice";
+
+const AdminNamespaceDataTable = () => {
   const dispatch = useDispatch();
   const { toast } = useToast();
   const { registerHandler, unregisterHandler } = useModalHandlerContext();
-  const [params, setParams] = useState({ offset: 0, limit: 10 });
-
-  const [verifyUser] = useVerifyUserPasswordMutation();
 
   const {
     data: namespaceData,
-    isLoading: namespaceLoading,
-    isError: namespaceIsError,
     error: namespaceError,
-  } = useGetNamespacesByUserQuery(
-    { id: user?.id || "", offset: params.offset, limit: params.limit },
-    { skip: !user?.id }
-  );
+    isError: namespaceIsError,
+    isSuccess: namespaceIsSuccess,
+    isLoading: namespaceLoading,
+  } = useGetNamespacesAdminQuery();
 
   const [
     deleteNamespaceById,
-    { isSuccess: deleteSuccess, isError: deleteError },
+    { isSuccess: deleteIsSuccess, isError: deleteIsError, error: deleteError },
   ] = useDeleteNamespaceByIdMutation();
+
+  const [verifyUser] = useVerifyUserPasswordMutation();
 
   useEffect(() => {
     if (namespaceIsError && namespaceError) {
-      dispatch(
-        setError({
-          error: namespaceError as Error,
-          errorInfo: { componentStack: "Error in useGetNamespacesByUserQuery" },
-        })
-      );
-    } else {
-      dispatch(clearError());
+      toast({
+        title: "Namespace Error",
+        description: JSON.stringify(namespaceError),
+      });
     }
   }, [namespaceIsError, namespaceError]);
 
   useEffect(() => {
-    if (deleteSuccess) {
+    if (deleteIsError && deleteError) {
       toast({
-        title: "Namespace deleted successfully",
+        title: "Delete Namespace Error",
+        description: JSON.stringify(deleteError),
       });
     }
-  }, [deleteSuccess, toast]);
-
-  useEffect(() => {
-    if (deleteError) {
-      toast({
-        title: "Namespace deletion failed",
-        description: "error",
-      });
-    }
-  }, [deleteError, toast]);
-
-  const handleRowClick = (id: string) => {
-    navigate(`/namespace/${id}`);
-  };
+  }, [deleteIsError, deleteError]);
 
   const handleDelete = async (id: string) => {
     registerHandler(
@@ -114,7 +89,7 @@ const NamespaceDataTable = () => {
     );
   }
 
-  const columns: ColumnDef<GetUserNamespacesData>[] = Object.keys(
+  const columns: ColumnDef<ShortNamespaceData>[] = Object.keys(
     namespaceData[0]
   ).map((key) => ({
     header: formatHeader(key),
@@ -125,7 +100,6 @@ const NamespaceDataTable = () => {
       return (
         <div
           key={key}
-          onClick={() => handleRowClick(info.row.original.id)}
           className={
             "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
           }
@@ -140,22 +114,26 @@ const NamespaceDataTable = () => {
     header: "Delete",
     id: "actions",
     cell: ({ row }) =>
-      checkPermission(row.original.role, "delete") && (
+      checkPermission("admin", "delete") && (
         <div className="cursor-pointer flex justify-center">
           <div onClick={() => handleDelete(row.original.id)}>
-            {<TrashCan />}
+            <TrashCan />
           </div>
         </div>
       ),
   });
 
+  // Column to view current members and their role. This will open a sheet with the NamespaceMembers component
+
+  // Column to update namespace details. This will open a modal with the UpdateNamespaceCard component
+
   return (
-    <>
+    <div>
       {namespaceLoading && <LoadingCard />}
-      <DataTable data={namespaceData} columns={columns} />
+      <DataTable columns={columns} data={namespaceData} />
       <ConfirmationModal />
-    </>
+    </div>
   );
 };
 
-export default NamespaceDataTable;
+export default AdminNamespaceDataTable;

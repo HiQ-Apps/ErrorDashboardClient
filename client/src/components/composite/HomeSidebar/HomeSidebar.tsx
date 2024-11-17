@@ -1,12 +1,15 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import BaseButton from "components/base/Button/Button";
 import Sidebar from "components/base/Sidebar/Sidebar";
+import { selectUserProfile } from "features/authSlice";
 import { selectIsOpen } from "features/sidebarSlice";
 
 const HomeSidebar = () => {
   const navigate = useNavigate();
+  const userProfile = useSelector(selectUserProfile);
   const isOpen = useSelector(selectIsOpen);
 
   const handleDonateClick = () => {
@@ -25,6 +28,10 @@ const HomeSidebar = () => {
 
   const handleReleasesClick = () => {
     navigate("/releases");
+  };
+
+  const handleAdminClick = () => {
+    navigate("/admin/console");
   };
 
   const links = [
@@ -53,6 +60,17 @@ const HomeSidebar = () => {
       onClick={handleDonateClick}
     />,
   ];
+
+  if (userProfile?.role === "Admin") {
+    links.push(
+      <BaseButton
+        size="sm"
+        content={"Admin Console"}
+        variant="sidenavbutton"
+        onClick={handleAdminClick}
+      />
+    );
+  }
 
   return (
     <div className="relative">

@@ -2,6 +2,7 @@ import { Role } from "shared/utils/role";
 
 export type ShortNamespaceData = {
   id: string;
+  active: boolean;
   serviceName: string;
   environmentType: string;
 };

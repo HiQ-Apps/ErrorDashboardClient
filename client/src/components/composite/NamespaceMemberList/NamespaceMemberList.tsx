@@ -11,7 +11,11 @@ import {
 import { LoadingCard, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
 import { SheetHeader, SheetContent, SheetTitle } from "components/ui/sheet";
-import { checkAuthority, checkPermission, type Role } from "shared/utils/role";
+import {
+  checkAuthority,
+  checkPermission,
+  type NamespaceRole,
+} from "shared/utils/role";
 
 const NamespaceMemberList = () => {
   const { id: namespaceId } = useParams();
@@ -79,7 +83,7 @@ const NamespaceMemberList = () => {
                     userId={member.id}
                     namespaceId={namespaceId as string}
                     role={member.role}
-                    viewerRole={userRole as Role}
+                    viewerRole={userRole as NamespaceRole}
                   />
                 ) : (
                   <div className="text-xs flex flex-row text-center items-center justify-center">
