@@ -13,6 +13,7 @@ interface SidebarProps {
   links: { name: string; path: string; component: ReactElement }[];
   overrideStyles?: string;
   activeStyle?: string;
+  renderItem?: (link: { name: string; path: string; component: ReactElement }, isActive: boolean) => ReactElement;
 }
 
 const Sidebar = ({
@@ -20,6 +21,7 @@ const Sidebar = ({
   links,
   overrideStyles = "",
   isOpen = true,
+  renderItem
 }: SidebarProps) => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -46,13 +48,10 @@ const Sidebar = ({
           <CardContent className="p-0 font-markazi ml-6">
             {links.map((link, index) => {
               const isActive = location.pathname === link.path;
-
               return (
                 <div key={index} className="my-3">
-                  {React.cloneElement(link.component, {
-                    isActive,
-                  })}
-                </div>
+                <link.component.type {...link.component.props} isActive={isActive} />
+              </div>
               );
             })}
           </CardContent>
