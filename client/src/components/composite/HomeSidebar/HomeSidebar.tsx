@@ -35,30 +35,54 @@ const HomeSidebar = () => {
   };
 
   const links = [
-    <BaseButton
-      size="sm"
-      content={"About"}
-      variant="sidenavbutton"
-      onClick={handleAboutClick}
-    />,
-    <BaseButton
-      size="sm"
-      content={"Terms of Service"}
-      variant="sidenavbutton"
-      onClick={handleTermsOfServiceClick}
-    />,
-    <BaseButton
-      size="sm"
-      content={"Releases"}
-      variant="sidenavbutton"
-      onClick={handleReleasesClick}
-    />,
-    <BaseButton
-      size="sm"
-      content={"Buy me a coffee"}
-      variant="sidenavbutton"
-      onClick={handleDonateClick}
-    />,
+    {
+      name: "About",
+      path: "/about",
+      component: (
+        <BaseButton
+          size="sm"
+          content="About"
+          variant="sidenavbutton"
+          onClick={handleAboutClick}
+        />
+      ),
+    },
+    {
+      name: "Terms of Service",
+      path: "/termsofservice",
+      component: (
+        <BaseButton
+          size="sm"
+          content="Terms of Service"
+          variant="sidenavbutton"
+          onClick={handleTermsOfServiceClick}
+        />
+      ),
+    },
+    {
+      name: "Releases",
+      path: "/releases",
+      component: (
+        <BaseButton
+          size="sm"
+          content="Releases"
+          variant="sidenavbutton"
+          onClick={handleReleasesClick}
+        />
+      ),
+    },
+    {
+      name: "Buy me a coffee",
+      path: "/donate",
+      component: (
+        <BaseButton
+          size="sm"
+          content="Buy me a coffee"
+          variant="sidenavbutton"
+          onClick={handleDonateClick}
+        />
+      ),
+    },
   ];
 
   if (userProfile?.role === "Admin") {
