@@ -5,7 +5,6 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useDispatch } from "react-redux";
 import { setIsOpen } from "features/sidebarSlice";
 import { useLocation } from "react-router-dom";
-import React from "react";
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -13,7 +12,6 @@ interface SidebarProps {
   links: { name: string; path: string; component: ReactElement }[];
   overrideStyles?: string;
   activeStyle?: string;
-  renderItem?: (link: { name: string; path: string; component: ReactElement }, isActive: boolean) => ReactElement;
 }
 
 const Sidebar = ({
@@ -21,7 +19,6 @@ const Sidebar = ({
   links,
   overrideStyles = "",
   isOpen = true,
-  renderItem
 }: SidebarProps) => {
   const dispatch = useDispatch();
   const location = useLocation();
