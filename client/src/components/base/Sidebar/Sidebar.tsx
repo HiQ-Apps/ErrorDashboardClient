@@ -1,15 +1,17 @@
 import type { ReactElement } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
-import BaseButton from "../Button/Button";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useDispatch } from "react-redux";
+import { useLocation, matchPath } from "react-router-dom";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
+
+import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
+import { BaseButton } from "components/base";
 import { setIsOpen } from "features/sidebarSlice";
-import { useLocation } from "react-router-dom";
+import type { SidebarLink } from "shared/types/extra";
 
 interface SidebarProps {
   isOpen?: boolean;
   header: string;
-  links: { name: string; path: string; component: ReactElement }[];
+  links: SidebarLink[];
   overrideStyles?: string;
   activeStyle?: string;
 }
@@ -44,11 +46,14 @@ const Sidebar = ({
           </CardTitle>
           <CardContent className="p-0 font-markazi ml-6">
             {links.map((link, index) => {
-              const isActive = location.pathname === link.path;
+              const isActive = matchPath(link.path, location.pathname);
               return (
                 <div key={index} className="my-3">
-                <link.component.type {...link.component.props} isActive={isActive} />
-              </div>
+                  <link.component.type
+                    {...link.component.props}
+                    isActive={!!isActive}
+                  />
+                </div>
               );
             })}
           </CardContent>

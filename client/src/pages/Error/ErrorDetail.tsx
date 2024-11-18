@@ -6,6 +6,7 @@ import { useGetErrorByIdQuery } from "features/errorApiSlice";
 import { BaseButton, LoadingCard } from "components/base";
 import { ErrorSidebar, ErrorDetailCard } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
+import type { SidebarLink } from "shared/types/extra";
 
 const ErrorDetail = () => {
   const { height } = usePageDimensions();
@@ -23,14 +24,20 @@ const ErrorDetail = () => {
     navigate(`/error/${id}/console`);
   };
 
-  const links = [
-    <BaseButton
-      content="Console"
-      size="sm"
-      variant="sidenavbutton"
-      onClick={handleErrorsClick}
-      overrideStyles="px-3"
-    />,
+  const links: SidebarLink[] = [
+    {
+      name: "Console",
+      path: "/error/:id",
+      component: (
+        <BaseButton
+          content="Console"
+          size="sm"
+          variant="sidenavbutton"
+          onClick={handleErrorsClick}
+          overrideStyles="px-3"
+        />
+      ),
+    },
   ];
 
   return (

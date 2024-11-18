@@ -85,15 +85,19 @@ const HomeSidebar = () => {
     },
   ];
 
-  if (userProfile?.role === "Admin") {
-    links.push(
-      <BaseButton
-        size="sm"
-        content={"Admin Console"}
-        variant="sidenavbutton"
-        onClick={handleAdminClick}
-      />
-    );
+  if (userProfile?.role === "admin") {
+    links.push({
+      name: "Admin Console",
+      path: "/admin/console",
+      component: (
+        <BaseButton
+          size="sm"
+          content="Admin Console"
+          variant="sidenavbutton"
+          onClick={handleAdminClick}
+        />
+      ),
+    });
   }
 
   return (

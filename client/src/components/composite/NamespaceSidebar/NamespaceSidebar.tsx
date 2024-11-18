@@ -65,57 +65,105 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
 
   if (!id) {
     links = [
-      <BaseButton
-        content="Console"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceConsoleClick}
-      />,
+      {
+        name: "Console",
+        path: "/namespace/console",
+        component: (
+          <BaseButton
+            content="Console"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceConsoleClick}
+          />
+        ),
+      },
     ];
   } else {
     links = [
-      <BaseButton
-        content="Console"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceConsoleClick}
-      />,
-      <BaseButton
-        content="Details"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceDetailsClick}
-      />,
-      <BaseButton
-        content="Logs"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceLogsClick}
-      />,
-      <BaseButton
-        content="Settings"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceSettingsClick}
-      />,
-      <BaseButton
-        content="Metrics"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceMetricClick}
-      />,
-      <BaseButton
-        content="Alerts"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleNamespaceAlertsClick}
-      />,
-      <BaseButton
-        content="Invite User"
-        size="sm"
-        variant="sidenavbutton"
-        onClick={handleOpenInviteUserModal}
-      />,
+      {
+        name: "Console",
+        path: "/namespace/console",
+        component: (
+          <BaseButton
+            content="Console"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceConsoleClick}
+          />
+        ),
+      },
+      {
+        name: "Details",
+        path: "/namespace/:id",
+        component: (
+          <BaseButton
+            content="Details"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceDetailsClick}
+          />
+        ),
+      },
+      {
+        name: "Logs",
+        path: "/namespace/:id/logs",
+        component: (
+          <BaseButton
+            content="Logs"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceLogsClick}
+          />
+        ),
+      },
+      {
+        name: "Settings",
+        path: "/namespace/:id/settings",
+        component: (
+          <BaseButton
+            content="Settings"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceSettingsClick}
+          />
+        ),
+      },
+      {
+        name: "Metrics",
+        path: "/namespace/:id/metrics",
+        component: (
+          <BaseButton
+            content="Metrics"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceMetricClick}
+          />
+        ),
+      },
+      {
+        name: "Alerts",
+        path: "/namespace/:id/alerts",
+        component: (
+          <BaseButton
+            content="Alerts"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleNamespaceAlertsClick}
+          />
+        ),
+      },
+      {
+        name: "Invite User",
+        path: "",
+        component: (
+          <BaseButton
+            content="Invite User"
+            size="sm"
+            variant="sidenavbutton"
+            onClick={handleOpenInviteUserModal}
+          />
+        ),
+      },
     ];
   }
 

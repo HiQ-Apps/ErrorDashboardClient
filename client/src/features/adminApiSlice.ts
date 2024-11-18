@@ -1,7 +1,7 @@
 import { baseApi } from "features/baseApi";
 
 import type { ShortNamespaceData } from "types/Namespace";
-import type { UserAdminData } from "types/User";
+import { VerifyUserRequest, type UserAdminData } from "types/User";
 
 export const adminApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,8 +17,18 @@ export const adminApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    verifyAdmin: builder.query<void, string>({
+      query: (password) => ({
+        url: "/admin/verify",
+        method: "POST",
+        body: password,
+      }),
+    }),
   }),
 });
 
-export const { useGetNamespacesAdminQuery, useGetUsersAdminQuery } =
-  adminApiSlice;
+export const {
+  useGetNamespacesAdminQuery,
+  useGetUsersAdminQuery,
+  useVerifyAdminQuery,
+} = adminApiSlice;

@@ -15,12 +15,18 @@ const UserSidebar = () => {
   };
 
   const links = [
-    <BaseButton
-      content="Profile"
-      size="sm"
-      variant="sidenavbutton"
-      onClick={handleUserProfileClick}
-    />,
+    {
+      name: "Profile",
+      path: "/user/:id/profile",
+      component: (
+        <BaseButton
+          content="Profile"
+          size="sm"
+          variant="sidenavbutton"
+          onClick={handleUserProfileClick}
+        />
+      ),
+    },
   ];
 
   return (
