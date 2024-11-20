@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 
-import { BaseButton } from "components/base";
 import { HomeSidebar, AboutSection } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import { selectIsOpen } from "features/sidebarSlice";
@@ -17,6 +16,11 @@ const About = () => {
       >
         <HomeSidebar />
       </div>
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          sidebarIsOpen ? "min-w-60" : "min-w-8"
+        }`}
+      />
       <div className="min-w-52" />
       <div className={"flex-1 justify-center flex-col px-4 pb-4"}>
         <AboutSection />

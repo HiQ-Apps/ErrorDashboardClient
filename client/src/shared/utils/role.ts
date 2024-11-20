@@ -1,4 +1,11 @@
-export type Role = "guest" | "member" | "contributor" | "manager" | "owner";
+export type NamespaceRole =
+  | "guest"
+  | "member"
+  | "contributor"
+  | "manager"
+  | "owner";
+
+export type Role = NamespaceRole | "admin";
 
 export type Permission =
   | "view"
@@ -40,6 +47,18 @@ export const RoleRules: Record<Role, RolePermission> = {
       "update",
     ],
     weight: 4,
+  },
+  admin: {
+    permissions: [
+      "view",
+      "add alert",
+      "comment",
+      "delete",
+      "invite",
+      "remove user",
+      "update",
+    ],
+    weight: 5,
   },
 };
 

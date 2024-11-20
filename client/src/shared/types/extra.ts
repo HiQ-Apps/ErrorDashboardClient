@@ -17,6 +17,12 @@ export type PaginationWithId = {
   limit?: number;
 };
 
+export type SidebarLink = {
+  name: string;
+  path: string;
+  component: JSX.Element;
+};
+
 export type ButtonClickEvent =
   | MouseEvent<HTMLButtonElement>
   | FormEvent<HTMLFormElement>

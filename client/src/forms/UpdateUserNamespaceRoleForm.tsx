@@ -14,13 +14,17 @@ import {
   type UpdateUserNamespaceRoleSchema,
 } from "schemas/updateUserNamespaceRoleSchema";
 import { useUpdateUserNamespaceRoleMutation } from "features/namespaceApiSlice";
-import { checkPermission, RoleRules, type Role } from "shared/utils/role";
+import {
+  checkPermission,
+  RoleRules,
+  type NamespaceRole,
+} from "shared/utils/role";
 
 interface UpdateUserNamespaceRoleFormProps {
   userId: string;
   namespaceId: string;
-  role: Role;
-  viewerRole: Role;
+  role: NamespaceRole;
+  viewerRole: NamespaceRole;
 }
 
 const UpdateUserNamespaceRoleForm = ({
@@ -53,7 +57,7 @@ const UpdateUserNamespaceRoleForm = ({
     }
   };
 
-  const handleSelectRole = (role: Role) => {
+  const handleSelectRole = (role: NamespaceRole) => {
     setForm((prev) => ({
       ...prev,
       role: role,

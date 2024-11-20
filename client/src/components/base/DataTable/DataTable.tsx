@@ -23,12 +23,14 @@ import { BaseButton, Label } from "components/base";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onRowClick?: (row: TData) => void;
 }
 
-export function DataTable<TData, TValue>({
+export const DataTable = <TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  onRowClick,
+}: DataTableProps<TData, TValue>) => {
   const [columnVisibility, setColumnVisibility] = useState<
     Record<string, boolean>
   >({});
@@ -121,6 +123,7 @@ export function DataTable<TData, TValue>({
                 className="hover:bg-slate-200 dark:hover:bg-slate-700"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => onRowClick && onRowClick(row.original)}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -158,4 +161,4 @@ export function DataTable<TData, TValue>({
       </div>
     </div>
   );
-}
+};

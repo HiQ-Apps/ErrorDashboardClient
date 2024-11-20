@@ -1,4 +1,24 @@
-import { Role } from "shared/utils/role";
+import type { NamespaceRole } from "shared/utils/role";
+
+export type BaseUserDTO = {
+  id: string;
+  username: string;
+  email: string;
+  verified: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type BaseUserProfileDTO = {
+  id: string;
+  userId: string;
+  firstName: Partial<string>;
+  lastName: Partial<string>;
+  avatarColor: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type RegisterUserRequest = {
   email: string;
@@ -22,19 +42,20 @@ export type ShortUserData = {
 };
 
 export type UserMemberData = ShortUserData & {
-  role: Role;
+  role: NamespaceRole;
 };
 
 export type UpdateUserNamespaceRoleRequest = {
   userId: string;
   namespaceId: string;
-  role: Role;
+  role: NamespaceRole;
 };
 
 export type ShortUserProfile = {
   firstName: string;
   lastName: string;
   avatarColor: string;
+  role: string;
 };
 
 export type ShortUserProfileOpt = Partial<ShortUserProfile>;
@@ -56,6 +77,11 @@ export type AuthResponse = {
   user: ShortUserData;
   userProfile: ShortUserProfile;
   accessToken: string;
+};
+
+export type UserAdminData = {
+  user: BaseUserDTO;
+  userProfile: BaseUserProfileDTO;
 };
 
 export type ForgotPasswordRequest = {

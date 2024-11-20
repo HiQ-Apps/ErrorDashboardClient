@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 
 import { selectIsOpen } from "features/sidebarSlice";
 import Sidebar from "components/base/Sidebar/Sidebar";
+import type { SidebarLink } from "shared/types/extra";
 
 interface ErrorSidebarProps {
-  links: ReactNode[];
+  links: SidebarLink[];
 }
 
 const ErrorSidebar = ({ links }: ErrorSidebarProps) => {

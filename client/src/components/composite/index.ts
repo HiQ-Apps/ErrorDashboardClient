@@ -37,8 +37,16 @@ import UpdateUserProfileCard from "./UpdateUserProfileCard/UpdateUserProfileCard
 import UserAlertCard from "./UserAlertCard/UserAlertCard";
 import UserSidebar from "./UserSidebar/UserSidebar";
 
+// Admin Components
+import AdminSection from "./AdminSection/AdminSection";
+import AdminNamespaceDataTable from "./AdminNamespaceDataTable/AdminNamespaceDataTable";
+import AdminUserDataTable from "./AdminUserDataTable/AdminUserDataTable";
+
 export {
   AboutSection,
+  AdminSection,
+  AdminNamespaceDataTable,
+  AdminUserDataTable,
   AggregateErrorSheet,
   BarGraphCard,
   ChangeLogCard,

@@ -65,7 +65,11 @@ const NamespaceDetail = () => {
               <ParameterSelector />
             </div>
             <Sheet>
-              {id ? <ErrorDataTable id={id} setGroupKey={setGroupKey} /> : null}
+              <div className="mb-36">
+                {id ? (
+                  <ErrorDataTable id={id} setGroupKey={setGroupKey} />
+                ) : null}
+              </div>
               <AggregateErrorSheet errorMeta={errorMeta} />
             </Sheet>
           </>
