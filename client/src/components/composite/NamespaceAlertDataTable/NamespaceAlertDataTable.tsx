@@ -7,8 +7,9 @@ import {
   useDeleteNamespaceAlertByIdMutation,
 } from "features/namespaceAlertApiSlice";
 
-import { DataTable, TrashCan } from "components/base";
+import { BaseButton, DataTable, LoadingCard, TrashCan } from "components/base";
 import { type ColumnDef } from "@tanstack/react-table";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 interface NamespaceAlertDataTableProps {
   namespaceId: string;
@@ -20,7 +21,8 @@ const NamespaceAlertDataTable = ({
   const {
     data: alertData,
     error,
-    isLoading,
+    isLoading: namespaceAlertsIsLoading,
+    refetch: namespaceAlertRefetch,
   } = useGetNamespaceAlertsByNamespaceIdQuery(namespaceId);
 
   const [deleteNamespaceAlertById] = useDeleteNamespaceAlertByIdMutation();
@@ -61,7 +63,21 @@ const NamespaceAlertDataTable = ({
   return (
     <Card className="flex flex-col mr-4 mb-4">
       <div className="overflow-y-auto w-full">
-        {isLoading && <p>Loading...</p>}
+        {namespaceAlertsIsLoading && <LoadingCard />}
+        <BaseButton
+          variant="accent"
+          content={
+            namespaceAlertsIsLoading ? (
+              <UpdateIcon className="animate-ease-in-out-rotation" />
+            ) : (
+              <UpdateIcon className="text-slate-100 w-5 h-5" />
+            )
+          }
+          overrideStyles="w-8 h-8 p-1 mb-4"
+          onClick={() => {
+            namespaceAlertRefetch();
+          }}
+        />
         <DataTable data={alertData} columns={columns} />
       </div>
     </Card>

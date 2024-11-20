@@ -8,7 +8,8 @@ import CanvasJS from "@canvasjs/react-charts";
 import { selectIsDark } from "features/darkSlice";
 import { useGetErrorPieChartDataQuery } from "features/errorApiSlice";
 import type { ErrorPieChartData, ErrorPieChartDataRequest } from "types/Error";
-import { LoadingCard } from "components/base";
+import { BaseButton, LoadingCard } from "components/base";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 interface ErrorPieChartProps {
   formAddOn?: boolean;
@@ -51,12 +52,14 @@ const ErrorPieChart = () => {
     groupKey: "undefined",
   };
 
-  const { data, error, isLoading } = useGetErrorPieChartDataQuery(
-    defaultParams,
-    {
-      skip: !id,
-    }
-  );
+  const {
+    data,
+    error,
+    isLoading,
+    refetch: errorPieChartRefetch,
+  } = useGetErrorPieChartDataQuery(defaultParams, {
+    skip: !id,
+  });
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -156,8 +159,21 @@ const ErrorPieChart = () => {
   return (
     <div className="w-96">
       {isLoading && <LoadingCard />}
+      <BaseButton
+        variant="accent"
+        content={
+          isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            <UpdateIcon className="text-slate-100 w-5 h-5" />
+          )
+        }
+        overrideStyles="w-8 h-8 p-1 mb-4"
+        onClick={() => {
+          errorPieChartRefetch();
+        }}
+      />
       {data && chartOptions && <CanvasJSChart options={chartOptions} />}
-
       <div className="custom-legend">
         {legendData.map((legendItem, index) => (
           <div

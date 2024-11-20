@@ -9,7 +9,13 @@ import {
 
 import { useVerifyUserPasswordMutation } from "features/userApiSlice";
 import { setError, clearError } from "features/errorBoundarySlice";
-import { DataTable, TrashCan, StatusDot, LoadingCard } from "components/base";
+import {
+  DataTable,
+  TrashCan,
+  StatusDot,
+  LoadingCard,
+  BaseButton,
+} from "components/base";
 import { selectUser } from "features/authSlice";
 import { formatHeader } from "shared/utils/parseString";
 import { useToast } from "components/ui/use-toast";
@@ -19,6 +25,7 @@ import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import type { VerifyUserRequest } from "types/User";
 import { checkPermission, RoleRules, type Role } from "shared/utils/role";
 import { GetUserNamespacesData } from "types/Namespace";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 const NamespaceDataTable = () => {
   const user = useSelector(selectUser);
@@ -35,6 +42,7 @@ const NamespaceDataTable = () => {
     isLoading: namespaceLoading,
     isError: namespaceIsError,
     error: namespaceError,
+    refetch: namespaceRefetch,
   } = useGetNamespacesByUserQuery(
     { id: user?.id || "", offset: params.offset, limit: params.limit },
     { skip: !user?.id }
@@ -150,11 +158,25 @@ const NamespaceDataTable = () => {
   });
 
   return (
-    <>
+    <div className="flex flex-col">
       {namespaceLoading && <LoadingCard />}
+      <BaseButton
+        variant="accent"
+        content={
+          namespaceLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            <UpdateIcon className="text-slate-100 w-5 h-5" />
+          )
+        }
+        overrideStyles="w-8 h-8 p-1 mb-4"
+        onClick={() => {
+          namespaceRefetch();
+        }}
+      />
       <DataTable data={namespaceData} columns={columns} />
       <ConfirmationModal />
-    </>
+    </div>
   );
 };
 
