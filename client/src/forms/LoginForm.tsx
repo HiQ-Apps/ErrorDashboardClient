@@ -38,7 +38,10 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         dispatch(setProfile(data.userProfile));
         dispatch(setIsAuthenticated(true));
       } catch (err) {
-        console.error("Failed to login:", err);
+        toast({
+          title: "Failed to Login",
+          description: JSON.stringify(err),
+        });
       }
     }
   };

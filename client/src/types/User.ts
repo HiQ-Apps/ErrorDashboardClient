@@ -11,12 +11,13 @@ export type BaseUserDTO = {
 
 export type BaseUserProfileDTO = {
   id: string;
+  userId: string;
   firstName: Partial<string>;
   lastName: Partial<string>;
   avatarColor: string;
   role: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type RegisterUserRequest = {

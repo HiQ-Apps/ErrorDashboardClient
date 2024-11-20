@@ -19,18 +19,30 @@ const DocumentationSidebar = () => {
   let links;
 
   links = [
-    <BaseButton
-      content="Installation"
-      size="sm"
-      variant="sidenavbutton"
-      onClick={handleDocumentationClick}
-    />,
-    <BaseButton
-      content="Getting Started"
-      size="sm"
-      variant="sidenavbutton"
-      onClick={handleGettingStartedClick}
-    />,
+    {
+      name: "Installation",
+      path: "/documentation/installation",
+      component: (
+        <BaseButton
+          content="Installation"
+          size="sm"
+          variant="sidenavbutton"
+          onClick={handleDocumentationClick}
+        />
+      ),
+    },
+    {
+      name: "Getting Started",
+      path: "/documentation/getting-started",
+      component: (
+        <BaseButton
+          content="Getting Started"
+          size="sm"
+          variant="sidenavbutton"
+          onClick={handleGettingStartedClick}
+        />
+      ),
+    },
   ];
 
   return (

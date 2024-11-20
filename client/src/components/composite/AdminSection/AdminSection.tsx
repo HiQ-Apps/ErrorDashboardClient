@@ -5,7 +5,7 @@ import {
 
 const AdminSection = () => {
   return (
-    <div>
+    <div className="relative">
       <h1>Namespaces</h1>
       <AdminNamespaceDataTable />
       <h1>Users</h1>

@@ -208,7 +208,7 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
                 content="View Members"
               />
             </SheetTrigger>
-            <NamespaceMemberList />
+            <NamespaceMemberList namespaceId={id} />
           </Sheet>
         </div>
       </CardContent>

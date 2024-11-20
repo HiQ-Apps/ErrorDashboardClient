@@ -17,8 +17,11 @@ import {
   type NamespaceRole,
 } from "shared/utils/role";
 
-const NamespaceMemberList = () => {
-  const { id: namespaceId } = useParams();
+interface NamespaceMemberListProps {
+  namespaceId: string;
+}
+
+const NamespaceMemberList = ({ namespaceId }: NamespaceMemberListProps) => {
   const { toast } = useToast();
   const [viewUpdateForm, setViewUpdateForm] = useState(false);
   const {

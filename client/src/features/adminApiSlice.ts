@@ -1,7 +1,7 @@
 import { baseApi } from "features/baseApi";
 
 import type { ShortNamespaceData } from "types/Namespace";
-import { VerifyUserRequest, type UserAdminData } from "types/User";
+import type { VerifyUserRequest, UserAdminData } from "types/User";
 
 export const adminApiSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +17,7 @@ export const adminApiSlice = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    verifyAdmin: builder.query<void, string>({
+    verifyAdmin: builder.mutation<void, VerifyUserRequest>({
       query: (password) => ({
         url: "/admin/verify",
         method: "POST",
@@ -30,5 +30,5 @@ export const adminApiSlice = baseApi.injectEndpoints({
 export const {
   useGetNamespacesAdminQuery,
   useGetUsersAdminQuery,
-  useVerifyAdminQuery,
+  useVerifyAdminMutation,
 } = adminApiSlice;
