@@ -1,12 +1,13 @@
 import { type MouseEvent, type MouseEventHandler, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   EyeClosedIcon,
   EyeOpenIcon,
   ClipboardCopyIcon,
 } from "@radix-ui/react-icons";
 
+import { setIsLoading as setSidebarIsLoading } from "features/sidebarSlice";
 import { NamespaceMemberList } from "components/composite";
 import { useToast } from "components/ui/use-toast";
 import { Sheet, SheetTrigger } from "components/ui/sheet";

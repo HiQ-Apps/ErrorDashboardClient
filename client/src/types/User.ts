@@ -87,3 +87,7 @@ export type UserAdminData = {
 export type ForgotPasswordRequest = {
   email: string;
 };
+
+export type SubscriptionUserRequest = {
+  userId: string;
+};

@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  type Row,
 } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -23,7 +24,7 @@ import { BaseButton, Label } from "components/base";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onRowClick?: (row: TData) => void;
+  onRowClick?: (row: Row<TData>) => void;
 }
 
 export const DataTable = <TData, TValue>({
@@ -123,7 +124,7 @@ export const DataTable = <TData, TValue>({
                 className="hover:bg-slate-200 dark:hover:bg-slate-700"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                onClick={() => onRowClick && onRowClick(row.original)}
+                onClick={() => onRowClick && onRowClick(row)}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

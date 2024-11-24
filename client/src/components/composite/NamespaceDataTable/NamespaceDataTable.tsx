@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { type ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, Row, RowData } from "@tanstack/react-table";
 import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
@@ -24,7 +24,7 @@ import { ConfirmationModal } from "components/composite";
 import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import type { VerifyUserRequest } from "types/User";
 import { checkPermission, RoleRules, type Role } from "shared/utils/role";
-import { GetUserNamespacesData } from "types/Namespace";
+import type { GetUserNamespacesData } from "types/Namespace";
 import { UpdateIcon } from "@radix-ui/react-icons";
 
 const NamespaceDataTable = () => {
@@ -83,7 +83,8 @@ const NamespaceDataTable = () => {
     }
   }, [deleteError, toast]);
 
-  const handleRowClick = (id: string) => {
+  const handleRowClick = (row: Row<GetUserNamespacesData>) => {
+    const id = row.original.id;
     navigate(`/namespace/${id}`);
   };
 
@@ -133,7 +134,6 @@ const NamespaceDataTable = () => {
       return (
         <div
           key={key}
-          onClick={() => handleRowClick(info.row.original.id)}
           className={
             "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
           }
@@ -174,7 +174,11 @@ const NamespaceDataTable = () => {
           namespaceRefetch();
         }}
       />
-      <DataTable data={namespaceData} columns={columns} />
+      <DataTable
+        data={namespaceData}
+        columns={columns}
+        onRowClick={handleRowClick}
+      />
       <ConfirmationModal />
     </div>
   );

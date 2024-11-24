@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Sheet } from "components/ui/sheet";
 import {
@@ -10,6 +10,7 @@ import {
   NamespaceTitleCard,
   ParameterSelector,
 } from "components/composite";
+import { setIsLoading as setSidebarIsLoading } from "features/sidebarSlice";
 import { useGetNamespaceByIdQuery } from "features/namespaceApiSlice";
 import { useGetErrorMetaGroupedByParamsQuery } from "features/errorApiSlice";
 import { selectParams } from "features/aggregateTableSlice";
@@ -18,6 +19,7 @@ import { selectIsOpen } from "features/sidebarSlice";
 import { LoadingCard } from "components/base";
 
 const NamespaceDetail = () => {
+  const dispatch = useDispatch();
   const { height } = usePageDimensions();
   const { id } = useParams();
   const params = useSelector(selectParams);
@@ -42,13 +44,17 @@ const NamespaceDetail = () => {
     { skip: !groupKey }
   );
 
+  useEffect(() => {
+    dispatch(setSidebarIsLoading(isLoading));
+  }, [isLoading]);
+
   return (
     <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
       <div
         style={{ height: height ?? `${height}px` }}
         className="bg-slate-50 bg-gray-200 dark:bg-slate-800"
       >
-        <NamespaceSidebar isLoading={isLoading} />
+        <NamespaceSidebar />
       </div>
       <div
         className={`transition-all duration-300 ease-in-out ${

@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "components/ui/use-toast";
-import { type ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, Row } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
 import {
@@ -92,7 +92,8 @@ const AdminUserDataTable = () => {
     })
   );
 
-  const onRowClick = (user: BaseUserDTO) => {
+  const onRowClick = (row: Row<BaseUserDTO>) => {
+    const user = row.original;
     const username = user.username;
     const userProfile = userProfileData.filter(
       (profile) => profile.userId === user.id
