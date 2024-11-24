@@ -13,7 +13,8 @@ import { getTodayDateString } from "shared/utils/Date";
 import { useGetErrorAggregatesByNamespaceIdQuery } from "features/errorApiSlice";
 import ErrorGraphForm from "forms/ErrorGraphForm";
 import type { ErrorAggregateData, GetErrorAggregateRequest } from "types/Error";
-import { LoadingCard } from "components/base";
+import { BaseButton, LoadingCard } from "components/base";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 interface ErrorLineGraphProps {
   formAddOn?: boolean;
@@ -138,6 +139,20 @@ const ErrorLineGraph = ({ formAddOn }: ErrorLineGraphProps) => {
   return (
     <div className="flex flex-col w-full relative">
       {isLoading && <LoadingCard />}
+      <BaseButton
+        variant="accent"
+        content={
+          isLoading ? (
+            <UpdateIcon className="animate-ease-in-out-rotation" />
+          ) : (
+            <UpdateIcon className="text-slate-100 w-5 h-5" />
+          )
+        }
+        overrideStyles="w-8 h-8 p-1 mb-4"
+        onClick={() => {
+          refetch();
+        }}
+      />
       {data && chartOptions && (
         <div className="flex">
           <CanvasJSChart options={chartOptions} />

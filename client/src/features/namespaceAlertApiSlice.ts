@@ -5,6 +5,7 @@ import type {
   NamespaceAlertSubscriptionRequest,
   ShortNamespaceAlert,
 } from "types/NamespaceAlert";
+import type { ShortUserProfile, UserMemberData } from "types/User";
 
 export const namespaceAlertSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -50,23 +51,23 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["NamespaceAlerts", "UserAlerts"],
     }),
-    subscribeToNamespaceAlerts: builder.query<
-      null,
+    subscribeToNamespaceAlerts: builder.mutation<
+      string,
       NamespaceAlertSubscriptionRequest
     >({
-      query: () => ({
+      query: (subscription: NamespaceAlertSubscriptionRequest) => ({
         url: `/alert/subscribe`,
         method: "POST",
+        body: subscription,
       }),
+      invalidatesTags: ["AlertSubscribers"],
     }),
-    unsubscribeToNamespaceAlerts: builder.query<
-      null,
-      NamespaceAlertSubscriptionRequest
-    >({
-      query: () => ({
-        url: `/alert/unsubscribe`,
-        method: "POST",
+    getSubscriptions: builder.query<UserMemberData[], string>({
+      query: (id: string) => ({
+        url: `/alert/${id}/subscriptions`,
+        method: "GET",
       }),
+      providesTags: ["AlertSubscribers"],
     }),
   }),
 });
@@ -77,6 +78,6 @@ export const {
   useCreateNamespaceAlertMutation,
   useUpdateNamespaceAlertMutation,
   useDeleteNamespaceAlertByIdMutation,
-  useSubscribeToNamespaceAlertsQuery,
-  useUnsubscribeToNamespaceAlertsQuery,
+  useSubscribeToNamespaceAlertsMutation,
+  useGetSubscriptionsQuery,
 } = namespaceAlertSlice;

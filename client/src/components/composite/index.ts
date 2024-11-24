@@ -29,6 +29,7 @@ import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
 import Navbar from "./Navbar/Navbar";
 import ParameterSelector from "./ParameterSelector/ParameterSelector";
 import PieChartCard from "./GraphCard/PieChartCard";
+import SubscriptionList from "./SubscriptionList/SubscriptionList";
 import TimezoneSelector from "./TimezoneSelector/TimezoneSelector";
 import TagContainer from "./TagContainer/TagContainer";
 import TagManagerContainer from "./TagManagerContainer/TagManagerContainer";
@@ -78,6 +79,7 @@ export {
   Navbar,
   ParameterSelector,
   PieChartCard,
+  SubscriptionList,
   TagContainer,
   TagManagerContainer,
   TimezoneSelector,

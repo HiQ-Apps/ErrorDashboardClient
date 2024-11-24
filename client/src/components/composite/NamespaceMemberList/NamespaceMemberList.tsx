@@ -28,7 +28,7 @@ const NamespaceMemberList = ({ namespaceId }: NamespaceMemberListProps) => {
     data: memberData,
     error,
     isLoading,
-  } = useGetNamespaceMembersQuery(namespaceId as string, {
+  } = useGetNamespaceMembersQuery(namespaceId, {
     skip: !namespaceId,
   });
 

@@ -2,7 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Sidebar, BaseButton } from "components/base";
-import { selectIsOpen as selectNavIsOpen } from "features/sidebarSlice";
+import {
+  selectIsLoading as selectNamespaceSidebarIsLoading,
+  selectIsOpen as selectNavIsOpen,
+} from "features/sidebarSlice";
 import { Modal } from "components/base";
 import {
   selectIsOpen as selectModalIsOpen,
@@ -12,18 +15,31 @@ import {
   setIsLoading,
 } from "features/modalSlice";
 import InviteUserNamespaceForm from "forms/InviteUserNamespaceForm";
+import {
+  selectNamespaceById,
+  useGetUserRoleQuery,
+} from "features/namespaceApiSlice";
+import { checkPermission } from "shared/utils/role";
+import { useEffect } from "react";
+import { SidebarLink } from "shared/types/extra";
 
-interface NamespaceSidebarProps {
-  isLoading: boolean;
-}
-
-const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
+const NamespaceSidebar = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const sidebarIsLoading = useSelector(selectNamespaceSidebarIsLoading);
   const navIsOpen = useSelector(selectNavIsOpen);
   const modalIsOpen = useSelector(selectModalIsOpen);
   const modalType = useSelector(selectModalType);
+
+  const { data: userRole } = useGetUserRoleQuery(id as string, {
+    skip: !id,
+    refetchOnMountOrArgChange: true,
+  });
+
+  useEffect(() => {
+    console.log("user role in namespace", userRole);
+  }, [userRole]);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);
@@ -61,7 +77,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
     dispatch(closeModal());
   };
 
-  let links;
+  let links: SidebarLink[] = [];
 
   if (!id) {
     links = [
@@ -78,7 +94,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
         ),
       },
     ];
-  } else {
+  } else if (id && !sidebarIsLoading) {
     links = [
       {
         name: "Console",
@@ -94,7 +110,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
       },
       {
         name: "Details",
-        path: "/namespace/:id",
+        path: `/namespace/${id}`,
         component: (
           <BaseButton
             content="Details"
@@ -106,7 +122,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
       },
       {
         name: "Logs",
-        path: "/namespace/:id/logs",
+        path: `/namespace/${id}/logs`,
         component: (
           <BaseButton
             content="Logs"
@@ -118,19 +134,20 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
       },
       {
         name: "Settings",
-        path: "/namespace/:id/settings",
+        path: `/namespace/${id}/settings`,
         component: (
           <BaseButton
             content="Settings"
             size="sm"
             variant="sidenavbutton"
             onClick={handleNamespaceSettingsClick}
+            disabled={userRole && !checkPermission(userRole, "update")}
           />
         ),
       },
       {
         name: "Metrics",
-        path: "/namespace/:id/metrics",
+        path: `/namespace/${id}/metrics`,
         component: (
           <BaseButton
             content="Metrics"
@@ -142,7 +159,7 @@ const NamespaceSidebar = ({ isLoading }: NamespaceSidebarProps) => {
       },
       {
         name: "Alerts",
-        path: "/namespace/:id/alerts",
+        path: `/namespace/${id}/alerts`,
         component: (
           <BaseButton
             content="Alerts"

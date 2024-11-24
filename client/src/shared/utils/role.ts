@@ -10,10 +10,13 @@ export type Role = NamespaceRole | "admin";
 export type Permission =
   | "view"
   | "add alert"
+  | "remove alert"
+  | "edit alert"
   | "comment"
   | "delete"
   | "invite"
   | "remove user"
+  | "subscribe alert"
   | "update";
 
 export type RolePermission = {
@@ -24,11 +27,24 @@ export type RolePermission = {
 export const RoleRules: Record<Role, RolePermission> = {
   guest: { permissions: ["view"], weight: 0 },
   member: { permissions: ["view", "comment"], weight: 1 },
-  contributor: { permissions: ["view", "add alert", "comment"], weight: 2 },
+  contributor: {
+    permissions: [
+      "view",
+      "add alert",
+      "remove alert",
+      "edit alert",
+      "subscribe alert",
+      "comment",
+    ],
+    weight: 2,
+  },
   manager: {
     permissions: [
       "view",
       "add alert",
+      "remove alert",
+      "edit alert",
+      "subscribe alert",
       "comment",
       "remove user",
       "invite",
@@ -40,8 +56,11 @@ export const RoleRules: Record<Role, RolePermission> = {
     permissions: [
       "view",
       "add alert",
+      "remove alert",
+      "edit alert",
       "comment",
       "delete",
+      "subscribe alert",
       "invite",
       "remove user",
       "update",

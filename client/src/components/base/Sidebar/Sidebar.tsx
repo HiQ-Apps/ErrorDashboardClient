@@ -1,4 +1,3 @@
-import type { ReactElement } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, matchPath } from "react-router-dom";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";

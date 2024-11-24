@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Light, Dark, AppIcon } from "assets/index";
-import { selectIsAuthenticated, clearAuth } from "features/authSlice";
+import {
+  selectIsAuthenticated,
+  selectUser,
+  clearAuth,
+} from "features/authSlice";
 import {
   openModal,
   closeModal,
@@ -16,12 +20,14 @@ import RegistrationForm from "forms/RegistrationForm";
 import { useToast } from "components/ui/use-toast";
 import EmailForm from "forms/EmailForm";
 import { useLogoutMutation } from "features/userApiSlice";
+import { Tooltip, TooltipTrigger, TooltipContent } from "components/ui/tooltip";
 
 const Navbar = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
   const isDarkMode = useSelector(selectIsDark);
   const isOpen = useSelector(selectIsOpen);
   const modalType = useSelector(selectModalType);
@@ -130,11 +136,26 @@ const Navbar = () => {
               onClick={handleLogoutClick}
               variant="navbutton"
             />
-            <BaseButton
-              content="Namespace"
-              onClick={handleNamespaceClick}
-              variant="navbutton"
-            />
+            {user?.verified ? (
+              <BaseButton
+                content="Namespace"
+                onClick={handleNamespaceClick}
+                variant="navbutton"
+              />
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <BaseButton
+                    content="Namespace"
+                    variant="navbutton"
+                    disabled={true}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  Verify your email to access this feature
+                </TooltipContent>
+              </Tooltip>
+            )}
           </>
         ) : (
           <>
@@ -201,14 +222,26 @@ const Navbar = () => {
                 }}
                 variant="navbutton"
               />
-              <BaseButton
-                content="Namespace"
-                onClick={() => {
-                  handleNamespaceClick();
-                  closeMenu();
-                }}
-                variant="navbutton"
-              />
+              {user?.verified ? (
+                <BaseButton
+                  content="Namespace"
+                  onClick={handleNamespaceClick}
+                  variant="navbutton"
+                />
+              ) : (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <BaseButton
+                      content="Namespace"
+                      variant="navbutton"
+                      disabled={true}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Verify your email to access this feature
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </>
           ) : (
             <>

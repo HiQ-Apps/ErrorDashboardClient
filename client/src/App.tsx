@@ -35,9 +35,9 @@ const App = () => {
 
   return (
     <div className="flex flex-col h-full justify-center items-center dark:bg-slate-800">
-      <Navbar />
-      <ModalHandlerProvider>
-        <TooltipProvider>
+      <TooltipProvider>
+        <ModalHandlerProvider>
+          <Navbar />
           <Routes>
             <Route path="/*" element={<BaseRoutes />} />
             <Route path="/admin/*" element={<AdminRoutes />} />
@@ -46,10 +46,10 @@ const App = () => {
             <Route path="/user/*" element={<UserRoutes />} />
             <Route path="/documentation/*" element={<DocumentationRoutes />} />
           </Routes>
-        </TooltipProvider>
-      </ModalHandlerProvider>
-      <Toaster />
-      <Footer />
+        </ModalHandlerProvider>
+        <Toaster />
+        <Footer />
+      </TooltipProvider>
     </div>
   );
 };
