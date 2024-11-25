@@ -18,10 +18,13 @@ import DocumentationRoutes from "src/routes/DocumentationRoutes";
 import useClearErrorOnNavigate from "hooks/useClearErrorOnNavigate";
 import { ModalHandlerProvider } from "shared/context/modalHandlerContext";
 import { TooltipProvider } from "components/ui/tooltip";
+import { usePageDimensions } from "hooks/usePageDimensions";
+import Banner from "components/base/Banner/Banner";
 
 const App = () => {
   // For error boundary
   useClearErrorOnNavigate();
+  const { width, height } = usePageDimensions();
 
   const isDark = useSelector(selectIsDark);
 
@@ -38,6 +41,9 @@ const App = () => {
       <TooltipProvider>
         <ModalHandlerProvider>
           <Navbar />
+          {width <= 700 && height <= 900 && (
+            <Banner text="This site has been optimized for desktop view. Please use this app on one for the best experience." />
+          )}
           <Routes>
             <Route path="/*" element={<BaseRoutes />} />
             <Route path="/admin/*" element={<AdminRoutes />} />

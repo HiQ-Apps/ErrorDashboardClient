@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { BiSolidUserVoice } from "react-icons/bi";
 import { FaListUl } from "react-icons/fa";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Card } from "components/ui/card";
-import { Sheet, SheetTrigger } from "components/ui/sheet";
-import { Tooltip, TooltipTrigger, TooltipContent } from "components/ui/tooltip";
+import { Sheet, SheetTrigger, SheetContent } from "components/ui/sheet";
 
 import {
   useGetNamespaceAlertsByNamespaceIdQuery,
@@ -29,13 +29,12 @@ const NamespaceAlertDataTable = ({
 }: NamespaceAlertDataTableProps) => {
   const { toast } = useToast();
   const user = useSelector(selectUser);
+  const [activeAlertId, setActiveAlertId] = useState<string | null>(null);
 
-  const [subscribeToAlert, { data: subscribeData }] =
-    useSubscribeToNamespaceAlertsMutation();
+  const [subscribeToAlert] = useSubscribeToNamespaceAlertsMutation();
 
   const {
     data: alertData,
-    error,
     isLoading: namespaceAlertsIsLoading,
     refetch: namespaceAlertRefetch,
   } = useGetNamespaceAlertsByNamespaceIdQuery(namespaceId);
@@ -79,43 +78,30 @@ const NamespaceAlertDataTable = ({
         className="cursor-pointer flex flex-row space-x-2 justify-center"
       >
         {userRole && checkPermission(userRole, "subscribe alert") && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <BaseButton
-                content={<BiSolidUserVoice className="w-5 h-5" />}
-                variant="accent"
-                size="sm"
-                overrideStyles="px-2"
-                onClick={() => {
-                  handleSubscription({
-                    namespaceId,
-                    namespaceAlertId: row.original.id,
-                    userId: user.id,
-                  });
-                }}
-              />
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="p-2">Subscribe to Alert</div>
-            </TooltipContent>
-          </Tooltip>
+          <BaseButton
+            content={<BiSolidUserVoice className="w-5 h-5" />}
+            variant="accent"
+            size="sm"
+            overrideStyles="px-2"
+            onClick={() => {
+              handleSubscription({
+                namespaceId,
+                namespaceAlertId: row.original.id,
+                userId: user.id,
+              });
+            }}
+          />
         )}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <SheetTrigger asChild>
-              <BaseButton
-                content={<FaListUl className="w-5 h-5" />}
-                variant="accent"
-                size="sm"
-                overrideStyles="px-2"
-              />
-            </SheetTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            <div className="p-2">View Subscriptions</div>
-          </TooltipContent>
-        </Tooltip>
-        <SubscriptionList alertId={row.original.id} namespaceId={namespaceId} />
+        <BaseButton
+          key={row.id}
+          content={<FaListUl className="w-5 h-5" />}
+          variant="accent"
+          size="sm"
+          overrideStyles="px-2"
+          onClick={() => {
+            handleSheetOpen(row.original.id);
+          }}
+        />
       </div>
     ),
   });
@@ -144,21 +130,32 @@ const NamespaceAlertDataTable = ({
     userId,
   }: NamespaceAlertSubscriptionRequest) => {
     try {
-      await subscribeToAlert({
+      const subscribeData = await subscribeToAlert({
         namespaceId,
         namespaceAlertId,
         userId,
       }).unwrap();
-      toast({
-        title: "Success",
-        description: `User Successfully ${subscribeData} to the Alert.`,
-      });
+
+      if (subscribeData) {
+        toast({
+          title: "Success",
+          description: `User Successfully ${subscribeData} to the Alert.`,
+        });
+      }
     } catch (error) {
       toast({
         title: "Subscription Error",
         description: "Error subscribing user to alert.",
       });
     }
+  };
+
+  const handleSheetOpen = (alertId: string) => {
+    setActiveAlertId(alertId);
+  };
+
+  const handleSheetClose = () => {
+    setActiveAlertId(null);
   };
 
   return (
@@ -174,15 +171,28 @@ const NamespaceAlertDataTable = ({
               <UpdateIcon className="text-slate-100 w-5 h-5" />
             )
           }
-          overrideStyles="w-8 h-8 p-1 mb-4"
+          overrideStyles="w-8 h-8 p-1 ml-4 mt-4"
           onClick={() => {
             namespaceAlertRefetch();
           }}
         />
-        <Sheet>
-          <DataTable data={alertData} columns={columns} />
-        </Sheet>
       </div>
+      <DataTable data={alertData} columns={columns} />
+      <Sheet
+        open={!!activeAlertId}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) handleSheetClose();
+        }}
+      >
+        <SheetContent className="w-120">
+          {activeAlertId && (
+            <SubscriptionList
+              alertId={activeAlertId}
+              namespaceId={namespaceId}
+            />
+          )}
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 };

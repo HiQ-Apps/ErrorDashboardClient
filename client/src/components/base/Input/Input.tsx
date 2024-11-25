@@ -27,6 +27,7 @@ const CustomInput = ({
   return (
     <Input
       id={id}
+      min="0"
       readOnly={readonly}
       disabled={disabled}
       type={type}
