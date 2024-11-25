@@ -1,10 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation, matchPath } from "react-router-dom";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
-import { BaseButton } from "components/base";
-import { setIsOpen } from "features/sidebarSlice";
+import { BaseButton, LoadingCard } from "components/base";
+import { selectIsLoading, setIsOpen } from "features/sidebarSlice";
 import type { SidebarLink } from "shared/types/extra";
 
 interface SidebarProps {
@@ -21,6 +21,7 @@ const Sidebar = ({
   overrideStyles = "",
   isOpen = true,
 }: SidebarProps) => {
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const location = useLocation();
   localStorage.removeItem("isOpen");

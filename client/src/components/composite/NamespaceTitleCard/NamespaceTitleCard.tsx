@@ -1,18 +1,22 @@
-import { type MouseEvent, type MouseEventHandler, useState } from "react";
+import {
+  type MouseEvent,
+  type MouseEventHandler,
+  useEffect,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   EyeClosedIcon,
   EyeOpenIcon,
   ClipboardCopyIcon,
 } from "@radix-ui/react-icons";
 
-import { setIsLoading as setSidebarIsLoading } from "features/sidebarSlice";
 import { NamespaceMemberList } from "components/composite";
 import { useToast } from "components/ui/use-toast";
 import { Sheet, SheetTrigger } from "components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "components/ui/tooltip";
-import { StatusDot, Input, Label, BaseButton } from "components/base";
+import { StatusDot, Input, BaseButton } from "components/base";
 import { selectNamespaceById } from "features/namespaceApiSlice";
 import { Card, CardContent, CardHeader } from "components/ui/card";
 import { selectTimeZone } from "features/timezoneSlice";
@@ -60,8 +64,10 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
           title: "Copied to clipboard",
         });
       })
-      .catch((err) => {
-        console.error("Failed to copy text: ", err);
+      .catch((_) => {
+        toast({
+          title: "Error copying to clipboard",
+        });
       });
   };
 
@@ -78,6 +84,8 @@ const NamespaceTitleCard = ({ header }: NamespaceTitleCardProps) => {
     event.preventDefault();
     setClientIdVisible((prev) => !prev);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <Card className="flex flex-col mr-4 mb-4">

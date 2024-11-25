@@ -11,6 +11,18 @@ export type QueryParamWithId = {
   groupBy?: string;
 };
 
+export type TimeUnits =
+  | "Days"
+  | "Hours"
+  | "Minutes"
+  | "Seconds"
+  | "Milliseconds";
+
+export interface exchangeTimeFormat {
+  time: number;
+  unit: TimeUnits;
+}
+
 export type PaginationWithId = {
   id: string;
   offset?: number;

@@ -1,8 +1,26 @@
 import { DateTime } from "luxon";
 
+import type { exchangeTimeFormat } from "shared/types/extra";
+
 const getToday = (): Date => {
   const today = new Date();
   return today;
+};
+
+const exchangeTimeFormatToMilliseconds = ({
+  time,
+  unit,
+}: exchangeTimeFormat) => {
+  switch (unit) {
+    case "Days":
+      return time * 24 * 60 * 60 * 1000;
+    case "Hours":
+      return time * 60 * 60 * 1000;
+    case "Minutes":
+      return time * 60 * 1000;
+    case "Seconds":
+      return time * 1000;
+  }
 };
 
 const getTodayDateString = (timezone: string): string => {
@@ -40,4 +58,11 @@ const getLastYear = (): Date => {
   return lastYear;
 };
 
-export { getToday, getTodayDateString, getLastWeek, getLastMonth, getLastYear };
+export {
+  getToday,
+  getTodayDateString,
+  getLastWeek,
+  getLastMonth,
+  getLastYear,
+  exchangeTimeFormatToMilliseconds,
+};

@@ -12,15 +12,10 @@ import {
   selectModalType,
   openModal,
   closeModal,
-  setIsLoading,
 } from "features/modalSlice";
 import InviteUserNamespaceForm from "forms/InviteUserNamespaceForm";
-import {
-  selectNamespaceById,
-  useGetUserRoleQuery,
-} from "features/namespaceApiSlice";
+import { useGetUserRoleQuery } from "features/namespaceApiSlice";
 import { checkPermission } from "shared/utils/role";
-import { useEffect } from "react";
 import { SidebarLink } from "shared/types/extra";
 
 const NamespaceSidebar = () => {
@@ -36,10 +31,6 @@ const NamespaceSidebar = () => {
     skip: !id,
     refetchOnMountOrArgChange: true,
   });
-
-  useEffect(() => {
-    console.log("user role in namespace", userRole);
-  }, [userRole]);
 
   const handleNamespaceConsoleClick = () => {
     navigate(`/namespace/console`);

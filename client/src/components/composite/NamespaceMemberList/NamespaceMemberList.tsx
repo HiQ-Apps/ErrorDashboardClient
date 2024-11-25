@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Cross2Icon, Pencil1Icon } from "@radix-ui/react-icons";
-import { useParams } from "react-router-dom";
 
 import UpdateUserNamespaceRoleForm from "forms/UpdateUserNamespaceRoleForm";
 import {
@@ -10,7 +9,12 @@ import {
 } from "features/namespaceApiSlice";
 import { LoadingCard, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
-import { SheetHeader, SheetContent, SheetTitle } from "components/ui/sheet";
+import {
+  SheetHeader,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+} from "components/ui/sheet";
 import {
   checkAuthority,
   checkPermission,
@@ -63,15 +67,18 @@ const NamespaceMemberList = ({ namespaceId }: NamespaceMemberListProps) => {
       <SheetHeader>
         <SheetTitle>Member List</SheetTitle>
       </SheetHeader>
+      {isLoading && <LoadingCard />}
+      {error && <div className="text-red-500">Failed to load members</div>}
+      <SheetDescription>
+        Only owners and managers can update members and roles
+      </SheetDescription>
       <BaseButton
         variant="accent"
         size="sm"
         content={<Pencil1Icon />}
         onClick={() => setViewUpdateForm(!viewUpdateForm)}
-        overrideStyles="px-2"
+        overrideStyles="px-2 mt-3"
       />
-      {isLoading && <LoadingCard />}
-      {error && <div>Failed to load members</div>}
       {memberData && (
         <div className="flex flex-col space-y-2 my-4">
           {memberData.map((member) => (
