@@ -27,6 +27,7 @@ export const baseApi = createApi({
     "AlertSubscribers",
     "NamespaceMembers",
     "UserNamespaceRole",
+    "Notifications",
   ],
 });
 

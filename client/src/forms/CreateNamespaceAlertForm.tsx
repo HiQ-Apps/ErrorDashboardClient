@@ -236,7 +236,7 @@ const CreateNamespaceAlertForm = () => {
                         {errorMeta === "" ? "No Value" : errorMeta}
                       </SelectItem>
                     ))}
-                    <SelectItem value="custom">Custom</SelectItem>
+                    <SelectItem value="custom" />
                   </SelectContent>
                 </Select>
                 <Input
@@ -271,7 +271,7 @@ const CreateNamespaceAlertForm = () => {
                         {errorMeta === "" ? "No Value" : errorMeta}
                       </SelectItem>
                     ))}
-                    <SelectItem value="custom">Custom</SelectItem>
+                    <SelectItem value="custom" />
                   </SelectContent>
                 </Select>
                 <Input
@@ -306,7 +306,7 @@ const CreateNamespaceAlertForm = () => {
                         {errorMeta === "" ? "No Value" : errorMeta}
                       </SelectItem>
                     ))}
-                    <SelectItem value="custom">Custom</SelectItem>
+                    <SelectItem value="custom" />
                   </SelectContent>
                 </Select>
                 <Input

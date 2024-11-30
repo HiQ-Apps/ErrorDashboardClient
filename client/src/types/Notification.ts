@@ -11,3 +11,8 @@ export type NotificationDTO = {
 export type NotificationStreamData = Omit<NotificationDTO, "createdAt"> & {
   createdAt: string;
 };
+
+export type NotificationResponse = {
+  notifications: NotificationStreamData[];
+  unreadCount: number;
+};

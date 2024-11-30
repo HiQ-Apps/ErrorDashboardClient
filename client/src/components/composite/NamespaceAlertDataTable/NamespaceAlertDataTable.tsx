@@ -5,7 +5,7 @@ import { FaListUl } from "react-icons/fa";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Card } from "components/ui/card";
-import { Sheet, SheetTrigger, SheetContent } from "components/ui/sheet";
+import { Sheet, SheetContent } from "components/ui/sheet";
 
 import {
   useGetNamespaceAlertsByNamespaceIdQuery,
