@@ -89,7 +89,7 @@ const SubscriptionList = ({ alertId, namespaceId }: SubscriptionListProps) => {
           className="flex flex-row justify-between items-center py-2 border-b dark:text-slate-100"
           key={subscription.id}
         >
-          <div>{subscription.email}</div>
+          <div className="text-xs">{subscription.email}</div>
           <BaseButton
             content={isSubscribing ? "Processing..." : "Unsubscribe"}
             variant="accent"

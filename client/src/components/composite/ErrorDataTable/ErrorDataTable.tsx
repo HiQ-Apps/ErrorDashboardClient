@@ -129,7 +129,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
       accessorKey: "aggregatedTags",
       cell: (
         info: CellContext<AggregateErrorGroupByMessageResponseData, any>
-      ) => renderTagsCell(info.getValue() as ShortTagType[]),
+      ) => renderTagsCell(info.getValue()),
     },
   ];
 

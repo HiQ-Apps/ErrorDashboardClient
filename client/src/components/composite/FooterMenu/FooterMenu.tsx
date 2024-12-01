@@ -374,6 +374,9 @@ const FooterMenu = () => {
             size="sm"
             onClick={handleBatchMarkAsRead}
             overrideStyles="px-3 mt-2 mx-2"
+            disabled={
+              notifications.length === 0 || unreadNotificationCount === 0
+            }
           />
         </div>
       </DrawerContent>

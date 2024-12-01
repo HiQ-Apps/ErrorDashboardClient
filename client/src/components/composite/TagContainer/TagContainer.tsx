@@ -13,22 +13,17 @@ const TagContainer = ({ tags }: TagContainerProps) => {
         tagKey={tags.tagKey}
         tagValue={tags.tagValue}
         tagColor={tags.tagColor}
-      ></Tag>
+      />
     );
   }
 
   if (tags.length === 1) {
     return (
-      <div className="flex rounded-md border p-2">
-        {tags.map((tag, index) => (
-          <Tag
-            key={index}
-            tagKey={tag.tagKey}
-            tagValue={tag.tagValue}
-            tagColor={tag.tagColor}
-          />
-        ))}
-      </div>
+      <Tag
+        tagKey={tags[0].tagKey}
+        tagValue={tags[0].tagValue}
+        tagColor={tags[0].tagColor}
+      />
     );
   } else if (tags.length > 1) {
     return (
