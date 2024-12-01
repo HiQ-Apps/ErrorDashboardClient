@@ -5,7 +5,7 @@ import { FaListUl } from "react-icons/fa";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Card } from "components/ui/card";
-import { Sheet, SheetTrigger, SheetContent } from "components/ui/sheet";
+import { Sheet, SheetContent } from "components/ui/sheet";
 
 import {
   useGetNamespaceAlertsByNamespaceIdQuery,
@@ -60,12 +60,34 @@ const NamespaceAlertDataTable = ({
     header: key,
     accessorKey: key,
     cell: (info) => {
-      const value = info.getValue();
-      return (
-        <div className="text-xs text-center" key={key}>
-          {String(value)}
-        </div>
-      );
+      let value = info.getValue();
+      if (value === null || value === undefined) {
+        value = "_";
+      }
+
+      if (
+        key === "timeWindow" ||
+        key === "unresolvedTimeThreshold" ||
+        key === "rateTimeWindow"
+      ) {
+        return (
+          <div className="text-xs text-center" key={key}>
+            {String(value) + " ms"}
+          </div>
+        );
+      } else if (key === "rateThreshold") {
+        return (
+          <div className="text-xs text-center" key={key}>
+            {String(value) + "%"}
+          </div>
+        );
+      } else {
+        return (
+          <div className="text-xs text-center" key={key}>
+            {String(value)}
+          </div>
+        );
+      }
     },
   }));
 

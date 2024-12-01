@@ -29,6 +29,8 @@ export type PaginationWithId = {
   limit?: number;
 };
 
+export type Pagination = Omit<PaginationWithId, "id">;
+
 export type SidebarLink = {
   name: string;
   path: string;

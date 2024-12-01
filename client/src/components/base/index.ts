@@ -9,6 +9,7 @@ import { Label } from "./Label/Label";
 import LoadingCard from "./LoadingCard/LoadingCard";
 import LogTable from "./LogTable/LogTable";
 import Modal from "./Modal/Modal";
+import NewIcon from "./NewIcon/NewIcon";
 import NotificationMagnifyingGlass from "./NotificationMagnifyingGlass/NotificationMagnifyingGlass";
 import Sidebar from "./Sidebar/Sidebar";
 import StatusDot from "./StatusDot/StatusDot";
@@ -27,6 +28,7 @@ export {
   LoadingCard,
   LogTable,
   Modal,
+  NewIcon,
   NotificationMagnifyingGlass,
   Sidebar,
   StatusDot,

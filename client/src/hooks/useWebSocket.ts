@@ -31,7 +31,6 @@ export const useWebSocket = <T>(url: string | undefined) => {
 
     socket.onerror = (error) => {
       setConnectionError("WebSocket connection error");
-      console.error("WebSocket error:", error);
     };
 
     return () => {

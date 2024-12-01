@@ -10,6 +10,7 @@ interface CustomInputProps {
   placeholder?: string;
   type: string;
   name: string;
+  max?: number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -22,6 +23,7 @@ const CustomInput = ({
   placeholder = "",
   type,
   name,
+  max,
   onChange,
 }: CustomInputProps) => {
   return (
@@ -35,6 +37,7 @@ const CustomInput = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      max={max}
       className={`border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50 ${overrideStyles}`}
     />
   );
