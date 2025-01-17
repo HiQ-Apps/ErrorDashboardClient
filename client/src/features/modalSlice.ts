@@ -10,6 +10,7 @@ interface ModalState {
     | "login"
     | "registration"
     | "createTag"
+    | "mobileWarning"
     | "namespaceInviteUser";
 }
 
@@ -32,6 +33,7 @@ const modalSlice = createSlice({
           | "login"
           | "registration"
           | "createTag"
+          | "mobileWarning"
           | "namespaceInviteUser";
       }>
     ) => {

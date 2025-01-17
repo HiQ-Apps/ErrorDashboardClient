@@ -437,10 +437,11 @@ const CreateNamespaceAlertForm = () => {
                 <div>
                   <Label htmlFor="rateThreshold" text="Rate threshold:" />
                   <Input
-                    type="number"
+                    type="range"
                     name="rateThreshold"
                     value={form.rateThreshold || Number()}
                     onChange={handleChange}
+                    max={100}
                   />
                   {errors.errorMessages.rateThreshold && (
                     <span className="text-error text-sm">
