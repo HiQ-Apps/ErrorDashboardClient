@@ -1,5 +1,10 @@
 import { FormEvent, MouseEvent } from "react";
 
+export type ServerError = {
+  status: number;
+  data: string;
+};
+
 export type Id = {
   id: string;
 };

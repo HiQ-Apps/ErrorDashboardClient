@@ -196,6 +196,9 @@ const CreateNamespaceAlertForm = () => {
           <div className="flex flex-col w-full h-full space-y-2">
             <div>
               <Label htmlFor="alertBy" text="Search by specific column:" />
+              <div className="text-xs">
+                Choose a specific column to search for errors in the namespace.
+              </div>
               <Select
                 value={selectedAlertByChoice}
                 onValueChange={(value: AlertChoices) => {
@@ -360,6 +363,10 @@ const CreateNamespaceAlertForm = () => {
             )}
             <div>
               <Label htmlFor="rateType" text="Select trigger rate:" />
+              <div className="text-xs">
+                Choose a threshold-based limit at which the alert should be
+                triggered.
+              </div>
               <Select
                 value={camelToTitleCase(selectedRateType)}
                 onValueChange={(value: RateType) => {
@@ -375,10 +382,15 @@ const CreateNamespaceAlertForm = () => {
                 </SelectContent>
               </Select>
             </div>
+
             {selectedRateType == "Count" && (
               <div className="flex flex-col space-y-2">
                 <div>
                   <Label htmlFor="countThreshold" text="Count threshold:" />
+                  <div className="text-xs">
+                    The count threshold should be the number of errors that
+                    occur in the time window you set before the alert triggers.
+                  </div>
                   <Input
                     type="number"
                     name="countThreshold"
@@ -393,6 +405,10 @@ const CreateNamespaceAlertForm = () => {
                 </div>
                 <div className="flex flex-col">
                   <Label htmlFor="timeWindow" text="Time window:" />
+                  <div className="text-xs">
+                    The time window in which the count of error occurance is
+                    calculated.
+                  </div>
                   <div className="flex flex-row justify-center items-center space-x-8">
                     <Input
                       type="number"
@@ -435,7 +451,15 @@ const CreateNamespaceAlertForm = () => {
             {selectedRateType == "Rate" && (
               <div className="flex flex-col space-y-2">
                 <div>
-                  <Label htmlFor="rateThreshold" text="Rate threshold:" />
+                  <Label
+                    htmlFor="rateThreshold"
+                    text={`Rate threshold: ${form.rateThreshold || 0}%`}
+                  />
+                  <div className="text-xs">
+                    The rate threshold should be calculated based off the rate
+                    of error occurance in the time window you set before the
+                    alert triggers.
+                  </div>
                   <Input
                     type="range"
                     name="rateThreshold"
@@ -451,6 +475,10 @@ const CreateNamespaceAlertForm = () => {
                 </div>
                 <div className="flex flex-col">
                   <Label htmlFor="rateTimeWindow" text="Rate time window:" />
+                  <div className="text-xs">
+                    The time window in which the rate of error occurance is
+                    calculated.
+                  </div>
                   <div className="flex flex-row justify-center items-center space-x-8">
                     <Input
                       type="number"

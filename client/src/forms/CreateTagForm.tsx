@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { type FormEvent, useEffect, useState } from "react";
-import { Input, Label, BaseButton } from "components/base";
 import { useToast } from "components/ui/use-toast";
 
+import { Input, Label, BaseButton } from "components/base";
 import { createTagSchema, type CreateTagSchema } from "schemas/createTagSchema";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { useCreateTagMutation } from "features/tagApiSlice";

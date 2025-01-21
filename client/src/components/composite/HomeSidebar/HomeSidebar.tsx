@@ -1,16 +1,25 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import BaseButton from "components/base/Button/Button";
 import Sidebar from "components/base/Sidebar/Sidebar";
-import { selectUserProfile } from "features/authSlice";
+import { selectUserProfile, selectIsAuthenticated } from "features/authSlice";
 import { selectIsOpen } from "features/sidebarSlice";
+import { Modal } from "components/base";
+import CreateFeatureRequestForm from "forms/CreateFeatureRequestForm";
 
 const HomeSidebar = () => {
   const navigate = useNavigate();
   const userProfile = useSelector(selectUserProfile);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const isOpen = useSelector(selectIsOpen);
+  const [featureRequestModalOpen, setFeatureRequestModalOpen] =
+    useState<boolean>(false);
+
+  const handleFeatureRequestClick = () => {
+    setFeatureRequestModalOpen((prev) => !prev);
+  };
 
   const handleDonateClick = () => {
     window.open(
@@ -85,16 +94,31 @@ const HomeSidebar = () => {
     },
   ];
 
-  if (userProfile?.role === "admin") {
+  if (isAuthenticated) {
+    if (userProfile?.role === "admin") {
+      links.push({
+        name: "Admin Console",
+        path: "/admin/console",
+        component: (
+          <BaseButton
+            size="sm"
+            content="Admin Console"
+            variant="sidenavbutton"
+            onClick={handleAdminClick}
+          />
+        ),
+      });
+    }
+
     links.push({
-      name: "Admin Console",
-      path: "/admin/console",
+      name: "Request Feature",
+      path: "/",
       component: (
         <BaseButton
           size="sm"
-          content="Admin Console"
+          content="Request Feature"
           variant="sidenavbutton"
-          onClick={handleAdminClick}
+          onClick={handleFeatureRequestClick}
         />
       ),
     });
@@ -103,6 +127,13 @@ const HomeSidebar = () => {
   return (
     <div className="relative">
       <Sidebar isOpen={isOpen} header="Home" links={links} />
+      <Modal
+        header="Request Feature"
+        content={<CreateFeatureRequestForm />}
+        open={featureRequestModalOpen}
+        onClose={handleFeatureRequestClick}
+        showConfirmButtons={false}
+      />
     </div>
   );
 };

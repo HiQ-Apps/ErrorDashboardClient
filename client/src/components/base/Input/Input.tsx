@@ -53,7 +53,7 @@ const CustomInput = ({
       value={value}
       onChange={handleChange}
       max={max}
-      className={`border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50 ${overrideStyles}`}
+      className={`border mt-1 px-2 block w-full rounded-md shadow-sm ${overrideStyles}`}
     />
   );
 };
