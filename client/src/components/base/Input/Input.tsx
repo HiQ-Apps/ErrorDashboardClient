@@ -26,6 +26,21 @@ const CustomInput = ({
   max,
   onChange,
 }: CustomInputProps) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (type === "number" && max !== undefined) {
+      const numberValue = parseInt(inputValue, 10);
+      if (numberValue > max) {
+        e.target.value = max.toString();
+      }
+    }
+
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
   return (
     <Input
       id={id}
@@ -36,9 +51,9 @@ const CustomInput = ({
       name={name}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       max={max}
-      className={`border mt-1 px-2 block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-50 ${overrideStyles}`}
+      className={`border mt-1 px-2 block w-full rounded-md shadow-sm ${overrideStyles}`}
     />
   );
 };

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectIsDark } from "features/darkSlice";
 
 // Components
-import { Navbar, Footer } from "components/composite";
+import { Navbar, Footer, SizeAlertModal } from "components/composite";
 import { Toaster } from "components/ui/toaster";
 
 // Routes
@@ -37,6 +37,7 @@ const App = () => {
     <div className="flex flex-col h-full justify-center items-center dark:bg-slate-800">
       <TooltipProvider>
         <ModalHandlerProvider>
+          <SizeAlertModal />
           <Navbar />
           <Routes>
             <Route path="/*" element={<BaseRoutes />} />

@@ -82,7 +82,7 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen((prev) => !prev);
   };
 
   const closeMenu = () => {

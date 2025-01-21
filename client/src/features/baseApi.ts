@@ -28,6 +28,7 @@ export const baseApi = createApi({
     "NamespaceMembers",
     "UserNamespaceRole",
     "Notifications",
+    "FeatureRequests",
   ],
 });
 

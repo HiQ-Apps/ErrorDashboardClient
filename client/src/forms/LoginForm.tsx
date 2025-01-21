@@ -13,6 +13,8 @@ import { useLoginMutation } from "features/userApiSlice";
 import { type LoginSchema, loginSchema } from "schemas/loginSchema";
 import useForm from "hooks/useForm";
 import { useToast } from "components/ui/use-toast";
+import type { ServerError } from "shared/types/extra";
+import { parseServerError } from "shared/utils/parseString";
 
 interface LoginFormProps {
   onClose: () => void;
@@ -37,10 +39,12 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         dispatch(setUser(data.user));
         dispatch(setProfile(data.userProfile));
         dispatch(setIsAuthenticated(true));
-      } catch (err) {
+      } catch (error) {
+        const err = error as ServerError;
+        const message = parseServerError(err);
         toast({
           title: "Failed to Login",
-          description: JSON.stringify(err),
+          description: message,
         });
       }
     }

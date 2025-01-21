@@ -10,6 +10,18 @@ import {
 import { SiMozilla } from "react-icons/si";
 import { BiLogoFirefox } from "react-icons/bi";
 import { IconType } from "react-icons";
+import type { ServerError } from "shared/types/extra";
+
+export const parseServerError = (error: ServerError) => {
+  try {
+    let errorMessage = JSON.stringify(error.data);
+    errorMessage = errorMessage.replace(/^"|"$/g, "");
+    const message = errorMessage.split(":")[1];
+    return message;
+  } catch (err) {
+    return "Unable to parse error message";
+  }
+};
 
 export const formatHeader = (key: string): string => {
   return key
