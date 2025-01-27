@@ -83,11 +83,6 @@ const NamespaceDataTable = () => {
     }
   }, [deleteError, toast]);
 
-  const handleRowClick = (row: Row<GetUserNamespacesData>) => {
-    const id = row.original.id;
-    navigate(`/namespace/${id}`);
-  };
-
   const handleDelete = async (id: string) => {
     registerHandler(
       async (password: VerifyUserRequest) => {
@@ -174,11 +169,7 @@ const NamespaceDataTable = () => {
           namespaceRefetch();
         }}
       />
-      <DataTable
-        data={namespaceData}
-        columns={columns}
-        onRowClick={handleRowClick}
-      />
+      <DataTable data={namespaceData} columns={columns} />
       <ConfirmationModal />
     </div>
   );

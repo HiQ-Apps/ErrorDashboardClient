@@ -24,6 +24,7 @@ import { camelToTitleCase } from "shared/utils/parseString";
 import type { AlertMethod } from "types/NamespaceAlert";
 import type { TimeUnits } from "shared/types/extra";
 import { exchangeTimeFormatToMilliseconds } from "shared/utils/Date";
+import { Textarea } from "components/ui/textarea";
 
 type AlertChoices = "path" | "line" | "message" | "stackTrace";
 type RateType = "Count" | "Rate";
@@ -223,7 +224,7 @@ const CreateNamespaceAlertForm = () => {
 
             {selectedAlertByChoice == "path" && (
               <div>
-                <Label htmlFor="path" text={"Filter by path:"} />
+                <Label htmlFor="path" text="Filter by path:" />
                 <Select
                   onValueChange={(value: string) => {
                     handleSelectChange(value);
@@ -242,9 +243,8 @@ const CreateNamespaceAlertForm = () => {
                     <SelectItem value="custom" />
                   </SelectContent>
                 </Select>
-                <Input
+                <Textarea
                   disabled={customTrigger}
-                  type="text"
                   name="path"
                   value={form.path || ""}
                   onChange={handleChange}
@@ -274,7 +274,7 @@ const CreateNamespaceAlertForm = () => {
                         {errorMeta === "" ? "No Value" : errorMeta}
                       </SelectItem>
                     ))}
-                    <SelectItem value="custom" />
+                    <SelectItem value="custom">Custom</SelectItem>
                   </SelectContent>
                 </Select>
                 <Input
@@ -309,12 +309,11 @@ const CreateNamespaceAlertForm = () => {
                         {errorMeta === "" ? "No Value" : errorMeta}
                       </SelectItem>
                     ))}
-                    <SelectItem value="custom" />
+                    <SelectItem value="custom">Custom</SelectItem>
                   </SelectContent>
                 </Select>
-                <Input
+                <Textarea
                   disabled={customTrigger}
-                  type="text"
                   name="message"
                   value={form.message || ""}
                   onChange={handleChange}
@@ -347,9 +346,8 @@ const CreateNamespaceAlertForm = () => {
                     <SelectItem value="custom">Custom</SelectItem>
                   </SelectContent>
                 </Select>
-                <Input
+                <Textarea
                   disabled={customTrigger}
-                  type="text"
                   name="stackTrace"
                   value={form.stackTrace || ""}
                   onChange={handleChange}
