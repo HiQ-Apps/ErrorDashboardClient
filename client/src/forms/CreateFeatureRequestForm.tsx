@@ -2,6 +2,7 @@ import { type FormEvent } from "react";
 import { useToast } from "components/ui/use-toast";
 
 import { Input, Label, BaseButton } from "components/base";
+import { Textarea } from "components/ui/textarea";
 import {
   createFeatureRequestSchema,
   type CreateFeatureRequestSchema,
@@ -57,11 +58,11 @@ const CreateFeatureRequestForm = () => {
           </span>
         )}
         <Label htmlFor="description" text="Description" />
-        <Input
-          type="text"
+        <Textarea
           name="description"
           value={form.description}
           onChange={handleChange}
+          placeholder="Describe your feature request here"
         />
         {errors.errorMessages.description && (
           <span className="text-error text-sm">

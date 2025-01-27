@@ -6,7 +6,12 @@ const releaseData = [
   {
     version: "HiGuard 0.3.1",
     date: "January 19th, 2025",
-    changes: ["Updated alert form UI", "Added request feature form"],
+    changes: [
+      "Updated alert form UI",
+      "Added request feature form",
+      "Added minor alerts for user actions",
+      "Added rate limits to services",
+    ],
   },
   {
     version: "Higuard 0.3.0",

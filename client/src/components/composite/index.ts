@@ -43,6 +43,7 @@ import UserSidebar from "./UserSidebar/UserSidebar";
 import AdminSection from "./AdminSection/AdminSection";
 import AdminNamespaceDataTable from "./AdminNamespaceDataTable/AdminNamespaceDataTable";
 import AdminUserDataTable from "./AdminUserDataTable/AdminUserDataTable";
+import FeatureDataTable from "./FeatureDataTable/FeatureDataTable";
 
 export {
   AboutSection,
@@ -64,6 +65,7 @@ export {
   ErrorPieChart,
   ErrorSidebar,
   DocumentationSidebar,
+  FeatureDataTable,
   FooterMenu,
   Footer,
   GettingStartedCard,

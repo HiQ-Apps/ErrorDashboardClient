@@ -39,19 +39,20 @@ const useForm = <T extends Record<string, any>>(
   ) => {
     const { name, value } = event.target;
 
+    let updatedValue: any = value;
+
     if (event.target instanceof HTMLInputElement) {
       const { type } = event.target;
-
-      let updatedValue: any = value;
 
       if (type === "number") {
         updatedValue = value === "" ? undefined : Number(value);
       }
-      setForm((formData) => ({
-        ...formData,
-        [name]: updatedValue || value,
-      }));
     }
+
+    setForm((formData) => ({
+      ...formData,
+      [name]: updatedValue || value,
+    }));
   };
 
   const resetForm = () => {

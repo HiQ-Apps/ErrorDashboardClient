@@ -112,7 +112,7 @@ const HomeSidebar = () => {
 
     links.push({
       name: "Request Feature",
-      path: "/",
+      path: "None",
       component: (
         <BaseButton
           size="sm"
