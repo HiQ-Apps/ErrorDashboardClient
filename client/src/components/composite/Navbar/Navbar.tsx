@@ -13,6 +13,7 @@ import {
   selectModalType,
   selectIsOpen,
 } from "features/modalSlice";
+import { PiBugBeetleFill } from "react-icons/pi";
 import { selectIsDark, toggleDark } from "features/darkSlice";
 import { Modal, BaseButton } from "components/base";
 import LoginForm from "forms/LoginForm";
@@ -21,6 +22,7 @@ import { useToast } from "components/ui/use-toast";
 import EmailForm from "forms/EmailForm";
 import { useLogoutMutation } from "features/userApiSlice";
 import { Tooltip, TooltipTrigger, TooltipContent } from "components/ui/tooltip";
+import CreateBugReportForm from "forms/CreateBugReportForm";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -49,6 +51,14 @@ const Navbar = () => {
     dispatch(
       openModal({
         modalType: "login",
+      })
+    );
+  };
+
+  const handleBugReportModalClick = () => {
+    dispatch(
+      openModal({
+        modalType: "bugReport",
       })
     );
   };
@@ -180,6 +190,12 @@ const Navbar = () => {
           variant="navbutton"
           overrideStyles="p-2"
         />
+        <BaseButton
+          content={<PiBugBeetleFill />}
+          onClick={handleBugReportModalClick}
+          overrideStyles="p-2 hover:text-red-500"
+          variant="navbutton"
+        />
       </div>
 
       {menuOpen && (
@@ -212,6 +228,7 @@ const Navbar = () => {
             }}
             variant="navbutton"
           />
+
           {isAuthenticated ? (
             <>
               <BaseButton
@@ -271,6 +288,12 @@ const Navbar = () => {
             variant="navbutton"
             overrideStyles="p-2"
           />
+          <BaseButton
+            content={<div>Hello</div>}
+            onClick={handleBugReportModalClick}
+            overrideStyles="p-2"
+            variant="navbutton"
+          />
         </div>
       </div>
 
@@ -309,6 +332,13 @@ const Navbar = () => {
         header="Register"
         content={<RegistrationForm onClose={handleCloseModalClick} />}
         open={isOpen && modalType === "registration"}
+        onClose={handleCloseModalClick}
+        showConfirmButtons={false}
+      />
+      <Modal
+        header="Bug Report"
+        content={<CreateBugReportForm />}
+        open={isOpen && modalType === "bugReport"}
         onClose={handleCloseModalClick}
         showConfirmButtons={false}
       />

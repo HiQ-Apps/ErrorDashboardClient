@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import type { ColumnDef, Row, RowData } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   useGetNamespacesByUserQuery,
   useDeleteNamespaceByIdMutation,
@@ -130,8 +130,11 @@ const NamespaceDataTable = () => {
         <div
           key={key}
           className={
-            "p-2 align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+            "w-full h-full flex align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
           }
+          onClick={() => {
+            navigate(`/namespace/${info.row.original.id}`);
+          }}
         >
           {isBoolean ? renderBooleanCell(value) : String(value)}
         </div>
