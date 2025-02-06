@@ -2,6 +2,7 @@ export type BugReport = {
   id: number;
   issue: string;
   description: string;
+  status: string;
   createdAt: string;
 };
 

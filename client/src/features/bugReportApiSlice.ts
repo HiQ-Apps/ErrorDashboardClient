@@ -1,5 +1,5 @@
 import { baseApi } from "features/baseApi";
-import type { CreateBugReport } from "types/BugReport";
+import type { CreateBugReport, BugReport } from "types/BugReport";
 
 export const bugReportSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,7 +11,14 @@ export const bugReportSlice = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["BugReports"],
     }),
+    getBugReport: builder.query<BugReport[], void>({
+      query: () => ({
+        url: `/bug-report/`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateBugReportMutation } = bugReportSlice;
+export const { useCreateBugReportMutation, useGetBugReportQuery } =
+  bugReportSlice;

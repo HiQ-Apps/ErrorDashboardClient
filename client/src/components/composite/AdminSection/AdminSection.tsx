@@ -1,6 +1,7 @@
 import {
   AdminNamespaceDataTable,
   AdminUserDataTable,
+  BugReportDataTable,
   FeatureDataTable,
 } from "components/composite";
 
@@ -13,6 +14,8 @@ const AdminSection = () => {
       <AdminUserDataTable />
       <h1>Feature requests</h1>
       <FeatureDataTable />
+      <h1>Bug reports</h1>
+      <BugReportDataTable />
     </div>
   );
 };

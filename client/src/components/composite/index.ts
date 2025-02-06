@@ -44,6 +44,7 @@ import AdminSection from "./AdminSection/AdminSection";
 import AdminNamespaceDataTable from "./AdminNamespaceDataTable/AdminNamespaceDataTable";
 import AdminUserDataTable from "./AdminUserDataTable/AdminUserDataTable";
 import FeatureDataTable from "./FeatureDataTable/FeatureDataTable";
+import BugReportDataTable from "./BugReportDataTable/BugReportDataTable";
 
 export {
   AboutSection,
@@ -52,6 +53,7 @@ export {
   AdminUserDataTable,
   AggregateErrorSheet,
   BarGraphCard,
+  BugReportDataTable,
   ChangeLogCard,
   ColorSelector,
   colorList,
