@@ -176,8 +176,28 @@ const CreateNamespaceAlertForm = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="email">Email</SelectItem>
+            <SelectItem value="discord">Discord</SelectItem>
           </SelectContent>
         </Select>
+
+        <Label htmlFor="discordChannelId" text="Discord channel id:" />
+        <Input
+          type="number"
+          name="discordChannelId"
+          value={form.discordChannelId || Number()}
+          onChange={handleChange}
+          disabled={selectedAlertMethod !== "discord"}
+          overrideStyles="
+            [&::-webkit-inner-spin-button]:appearance-none
+            [&::-webkit-outer-spin-button]:appearance-none
+            [-moz-appearance:textfield]
+          "
+        />
+        {errors.errorMessages.discordChannelId && (
+          <span className="text-error text-sm">
+            {errors.errorMessages.discordChannelId}
+          </span>
+        )}
       </div>
 
       <Label htmlFor="alert-strategy" text="Alert Strategy" />

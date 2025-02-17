@@ -46,11 +46,7 @@ const BugReportDataTable = () => {
     })
   );
 
-  return (
-    <div>
-      <DataTable columns={columns} data={bugReportData} />
-    </div>
-  );
+  return <DataTable columns={columns} data={bugReportData} />;
 };
 
 export default BugReportDataTable;

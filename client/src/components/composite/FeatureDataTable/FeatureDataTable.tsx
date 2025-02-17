@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "components/ui/use-toast";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -19,6 +20,15 @@ const FeatureDataTable = () => {
     error,
   } = useGetAllFeatureRequestsQuery();
 
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error fetching feature requests",
+        description: JSON.stringify(error),
+      });
+    }
+  }, [error]);
+
   if (!featureRequests || featureRequests.length === 0) {
     return <div>No feature requests found.</div>;
   }
@@ -33,11 +43,7 @@ const FeatureDataTable = () => {
     },
   }));
 
-  return (
-    <div>
-      <DataTable columns={columns} data={featureRequests} />
-    </div>
-  );
+  return <DataTable columns={columns} data={featureRequests} />;
 };
 
 export default FeatureDataTable;

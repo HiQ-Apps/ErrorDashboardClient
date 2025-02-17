@@ -32,11 +32,15 @@ const HomeSidebar = () => {
   };
 
   const handleTermsOfServiceClick = () => {
-    navigate("/termsofservice");
+    navigate("/terms-of-service");
   };
 
   const handleReleasesClick = () => {
     navigate("/releases");
+  };
+
+  const handlePrivacyPolicyClick = () => {
+    navigate("/privacy-policy");
   };
 
   const handleAdminClick = () => {
@@ -65,6 +69,18 @@ const HomeSidebar = () => {
           content="Terms of Service"
           variant="sidenavbutton"
           onClick={handleTermsOfServiceClick}
+        />
+      ),
+    },
+    {
+      name: "Privacy Policy",
+      path: "/privacy-policy",
+      component: (
+        <BaseButton
+          size="sm"
+          content="Privacy Policy"
+          variant="sidenavbutton"
+          onClick={handlePrivacyPolicyClick}
         />
       ),
     },
