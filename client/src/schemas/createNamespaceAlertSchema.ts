@@ -3,7 +3,7 @@ import { z } from "zod";
 export const createNamespaceAlertSchema = z.object({
   namespaceId: z.string(),
   alertMethod: z.enum(["email", "slack", "discord"]),
-  discordChannelId: z.number().optional(),
+  discordChannelId: z.string().optional(),
   path: z.string().optional(),
   line: z.number().optional(),
   message: z.string().optional(),
@@ -11,7 +11,7 @@ export const createNamespaceAlertSchema = z.object({
   countThreshold: z.number().optional(),
   timeWindow: z.number().optional(),
   unresolvedTimeThreshold: z.number().optional(),
-  rateThreshold: z.number().optional(),
+  rateThreshold: z.number().min(0).max(100).optional(),
   rateTimeWindow: z.number().optional(),
 });
 

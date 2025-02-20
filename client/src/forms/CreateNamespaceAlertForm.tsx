@@ -130,6 +130,7 @@ const CreateNamespaceAlertForm = () => {
 
         updateFormAlterChoiceFields(selectedAlertByChoice);
         await createNamespaceAlert(updated_form).unwrap();
+        console.log(form);
         resetForm();
       } catch (err) {
         console.error("Failed to create namespace alert:", err);
@@ -167,9 +168,11 @@ const CreateNamespaceAlertForm = () => {
         <Label htmlFor="alertMethod" text="Select an alert method:" />
         <Select
           value={selectedAlertMethod}
-          onValueChange={(value: string) =>
-            setSelectedAlertMethod(value as AlertMethod)
-          }
+          defaultValue="email"
+          onValueChange={(value: string) => {
+            setForm((prev) => ({ ...prev, alertMethod: value as AlertMethod }));
+            setSelectedAlertMethod(value as AlertMethod);
+          }}
         >
           <SelectTrigger>
             <SelectValue>{camelToTitleCase(selectedAlertMethod)}</SelectValue>
@@ -182,16 +185,11 @@ const CreateNamespaceAlertForm = () => {
 
         <Label htmlFor="discordChannelId" text="Discord channel id:" />
         <Input
-          type="number"
+          type="text"
           name="discordChannelId"
-          value={form.discordChannelId || Number()}
+          value={form.discordChannelId || ""}
           onChange={handleChange}
           disabled={selectedAlertMethod !== "discord"}
-          overrideStyles="
-            [&::-webkit-inner-spin-button]:appearance-none
-            [&::-webkit-outer-spin-button]:appearance-none
-            [-moz-appearance:textfield]
-          "
         />
         {errors.errorMessages.discordChannelId && (
           <span className="text-error text-sm">
