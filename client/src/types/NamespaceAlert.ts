@@ -4,6 +4,7 @@ export type NamespaceAlert = {
   id: string;
   namespaceId: string;
   alertMethod: AlertMethod;
+  discordChannelId: string;
   path: string;
   line: number;
   message: string;

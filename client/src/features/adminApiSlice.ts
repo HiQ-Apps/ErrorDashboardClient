@@ -1,4 +1,5 @@
 import { baseApi } from "features/baseApi";
+import { FeatureRequest } from "types/FeatureRequest";
 
 import type { ShortNamespaceData } from "types/Namespace";
 import type { VerifyUserRequest, UserAdminData } from "types/User";

@@ -212,6 +212,7 @@ const Navbar = () => {
             }}
             variant="navbutton"
           />
+
           {isAuthenticated ? (
             <>
               <BaseButton

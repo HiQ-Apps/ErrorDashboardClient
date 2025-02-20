@@ -10,9 +10,10 @@ const BaseRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/termsofservice" element={<TermsOfServices />} />
+      <Route path="/terms-of-service" element={<TermsOfServices />} />
       <Route path="/releases" element={<Releases />} />
       <Route path="/forget-password/:id" element={<ResetPassword />} />
+      <Route path="/privacy-policy" element={<About />} />
     </Routes>
   );
 };

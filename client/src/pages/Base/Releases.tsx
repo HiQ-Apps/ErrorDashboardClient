@@ -4,7 +4,12 @@ import { usePageDimensions } from "hooks/usePageDimensions";
 
 const releaseData = [
   {
-    version: "HiGuard 0.3.1",
+    version: "HiGuard 0.3.6",
+    date: "February 1st, 2025",
+    changes: ["Added bug reporting feature"],
+  },
+  {
+    version: "HiGuard 0.3.5",
     date: "January 19th, 2025",
     changes: [
       "Updated alert form UI",

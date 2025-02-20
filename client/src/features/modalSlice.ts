@@ -5,6 +5,7 @@ interface ModalState {
   isOpen: boolean;
   isLoading?: boolean;
   modalType?:
+    | "bugReport"
     | "createNamespace"
     | "confirmation"
     | "login"
@@ -28,11 +29,12 @@ const modalSlice = createSlice({
       state,
       action: PayloadAction<{
         modalType:
-          | "createNamespace"
+          | "bugReport"
           | "confirmation"
+          | "createNamespace"
+          | "createTag"
           | "login"
           | "registration"
-          | "createTag"
           | "mobileWarning"
           | "namespaceInviteUser";
       }>
