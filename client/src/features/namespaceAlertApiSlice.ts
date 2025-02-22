@@ -69,6 +69,13 @@ export const namespaceAlertSlice = baseApi.injectEndpoints({
       }),
       providesTags: ["AlertSubscribers"],
     }),
+    resetTriggeredAlert: builder.mutation<void, string>({
+      query: (id: string) => ({
+        url: `/alert/${id}/reset-trigger`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["NamespaceAlerts", "UserAlerts"],
+    }),
   }),
 });
 
@@ -80,4 +87,5 @@ export const {
   useDeleteNamespaceAlertByIdMutation,
   useSubscribeToNamespaceAlertsMutation,
   useGetSubscriptionsQuery,
+  useResetTriggeredAlertMutation,
 } = namespaceAlertSlice;
