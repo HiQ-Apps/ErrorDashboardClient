@@ -18,6 +18,7 @@ import { selectUser } from "features/authSlice";
 import { useToast } from "components/ui/use-toast";
 import { NamespaceAlertSubscriptionRequest } from "types/NamespaceAlert";
 import { useGetUserRoleQuery } from "features/namespaceApiSlice";
+import { useResetTriggeredAlertMutation } from "features/namespaceAlertApiSlice";
 import { checkPermission } from "shared/utils/role";
 
 interface NamespaceAlertDataTableProps {
@@ -32,6 +33,7 @@ const NamespaceAlertDataTable = ({
   const [activeAlertId, setActiveAlertId] = useState<string | null>(null);
 
   const [subscribeToAlert] = useSubscribeToNamespaceAlertsMutation();
+  const [resetAlertTrigger] = useResetTriggeredAlertMutation();
 
   const {
     data: alertData,
@@ -65,6 +67,21 @@ const NamespaceAlertDataTable = ({
         value = "_";
       }
 
+      // Add reset trigger button
+      if (key === "triggered") {
+        return (
+          <BaseButton
+            variant="accent"
+            content="Reset Trigger"
+            disabled={value == false}
+            onClick={() => {
+              resetAlertTrigger(info.row.original.id);
+            }}
+          />
+        );
+      }
+
+      // Change time formatting based on key
       if (
         key === "timeWindow" ||
         key === "unresolvedTimeThreshold" ||
@@ -81,6 +98,7 @@ const NamespaceAlertDataTable = ({
             {String(value) + "%"}
           </div>
         );
+      } else if (key === "triggered") {
       } else {
         return (
           <div className="text-xs text-center" key={key}>
