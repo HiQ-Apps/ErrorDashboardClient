@@ -245,7 +245,7 @@ export const UpdateUserProfileForm = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center text-left">
+    <div className="w-full flex flex-col justify-center items-center text-left pb-8">
       <Avatar name={user.username} size="lg" avatarColor={avatarColor} />
       <form className="grid grid-cols-1 gap-6 place-items-center max-w-2xl mx-auto mt-8">
         <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">

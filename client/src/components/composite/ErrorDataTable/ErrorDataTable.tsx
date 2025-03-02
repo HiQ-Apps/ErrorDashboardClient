@@ -69,7 +69,7 @@ const ErrorDataTable = ({ id, setGroupKey }: ErrorDataTableProps) => {
           <PopoverTrigger>
             <DotsHorizontalIcon />
           </PopoverTrigger>
-          <PopoverContent className="w-44 bg-slate-50 dark:bg-slate-900 dark:text-slate-100">
+          <PopoverContent className="w-64 bg-slate-50 dark:bg-slate-900 dark:text-slate-100">
             <TagContainer tags={tags} />
           </PopoverContent>
         </Popover>

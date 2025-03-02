@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
+import { Card } from "components/ui/card";
 import {
   openModal,
   closeModal,
@@ -37,7 +38,7 @@ const Namespaces = () => {
   };
 
   return (
-    <div className="bg-slate-50 text-slate-900 w-full flex flex-row relative dark:bg-slate-800 dark:text-slate-200">
+    <Card className="shadow-none border-none rounded-none text-slate-900 w-full flex flex-row relative">
       <Modal
         header="Create Namespace"
         content={
@@ -69,7 +70,7 @@ const Namespaces = () => {
         />
         <NamespaceDataTable />
       </div>
-    </div>
+    </Card>
   );
 };
 
