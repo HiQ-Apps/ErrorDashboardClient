@@ -6,6 +6,7 @@ import {
   EyeClosedIcon,
   EyeOpenIcon,
   ClipboardCopyIcon,
+  QuestionMarkCircledIcon,
 } from "@radix-ui/react-icons";
 
 import { useModalHandlerContext } from "shared/context/modalHandlerContext";
@@ -13,8 +14,8 @@ import { openModal, closeModal, setIsLoading } from "features/modalSlice";
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
+  useVerifyUserMutation,
 } from "features/userApiSlice";
-import { useVerifyUserMutation } from "features/userApiSlice";
 import { Input, Label, BaseButton, Avatar } from "components/base";
 import {
   updateUserProfileSchema,
@@ -32,7 +33,14 @@ import { formatHeader } from "shared/utils/parseString";
 import useForm from "hooks/useForm";
 import { ColorSelector, ConfirmationModal } from "components/composite";
 import { generateUUID } from "shared/utils/generateUUID";
-import { VerifyUserRequest } from "types/User";
+import type { PhoneProviders, VerifyUserRequest } from "types/User";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "components/ui/select";
 
 export const UpdateUserProfileForm = () => {
   const { id } = useParams();
@@ -60,12 +68,16 @@ export const UpdateUserProfileForm = () => {
 
   const [passVisible, setPassVisible] = useState(false);
   const [avatarColor, setAvatarColor] = useState(userProfile.avatarColor);
+  const [selectedPhoneProvider, setSelectedPhoneProvider] =
+    useState<PhoneProviders>(null);
   const { form, handleChange, setForm, validate, errors } =
     useForm<UpdateUserProfileSchema>(
       {
         id: null,
         firstName: null,
         lastName: null,
+        phoneNumber: null,
+        phoneProvider: selectedPhoneProvider,
         avatarColor: null,
         username: null,
         password: null,
@@ -81,12 +93,21 @@ export const UpdateUserProfileForm = () => {
   }, [avatarColor]);
 
   useEffect(() => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      phoneNumber: null,
+    }));
+  }, [selectedPhoneProvider]);
+
+  useEffect(() => {
     if (initialUserProfile) {
       setForm({
         ...form,
         id: user.id,
         firstName: initialUserProfile.firstName,
         lastName: initialUserProfile.lastName,
+        phoneNumber: initialUserProfile.phoneNumber,
+        phoneProvider: initialUserProfile.phoneProvider as PhoneProviders,
         avatarColor: initialUserProfile.avatarColor,
         username: user.username,
       });
@@ -99,10 +120,10 @@ export const UpdateUserProfileForm = () => {
   ) => {
     event.preventDefault();
     registerHandler(
-      async (password: VerifyUserRequest) => {
+      async (req: VerifyUserRequest) => {
         try {
           dispatch(setIsLoading(true));
-          await verifyUser(password).unwrap();
+          await verifyUser(req.password).unwrap();
           if (validate()) {
             const value = form[fieldName];
             await updateUserProfile({
@@ -146,6 +167,7 @@ export const UpdateUserProfileForm = () => {
     fieldName: keyof UpdateUserProfileSchema
   ) => {
     event.preventDefault();
+
     try {
       if (validate()) {
         const value = form[fieldName];
@@ -166,6 +188,8 @@ export const UpdateUserProfileForm = () => {
               firstName: updatedUserProfile.firstName,
               lastName: updatedUserProfile.lastName,
               avatarColor: updatedUserProfile.avatarColor,
+              phoneNumber: updatedUserProfile.phoneNumber,
+              phoneProvider: updatedUserProfile.phoneProvider,
             })
           );
         }
@@ -221,9 +245,25 @@ export const UpdateUserProfileForm = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center text-left">
+    <div className="w-full flex flex-col justify-center items-center text-left pb-8">
       <Avatar name={user.username} size="lg" avatarColor={avatarColor} />
       <form className="grid grid-cols-1 gap-6 place-items-center max-w-2xl mx-auto mt-8">
+        <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
+          <Label htmlFor="avatarColor" text="Select an Avatar Color:" />
+          <div className="relative col-span-3 flex items-center space-x-2">
+            <ColorSelector
+              selectedColor={avatarColor}
+              setColor={setAvatarColor}
+            />
+            <BaseButton
+              size="sm"
+              content="Update"
+              variant="default"
+              onClick={(e) => handleSubmit(e, "avatarColor")}
+              overrideStyles="my-4 px-3"
+            />
+          </div>
+        </div>
         <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-left">
           <Label htmlFor="password" text="Change Password:" />
           <div className="relative col-span-3 flex items-center space-x-2">
@@ -359,18 +399,78 @@ export const UpdateUserProfileForm = () => {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-center">
-          <Label htmlFor="avatarColor" text="Select an Avatar Color:" />
+        <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-left">
+          <div className="flex flex-row space-x-1 items-center">
+            <Label htmlFor="phoneProvider" text="Service Provider:" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <QuestionMarkCircledIcon className="cursor-pointer" />
+              </TooltipTrigger>
+              <TooltipContent side="left" className="w-48 text-center z-100">
+                <p className="text-xs">
+                  Select your phone service provider to receive SMS alerts if
+                  you desire. You will not be able to receive SMS alerts if you
+                  do not select a provider and enter a phone number.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <div className="relative col-span-3 flex items-center space-x-2">
-            <ColorSelector
-              selectedColor={avatarColor}
-              setColor={setAvatarColor}
-            />
+            <Select
+              name="phoneProvider"
+              onValueChange={(value) => {
+                setSelectedPhoneProvider(
+                  value === "None" ? null : (value as PhoneProviders)
+                );
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a provider">
+                  {selectedPhoneProvider}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="None">None</SelectItem>
+                <SelectItem value="AT&T">AT&T</SelectItem>
+                <SelectItem value="Verizon">Verizon</SelectItem>
+                <SelectItem value="T-Mobile">T-Mobile</SelectItem>
+                <SelectItem value="Sprint">Sprint</SelectItem>
+                <SelectItem value="Boost">Boost</SelectItem>
+                <SelectItem value="MetroPCS">MetroPCS</SelectItem>
+                <SelectItem value="Cricket">Cricket</SelectItem>
+                <SelectItem value="US Cellular">US Cellular</SelectItem>
+              </SelectContent>
+            </Select>
             <BaseButton
               size="sm"
               content="Update"
               variant="default"
-              onClick={(e) => handleSubmit(e, "avatarColor")}
+              onClick={(e) => handleSubmit(e, "phoneProvider")}
+              overrideStyles="my-4 px-3"
+            />
+          </div>
+        </div>
+
+        <div className="w-full grid grid-cols-4 gap-4 items-center align-center text-left">
+          <Label htmlFor="phoneNumber" text="Phone Number:" />
+          <div className="relative col-span-3 flex items-center space-x-2">
+            <Input
+              type="text"
+              name="phoneNumber"
+              value={form.phoneNumber || ""}
+              onChange={handleChange}
+              disabled={!selectedPhoneProvider}
+            />
+            {errors.errorMessages.phoneNumber && (
+              <span className="text-error text-sm">
+                {errors.errorMessages.phoneNumber}
+              </span>
+            )}
+            <BaseButton
+              size="sm"
+              content="Update"
+              variant="default"
+              onClick={(e) => handleSubmit(e, "phoneNumber")}
               overrideStyles="my-4 px-3"
             />
           </div>

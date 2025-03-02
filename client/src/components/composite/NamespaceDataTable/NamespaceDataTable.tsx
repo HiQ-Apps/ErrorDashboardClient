@@ -130,7 +130,7 @@ const NamespaceDataTable = () => {
         <div
           key={key}
           className={
-            "w-full h-full flex align-middle text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
+            "w-full h-full flex align-middle justify-center text-center object-center cursor-pointer dark:text-slate-300 dark:bg-transparent"
           }
           onClick={() => {
             navigate(`/namespace/${info.row.original.id}`);

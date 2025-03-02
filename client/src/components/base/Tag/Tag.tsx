@@ -1,4 +1,6 @@
 import { colorList } from "components/composite";
+import { useSelector } from "react-redux";
+import { selectIsDark } from "features/darkSlice";
 
 interface TagProps {
   tagKey: string;
@@ -7,6 +9,7 @@ interface TagProps {
 }
 
 const Tag = ({ tagKey, tagValue, tagColor }: TagProps) => {
+  const isDark = useSelector(selectIsDark);
   let fontColor;
   for (const color of colorList) {
     if (color.background === tagColor) {
@@ -14,11 +17,18 @@ const Tag = ({ tagKey, tagValue, tagColor }: TagProps) => {
     }
   }
   return (
-    <div
-      className="my-1 mx-6 text-slate-900 flex text-2xs py-1 border border-slate-600 dark:text-slate-200 justify-center text-center text-balance align-center items-center rounded-full"
-      style={{ backgroundColor: tagColor, color: fontColor }}
-    >
-      {tagKey}: {tagValue}
+    <div className="flex flex-row text-2xs text-overflow justify-center items-center align-center mb-2">
+      <p className="border border-slate-500 px-1">{tagKey}</p>
+      <p
+        className="px-1 border"
+        style={{
+          backgroundColor: "slate-100",
+          borderColor: tagColor ? tagColor : isDark ? "slate-100" : "slate-800",
+          color: fontColor ? fontColor : isDark ? "slate-100" : "slate-800",
+        }}
+      >
+        {tagValue}
+      </p>
     </div>
   );
 };

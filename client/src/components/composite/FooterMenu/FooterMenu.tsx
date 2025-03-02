@@ -98,7 +98,7 @@ const FooterMenu = () => {
           ),
         ];
         prevMessagesRef.current = messages;
-        setUnreadNotificationCount(unreadNotificationCount + messages.length);
+        setUnreadNotificationCount((prev) => prev + messages.length);
         setNewNotificationIds((prevIds) => {
           const newIds = new Set(prevIds);
           messages.forEach((msg) => newIds.add(msg.id));
@@ -172,6 +172,8 @@ const FooterMenu = () => {
         });
       }
       setNotifications([]);
+      setUnreadNotificationCount(0);
+      setNewNotificationIds(new Set());
     } catch (error) {
       toast({
         title: "Error marking notifications as read",
