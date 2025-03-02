@@ -35,6 +35,8 @@ const AdminUserDataTable = () => {
       lastName: "",
       role: "",
       avatarColor: "",
+      phoneNumber: "",
+      phoneProvider: null,
       createdAt: "",
       updatedAt: "",
     });

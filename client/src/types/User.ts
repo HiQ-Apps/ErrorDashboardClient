@@ -14,6 +14,8 @@ export type BaseUserProfileDTO = {
   userId: string;
   firstName: Partial<string>;
   lastName: Partial<string>;
+  phoneNumber: Partial<string>;
+  phoneProvider: Partial<PhoneProviders>;
   avatarColor: string;
   role: string;
   createdAt: string;
@@ -54,9 +56,22 @@ export type UpdateUserNamespaceRoleRequest = {
 export type ShortUserProfile = {
   firstName: string;
   lastName: string;
+  phoneNumber: string;
+  phoneProvider: PhoneProviders;
   avatarColor: string;
   role: string;
 };
+
+export type PhoneProviders =
+  | "AT&T"
+  | "Verizon"
+  | "T-Mobile"
+  | "Sprint"
+  | "Boost"
+  | "MetroPCS"
+  | "Cricket"
+  | "US Cellular"
+  | null;
 
 export type ShortUserProfileOpt = Partial<ShortUserProfile>;
 
@@ -65,6 +80,8 @@ export type UpdateUserProfile = {
   firstName: string;
   lastName: string;
   avatarColor: string;
+  phoneNumber: string;
+  phoneProvider: PhoneProviders;
   username: string;
   password: string;
 };
