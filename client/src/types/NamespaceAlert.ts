@@ -1,4 +1,4 @@
-export type AlertMethod = "email" | "discord" | "slack";
+export type AlertMethod = "email" | "discord" | "slack" | "text";
 
 export type NamespaceAlert = {
   id: string;

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const createNamespaceAlertSchema = z.object({
   namespaceId: z.string(),
-  alertMethod: z.enum(["email", "slack", "discord"]),
+  alertMethod: z.enum(["email", "slack", "discord", "text"]),
   discordChannelId: z.string().optional(),
   path: z.string().optional(),
   line: z.number().optional(),
