@@ -128,9 +128,15 @@ const CreateNamespaceAlertForm = () => {
           });
         }
 
+        if (form.alertMethod !== "discord") {
+          setForm((prev) => ({
+            ...prev,
+            discordChannelId: undefined,
+          }));
+        }
+
         updateFormAlterChoiceFields(selectedAlertByChoice);
         await createNamespaceAlert(updated_form).unwrap();
-        console.log(form);
         resetForm();
       } catch (err) {
         console.error("Failed to create namespace alert:", err);
@@ -180,21 +186,26 @@ const CreateNamespaceAlertForm = () => {
           <SelectContent>
             <SelectItem value="email">Email</SelectItem>
             <SelectItem value="discord">Discord</SelectItem>
+            <SelectItem value="text">Text</SelectItem>
           </SelectContent>
         </Select>
 
-        <Label htmlFor="discordChannelId" text="Discord channel id:" />
-        <Input
-          type="text"
-          name="discordChannelId"
-          value={form.discordChannelId || ""}
-          onChange={handleChange}
-          disabled={selectedAlertMethod !== "discord"}
-        />
-        {errors.errorMessages.discordChannelId && (
-          <span className="text-error text-sm">
-            {errors.errorMessages.discordChannelId}
-          </span>
+        {selectedAlertMethod === "discord" && (
+          <>
+            <Label htmlFor="discordChannelId" text="Discord channel id:" />
+            <Input
+              type="text"
+              name="discordChannelId"
+              value={form.discordChannelId || ""}
+              onChange={handleChange}
+              disabled={selectedAlertMethod !== "discord"}
+            />
+            {errors.errorMessages.discordChannelId && (
+              <span className="text-error text-sm">
+                {errors.errorMessages.discordChannelId}
+              </span>
+            )}
+          </>
         )}
       </div>
 

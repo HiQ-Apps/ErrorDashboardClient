@@ -41,6 +41,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "components/ui/select";
+import { set } from "date-fns";
 
 export const UpdateUserProfileForm = () => {
   const { id } = useParams();
@@ -93,10 +94,13 @@ export const UpdateUserProfileForm = () => {
   }, [avatarColor]);
 
   useEffect(() => {
-    setForm((prevForm) => ({
-      ...prevForm,
-      phoneNumber: null,
-    }));
+    if (selectedPhoneProvider === null) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        phoneNumber: null,
+        phoneProvider: selectedPhoneProvider,
+      }));
+    }
   }, [selectedPhoneProvider]);
 
   useEffect(() => {
@@ -112,6 +116,7 @@ export const UpdateUserProfileForm = () => {
         username: user.username,
       });
     }
+    setSelectedPhoneProvider(initialUserProfile?.phoneProvider || null);
   }, [initialUserProfile]);
 
   const handleSubmitWithConfirmation = async (
@@ -425,7 +430,13 @@ export const UpdateUserProfileForm = () => {
               }}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select a provider">
+                <SelectValue
+                  placeholder={
+                    selectedPhoneProvider === null
+                      ? "Select a provider"
+                      : selectedPhoneProvider
+                  }
+                >
                   {selectedPhoneProvider}
                 </SelectValue>
               </SelectTrigger>
