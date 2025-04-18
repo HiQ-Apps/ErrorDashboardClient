@@ -11,6 +11,7 @@ import LogTable from "./LogTable/LogTable";
 import Modal from "./Modal/Modal";
 import NewIcon from "./NewIcon/NewIcon";
 import NotificationMagnifyingGlass from "./NotificationMagnifyingGlass/NotificationMagnifyingGlass";
+import NorthernLightsBanner from "./NorthernLightsBanner/NorthernLightsBanner";
 import Sidebar from "./Sidebar/Sidebar";
 import StatusDot from "./StatusDot/StatusDot";
 import TrashCan from "./TrashCan/TrashCan";
@@ -30,6 +31,7 @@ export {
   Modal,
   NewIcon,
   NotificationMagnifyingGlass,
+  NorthernLightsBanner,
   Sidebar,
   StatusDot,
   Tag,

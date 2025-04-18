@@ -28,6 +28,7 @@ import NamespaceSidebar from "./NamespaceSidebar/NamespaceSidebar";
 import NamespaceTitleCard from "./NamespaceTitleCard/NamespaceTitleCard";
 import Navbar from "./Navbar/Navbar";
 import ParameterSelector from "./ParameterSelector/ParameterSelector";
+import PaymentSubscriptionCard from "./PaymentSubscriptionCard/PaymentSubscriptionCard";
 import PieChartCard from "./GraphCard/PieChartCard";
 import SizeAlertModal from "./SizeAlertModal/SizeAlertModal";
 import SubscriptionList from "./SubscriptionList/SubscriptionList";
@@ -83,6 +84,7 @@ export {
   NamespaceTitleCard,
   Navbar,
   ParameterSelector,
+  PaymentSubscriptionCard,
   PieChartCard,
   SizeAlertModal,
   SubscriptionList,

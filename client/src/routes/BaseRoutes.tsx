@@ -2,9 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import Home from "pages/Base/Home";
 import About from "pages/Base/About";
 import TermsOfServices from "pages/Base/TermsOfServices";
-import Releases from "pages/Base/Releases";
 import ResetPassword from "pages/Base/ResetPassword";
 import PrivacyPolicy from "pages/Base/PrivacyPolicy";
+import Changelog from "pages/Base/Changelog";
 
 const BaseRoutes = () => {
   return (
@@ -12,7 +12,7 @@ const BaseRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/terms-of-service" element={<TermsOfServices />} />
-      <Route path="/releases" element={<Releases />} />
+      <Route path="/changelog" element={<Changelog />} />
       <Route path="/forget-password/:id" element={<ResetPassword />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     </Routes>
