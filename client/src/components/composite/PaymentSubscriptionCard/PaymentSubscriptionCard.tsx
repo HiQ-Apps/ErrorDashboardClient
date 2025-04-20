@@ -24,12 +24,14 @@ const PaymentSubscriptionPlans: SubscriptionPlans = {
         "25 daily alerts",
         "Send alerts via email, discord, and text",
         "Performance metrics",
+        "Error reporting",
+        "SDK access",
       ],
     },
     {
       id: "pro",
       price: 5,
-      interval: "month + usage based",
+      interval: "user / month + usage based",
       features: [
         "50 daily alerts per user",
         "Base features included",
@@ -39,7 +41,7 @@ const PaymentSubscriptionPlans: SubscriptionPlans = {
     {
       id: "team",
       price: 10,
-      interval: "month + usage based",
+      interval: "user / month + usage based",
       features: [
         "100 daily alerts per user",
         "Pro and base features included",
@@ -60,9 +62,11 @@ const PaymentSubscriptionCard = ({
 }: PaymentSubscriptionCardProps) => {
   return (
     <div
-      className="flex m-4 justify-between"
+      className="flex m-4 gap-4 justify-center"
       style={
-        horizontal ? { flexDirection: "row" } : { flexDirection: "column" }
+        horizontal
+          ? { flexDirection: "row", alignItems: "start" }
+          : { flexDirection: "column", alignItems: "center" }
       }
     >
       {PaymentSubscriptionPlans.plans.map((plan) => (

@@ -10,6 +10,7 @@ import RightArrow from "assets/RightArrow.svg";
 import ErrorSheldon from "assets/ErrorSheldon.png";
 import HomeShuttleHero from "assets/HomeShuttleHero.png";
 import MetricManHero from "assets/MetricManHero.png";
+import TripleNamespaceHero from "assets/TripleNamespaceHero.png";
 import CustomizableFormHero from "assets/CustomizableFormHero.png";
 import NotificationMagnifyingGlass from "assets/NotificationMagnifyingGlass.png";
 
@@ -25,6 +26,7 @@ export {
   RightArrow,
   ErrorSheldon,
   HomeShuttleHero,
+  TripleNamespaceHero,
   MetricManHero,
   CustomizableFormHero,
   NotificationMagnifyingGlass,

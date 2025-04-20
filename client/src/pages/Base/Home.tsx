@@ -5,7 +5,12 @@ import { selectIsOpen } from "features/sidebarSlice";
 import { HomeSidebar, HomeAnimation } from "components/composite";
 import { usePageDimensions } from "hooks/usePageDimensions";
 import { PaymentSubscriptionCard } from "components/composite";
-import { MetricManHero } from "assets/index";
+import {
+  MetricManHero,
+  TripleNamespaceHero,
+  CustomizableFormHero,
+} from "assets/index";
+import { LanguageGraphHero } from "components/base";
 
 const Home = () => {
   const { height, width } = usePageDimensions();
@@ -28,8 +33,8 @@ const Home = () => {
         <div className="w-full h-150 flex justify-center bg-teal-100">
           {width > 800 && <HomeAnimation />}
         </div>
-        <div className="flex flex-col w-full justify-center bg-slate-200">
-          <p className="px-8 pt-4 text-slate-900 dark:text-slate-200">
+        <div className="flex flex-col w-full justify-center bg-slate-200 dark:bg-slate-800 py-8">
+          <p className="px-8 pt-4 pb-12 text-slate-900 dark:text-slate-200">
             <span className="text-2xl font-bold text-slate-900 dark:text-slate-200">
               HiGuard
             </span>
@@ -41,16 +46,15 @@ const Home = () => {
               includes basic features and limited usage.
             </span>
           </p>
-          {width > 800 ? (
-            <PaymentSubscriptionCard horizontal={true} subscribable={false} />
-          ) : (
-            <PaymentSubscriptionCard horizontal={false} subscribable={false} />
-          )}
-          <div className="flex flex-row justify-center items-center bg-teal-800 text-left text-slate-200">
-            {width > 800 && <img src={MetricManHero} className="h-140" />}
-            <div className="flex flex-col py-8 px-4">
-              <div>
-                <p className="text-2xl pl-6">Performance Metrics</p>
+          {/* Namespace Image */}
+          <div className="flex w-full justify-center bg-[#002e36]">
+            <img src={TripleNamespaceHero} className="h-90" />
+          </div>
+          <div className="flex flex-row justify-center items-center bg-teal-800 text-left text-slate-200 h-140 overflow-y-auto">
+            {width > 1700 && <img src={MetricManHero} className="h-140" />}
+            <div className="flex flex-col p-8 h-full">
+              <div className="py-4">
+                <h2 className="text-2xl pl-6">Performance Metrics</h2>
                 <p className="px-8 text-slate-200">
                   We provide performance metrics (Charts!) to enhance
                   observability and monitoring to provide users with a robust
@@ -69,7 +73,7 @@ const Home = () => {
                 </p>
               </div>
               <Separator className="my-4" />
-              <div>
+              <div className="pb-4">
                 <p className="text-2xl px-6 text-slate-200">
                   Real-time Monitoring
                 </p>
@@ -84,13 +88,55 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div>
-            <p>Form Customizability</p>
-            <p>
-              Choose how you want to be alerted. We offer high customizability
-              for our alert patterns to ensure that you are only alerted when
-              you need to be.
-            </p>
+          <div className="flex flex-col">
+            <div className="flex w-full py-8 mb-4 flex-col items-center justify-center">
+              <h2 className="text-2xl pb-4 font-bold">Form Customizability</h2>
+              <p className="text-slate-800 dark:text-slate-200 max-w-140">
+                Choose how you want to be alerted. We offer high customizability
+                for our alert patterns to ensure that you are only alerted when
+                you need to be.
+              </p>
+            </div>
+            <div className="flex w-full justify-center bg-[#005757]">
+              <img src={CustomizableFormHero} className="h-60" />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-row">
+              <div className="flex flex-col p-8 h-[400px] w-full justify-center bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200">
+                <h2 className="text-2xl pb-4 font-bold">Languages Supported</h2>
+                <p>
+                  We currently support Python, Javascript, Typescript and Rust.
+                  We plan on adding more languages in the future. If you would
+                  like to request a specific integration. Please login to your
+                  account and click on the "Request a feature" button!
+                </p>
+              </div>
+              <LanguageGraphHero />
+            </div>
+            <Separator className="bg-slate-400 dark:bg-slate-200" />
+            <div className="flex flex-col w-full justify-center text-center bg-slate-200 text-slate-900 dark:text-slate-200 dark:bg-slate-800">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-200 py-4">
+                Pricing
+              </h2>
+              <p>
+                HiGuard is free for personal use with limited features and
+                usage. Upgrade your namespaces to a paid plan to unlock
+                additional features and usage. Each namespace is billed
+                separately.
+              </p>
+              {width > 1428 ? (
+                <PaymentSubscriptionCard
+                  horizontal={true}
+                  subscribable={false}
+                />
+              ) : (
+                <PaymentSubscriptionCard
+                  horizontal={false}
+                  subscribable={false}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
