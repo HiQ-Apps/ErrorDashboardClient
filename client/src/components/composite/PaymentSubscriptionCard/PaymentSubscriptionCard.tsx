@@ -22,7 +22,7 @@ const PaymentSubscriptionPlans: SubscriptionPlans = {
       interval: "month",
       features: [
         "25 daily alerts",
-        "Send alerts via email, discord, and text",
+        "Alerts via email, discord and text",
         "Performance metrics",
         "Error reporting",
         "SDK access",
@@ -83,10 +83,10 @@ const PaymentSubscriptionCard = ({
             {plan.features.map((feature, index) => (
               <li
                 key={index}
-                className="text-sm text-gray-700 flex flex-row items-center space-x-4"
+                className="text-sm flex flex-row items-center space-x-4"
               >
                 <IoCheckmark className="text-green-500" />
-                {feature}
+                <p className="text-slate-600 dark:text-slate-400">{feature}</p>
               </li>
             ))}
           </ul>

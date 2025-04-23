@@ -2,9 +2,13 @@ import { useSelector } from "react-redux";
 import { useRef, useEffect, MutableRefObject } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three-stdlib";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 
 import { selectIsDark } from "features/darkSlice";
+
+interface GraphNode {
+  mesh: THREE.Mesh;
+  label: THREE.Sprite;
+}
 
 const LanguageGraphHero = () => {
   const isDark = useSelector(selectIsDark);
@@ -21,6 +25,8 @@ const LanguageGraphHero = () => {
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setPixelRatio(window.devicePixelRatio);
 
     if (isDark) renderer.setClearColor(0x1e293b, 1);
@@ -32,9 +38,21 @@ const LanguageGraphHero = () => {
     // Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 30);
+    camera.position.set(0, 0, 35);
     // Center camera on the app node (origin)
     camera.lookAt(0, 0, 0);
+
+    // Add light source
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambient);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(0, 10, 10);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 512;
+    directionalLight.shadow.mapSize.height = 512;
+
+    scene.add(directionalLight);
 
     // Orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -51,19 +69,28 @@ const LanguageGraphHero = () => {
     const mouse = new THREE.Vector2();
 
     // Store mesh/label pairs
-    const nodes: { mesh: THREE.Mesh; label: THREE.Sprite }[] = [];
+    const nodes: GraphNode[] = [];
 
     // Central node representing the app
     const centralGeom = new THREE.SphereGeometry(1.4, 48, 48);
-    const centralMat = new THREE.MeshBasicMaterial({ color: 0x098585 });
+    // const centralMat = new THREE.MeshBasicMaterial({ color: 0x098585 });
+    const centralMat = new THREE.MeshPhongMaterial({
+      color: 0x04838f,
+      shininess: 60,
+      specular: 0x444444,
+    });
+
     const centralNode = new THREE.Mesh(centralGeom, centralMat);
+    centralNode.castShadow = true;
+    centralNode.receiveShadow = true;
+
     scene.add(centralNode);
     graphGroup.add(centralNode);
 
     // Peripheral nodes arranged in a circle
-    const peripheralNodes: THREE.Mesh[] = [];
     const radius = 7;
     languages.forEach((lang, i) => {
+      const nodeColor = 0x334155;
       const angle = (i / languages.length) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
@@ -71,12 +98,29 @@ const LanguageGraphHero = () => {
       const z = (Math.random() - 0.5) * 18;
 
       // Node geometry & material
-      const nodeGeom = new THREE.SphereGeometry(1, 32, 32);
-      const nodeMat = new THREE.MeshBasicMaterial({ color: 0x334155 });
+      const nodeGeom = new THREE.SphereGeometry(1, 8, 8);
+      // const nodeMat = new THREE.MeshBasicMaterial({ color: 0x334155 });
+      const nodeMat = new THREE.MeshPhongMaterial({
+        color: 0x024147,
+        shininess: 30,
+        specular: 0x444444,
+      });
+
       const nodeMesh = new THREE.Mesh(nodeGeom, nodeMat);
+      nodeMesh.userData.originalColor = new THREE.Color(nodeColor);
+      nodeMesh.castShadow;
+      nodeMesh.receiveShadow = true;
+
       nodeMesh.position.set(x, y, z);
       graphGroup.add(nodeMesh);
-      peripheralNodes.push(nodeMesh);
+
+      const outlineGeom = new THREE.EdgesGeometry(nodeGeom, Math.PI / 6);
+      const outlineMat = new THREE.LineBasicMaterial({ color: 0x04838f });
+      const outlineMesh = new THREE.LineSegments(outlineGeom, outlineMat);
+      outlineMesh.position.copy(nodeMesh.position);
+      outlineMesh.scale.set(1.05, 1.05, 1.05);
+
+      graphGroup.add(outlineMesh);
 
       // Text label (using CanvasTexture)
       const canvas = document.createElement("canvas");
@@ -88,8 +132,8 @@ const LanguageGraphHero = () => {
       canvas.width = baseWidth * dpr;
       canvas.height = baseHeight * dpr;
       ctx.scale(dpr, dpr);
-      ctx.fillStyle = "black";
-      ctx.font = "48px sans-serif";
+      ctx.fillStyle = isDark ? "white" : "black";
+      ctx.font = "32px sans-serif";
       ctx.textBaseline = "middle";
       ctx.fillText(lang, 20, baseHeight / 2);
 
@@ -107,7 +151,7 @@ const LanguageGraphHero = () => {
 
       const dir2D = new THREE.Vector2(x, y).normalize();
 
-      const offset = 3;
+      const offset = 2;
       label.position.set(x + dir2D.x * offset, y + dir2D.y * offset, z);
 
       label.visible = false;
@@ -119,7 +163,7 @@ const LanguageGraphHero = () => {
       const lineGeom = new THREE.BufferGeometry().setFromPoints(
         points as THREE.Vector3[]
       );
-      const lineMat = new THREE.LineBasicMaterial({ color: "black" });
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x04838f });
       const line = new THREE.Line(lineGeom, lineMat);
       scene.add(line);
       graphGroup.add(line);
@@ -127,37 +171,56 @@ const LanguageGraphHero = () => {
 
     // Mouse move handler
     let previousHovered: THREE.Mesh | null = null;
+    const HOVER_COLOR = 0x04838f;
+
     const onMouseMove = (event: MouseEvent) => {
+      // 1) normalize mouse coords
       const rect = renderer.domElement.getBoundingClientRect();
       mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
 
-      // Reset previous hover scale
-      if (previousHovered) {
+      const hit = raycaster.intersectObjects(nodes.map((n) => n.mesh))[0];
+
+      // 3) if we left the previous hover, reset it
+      if (
+        previousHovered &&
+        (!hit || (hit.object as THREE.Mesh) !== previousHovered)
+      ) {
+        // reset color & scale
+        const mat = previousHovered.material as THREE.MeshPhongMaterial;
+        mat.color.copy((previousHovered.userData as any).originalColor);
         previousHovered.scale.set(1, 1, 1);
-      }
 
-      // Hide all labels
-      nodes.forEach((n) => (n.label.visible = false));
+        // hide its label
+        const prevNode = nodes.find((n) => n.mesh === previousHovered);
+        if (prevNode) prevNode.label.visible = false;
 
-      // Check intersections
-      const intersection = raycaster.intersectObjects(
-        nodes.map((n) => n.mesh)
-      )[0];
-      if (intersection) {
-        const hoveredMesh = intersection.object as THREE.Mesh;
-        // Enlarge hovered node
-        hoveredMesh.scale.set(1.3, 1.3, 1.3);
-        previousHovered = hoveredMesh;
-
-        // Show its label
-        const nodeObj = nodes.find((n) => n.mesh === hoveredMesh);
-        if (nodeObj) nodeObj.label.visible = true;
-      } else {
         previousHovered = null;
       }
+
+      // 4) if we hit a new mesh, highlight & show label
+      if (hit) {
+        const hovered = hit.object as THREE.Mesh;
+        const mat = hovered.material as THREE.MeshPhongMaterial;
+
+        // only if it’s truly new
+        if (hovered !== previousHovered) {
+          // store and swap color
+          const origColor = (hovered.userData as any)
+            .originalColor as THREE.Color;
+          (hovered.userData as any).originalColor = origColor;
+          mat.color.setHex(HOVER_COLOR);
+
+          // show its label
+          const nodeObj = nodes.find((n) => n.mesh === hovered);
+          if (nodeObj) nodeObj.label.visible = true;
+
+          previousHovered = hovered;
+        }
+      }
     };
+
     renderer.domElement.addEventListener("mousemove", onMouseMove);
 
     // Animation loop

@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Separator } from "components/ui/separator";
 
@@ -35,7 +36,7 @@ const Home = () => {
         </div>
         <div className="flex flex-col w-full justify-center bg-slate-200 dark:bg-slate-800 py-8">
           <p className="px-8 pt-4 pb-12 text-slate-900 dark:text-slate-200">
-            <span className="text-2xl font-bold text-slate-900 dark:text-slate-200">
+            <span className="text-2xl pb-4 font-bold text-slate-900 dark:text-slate-200">
               HiGuard
             </span>
             <span className="text-md text-slate-800 dark:text-slate-300">
@@ -54,7 +55,7 @@ const Home = () => {
             {width > 1700 && <img src={MetricManHero} className="h-140" />}
             <div className="flex flex-col p-8 h-full">
               <div className="py-4">
-                <h2 className="text-2xl pl-6">Performance Metrics</h2>
+                <h2 className="text-2xl pl-6 pb-4">Performance Metrics</h2>
                 <p className="px-8 text-slate-200">
                   We provide performance metrics (Charts!) to enhance
                   observability and monitoring to provide users with a robust
@@ -112,31 +113,37 @@ const Home = () => {
                   account and click on the "Request a feature" button!
                 </p>
               </div>
-              <LanguageGraphHero />
+              {width > 1428 && <LanguageGraphHero />}
             </div>
-            <Separator className="bg-slate-400 dark:bg-slate-200" />
-            <div className="flex flex-col w-full justify-center text-center bg-slate-200 text-slate-900 dark:text-slate-200 dark:bg-slate-800">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-200 py-4">
-                Pricing
-              </h2>
-              <p>
-                HiGuard is free for personal use with limited features and
-                usage. Upgrade your namespaces to a paid plan to unlock
-                additional features and usage. Each namespace is billed
-                separately.
-              </p>
-              {width > 1428 ? (
-                <PaymentSubscriptionCard
-                  horizontal={true}
-                  subscribable={false}
-                />
-              ) : (
-                <PaymentSubscriptionCard
-                  horizontal={false}
-                  subscribable={false}
-                />
-              )}
-            </div>
+            <section id="pricing">
+              <div className="flex flex-col w-full justify-center text-center bg-teal-100 py-8 text-slate-200">
+                <h2 className="text-2xl pb-4 font-bold">Pricing</h2>
+                <p>
+                  HiGuard is free for personal use with limited features and
+                  usage. Upgrade your namespaces to a paid plan to unlock
+                  additional features and usage. Each namespace is billed
+                  separately.
+                </p>
+                {width > 1428 ? (
+                  <PaymentSubscriptionCard
+                    horizontal={true}
+                    subscribable={false}
+                  />
+                ) : (
+                  <PaymentSubscriptionCard
+                    horizontal={false}
+                    subscribable={false}
+                  />
+                )}
+              </div>
+            </section>
+            {/* 
+            // Talk about the app
+            // Collaboration features
+            // Invite other users to your namespace
+            // Add pricing tab to sidebar that jumps to this section
+            
+            */}
           </div>
         </div>
       </div>
