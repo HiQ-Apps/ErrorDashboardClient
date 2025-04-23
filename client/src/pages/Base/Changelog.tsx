@@ -2,7 +2,7 @@ import { ChangeLogCard, HomeSidebar } from "components/composite";
 import { Separator } from "components/ui/separator";
 import { usePageDimensions } from "hooks/usePageDimensions";
 
-const releaseData = [
+const changelogData = [
   {
     version: "HiGuard 0.5.0",
     date: "March 10th, 2025",
@@ -90,7 +90,7 @@ const releaseData = [
   },
 ];
 
-const Releases = () => {
+const Changelog = () => {
   const { height } = usePageDimensions();
 
   return (
@@ -105,7 +105,7 @@ const Releases = () => {
       <div className="min-w-52" />
       <div className="flex flex-col px-10 items-left w-3/4">
         <h1 className="font-bold text-6xl mb-8 mt-8">HiGuard: Release Notes</h1>
-        {releaseData.map((log, index) => (
+        {changelogData.map((log, index) => (
           <div key={index}>
             <ChangeLogCard
               key={index}
@@ -113,7 +113,7 @@ const Releases = () => {
               date={log.date}
               changes={log.changes}
             />
-            {index !== releaseData.length - 1 && <Separator />}
+            {index !== changelogData.length - 1 && <Separator />}
           </div>
         ))}
       </div>
@@ -121,4 +121,4 @@ const Releases = () => {
   );
 };
 
-export default Releases;
+export default Changelog;

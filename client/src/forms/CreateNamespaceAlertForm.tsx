@@ -487,13 +487,28 @@ const CreateNamespaceAlertForm = () => {
                     of error occurance in the time window you set before the
                     alert triggers.
                   </div>
-                  <Input
-                    type="range"
-                    name="rateThreshold"
-                    value={form.rateThreshold || Number()}
-                    onChange={handleChange}
-                    max={100}
-                  />
+                  <div className="grid grid-cols-12 gap-2">
+                    <div className="col-span-11">
+                      <Input
+                        type="range"
+                        name="rateThreshold"
+                        value={form.rateThreshold || Number()}
+                        onChange={handleChange}
+                        max={100}
+                        step="0.01"
+                      />
+                    </div>
+                    <div className="flex col-span-1">
+                      <Input
+                        type="number"
+                        name="rateThreshold"
+                        value={form.rateThreshold || Number()}
+                        onChange={handleChange}
+                        max={100}
+                        step="0.01"
+                      />
+                    </div>
+                  </div>
                   {errors.errorMessages.rateThreshold && (
                     <span className="text-error text-sm">
                       {errors.errorMessages.rateThreshold}

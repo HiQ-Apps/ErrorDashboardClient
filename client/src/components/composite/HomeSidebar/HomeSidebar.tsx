@@ -35,8 +35,8 @@ const HomeSidebar = () => {
     navigate("/terms-of-service");
   };
 
-  const handleReleasesClick = () => {
-    navigate("/releases");
+  const handleChangelogClick = () => {
+    navigate("/changelog");
   };
 
   const handlePrivacyPolicyClick = () => {
@@ -85,14 +85,14 @@ const HomeSidebar = () => {
       ),
     },
     {
-      name: "Releases",
-      path: "/releases",
+      name: "Change Log",
+      path: "/changelog",
       component: (
         <BaseButton
           size="sm"
-          content="Releases"
+          content="Change Log"
           variant="sidenavbutton"
-          onClick={handleReleasesClick}
+          onClick={handleChangelogClick}
         />
       ),
     },

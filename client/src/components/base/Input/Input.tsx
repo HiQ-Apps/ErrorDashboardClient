@@ -8,6 +8,7 @@ interface CustomInputProps {
   value: string | number;
   overrideStyles?: string;
   placeholder?: string;
+  step?: string;
   type: string;
   name: string;
   max?: number;
@@ -21,6 +22,7 @@ const CustomInput = ({
   value,
   overrideStyles = "",
   placeholder = "",
+  step = "1",
   type,
   name,
   max,
@@ -50,6 +52,7 @@ const CustomInput = ({
       type={type}
       name={name}
       placeholder={placeholder}
+      step={step}
       value={value}
       onChange={handleChange}
       max={max}

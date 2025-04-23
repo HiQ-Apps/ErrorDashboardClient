@@ -6,6 +6,7 @@ import ErrorBounary404 from "./ErrorBoundaries/404";
 import IconRow from "./IconRow/IconRow";
 import { Input } from "./Input/Input";
 import { Label } from "./Label/Label";
+import LanguageGraphHero from "./LanguageGraphHero/LanguageGraphHero";
 import LoadingCard from "./LoadingCard/LoadingCard";
 import LogTable from "./LogTable/LogTable";
 import Modal from "./Modal/Modal";
@@ -25,6 +26,7 @@ export {
   IconRow,
   Input,
   Label,
+  LanguageGraphHero,
   LoadingCard,
   LogTable,
   Modal,

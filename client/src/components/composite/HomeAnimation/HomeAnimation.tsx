@@ -4,6 +4,8 @@ import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 
+import { HomeShuttleHero } from "assets/index";
+
 import { selectIsDark } from "features/darkSlice";
 
 const HomeAnimation = () => {
@@ -19,7 +21,7 @@ const HomeAnimation = () => {
     const scene = new THREE.Scene();
 
     // Create a camera
-    const camera = new THREE.PerspectiveCamera(75, 600 / 400, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, 900 / 600, 0.1, 1000);
     camera.position.z = 10;
 
     let backgroundColor: THREE.ColorRepresentation = isDark
@@ -28,7 +30,7 @@ const HomeAnimation = () => {
 
     // Create a renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(600, 400);
+    renderer.setSize(900, 600);
     renderer.setClearColor(backgroundColor, 1);
     mount.appendChild(renderer.domElement);
 
@@ -36,6 +38,12 @@ const HomeAnimation = () => {
     const render = () => {
       renderer.render(scene, camera);
     };
+
+    const texLoader = new THREE.TextureLoader();
+    texLoader.load(HomeShuttleHero, (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      scene.background = texture;
+    });
 
     // Create a gear shape
     const createGearShape = (
@@ -280,7 +288,7 @@ const HomeAnimation = () => {
     };
   }, [isDark]);
 
-  return <div ref={mountRef} style={{ width: "600px", height: "400px" }}></div>;
+  return <div ref={mountRef} style={{ width: "900px", height: "600px" }}></div>;
 };
 
 export default HomeAnimation;
